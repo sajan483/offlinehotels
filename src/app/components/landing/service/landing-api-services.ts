@@ -37,7 +37,7 @@ export class LandingApiService {
 
   login(data: any) {
     return this.http
-      .post(this.BASE_URL + "staff/login/", data, this.options)
+      .post('https://testb2b.umrahtrip.com/apis/' + "staff/login/", data, this.options)
       .map((res) => res.json());
   }
 
