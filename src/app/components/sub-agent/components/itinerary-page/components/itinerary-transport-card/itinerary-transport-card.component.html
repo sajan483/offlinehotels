@@ -1,0 +1,157 @@
+<div class="transport-itinerary-card">
+    <div class="common_card" [class.errorBox]="tripTransport?.status== 'failed' || tripTransport?.status=='cancelled' || tripTransport?.status=='failed_again'" *ngIf="tripTransport?.total_price != null">
+
+        <div class="brdrbottom pb10" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="tripTransport?.status=='success'">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                    <i class="selectedgreentickicon icns icon_size_20"></i>
+                    <div style="width: 5px;"></div>
+                    <div class="booked-text success_text">{{'Booked' | translate}}</div>
+                </div>
+                <div class="divider-div"></div>
+                <div class="fs13 fw600 clrmain">{{'Reference No' | translate}}. (BRN) - {{tripTransport?.brn}}</div>
+            </div>
+            <div class="textunderline cursor-pointer clr_sec_dark" data-toggle="modal" data-target="#transportPolicy">{{'Cancellation Policy' | translate}}</div>
+        </div>
+
+        <div class="brdrbottom pb10" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="tripTransport?.status=='failed' || tripTransport?.status=='failed_again'">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <span class="ak-close fs20 red_text"></span>
+                <div style="width: 5px;"></div>
+                <div class="booked-text red_text">{{'Failed' | translate}}</div>
+            </div>
+        </div>
+
+        <div class="brdrbottom pb10" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="tripTransport?.status=='cancelled'">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <span class="ak-close fs20 red_text"></span>
+                <div style="width: 5px;"></div>
+                <div class="booked-text red_text">{{'Cancelled' | translate}}</div>
+            </div>
+        </div>
+
+        <div class="brdrbottom pb10" *ngIf="tripTransport?.status=='processing' || tripTransport?.status=='available'">
+            <div class="fs14 fw600 clr_sec">{{'UNDER PROCESSING - Please Contact Customer care' | translate}} : 00-973-77952212</div>
+        </div>
+
+        <div class="row py10 brdrbottom">
+            <div class="col-md-2">
+                <div fxLayout="row" fxLayoutAlign="start center" >
+                    <div><span class="ak-bus clrmain fs20"></span></div>
+                    <div style="width: 5px;"></div>
+                    <div class="fw500 clrmain">
+                        <div class="fs14">{{tripTransport.trip_transportation?.vehicle_types[0].name}}</div>
+                        <div class="fs12">{{tripTransport?.trip_transportation?.selected_transportation?.start_date | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 brdrR brdrL">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <div class="fw600 fs16">
+                        {{tripTransport.trip_transportation?.company?.name | titlecase}} - <span class="Premium_blue fs14 pl10 mpr10 clr_sec_dark"> {{tripTransport?.trip_transportation?.categories[0]?.name}}</span><span *ngIf="tripTransport?.trip_transportation?.trip_vehicles[0]?.booked_quantity > 1"> x {{tripTransport?.trip_transportation?.trip_vehicles[0]?.booked_quantity}}</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="linebyline clr52 fs13">
+                        <strong class="fw600">{{'Route' | translate}} :</strong>
+                        <span>{{tripTransport?.trip_transportation?.route?.name}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 fw500 fs15" fxLayoutAlign="end center" >
+                {{currency}} {{tripTransport?.total_price | ConvertCurrency : currency}}
+            </div>
+        </div>
+
+        <div class="py10">
+            <div class="row brdrbottom">
+                <div class="col-md-4 mb-2">
+                    <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Pax Per Vehicle' | translate}} : {{tripTransport?.trip_transportation?.trip_vehicles[0]?.pax_per_vehicle}}
+                    </p>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Model' | translate}}: {{tripTransport?.trip_transportation?.selected_transportation?.vehicle_types[0]?.categories[0]?.model}}
+                    </p>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Booked Vehicle' | translate}}: {{tripTransport?.trip_transportation?.trip_vehicles[0]?.booked_quantity}}
+                    </p>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Total Travelers' | translate}} : {{tripTransport?.trip_transportation?.no_of_travellers}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class=" row m-0 fs14" *ngIf="tripTransport?.trip_transportation?.selected_transportation?.vehicle_types[0]?.categories[0]?.additional_services.length > 0">
+                        <div class="fw600 textunderline px-0 col-md-12">{{'Additional Services' | translate}}</div>
+                        <div class="col-md-6 pt-1" *ngFor="let service of tripTransport.trip_transportation.selected_transportation.vehicle_types[0].categories[0].additional_services">
+                            <i class="fa fa-check green_text pr10 mpr0 mpl10" aria-hidden="true"></i> {{service?.description}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 pt-2">
+                    <p class="clr52 fs14"><i class="fa fa-envelope textlight pr5 mpr0 mpl5 font16imp" aria-hidden="true"></i> {{tripTransport?.trip_transportation?.company?.email}}
+                    </p>
+                </div>
+                <div class="col-md-2 pt-2">
+                    <p class="clr52 fs14"><i class="fa fa-phone textlight pr5 mpr0 mpl5 font16imp" aria-hidden="true"></i> +966{{tripTransport?.trip_transportation?.company?.phone_number}}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        
+    </div>
+</div>
+
+
+<div class="modal fade" id="transportPolicy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog maxwdth700" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{'Cancellation Policy' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div>
+                        <div class="mt-2 borderbox" *ngIf="selectedTransport?.cancellation_policy?.is_refundable">
+                                
+                            <div class="d-flex justify-content-between p10 brdr_btm_d3 fs15 brdr_tp" *ngFor="let rule of selectedTransport.cancellation_policy.rules">
+                               
+                                    <div class="d-inline-flex" >
+                                        <div class="my-auto pr10 mpr0 mpl10"><i class="calendaricon icns icon_size_20"></i></div>
+                                        <div>
+                                            <div><strong>{{'From' | translate}} : </strong> {{rule?.from_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                            <div><strong>{{'Till' | translate}} : </strong> {{rule?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                            <div class="fs13 clr52 fw400" *ngIf="!rule?.is_noshow">( NOTE: Not applicable in No-Show )</div>
+                                        </div>
+                                    </div>
+                                    <div class="fw600">
+                                        <div class="text-capitalize">{{'Cancellation Charge' | translate}}</div>
+                                        <div>{{currency}} {{rule?.charge?.chargeAmount | ConvertCurrency : currency}}</div>
+                                    </div>
+
+
+                            </div>
+                        </div>
+                        <div class="mt-2 clr52 fs13" *ngIf="selectedTransport?.cancellation_policy?.description">
+                            <div class="fw600">{{'Description' | translate}}:</div>
+                            <p>{{selectedTransport?.cancellation_policy?.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

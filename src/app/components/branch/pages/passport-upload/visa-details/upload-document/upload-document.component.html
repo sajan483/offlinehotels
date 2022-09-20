@@ -1,0 +1,81 @@
+<div [formGroup]="paxForm">
+    <div class="upload-area w100" fxLayout="row wrap">
+        <div class="upload-box" (click)="openFileUpload(1)" *ngIf="paxForm.controls['PersonalPhotoUrl'].value == '' || paxForm.controls['PersonalPhotoUrl'].value == null" [class.errorBrdr]="submit && paxForm.controls['PersonalPhotoUrl'].hasError('required')">
+            <span class="fa fa-upload icon" [class.error-clr]="submit && paxForm.controls['PersonalPhotoUrl'].hasError('required')"></span>
+            <p class="mb-0" [class.error-clr]="submit && paxForm.controls['PersonalPhotoUrl'].hasError('required')">Upload Passport Size Photo</p>
+            <span class="fs13 acept-margin">(Accepted file types : jpeg, jpg, gif, png.)(Min size: 4KB , Max : 1MB per File)</span>
+        </div>
+        <ng-container *ngIf="paxForm.controls['PersonalPhotoUrl'].value != '' && paxForm.controls['PersonalPhotoUrl'].value != null">
+            <div class="upload-box documents">
+                <div class="buttons">
+    
+                    <button mat-mini-fab matTooltip="Edit" *ngIf="personalImg" (click)="editImage(null,personalImg)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+    
+                    <button mat-mini-fab mat matTooltip="Upload" (click)="openFileUpload(1)">
+                        <mat-icon>add_photo_alternate</mat-icon>
+                    </button>
+    
+                </div>
+                <img [src]="paxForm.controls['PersonalPhotoUrl'].value">
+            </div>
+        </ng-container>
+
+        <div class="upload-box" (click)="openFileUpload(2)" *ngIf="paxForm.controls['vaccinationCertificate'].value == '' || paxForm.controls['vaccinationCertificate'].value == null" [class.errorBrdr]="submit && paxForm.controls['vaccinationCertificate'].hasError('required')">
+            <span class="fa fa-upload icon" [class.error-clr]="submit && paxForm.controls['vaccinationCertificate'].hasError('required')"></span>
+            <p class="mb-0" [class.error-clr]="submit && paxForm.controls['vaccinationCertificate'].hasError('required')">Upload Work Permit If you are living in other country</p>
+            <span class="fs13 acept-margin">Optional <br>(Min Size: 4KB , Max : 1MB per File)</span>
+        </div>
+        <ng-container *ngIf="paxForm.controls['vaccinationCertificate'].value != '' && paxForm.controls['vaccinationCertificate'].value != null">
+            <div class="upload-box documents">
+                <div class="buttons">
+    
+                    <button mat-mini-fab matTooltip="Edit" *ngIf="vaccinationCertificate" (click)="editImage(null,vaccinationCertificate)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+    
+                    <button mat-mini-fab mat matTooltip="Upload" (click)="openFileUpload(2)">
+                        <mat-icon>add_photo_alternate</mat-icon>
+                    </button>
+    
+                </div>
+                <img [src]="paxForm.controls['vaccinationCertificate'].value">
+            </div>
+        </ng-container>
+    
+        <!-- <ng-container *ngIf="base64Array.length">
+            <ng-container formArrayName="AdditionalDocUrl">
+                <ng-container *ngFor="let file of documentLoopFormArray().controls; let i = index">
+                    <div class="upload-box documents" [formGroupName]="i">
+                        <div class="buttons">
+                            <button mat-mini-fab matTooltip="Edit" (click)="editImage(i,file)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            
+                            <button mat-mini-fab mat matTooltip="Upload" (click)="openFileUpload(3,true, i)">
+                                <mat-icon>add_photo_alternate</mat-icon>
+                            </button>
+            
+                            <button mat-mini-fab matTooltip="Remove" (click)="removeFile(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+            
+                        </div>
+                        <img [src]="file.value.docData">
+                    </div>
+                </ng-container>
+            </ng-container>
+            
+        </ng-container> -->
+    
+        <!-- <div class="upload-box documents" (click)="openFileUpload(3)">
+            <span class="ak-add-documents icon"></span>
+            <p class="mb-0">Upload Additional Documents</p>
+            <span class="type">(Accepted formats: .jpg, .jpeg, .png, .pdf) (optional)</span>
+        </div> -->
+    
+        <input type="file" accept=".jpg, .jpeg, .png, .pdf" #uploadImg (change)="uploadImage($event)" />
+    
+    </div>
+</div>

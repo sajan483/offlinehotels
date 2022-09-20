@@ -1,0 +1,70 @@
+<div class="hotel-search-window-div">
+
+    <div class="sticky-search-div" *ngIf="isMinimizeSearch">
+        <div class="search-div">
+            <div class="row">
+                <div class="col-9" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="2px">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div><span class="ak-hotel-building clr_sec_dark"></span></div>
+                        <div style="width: 3px;"></div>
+                        <div class="fw500 fs14">{{selectDestination | titlecase}} {{'Hotels' | translate}}</div>
+                        <div style="width: 3px;"></div>
+                        <div class="clr52">(<strong>{{noOfNights}}</strong> {{'Nights' | translate}})</div>
+                    </div>
+                    <div class="minimum-text"><strong>{{checkInDate | date:'dd LLL'}}</strong> {{'To' | translate}} <strong>{{CheckoutDate | date:'dd LLL'}}</strong> | <strong>{{roomAllocationData?.roomCount}}</strong> {{'Rooms' | translate}} , <strong>{{roomAllocationData?.adults}}</strong> {{'Adults'}} <span *ngIf="roomAllocationData?.children > 0">, <strong>{{roomAllocationData?.children}}</strong> {{'childrens' | translate}}</span></div>
+                </div>
+                <div class="col-3" fxLayoutAlign="end center" >
+                    <span class="ak-search clr52 fs18" (click)="clickToExpant()"></span>
+                </div>
+            </div>
+        </div>  
+        <div class="prograss-bar-div activeBttn" *ngIf="bttnActive"></div>
+    </div>
+
+    <div class="search-div" *ngIf="!isMinimizeSearch">
+        <div class="row">
+            <div class="col-md-2 col-12 mob_mrgin">
+                <div class="label-text">{{'City' | translate}}</div>
+                <mat-select class="form-control" [(value)]="selectDestination" >
+                    <mat-option (click)="onSelectCity()" value="MAKKA">{{'Makkah' | translate}}</mat-option>
+                    <mat-option (click)="onSelectCity()" value="MADEENA">{{'Madeena' | translate}}</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="label-text">{{'Check-In' | translate}}</div>
+                <div class="calander-div" [owlDateTimeTrigger]="dt4">
+                    <input type="text" class="form-control" [owlDateTime]="dt4"  (ngModelChange)="selctCheckinDate($event)" [(ngModel)]="checkInDate">
+                    <span class="ak-calendar icon"></span>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="label-text">{{'Check-Out' | translate}}</div>
+                <div class="calander-div" [owlDateTimeTrigger]="dt3">
+                    <input type="text" class="form-control" [owlDateTime]="dt3"  [(ngModel)]="CheckoutDate" #checkoutDatePicker [ngClass]="{ 'is-invalid': submitted && CheckoutDate == '' }"
+                    (ngModelChange)="checkNumberOfDays()">
+                    <span class="ak-calendar icon"></span>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+            </div>
+            <div class="col-md-1 col-12 mt-auto">
+                <div class="text-center web_view">
+                    <h2 class="mb-0 fs18 fw600">{{noOfNights}}</h2>
+                    <div class="clr52 fs11">{{'Nights' | translate}}</div>
+                </div>
+                <div class="mob_view">
+                    <div class="clr52 text_end"><strong>{{noOfNights}}</strong> {{'Nights' | translate}}</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-12 mob_mrgin">
+                <div class="label-text">{{'Rooms & Travellers' | translate}}</div>
+                <app-room-allocation (setRoomAlloction)="getRoomAllocation($event)" [getOccupancy]="setOccupancy" [isMobile]="isMobile"></app-room-allocation>
+            </div>
+            <div class="col-md-2">
+                <button class="search_bttn w-100 h-100" [class.activeBttn]="bttnActive" (click)="searchHotelViaBttn()">{{'Search' | translate}}</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,44 @@
+<div class="cancellation-div">
+    
+    <div *ngIf="isHotelSeclection">
+
+        <div  fxLayout="row" fxLayoutAlign="start stretch" >
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="2px" *ngIf="!isMobile">
+                <div *ngFor="let item of hotelPolicyData;let i = index" class="room-select-bttn" fxLayoutAlign="center center" [class.bttn-active]="i == selectedIndex" (click)="selected(i)">{{'Room Type' | translate}} {{i+1}}</div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="2px" *ngIf="isMobile">
+                <div *ngFor="let item of hotelPolicyData;let i = index" class="room-select-bttn" fxLayoutAlign="center center" [class.bttn-active]="i == selectedIndex" (click)="selected(i)">{{i+1}}</div>
+            </div>
+            <div style="width: 10px;" *ngIf="!isMobile"></div>
+            <div style="width: 2px;" *ngIf="isMobile"></div>
+            <div class="w-100">
+                <div *ngFor="let item of hotelPolicyData;let i = index">
+                    <div class="Cancellation-body hotel-animation-div" fxLayout="column" fxLayoutAlign="start stretch" [ngStyle]="{'min-height':50*hotelPolicyData.length+'px'}" *ngIf="i == selectedIndex">
+                        <div class="fs15 fw500 text_start">{{item?.room_name}} X {{item?.room_count}}</div>
+                        <div class="commonHeight" fxLayoutAlign="center center">
+                            <div class="cancel-data" *ngIf="item.barData && item.barData.length > 0">
+                                <app-refund-policy-bar [barData]="item.barData" [currency]="currency" [isHotel]="isHotelSeclection"></app-refund-policy-bar>
+                            </div>
+                            <div *ngIf="item.barData && item.barData == 0">
+                                <div class="fs500 fs14 red_text" *ngIf="!item.is_refundable">{{'Non Refundable' | translate}}</div>
+                                <div class="fs500 fs14 green_text" *ngIf="item.is_refundable">{{'Refundable' | translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="!isHotelSeclection">
+        <div class="marginDatas" *ngIf="barData.length > 0">
+            <app-refund-policy-bar [barData]="barData" [currency]="currency"></app-refund-policy-bar>
+        </div>
+        <div *ngIf="barData.length == 0">
+            <div *ngIf="!tripData[0]?.is_refundable" class="fs500 fs14 red_text" >{{'Non Refundable' | translate}}</div>
+            <div *ngIf="tripData[0]?.is_refundable" class="fs500 fs14 red_text" >{{'Refundable' | translate}}</div>
+        </div>
+    </div>
+
+</div>

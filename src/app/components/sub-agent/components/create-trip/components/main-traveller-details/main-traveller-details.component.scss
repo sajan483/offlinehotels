@@ -1,0 +1,14 @@
+.group-leader-info-div{
+    .one-edge-shadow {
+        box-shadow: 0 7px 4px -6px #c2c2c2;
+    }
+    .expansion {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+    .arrowanimation {
+        transition: transform 0.2s ease-out;
+        transform: rotate(0deg);
+    }
+}

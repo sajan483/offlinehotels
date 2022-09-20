@@ -1,0 +1,108 @@
+<div [style.display]="showRoomAllocationPopup ? 'block' : 'none'" class="modalroom hotel-popup-selection " id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <div class="popupwindowforroomselection container popupmoving">
+        <div class="backgrdimgpopuproom mirr_text_right">
+            <div class="d-flex justify-content-between borderdoen">
+                <div class="serchhead">
+                    <h5 class="fw500">{{'Book Your Hotel' | translate}}</h5>
+                </div>
+                <div>
+                    <span class="fli-arrow arrow-down-icon cursor-pointer" data-dismiss="modal" (click)="hideRoomAllocationPopup()"></span>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column hotel-selection-outer-div">
+
+
+                <div class="row col-md-12 mt-2">
+                    <div class="col-md-3 col-12 pl-2 mrrtravlrcunt">
+                        <div class="fw500 text-capitalize">{{'No of Adults' | translate}} : {{countAdult}}</div>
+                    </div>
+                    <div class="col-md-3 col-12 pl-2 mrrtravlrcunt" *ngIf="countChild+countInfant != 0">
+                        <div class="fw500 text-capitalize">{{'No of Children' | translate}} : {{countChild + countInfant}}</div>
+                    </div>
+                </div>
+
+                <div class="hotel_selection_bottom_section" id="roomSelectionHotel">
+                    <div class="p-0 mr-0 pt-0 ml-0 ">
+                        <form [formGroup]="roomTypeForm">
+                            <div id="makkahRoom"  formArrayName="roomType">
+                                <div class="datetime_picker_popup">
+    
+                                    <div class="col-md-12 pl-0 pr-0">
+                                        <div class="poup_main_container">
+                                            <section *ngFor="let room of roomTypesGet().controls; let i = index;" class="mb20">
+                                                <div class="d-flex flex-column" class="w-100" [formGroupName]="i">
+                                                    <div class="roomnumber">
+                                                        <div class="d-flex justify-content-between">
+                                                            <h2><i class="fa fa-bed mpr0 mpl10" aria-hidden="true"></i> {{'Room Type' | translate}} {{i + 1}}</h2>
+                                                            <div class="trashpadding">
+                                                                <div *ngIf="i==0">
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                </div>
+                                                                <div *ngIf="i!=0">
+                                                                    <a (click)="removeRopomType(i)" class="deleteIcon">
+                                                                        <i class="fa fa-trash mpr0 mpl10" aria-hidden="true"></i>{{'remove' | translate}}
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    
+                                                    </div>
+                                                    <div class="row adultrowpadding">
+                                                        <div class="col-md-4 col-12 countoftraveller">
+                                                            <h4 class="ml10">{{'No Of Rooms' | translate}}</h4>
+                                                            <input type="number" [min]=1 formControlName="noOfRoom" class="form-control">
+                                                        </div>
+                                                        <div class="col-md-4 col-12 countoftraveller">
+                                                            <h4 class="ml10">{{'Adult Per Room' | translate}}</h4>
+                                                            <mat-select formControlName="adultPerRoom" class="form-control">
+                                                                <mat-option value='1'>Single (<i class="fa fa-user" aria-hidden="true"></i> <i class="fa fa-times" aria-hidden="true"></i> 1)</mat-option>
+                                                                <mat-option value='2'>Double Share (<i class="fa fa-user" aria-hidden="true"></i> <i class="fa fa-times" aria-hidden="true"></i> 2)</mat-option>
+                                                                <mat-option value='3'>Triple Share (<i class="fa fa-user" aria-hidden="true"></i> <i class="fa fa-times" aria-hidden="true"></i> 3)</mat-option>
+                                                                <mat-option value='4'>Quad Share (<i class="fa fa-user" aria-hidden="true"></i> <i class="fa fa-times" aria-hidden="true"></i> 4)</mat-option>
+                                                                <mat-option value='5'>Five Share (<i class="fa fa-user" aria-hidden="true"></i> <i class="fa fa-times" aria-hidden="true"></i> 5)</mat-option>
+                                                                <mat-option value='6'>Six Share (<i class="fa fa-user" aria-hidden="true"></i> <i class="fa fa-times" aria-hidden="true"></i> 6)</mat-option>
+                                                            </mat-select>
+                                                        </div>
+                                                        <div class="col-md-4 col-12 countoftraveller" *ngIf="countChild > 0">
+                                                            <h4 class="ml10">{{'Child Per Room' | translate}}</h4>
+                                                            <mat-select formControlName="ChildPerRoom" class="form-control">
+                                                                <mat-option value="0">0</mat-option>
+                                                                <mat-option *ngFor="let k of [].constructor(childPerRoomCount);let j = index;" [value]="j+1">
+                                                                  {{j+1}}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+    
+                                            </section>
+    
+                                            <div>
+                                                <div class="mrrtravlrcunt mb-1"><a (click)="addRopomType()" class="anotherroom">+ {{'Add Another Room Type' | translate}}</a></div>
+                                            </div>
+                                            <div class="borderTopBlack">
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="red_text fs13 my-auto mr-3">{{errorMsg}}</div>
+                                                    <button id="roomSelectBttn" class="searchbutton" (click)="setRoomDatas()">{{'Search Hotels' | translate}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+    
+                                </div>
+                            </div>
+                        </form>
+                        
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+.top-of-div{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+#manuallEditing{
+    .naviagete-bar{
+        padding: 10px;
+        background-color: #eaeaea;
+    }
+    
+    .click-navigate{
+        cursor: pointer;
+        color: #999999;
+    }
+    
+    .click-navigate:hover{
+        color: black;
+    }
+
+    .body-form{
+        background-color: white;
+        border: 1px solid #9caab347;
+        box-shadow: 0 0 9px 0 #0000001a;
+        border-radius: 4px;
+        background-color: white;
+    }
+}
+

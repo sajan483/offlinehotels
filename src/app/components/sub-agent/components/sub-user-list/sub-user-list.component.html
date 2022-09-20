@@ -1,0 +1,156 @@
+<div class="sub-user-div min_page_h">
+    <div class="page_hedear_div">
+        <div class="container">
+            <h2>{{'List Of Sub Users' | translate}}</h2>
+        </div>
+    </div>
+
+    <div class="container pt10">
+
+        <div fxLayoutAlign="end center" class="pb10">
+            <button class="search_bttn" data-toggle="modal" data-target="#staffCreateModal">{{'Create Staff' | translate}}</button>
+        </div>
+
+        <div class="common_card no-staff-div" *ngIf="!shimmer && staffList.length == 0">
+            {{'No staff Create' | translate}}
+        </div>
+
+        <div class="web_view common_card">
+            <table class="table" id="subpccList">
+                <thead class="thead-light">
+                    <tr>
+                        <th>{{'Name' | translate}}</th>
+                        <th>{{'Phone Number' | translate}}</th>
+                        <th>{{'Email id' | translate}}</th>
+                        <th>{{'Department' | translate}}</th>
+                        <th>{{'Role' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="shimmer">
+                    <tr *ngFor="let k of [].constructor(10);let i = index;">
+                        <td>
+                            <div class="shine h20 w-100"></div>
+                        </td>
+                        <td>
+                            <div class="shine h20 w-100"></div>
+                        </td>
+                        <td>
+                            <div class="shine h20 w-100"></div>
+                        </td>
+                        <td>
+                            <div class="shine h20 w-100"></div>
+                        </td>
+                        <td>
+                            <div class="shine h20 w-100"></div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!shimmer && staffList.length > 0">
+                    <tr *ngFor="let k of staffList">
+                        <td>{{k?.name}}</td>
+                        <td>{{k?.phone_number}}</td>
+                        <td>{{k?.email}}</td>
+                        <td>{{k?.tag}}</td>
+                        <td>{{k?.role}}</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+
+        <div class="mob_view">
+            <div *ngIf="shimmer">
+                <div class="common_card mb-2" *ngFor="let k of [].constructor(10);let i = index;">
+                    <div class="shine h20 w-100 mb-2"></div>
+                    <div class="shine h20 w-100 mb-2"></div>
+                    <div class="shine h20 w-100 mb-2"></div>
+                    <div class="shine h20 w-100"></div>
+                </div>
+            </div>
+            <div *ngIf="!shimmer">
+                <div class="common_card mb-2" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px" *ngFor="let k of staffList">
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <div class="title">{{'Name' | translate}}</div>
+                        <div class="px-1">:</div>
+                        <div class="view">{{k?.name}}</div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <div class="title">{{'Phone Number' | translate}}</div>
+                        <div class="px-1">:</div>
+                        <div class="view">{{k?.phone_number}}</div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <div class="title">{{'Department' | translate}}</div>
+                        <div class="px-1">:</div>
+                        <div class="view">{{k?.tag}}</div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <div class="title">{{'Email id' | translate}}</div>
+                        <div class="px-1">:</div>
+                        <div class="view">{{k?.email}}</div>
+                    </div>
+                    <div fxLayout="row wrap" fxLayoutAlign="start center">
+                        <div class="title">{{'Role' | translate}}</div>
+                        <div class="px-1">:</div>
+                        <div class="view">{{k?.role}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="modal fade" id="staffCreateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{'Create Sub User' | translate}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeStaffCreateModal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text_start">
+            <form [formGroup]="createStaffForm">
+                <div class="mb-2">
+                    <div class="fs12 clr52">{{'Name' | translate}}</div>
+                    <input type="text" class="form-control" formControlName="name" placeholder="{{'Name' | translate}}"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                </div>
+                <div class="mb-2">
+                    <div class="fs12 clr52">{{'Email' | translate}}</div>
+                    <input type="text" class="form-control" formControlName="email" placeholder="{{'Email' | translate}}"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                </div>
+                <div class="mb-2">
+                    <div class="fs12 clr52">{{'Phone Number' | translate}}</div>
+                    <input ng2TelInput (intlTelInputObject)="telInputObject($event)"
+                    [ng2TelInputOptions]="{preferredCountries:['sa','in', 'ae','qa'], separateDialCode:true}"
+                    class="form-control mirr_left_radus" #phoneInput id="phoneInput" type="tel"
+                    (countryChange)="onCountryChange($event)" (input)="inputValidation($event)"
+                    maxlength="15" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors || errorMessage}"
+                    onkeypress="if( isNaN( String.fromCharCode(event.keyCode)) || event.keyCode==32) return false;"
+                    formControlName="phone_number" />
+                    <div class="fs12 red_text" *ngIf="errorMessage">{{'staff with this phone number already exists.' | translate}}</div>
+                </div>
+                <div class="mb-2">
+                    <div class="fs12 clr52">{{'Password' | translate}}</div>
+                    <input type="text" class="form-control" formControlName="password" placeholder="{{'Password' | translate}}"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                </div>
+                <div class="mb-2">
+                    <div class="fs12 clr52">{{'Department' | translate}}</div>
+                    <input type="text" class="form-control" formControlName="tag" placeholder="{{'Department' | translate}}"
+                    [ngClass]="{ 'is-invalid': submitted && f.tag.errors }">
+                </div>
+            </form>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="search_bttn" (click)="submit()">{{'Create' | translate}}</button>
+        </div>
+      </div>
+    </div>
+  </div>

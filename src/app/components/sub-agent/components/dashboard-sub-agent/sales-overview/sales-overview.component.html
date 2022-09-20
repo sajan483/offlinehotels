@@ -1,0 +1,56 @@
+<div class="sales-over-view-div">
+    <div class="hedd-div">
+        <div class="sales-head-txt my-auto">{{'Sales Overview' | translate}}</div>
+        <div class="mob-bttn-position">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn mnth-bttn" [class.mnth-bttn-active]="monthCount == x.mnth" *ngFor="let x of monthBttn" (click)="selectMonth(x.mnth)">{{x.text}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 pt10 web_view">
+            <div class="car-overview" fxLayout="column" fxLayoutAlign="space-between center">
+                <div class="text-center">
+                    <div class="text-sub">{{'Total Sales' | translate}}</div>
+                    <div class="amount-sub">{{currency}} {{salesReport?.sales_amount | ConvertCurrency : currency | number: '1.0-0'}}</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-sub">{{'No: of Bookings' | translate}}</div>
+                    <div class="amount-sub">{{salesReport?.sales}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 pt10 web_view">
+            <div class="car-overview" fxLayout="column" fxLayoutAlign="space-between center">
+                <div class="text-center">
+                    <div class="text-sub">{{'Total Hotel Sales' | translate}}</div>
+                    <div class="amount-sub">{{currency}} {{salesReport?.hotel?.sales_amount | ConvertCurrency : currency | number: '1.0-0'}}</div>
+                </div>
+                <div class="text-center"> 
+                    <div class="text-sub">{{'No: of Hotel Bookings' | translate}}</div>
+                    <div class="amount-sub">{{salesReport?.hotel?.sales}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 pt10">
+            <div class="car-overview" fxLayout="column" fxLayoutAlign="space-between center">
+                <div class="text-center">
+                    <div class="text-sub">{{'Total Transport Sales' | translate}}</div>
+                    <div class="amount-sub">{{currency}} {{salesReport?.transport?.sales_amount | ConvertCurrency : currency | number: '1.0-0'}}</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-sub">{{'No: of Transport Bookings' | translate}}</div>
+                    <div class="amount-sub">{{salesReport?.transport?.sales}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 pt10" *ngIf="salesReport?.sales > 0">
+            <div class="car-overview" fxLayoutAlign="center center">
+                <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="saleChartData"
+                [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
+                [labels]="showLabels" legendTitle="Sales" [doughnut]="isDoughnut">
+              </ngx-charts-pie-chart>
+            </div>
+        </div>
+    </div>
+</div>

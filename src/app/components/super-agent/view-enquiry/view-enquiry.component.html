@@ -1,0 +1,152 @@
+<div class="row mt-3">
+  <div class="col-12">
+    <div class="d-flex justify-content-between">
+      <div>
+        <div class="dropdown fs14">
+          <button class="btn plane_btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Status
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="statusFetch('')">All</a>
+            <a class="dropdown-item" (click)="statusFetch('contacted')">Contacted</a>
+            <a class="dropdown-item" (click)="statusFetch('pending')">Pending</a>
+            <a class="dropdown-item" (click)="statusFetch('converted')">Converted</a>
+            <a class="dropdown-item" (click)="statusFetch('lost')">Lost</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="position-relative" [owlDateTimeTrigger]="dt10">
+          <input  [owlDateTime]="dt10" [selectMode]="'range'" [(ngModel)]="dateRange" class="form-control" [max]="today" placeholder="select Enquiry Date Range"
+          (ngModelChange)="searchFilter()">
+          <owl-date-time [pickerType]="'calendar'" #dt10></owl-date-time>
+          <div class="daterangeIcon">
+              <i class="icns calendaricon icon_size_20"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-2 d-flex">
+        <input type="text" class="form-control my-auto" [(ngModel)]="searchData" placeholder="Search titile">
+        <button class="btn btn-success ml-2" (click)="searchFilter()">Search</button>
+      </div>
+
+      <div>
+        <button class="btn btn-secondary" (click)="reSet()"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</button>
+      </div>
+    </div>
+    <table class="table table-hover" id="b2cBooking">
+      <thead class="fluxPos">
+        <tr>
+          <th>Reference Code</th>
+          <th>
+            Enquiry Date
+          </th>
+          <th>
+            Travel Date.
+          </th>
+          <th>
+            Package Name
+          </th>
+          <th>
+            Pax Name
+          </th>
+          <th>
+            Phone No.
+          </th>
+          <th>
+            Amount
+          </th>
+          <th>
+            Status
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngIf="shimmer">
+        <tr *ngFor="let k of [].constructor(10);">
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!shimmer && enquiryList.length > 0">
+        <tr *ngFor="let enquiry of enquiryList">
+          <td>
+            {{ enquiry.reference_code }}
+          </td>
+          <td>
+            {{ enquiry?.created_at | date:'mediumDate'}}
+          </td>
+          <td>
+            {{ enquiry?.travel_date | date:'mediumDate' }}
+          </td>
+          <td>
+            <a (click)="getPackageUrl(enquiry)" class="cursor-pointer text-capitalize">{{enquiry?.no_of_days}} Days {{ enquiry?.master_package_title}}</a>
+            <div class="fit-content" *ngIf="enquiry?.from_location"><i class="fa fa-users brdrIcon" aria-hidden="true" [ngStyle]="{'color': checkColor(enquiry?.from_location)}"></i> {{enquiry?.from_location}}</div>
+          </td>
+
+          <td>
+            {{ enquiry.first_name + " " + enquiry.last_name }} X {{ enquiry.adults + enquiry.children_with_bed + enquiry.children_without_bed }}
+          </td>
+          <td>
+            {{  (enquiry?.phn_country_code==null?'': ('+'+enquiry?.phn_country_code))}} {{enquiry.phone_number==null?'':enquiry.phone_number }}
+          </td>
+          <td>{{enquiry?.currency}} {{enquiry?.total_pax_amount}}</td>
+         
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle fs12"  type="button" data-toggle="dropdown" [ngStyle]="{'background-color': selectColor(enquiry?.enquiry_status),'border-color': selectColor(enquiry?.enquiry_status)}">{{enquiry?.enquiry_status}}
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu fs12">
+                <li><a   (click)="onChangeStatus(enquiry.id,'new')" class="active">New</a></li>
+                <li><a  (click)="onChangeStatus(enquiry.id,'contacted')" class="active">Contacted</a></li>
+                <li><a (click)="onChangeStatus(enquiry.id,'pending')"  class="active">Pending</a></li>
+                <li><a (click)="onChangeStatus(enquiry.id,'converted')"  class="active">Converted</a></li>
+                <li><a (click)="onChangeStatus(enquiry.id,'lost')"  class="active">Lost</a></li>
+              </ul>
+            </div>
+            <!-- <button *ngIf="!enquiry.mark_as_read" style="cursor: pointer;" class="btn btn-primary"
+              (click)="onMarkasRead(enquiry.id)"><i class="fa fa-check"></i> Mark as Read</button> -->
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!shimmer && enquiryList.length == 0">
+        <tr class="text-center">
+          <th colspan="8">
+            <img src="/assets/images/noreslt.png" alt="">
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="totalPage>1">
+  <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+    <div class="float-right">
+      <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="paginateEnquiries($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>

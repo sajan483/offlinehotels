@@ -1,0 +1,49 @@
+@import "../../../../../../assets/css/variable.scss";
+
+.imgediter-outer {
+  background-color: #10161a;
+  height: 100vh;
+
+  main {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    // height: calc(100vh - 120px);
+    height: 100vh;
+    .content {
+      padding: 17px 10px;
+      height: 100vh;
+      //   height: calc(100vh - 62px);
+    }
+  }
+
+  // .heading {
+  //     width: 100%;
+  //     padding: 5px 15px;
+  //     border-bottom: 1px solid #e2e2e2;
+  // }
+}
+
+::ng-deep .mat-tooltip {
+  /* your own custom styles here */
+  /* e.g. */
+  background-color: #000;
+  color: #fff;
+  font-size: 12px;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+}
+
+@media screen and (max-width: 768px) {
+  .imgediter-outer {
+    main {
+      margin-top: 16%;
+      margin-bottom: 31%;
+      padding-bottom: 15%;
+      background: #10161a;
+    }
+  }
+}

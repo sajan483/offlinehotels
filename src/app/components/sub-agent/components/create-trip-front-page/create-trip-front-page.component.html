@@ -1,0 +1,457 @@
+<div class="topofcomponent">
+  <div class="textform animationdiv bg_main_img" style="min-height: 200px;">
+    <div class="text-center pt50">
+      <h1 class="mb-0 fs28">{{'UMRAH PACKAGES' | translate}}</h1>
+      <h3 class="fs18">{{'Get a great price on your Umrah Packages.' | translate}}</h3>
+    </div>
+    
+  </div>
+  <div class="algn justifycenter container pb30" style="position: absolute;top: 210px;left:0;right:0;">
+    <div class=" col-md-12 px-0 row mx-0 ">
+      <div class="container">
+        <div class="flex">
+          <div class="col-12 row px-0 mx-0 cursor-pointer">
+            <div class="col-md-2 tab-item cursor-pointer {{service=='Recent Booking'?'active':''}}"
+              (click)="onServiceItemChange('Recent Booking',true)">
+              {{ 'Dashboard' | translate}}
+            </div>
+            <div class="col-md-2 tab-item cursor-pointer {{service=='Booking Request'?'active':''}}"
+              (click)="onServiceItemChange('Booking Request',true)">
+              {{ 'Booking Request' | translate}}
+            </div>
+            <div class="col-md-2  tab-item cursor-pointer {{service=='Makkah Hotel'?'active':''}}"
+              (click)="onServiceItemChange('Makkah Hotel',true)">
+              {{ 'Makkah Hotel' | translate}}
+            </div>
+            <div class="col-md-2 tab-item cursor-pointer  {{service=='Medina Hotel'?'active':''}}"
+              (click)="onServiceItemChange('Medina Hotel',true)">
+              {{ 'Medina Hotel' | translate}}
+            </div>
+            <div class="col-md-2 tab-item cursor-pointer {{service=='Transport'?'active':''}}"
+              (click)="onServiceItemChange('Transport',true)">
+              {{ 'Transport' | translate}}
+            </div>
+            <div class="col-md-2 tab-item cursor-pointer {{service=='All'?'active':''}}"
+              (click)="onServiceItemChange('All',true)">
+              {{'All in One' | translate }}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="maxheightAnimation" id="dateEnterDiv">
+              <div *ngIf="bookingRequests">
+                <app-booking-requests></app-booking-requests>
+              </div>
+              <div class="bg-white filterbox container p30 mirr_text_right"
+                *ngIf="activateMakkaSearch || activateMadeenaSearch || activateTransportSearch">
+                <div *ngIf="activateMakkaSearch" class="position-relative mb30">
+                  <div class="row m-0">
+                    <div class="col-md-2 mt32">
+                      <div class="d-inline-flex" [class.swap-animation-down]="activeAnimation" *ngIf="!swapHotel">
+                        <i class="makkahicon icon_size_35 icns"></i>
+                        <h5 class="fw500 fs22 my6mx10">{{'Makkah' | translate}}</h5>
+                      </div>
+                      <div class="d-inline-flex" [class.swap-animation-down]="activeAnimation" *ngIf="swapHotel">
+                        <i class="madeenaicon icon_size_35 icns"></i>
+                        <h5 class="fw500 fs22 my6mx10">{{'Medinah' | translate}}</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-5 row mx-0 px-0 ">
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1">{{'Check-In' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div [owlDateTimeTrigger]="dt3" class="position-relative">
+                          <input placeholder="{{'Check-in date' | translate}}"
+                            class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="makkaCheckInDate"
+                            [min]="makkahmin" [owlDateTime]="dt3" (ngModelChange)="dataChangedFromMakkaDates($event)">
+                          <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1">{{'Check-Out' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div [owlDateTimeTrigger]="dt4" class="position-relative">
+                          <input #makkaOutDatePicker placeholder="{{'Check-out date' | translate}}"
+                            class="owldatepicker removeoutline fs14 bordrservice" [owlDateTime]="dt4"
+                            [(ngModel)]="makkaCheckOutDate" [min]="madeenmin"
+                            (ngModelChange)="dataChangedFromMakkaOutDates($event)">
+                          <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                      </div>
+                    </div>
+                    <div class="col-md-4 row mx-0 px-0">
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1 mt8">{{'Special Code' | translate}}</p>
+                        <div>
+                          <input name="promotion" class="subStyle" [(ngModel)]="special_code_makkah"
+                            class="owldatepicker fs14 bordrservice removeoutline">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1 mt8">{{'SubPcc' | translate}} <span class="fs10 clr52">(Promo
+                            Code)</span></p>
+
+                        <div class="btn-group">
+                          <input type="text" class="subpcc_text removeoutline" name="" id=""
+                            [(ngModel)]="subPcc_makkah">
+                          <button type="button" class="downBttn dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <div *ngFor="let option of subPccList" class="dropdown-item cursor-pointer fs14 brdr_btm_d3"
+                              (click)="makkahSubPccSelect(option)">
+                              <div>{{option?.name}}</div>
+                              <div class="clr52 fs12">{{option?.sub_pcc}}</div>
+                            </div>
+                            <div (click)="navigateSubPcc()"
+                              class="fs14 cursor-pointer dropdown-item list_clr textunderline">
+                              {{'Add
+                              SubPcc' | translate}}</div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-1 text-center mt-auto mpl0 mpr0">
+                      <i class="icns moonicon icon_size_25"></i>
+                      <div class="fs12">{{noOfDaysInMakkah}} {{'Night(s)' | translate}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="position-relative" *ngIf="activateMakkaSearch && activateMadeenaSearch">
+                  <div class="position-switch">
+                    <i class="icns swapicon icon_size_25 cursor-pointer" (click)="swapHotels()"></i>
+                  </div>
+                </div>
+                <div *ngIf="activateMadeenaSearch" class="position-relative mb30">
+                  <div class="row m-0">
+                    <div class="col-md-2 mt32">
+                      <div class="d-inline-flex swap-animation-up" [class.swap-animation-up]="activeAnimation"
+                        *ngIf="!swapHotel">
+                        <i class="madeenaicon icon_size_35 icns"></i>
+                        <h5 class="fw500 fs22 my6mx10">{{'Medinah' | translate}}</h5>
+                      </div>
+                      <div class="d-inline-flex swap-animation-up" [class.swap-animation-up]="activeAnimation"
+                        *ngIf="swapHotel">
+                        <i class="makkahicon icon_size_35 icns"></i>
+                        <h5 class="fw500 fs22 my6mx10">{{'Makkah' | translate}}</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-5 row mx-0 px-0 ">
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1">{{'Check-In' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div [owlDateTimeTrigger]="dt1" class="position-relative">
+                          <input #madeenaInPicker placeholder="{{'Check-in date' | translate}}"
+                            class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="madeenaCheckInDate"
+                            [min]="madeenaMin" [owlDateTime]="dt1" (ngModelChange)="dataChangedFromMadeenaDates('in')">
+                          <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1">{{'Check-Out' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div [owlDateTimeTrigger]="dt2" class="position-relative">
+                          <input #madeenaOutPicker placeholder="{{'Check-out date' | translate}}"
+                            class="owldatepicker removeoutline fs14 bordrservice" [owlDateTime]="dt2"
+                            [(ngModel)]="madeenaCheckOutDate" [min]="madeenamax"
+                            (ngModelChange)="dataChangedFromMadeenaDates('out')">
+                          <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                      </div>
+                    </div>
+                    <div class="col-md-4 row mx-0 px-0">
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1 mt8">{{'Special Code' | translate}}</p>
+                        <div>
+                          <input name="promotion" class="subStyle" [(ngModel)]="special_code_medinah"
+                            class="owldatepicker fs14 bordrservice removeoutline">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <p class="mb-0 fs14 pl-1 mt8">{{'SubPcc' | translate}} <span class="fs10 clr52">(Promo
+                            Code)</span></p>
+
+                        <div class="btn-group">
+                          <input type="text" class="subpcc_text removeoutline" name="" id=""
+                            [(ngModel)]="subPcc_medinah">
+                          <button type="button" class="downBttn dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <div *ngFor="let option of medinahSubPccList"
+                              class="dropdown-item cursor-pointer fs14 brdr_btm_d3"
+                              (click)="madeenaSubPccSelect(option)">
+                              <div>{{option?.name}}</div>
+                              <div class="clr52 fs12">{{option?.sub_pcc}}</div>
+                            </div>
+                            <div (click)="navigateSubPcc()"
+                              class="fs14 cursor-pointer dropdown-item list_clr textunderline">
+                              {{'Add
+                              SubPcc' | translate}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-1 text-center mt-auto mpl0 mpr0">
+                      <i class="icns moonicon icon_size_25"></i>
+                      <div class="fs12">{{noOfDaysInMadeenah}} {{'Night(s)' | translate}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="activateTransportSearch" class="position-relative mb30">
+                  <div class="row m-0">
+                    <div class="col-md-2 mt32">
+                      <div class="d-inline-flex">
+                        <i class="transportationicon icon_size_35 icns"></i>
+                        <h5 class="fw500 fs22 my6mx10">{{'Transport' | translate}}</h5>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <p class="mb-0 fs14 pl-1">{{'Start Date' | translate}}<span class="mdtryStrr">*</span></p>
+                      <div [owlDateTimeTrigger]="dt5" class="position-relative">
+                        <input placeholder="{{'Check-in date' | translate}}"
+                          class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="transportStartDate"
+                          [owlDateTime]="dt5" [min]="transportmin" (ngModelChange)="dataChangedFromTransportDate('in')">
+                        <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                      </div>
+                      <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+                    </div>
+
+                    <div class="col-md-2">
+                      <p class="mb-0 fs14 pl-1">{{'Vehicle Count' | translate}}<span class="mdtryStrr">*</span></p>
+                      <input type="text" numberOnly class="removeoutline bordrservice w-100 pl10 fs14" [(ngModel)]="vehicleCount" (input)="vehicleCountChanged($event)"
+                        [min]="1">
+                      <!-- <select name="rote" id="vehicleCount" [(ngModel)]="vehicleCount" class="removeoutline bordrservice w-100 pl10 fs14" (change)="vehicleCountSelect($event.target.value)">
+                                <option value="" disabled selected>{{'Select' | translate}}</option>
+                                <option *ngFor="let k of countArray" [value]="k">{{k}}</option>
+                            </select> -->
+                    </div>
+                    <div class="col-md-5">
+                      <p class="mb-0 fs14 pl-1">{{'Route' | translate}}<span class="mdtryStrr">*</span></p>
+                      <select name="rote" id="umrahRoute" [(ngModel)]="routetransport"
+                        class="removeoutline bordrservice w-100 pl10 fs14"
+                        (change)="onRouteSelect($event.target.value)">
+                        <option value="" disabled selected>{{'Select' | translate}}</option>
+                        <option *ngFor="let item of routeList" [value]="item.code">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end textform">
+                  <div class="col-md-4" *ngIf="activateMakkaSearch || activateMadeenaSearch">
+                    <app-room-allocation-popups></app-room-allocation-popups>
+                  </div>
+                  <div class="col-md-4 "
+                    *ngIf="!activateMakkaSearch && !activateMadeenaSearch && activateTransportSearch">
+                    <div class="d-flex justify-content-between cursor-pointer p-2 mrBtm"
+                      style="margin: 11px 11px 0 0;border: 1px solid #55555525;" (click)="showTravelersPopUp()"
+                      #menuIconClass>
+                      <div class="mirr_text_right">
+                        <div class="fs13 clr52 text-uppercase">{{'Total Travelers'| translate}}</div>
+                        <div class="fs14 ">{{countAdult + countChild}} {{'Pax' | translate}} <span *ngIf="service == 'Transport' &&  vehicleCount>0 && enableSearchButton || service == 'All' &&  vehicleCount>0 && enableSearchButton">({{(countAdult + countChild )/vehicleCount | number : '1.0-0'}} pax X {{vehicleCount}} vehicle)</span></div>
+                      </div>
+                      <i class="icns downarrow icon_h28_w15 my-auto"></i>
+                    </div>
+                    <div class="travellerpopup popupmoving mirr_right_0" *ngIf="displayTabtravel" #menuPopupClass>
+                      <div class="travellersouter travellerOuter">
+                        <div class="d-flex flex-column w-100 mirr_text_right">
+                          <div class="d-flex justify-content-between travellerslide">
+                            <div class="texttraveller pt-1">{{'Adults' | translate}}</div>
+                            <div class="p-1 ml-2" class="texttravellerd margnR50">
+                              <input type="text" numberOnly [(ngModel)]="countAdult" class="inputCount" [min]="1" (input)="addAdult2($event)">
+                            </div>
+                            <div>
+                              <div class="btn-group">
+                                <a class="firstbttn bttnfrst" (click)="minusAdult();">-</a>
+                                <a class="secondbttn bttnscnd" (click)="addAdult();">+</a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="d-flex justify-content-between travellerslide">
+                            <div class="texttraveller">{{'Children' | translate }}
+                              <p>0 - 12 {{'Years' | translate }}</p>
+                            </div>
+                            <div class="p-1 ml-1" class="texttravellerd">
+                              <input type="text" numberOnly [(ngModel)]="countChild" class="inputCount" [min]="0" (input)="addChild2($event)">
+                            </div>
+                            <div>
+                              <div class="btn-group">
+                                <a class="firstbttn bttnfrst" (click)="minusChild();">-</a>
+                                <a class="secondbttn bttnscnd" (click)="addChild();">+</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="p-2 mrBtm" *ngIf="viewsearchbutton">
+                    <button type="submit" data-hover="SEARCH NOW" class="searchbutton " name="search-accommodation"
+                      (click)="searchButtonClicked()" [disabled]="!enableSearchBttn()">
+                      {{'Search' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 d-flex m-0 p-0" *ngIf="recentSearch && sales!=null">
+                <div class="col-md-8 animationdiv bg-white p-3 ">
+                  <div class="borderbox p20">
+                    <div class="d-flex justify-content-between">
+                      <div class="mt-1 salesoverride">SALES OVERVIEW</div>
+                      
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-6 brdrright">
+                        <div class="d-flex p20">
+                          <div class="p12500 mt-1">
+                            <i class="icns upgreen icon_size_21"></i>
+                          </div>
+                          <div>
+                            <h1 class="totalcount2 mb-0"><span class="blackbox"></span>{{currency}}
+                              {{currencyConversion(sales?.sales_amount)}}</h1>
+                            <p class="fs14 clr01">TOTAL SALES</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="d-flex p20">
+                          <div class="p12500 mt-1">
+                            <i class="icns upgreen icon_size_21"></i>
+                          </div>
+                          <div>
+                            <h1 class="totalcount2 mb-0"><span class="blackbox"></span> {{sales?.sales}}</h1>
+                            <p class="fs14 clr01">NO. OF BOOKINGS</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-6 brdrright">
+                        <div class="d-flex p20">
+                          <div class="p12500 mt-1">
+                            <i class="icns upgreen icon_size_21"></i>
+                          </div>
+                          <div>
+                            <h1 class="totalcount2 mb-0"><span class="blackbox"></span>{{currency}}
+                              {{currencyConversion(sales?.hotel?.sales_amount)}}</h1>
+                            <p class="fs14 clr01">TOTAL HOTEL SALES</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="d-flex p20">
+                          <div class="p12500 mt-1">
+                            <i class="icns upgreen icon_size_21"></i>
+                          </div>
+                          <div>
+                            <h1 class="totalcount2 mb-0"><span class="blackbox"></span> {{sales?.hotel?.sales}}</h1>
+                            <p class="fs14 clr01">NO. OF HOTEL BOOKINGS</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row m-0">
+                      <div class="col-md-6 brdrright">
+                        <div class="d-flex p20">
+                          <div class="p12500 mt-1">
+                            <i class="icns upgreen icon_size_21"></i>
+                          </div>
+                          <div>
+                            <h1 class="totalcount2 mb-0"><span class="blackbox"></span>{{currency}}
+                              {{currencyConversion(sales?.transport?.sales_amount)}}</h1>
+                            <p class="fs14 clr01">{{'TOTAL TRANSPORT SALES' | translate}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="d-flex p20">
+                          <div class="p12500 mt-1">
+                            <i class="icns upgreen icon_size_21"></i>
+                          </div>
+                          <div>
+                            <h1 class="totalcount2 mb-0"><span class="blackbox"></span> {{sales?.transport?.sales}}</h1>
+                            <p class="fs14 clr01">{{'TRANSPORT BOOKINGS' | translate}}</p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mx-0">
+                    <div class="col-md-12 px-0">
+                      <div class="intBg  cil-md-12 m-0 p-0 bd borderbox mt-3">
+                        <p class="mb-0 font-weight-bold pl-20 py-2">Incentive Schemes</p>
+                        <div class="brdr-tp text-center ">
+                          <p class="coming-soon mt40" data-text="Coming Soon!">Coming Soon!</p>
+                        </div>
+                      </div>
+                    </div>
+                   
+                  </div>
+
+
+                </div>
+                <div class="col-md-4 bg-white pt-3 pb-3 pr-3 pl-0 text-">
+                  <div class="row">
+
+                    <div class="col-md-12">
+                      <div class="borderbox">
+                        <div id="selectDateToChart" class="mt-2 mb-2 salesoverride text-center">NEWS & UPDATES</div>
+                        <div class=" pl-2">
+                          <ul style="overflow-y: scroll;max-height: 332px;">
+                            <li *ngFor="let item of newsList;let i = index;" class="py-1">
+                              <!-- *ngIf="i< 6" -->
+                              <a class="clr" href="{{item?.link}}" target="_blank">
+                                <p class="mb-0">{{item?.title?.rendered}}</p>
+                              </a>
+                            </li>
+
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12 px-0">
+                      <div class="col-md-12 px-0 d-flex alignt-content-center text-center justify-content-center"
+                        *ngIf="saleChartData  && (sales.hotel.sales_amount>0 || sales.transport.sales_amount > 0 )">
+
+                        <!-- <div id="selectDateToChart" class="mt-4 salesoverride text-left">OVERVIEW</div> -->
+                        <ngx-charts-pie-chart [view]="view" [scheme]="colorScheme" [results]="saleChartData"
+                          [gradient]="gradient" [legend]="showLegend" [legendPosition]="legendPosition"
+                          [labels]="showLabels" legendTitle="Sales" [doughnut]="isDoughnut">
+                        </ngx-charts-pie-chart>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div
+                class="mt-3 bg-white filterbox container p13 mirr_text_right tablewidth animationdiv margin-booking margin-bottom:25px"
+                *ngIf="length > 0 && recentSearch">
+                <div class="d-flex justify-content-between pt-3 px-2">
+                  <h1 class="fs16 blue_text fw500 text-uppercase ">{{'Recent Booking' | translate}}</h1>
+                  <div class="blackborderbttn" (click)="navigateHostory()">{{'View All Bookings' | translate}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+      <div *ngIf="showRoomAllocationPopup">
+        <app-room-allocation-popup [dataFromPopUp]="dataForPopUp"></app-room-allocation-popup>
+      </div>
+      <ngx-spinner id="hotelSpinner" bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+        <div>
+          <img class="h303" src="assets/images/giphy.webp" alt="">
+        </div>
+      </ngx-spinner>

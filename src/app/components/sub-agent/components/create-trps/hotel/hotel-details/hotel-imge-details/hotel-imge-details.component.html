@@ -1,0 +1,64 @@
+<div class="hotel-image-details">
+    <div class="row hotel-imge-collection mx-auto">
+
+        <div class="col-md-6 col-12 row p-0 m-0 cursor_pointer" (click)="viewImages()">
+            <div class="hotelRibbon" *ngIf="details?.has_special_deal">
+                {{'Special Deal' | translate}}<span></span>
+            </div>
+            <div class="col-md-9 col-12 m-0 hotelgalleryimg">
+                <div class="ovaralldiv9" [ngStyle]="{'background-image': 'url('+ (hotelPics[0]?.length ? hotelPics[0]: '/assets/images/no_image.jpg') +')'}"></div>
+            </div>
+            <div class="col-md-3 col-12 m-0 hotelimgegallery">
+                <div class="smallwidthh fsubimg " [ngStyle]="{'background-image': 'url('+ (hotelPics[1]?.length? hotelPics[1]: '/assets/images/no_image.jpg') +')'}"></div>
+                <div class="smallwidthh tsubimg" [ngStyle]="{'background-image': 'url('+ (hotelPics[2]?.length? hotelPics[2]: '/assets/images/no_image.jpg') +')'}">
+                    <div class="viewallimages" *ngIf="hotelPics[3] != null" >
+                        <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" role="img" aria-hidden="true">add_circle_outline</mat-icon>
+                        <p>{{'View All' | translate}}({{hotelPics.length}})</p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <div class="col-md-6 col-12">
+            <div class="section-one">
+                <div class="d-flex justify-content-between hotel_top">
+                    <div class="text_start">
+                        <p class="heading"><span><i class="ak-calendar"></i></span> {{'Check In' | translate }}</p>
+                        <h6 class="checkinTime">{{details?.check_in_time | DateTimeToDateFormat | date:'mediumDate'}}</h6>
+                        <div class="clr52 fs14">{{details?.check_in_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                        <p class="clr52 fs13">{{details?.check_in_time | DateTimeToDateFormat | date:'EEEE'}}</p>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-center">
+                            <i class="fa fa-moon-o night_icon" aria-hidden="true"></i>
+                        </div>
+                        <h5 class="nightcount" > {{nights}} {{'Nights' | translate}}</h5>
+                    </div>
+                    <div class="text_start">
+                        <p class="heading"><span><i class="ak-calendar"></i></span> {{'Check Out' | translate}} </p>
+                        <h6 class="checkinTime">{{details?.check_out_time | DateTimeToDateFormat | date:'mediumDate'}}</h6>
+                        <div class="clr52 fs13">{{details?.check_out_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                        <p class="clr52 fs13">{{details?.check_out_time | DateTimeToDateFormat | date:'EEEE'}}</p>
+                    </div>
+                </div>
+                <div class="hotel_bottom">
+                    <div class="heading">{{ 'Room' | translate }} &amp; {{'Guest' | translate}}</div>
+                    <div class="d-inline-flex roomgust">
+    
+                        <h4>{{roomCount}}<span>{{ 'Room' | translate }}</span></h4>
+                        <h4>{{totalCount}}<span>{{'Guest' | translate }}</span></h4>
+    
+                    </div>
+                </div>
+                <div class="orderFlag" style="border-bottom: none;" *ngIf="details?.meta_data?.address!= null">
+                    <div class="heading">{{ 'ADDRESS' | translate }}</div>
+                    <div class="mb5 fs14 mt-2" >
+                        <i class="fa fa-map-marker pr5" aria-hidden="true"></i> {{details?.meta_data?.address}}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

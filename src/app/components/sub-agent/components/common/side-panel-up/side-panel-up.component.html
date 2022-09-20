@@ -1,0 +1,18 @@
+<div class="overlay" *ngIf="open" (click)="closePanel()"></div>
+
+<div class="wrapper full-height" [ngClass]="{'open': open}">
+  <div class="outer">
+    <div class="header-section" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="left">
+        <h5>{{heading}}</h5>
+      </div>
+      <div class="right">
+        <a (click)="closePanel()" class="close" fxLayout="row" fxLayoutAlign="center center">
+          <span class="ak-close1 icon"></span>
+        </a>
+      </div>
+    </div>
+    
+    <ng-content></ng-content>
+  </div>
+</div>

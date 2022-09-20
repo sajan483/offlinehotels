@@ -1,0 +1,126 @@
+<div class="tbl booking-div">
+    <div class="container mb60">
+       <div class="card">
+        <div class="card-header">
+          <div class="header">
+
+            <div class="row ">
+              <div class="col-12 d-flex justify-content-between align-content-end mb-2">
+                <h1>Booking List</h1>
+                <div (click)="navigateBack()" class="backbutton mt-2" style="color: white;">
+                  <i class="fa fa-arrow-left mr-2"></i> Go Back
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="d-flex justify-content-between pdng-filter" >
+
+          <div class="position-relative" [owlDateTimeTrigger]="dt3">
+            <input  class="form-control my-auto" [(ngModel)]="dateSelect" placeholder="Travel Date" [owlDateTime]="dt3" (ngModelChange)="searchFilter()">
+            <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+            <div class="daterangeIcon">
+              <i class="icns calendaricon icon_size_20"></i>
+            </div>
+          </div>
+
+          <div class="mb-2 d-flex">
+            <input type="text" class="form-control my-auto" [(ngModel)]="searchData" placeholder="Search Package id">
+            <button class="btn btn-success ml-2" (click)="searchFilter()">Search</button>
+          </div>
+
+          <div>
+            <button class="btn btn-secondary" (click)="reSet()"><i class="fa fa-refresh" aria-hidden="true"></i> Reset</button>
+          </div>
+
+        </div>
+
+      <div class="card-body">
+        <table id="customers" class="w-100">
+          <thead class="fluxPos">
+              <tr>
+                <th>
+                  Booked On
+                </th>
+                  <th>
+                    Package id
+                  </th>
+                  <th>
+                      Booking Number
+                  </th>
+                  <th>
+                      Date of Travel
+                  </th>
+                  <th>
+                      Package Name
+                  </th>
+                  <th>
+                      No. of Pax
+                  </th>
+                  <th>Visa Status</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody *ngIf="shimmer">
+              <tr *ngFor="let k of [].constructor(9);">
+                <td>
+                  <div class="shine w-100 h25"></div>
+                </td>
+                  <td>
+                    <div class="shine w-100 h25"></div>
+                  </td>
+                  <td>
+                      <div class="shine w-100 h25"></div>
+                  </td>
+                  <td>
+                      <div class="shine w-100 h25"></div>
+                  </td>
+                  <td>
+                      <div class="shine w-100 h25"></div>
+                  </td>
+                  <td>
+                      <div class="shine w-100 h25"></div>
+                  </td>
+                  <td>
+                      <div class="shine w-100 h25"></div>
+                  </td>
+                  <td>
+                      <div class="shine w-100 h25"></div>
+                  </td>
+              </tr>
+          </tbody>
+          <tbody *ngIf="!shimmer">
+              <tr *ngFor="let item of details">
+                <td>{{item?.booking_date | date:'mediumDate'}}</td>
+                <td>{{item?.reference_code}}-{{item?.package}}</td>
+                  <td class="ut-click" (click)="viewData(item.id)">{{item?.reference_no}}</td>
+                  <td>{{item?.startdate | date:'mediumDate'}}</td>
+                  <td>
+                    <div>{{item?.title}}</div>
+                    <!-- <div class="fit-content" ><i class="fa fa-users brdrIcon" aria-hidden="true" [ngStyle]="{'color': checkColor(item?.location)}"></i> {{item?.location}}</div> -->
+                  </td>
+                  <td>{{item?.adults + item?.children_with_bed + item?.children_without_bed}}</td>
+                  <td class="text-danger" *ngIf="item?.visa_status == 'visa request pending'">Passport Pending</td>
+                  <td class="text-success" *ngIf="item?.visa_status != 'visa request pending'">Passport Submitted</td>
+                  <td><button class="btn btn-success" (click)="viewData(item.id)"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
+              </tr>
+          </tbody>
+      </table>
+      </div>
+<div class="card-footer">
+
+  <div class="row" *ngIf="totalPage>1">
+    <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+      <div class="float-right">
+        <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="paginateEnquiries($event)">
+        </app-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+       </div>
+    </div>
+</div>
+
+

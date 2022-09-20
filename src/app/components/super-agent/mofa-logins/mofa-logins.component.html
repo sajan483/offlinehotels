@@ -1,0 +1,137 @@
+<div class="tbl">
+    <div class="container mb60 mt-5">
+        <div class="card mt100 mb-3" *ngIf="showCredentialForm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h1 class="card-title fs18">{{showEditBtn?"Update":"ADD"}} Mofa Credentials(Tawaf,Babel Umrah)</h1>
+                <button class="btn btn-default btn-sm" (click)="closeForm()"><i class="fa fa-close"></i></button>
+            </div>
+            <form action="" [formGroup]="createMofaForm" (submit)="showEditBtn?updateMofa():createMofa()" novalidate>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6" *ngIf="nationalities">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-select [disabled]="showEditBtn" formControlName="country" placeholder="Country" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [noEntriesFoundLabel]="'No Country Found'"
+                                            [placeholderLabel]="'Country Name'" formControlName="countrySearch">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option *ngFor="let option of filteredCountries | async" [value]="option.name">
+                                        {{option.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-select [disabled]="showEditBtn" formControlName="provider" placeholder="Provider" #singleSelect>
+                                    <mat-option>
+                                        <ngx-mat-select-search [noEntriesFoundLabel]="'No Providers Found'"
+                                            [placeholderLabel]="'Provdier Name'" formControlName="providerSearch">
+                                        </ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option *ngFor="let provider of filteredProviders | async" [value]="provider">
+                                        {{provider}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>
+                                    Username</mat-label>
+                                <input matInput placeholder="Username" formControlName="username" type="text"
+                                    autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>
+                                    Password</mat-label>
+                                <input matInput placeholder="Password" formControlName="password" type="password"
+                                    autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <tag-input formControlName="tags" [removable]='true'></tag-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="submit" *ngIf="!showEditBtn" class="btn btn-primary pull-right"
+                                [disabled]="createMofaForm.invalid">Save Login Credentials</button>
+                            <button type="submit" *ngIf="showEditBtn" class="btn btn-primary pull-right"
+                                [disabled]="createMofaForm.invalid">Update Login Credentials</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card {{!showCredentialForm?'mt100':''}}">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <!-- <div class="d-flex "> -->
+                    <h1 class="card-title fs18 mb-0">Mofa Credentials</h1>
+                    <button (click)="createMofaFormShow()" class="btn btn-primary pull-right">Create Mofa Credential</button>
+                <!-- </div> -->
+            </div>
+            <div class="card-body">
+                <div class="row mt-3">
+                    <div class="col-12">
+
+                        <table class="table" id="b2bBooking">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">Provider</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">UO Code</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="shimmer">
+                                <tr *ngFor="let k of [].constructor(10);">
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!shimmer && logins.length > 0">
+                                <tr *ngFor="let login of logins;index as i">
+                                    <td>{{login.country}}</td>
+                                    <td>{{login.provider}}</td>
+                                    <td>{{login.username}}</td>
+                                    <td>{{login.uo_code}}</td>
+                                    <td><button class="btn btn-info" (click)="editLogin(login)"><i class="fa fa-edit"></i>&nbsp;&nbsp;Edit</button></td>
+                                </tr>
+                                <tr>
+                            </tbody>
+                            <tbody *ngIf="!shimmer && logins.length == 0">
+                                <tr class="text-center">
+                                    <th colspan="8">
+                                        <img src="/assets/images/noreslt.png" alt="">
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

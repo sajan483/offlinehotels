@@ -1,0 +1,31 @@
+<div class="transport-search-div">
+    <div class="search-div">
+        <div class="row">
+            <div class="col-md-4 col-12 mob_mrgin">
+                <div class="label-text">{{'Route' | translate}}</div>
+                <mat-select class="form-control text_box" [(value)]="routeId">
+                    <mat-option *ngFor="let k of routeList" [value]="k.item_id" title="{{k?.item_text}}">{{k?.item_text}}</mat-option>
+                </mat-select>
+            </div>
+            <div class="col-md-2 col-6 mob_mrgin">
+                <div class="label-text">{{'Start Date' | translate}}</div>
+                <div class="calander-div" [owlDateTimeTrigger]="dt4">
+                    <input type="text" class="form-control text_box" [owlDateTime]="dt4" [min]="minDate" [(ngModel)]="startDate">
+                    <span class="ak-calendar icon"></span>
+                </div>
+                <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+            </div>
+            <div class="col-md-2 col-6 mob_mrgin">
+                <div class="label-text">{{'Number of Pax / Vehicle' | translate}}</div>
+                <input type="number" class="form-control text_box" [min]="1" [max]="55" [(ngModel)]="travelCount">
+            </div>
+            <div class="col-md-2 col-6 mob_mrgin">
+                <div class="label-text">{{'Number of Vehicles' | translate}}</div>
+                <input type="number" class="form-control text_box" [min]="1" [(ngModel)]="vehicleCount">
+            </div>
+            <div class="col-md-2 col-6 mob_mrgin">
+                <button class="search_bttn w-100 h-100" [class.activeBttn]="bttnActive" (click)="searchData()">{{'Search' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

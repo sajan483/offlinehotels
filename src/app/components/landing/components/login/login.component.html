@@ -1,0 +1,186 @@
+<div class="container-fluid backgroundimage mirr_text_right" id="signUpForm">
+  <div class="bagroundblure">
+    <!-- <div class="extraimg resMt44">
+      <img src="/assets/images/lanterns.png" alt="">
+    </div> -->
+    <div class="row m-0 mmr22" id="loginDiv">
+      <div class="padngovrdiv col-xl-4 col-lg-6 col-md-8 col-12 pl-0 pr-0 m-auto">
+        <div class="text-center resMt44">
+          <img src="/assets/images/akbar-umrah-logo.png" class="logoimg" alt="">
+        </div>
+        <h3 class="logtext">{{'Akbar Travels Umrah Visa B2B Website' | translate}}</h3>
+        <div class="position-relative">
+          <!-- <div class="topimagepos">
+            <img src="/assets/images/login-box-top-right-bg.png" alt="">
+          </div>
+          <div class="bottomingpos">
+            <img src="/assets/images/login-box-bottom-left-bg.png" alt="">
+          </div> -->
+          <div class="card">
+            <div class="card-body cardpadding">
+              <form [formGroup]="loginForm" (submit)="submit()">
+                <div class="input-group form-group mtt20" style="flex-wrap: unset;" id="loginPhoneCode">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mirr_right_radus"><img src="/assets/images/username-icon.png" alt=""></span>
+                  </div>
+                  <input ng2TelInput (intlTelInputObject)="telInputObject($event)"
+                    [ng2TelInputOptions]="{preferredCountries:['sa','in', 'ae','qa','id'], separateDialCode:true}"
+                    class="form-control mirr_left_radus" #phoneInput id="phoneInput" type="tel"
+                    (countryChange)="onCountryChange($event)" (input)="inputValidation($event)"
+                    maxlength="15"
+                    onkeypress="if( isNaN( String.fromCharCode(event.keyCode)) || event.keyCode==32) return false;"
+                    formControlName="username" />
+                </div>
+                <div class="input-group form-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text mirr_right_radus"><img src="/assets/images/password-icon.png"
+                        alt=""></span>
+                  </div>
+                  <input type="password" class="form-control mirr_left_radus" formControlName="password" placeholder="{{'Password' | translate}}">
+                </div>
+                <div class="row align-items-center remember">
+                  <div class="col-md-6 col-6 p-0 ">
+                    <mat-checkbox (change)="setBoolean()">{{"Remember me" | translate}}</mat-checkbox>
+                  </div>
+                  <div class="col-md-6 col-6 p-0 textend mb11">
+                    <a data-toggle="modal" data-target="#forgotPasswordPopupp" class="frgtpsswrd" href="#">{{"Forgot Password...?" | translate}}</a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="submit" value="{{'LOGIN' | translate}}" class="search_bttn w-100" [class.activeBttn]="bttnactive">
+                </div>
+                <div class="d-flex justify-content-center links">
+                  {{"Don't have an account...?" | translate}} <a class="signupc" (click)="navigatesignup();"> {{"Register as B2B Agent" | translate}} </a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="hight"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="forgotPasswordPopupp">
+  <div class="modal-dialog popupmoving mirr_text_right">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Enter Phone Number' | translate}}</h4>
+        <button id="ibanClose" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="modal-body fs12">
+          <div class="col-md-12">
+            <div class="col-md-12 pb-1 pl-0"><strong class="text-danger">*</strong> {{'Phone Number' | translate}}:
+            </div>
+            <div class="form-group mb-0 fs15">
+              <select name="" id="" class="countrycode" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="countrycode1">
+                <option *ngFor="let item of countries" [value]="item.code">{{item.code}} ({{item.iso_code}})</option>
+              </select>
+              <input id="phnNumber" autocomplete="off" placeholder="{{'Enter Phone Number' | translate}}" type="text"
+                [(ngModel)]="phoneNumber" class="form-control phnenumbertxt" numberOnly maxlength="15">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" id="" class="btnn btn-info" (click)="onSendOtpButtonClicked()" [disabled]="!hidebutton()"
+          [class.hidenormalbutton]="!hidebutton()" data-dismiss="modal">{{'Send OTP Via Sms & Email' | translate}}</button>
+        <button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#changePasswordPopup">Open
+          Modal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="changePasswordPopup">
+  <div class="modal-dialog popupmoving mirr_text_right">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Enter OTP' | translate}}</h4>
+        <button id="verifyOtpClose" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="modal-body fs12">
+          <div class="col-md-12 mb-1">
+            <div class="col-md-12 pb-1 pl-0"><strong class="text-danger">*</strong> {{'Phone Number' | translate}}:
+            </div>
+            <div class="form-group mb-0 fs15 d-flex align-content-center">
+              <select name="" id="" class="countrycode" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="countrycode2">
+                <option *ngFor="let item of countries" [value]="item.code">{{item.code}} ({{item.iso_code}})</option>
+              </select>
+              <input id="phnnumber" placeholder="{{'Enter Phone Number' | translate}}" type="text"
+                [(ngModel)]="rePhoneNumber" readonly disabed class="form-control phnenumbertxt" numberOnly maxlength="15">
+            </div>
+          </div>
+          <div class="col-md-12 m-0 p-0">
+            <div class="col-md-12 pb-1"><strong class="text-danger">*</strong> {{'OTP' | translate}}:</div>
+            <div class="col-md-12">
+              <div class="form-group"><input type="text"  maxlength="6" autocomplete="off" placeholder="Enter OTP" class="form-control" id="otp"
+                [(ngModel)]="otp"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <p *ngIf="!resendPassword">{{'OTP will expire in' | translate}} {{timeLeft}}</p>
+        <p *ngIf="resendPassword">{{'OTP is Expired' | translate}} <a class="frgtpsswrd cursor-pointer" (click)="onSendOtpButtonClicked()">Resend Now</a></p>
+        <button id="openPasswordModalButton" [hidden]="true" data-toggle="modal" data-target="#passwordEnterPopup">Open
+          Modal</button>
+        <button class="btn btn-danger" (click)="onVerifyButtonClicked()"  [disabled]="!hideOtpButton()" [class.hidenormalbutton]="!hideOtpButton()" type="button">{{'Verify' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="passwordEnterPopup">
+  <div class="modal-dialog popupmoving mirr_text_right">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Enter Password' | translate}}</h4>
+        <button id="forgotClose" type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="modal-body fs12">
+          <div class="col-md-12 m-0 p-0  mb-1">
+            <div class="col-md-12 pb-1"><strong class="text-danger">*</strong> {{'Password' | translate}}:</div>
+            <div class="col-md-12"><input type="password" autocomplete="off" placeholder="Enter Password" class="form-control" id="ePassword"
+                [(ngModel)]="ePassword"></div>
+          </div>
+          <div class="col-md-12 m-0 p-0">
+            <div class="col-md-12 pb-1"><strong class="text-danger">*</strong> {{'Confirm Password' | translate}}:</div>
+            <div class="col-md-12"><input type="password"  autocomplete="off" placeholder="Confirm Password" class="form-control" id="password"
+                [(ngModel)]="cPassword"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button id="openPasswordEnterModalButton" [hidden]="true" data-toggle="modal" data-target="#passwordEnterPopup">Open
+          Modal</button>
+        <button [disabled]="!hideForgotPssBtn()" [class.hidenormalbutton]="!hideForgotPssBtn()" type="button"
+          class="btn btn-danger" (click)="onChangePasswordBtnClicked()" data-dismiss="modal">{{'Submit'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

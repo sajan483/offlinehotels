@@ -1,0 +1,242 @@
+<div id="frondPageForm">
+    <div class="visa-front-page form-field" [formGroup]='paxForm'>
+        <div class="passport-img w100">
+            <div class="page-one  w100">
+                <div class="upload-box" *ngIf="paxForm.controls['passportFrontUrl'].value == '' || paxForm.controls['passportFrontUrl'].value == null" fxLayout="column" fxLayoutAlign="center center" [class.errorBrdr]="submit && paxForm.controls['passportFrontUrl'].hasError('required')"
+                    (click)="uploadImg.click()">
+                    <span class="fa fa-upload icon" [class.error-clr]="submit && paxForm.controls['passportFrontUrl'].hasError('required')"></span>
+                    <p class="mb-0" [class.error-clr]="submit && paxForm.controls['passportFrontUrl'].hasError('required')">Upload Passport Front Page</p>
+                    <div class="fs13 ">(Accepted file types : jpeg, jpg, gif, png.)</div>
+                    <div class="fs13 ">(Min size : 100KB, Max size : 1MB)</div>
+                </div>
+                <div class="pst-img w50 " *ngIf="paxForm.controls['passportFrontUrl'].value != '' && paxForm.controls['passportFrontUrl'].value != null">
+                    <div class="icons">
+                        <button mat-mini-fab matTooltip="Edit" (click)="editImage(img)" *ngIf="imgUrl">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab mat matTooltip="Upload" (click)="uploadImg.click()">
+                            <mat-icon>add_photo_alternate</mat-icon>
+                        </button>
+                    </div>
+                    <img class="w100" [src]="paxForm.controls['passportFrontUrl'].value" #img>
+                    <div class="pst-code">{{paxForm.controls['passportFrontMrz'].value}}</div>
+                </div>
+                <input type="file" accept=".jpg, .jpeg, .png, .pdf" #uploadImg (change)="uploadImage($event)">
+    
+                <div class="pst-data w50 ">
+                    <div class="pst-row w100">
+                        <div class="pass-type">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label class="">Passport Type</mat-label>
+                                <mat-select required formControlName="PassportType">
+                                    <mat-option value="P">Normal</mat-option>
+                                    <mat-option value="D">Diplomatic</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+    
+                        <div class="passnumrow">
+
+                            <div class="pass-no">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label [class.error-clr]="submit && paxForm.controls['PassportNo'].hasError('required')">Passport Number</mat-label>
+                                    <input matInput placeholder="Passport Number"  required formControlName="PassportNo" autocomplete="off">
+                                </mat-form-field>
+                                <div class="pass-img">
+                                    <span class="ak-copy" (click)="openSnackBar('Copied')" mat-raised-button
+                                    matTooltip="copy"></span>
+                                </div>
+                            </div>
+    
+    
+                        </div>
+    
+    
+    
+    
+                    </div>
+                    <div class="pst-row w100 mt-12 ">
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label [class.error-clr]="submit && paxForm.controls['FirstName'].hasError('required')">First Name/Given Name</mat-label>
+                                    <input matInput placeholder="First Name/Given Name" required formControlName="FirstName" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" tabindex="-1" class="arabic-dir" formControlName="FirstNameArabic" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label class="">Middle Name</mat-label>
+                                    <input matInput placeholder="Middle Name" formControlName="MiddleName" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" tabindex="-1" class="arabic-dir" formControlName="MiddleNameArabic" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label [class.error-clr]="submit && paxForm.controls['LastName'].hasError('required')">Last Name/Surname</mat-label>
+                                    <input matInput placeholder="Last Name/Surname" required formControlName="LastName" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" tabindex="-1" class="arabic-dir" formControlName="LastNameArabic" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row px-3">
+                    <div class="alert alert-warning">
+                        <p >If you don't have last name enter your husband's/father's name in Last Name field</p>
+                  
+                    </div>  
+                    </div>
+                    <div class="pst-row w100 mt-12">
+    
+                        <div class="ps-left">
+                            <div class="nationality">
+                                <mat-form-field class="w100" appearance="outline" required>
+                                    <mat-label [class.error-clr]="submit && (paxForm.controls['Nationality'].hasError('required') || paxForm.controls['Nationality'].hasError('requireMatch'))">Nationality </mat-label>
+                                    
+                                    <mat-select formControlName="Nationality" placeholder="Nationality" #singleSelect>
+                                      <mat-option>
+                                        <ngx-mat-select-search  noEntriesFoundLabel="No Nationality Found" placeholderLabel="Nationality" formControlName="NationalitySearch"></ngx-mat-select-search>
+                                      </mat-option>
+                                      <mat-option *ngFor="let option of filteredNationalities | async" [value]="option.name">
+                                        {{option.name}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                <!-- <mat-form-field class="w100" appearance="outline">
+                                    <mat-label [class.error-clr]="submit && (paxForm.controls['Nationality'].hasError('required') || paxForm.controls['Nationality'].hasError('requireMatch'))">Nationality </mat-label>
+                                    <input matInput placeholder="" required [matAutocomplete]="auto" formControlName="Nationality" autocomplete="off">
+                                    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredNationalities|async" [value]="option.name">
+                                          {{option.name}}
+                                        </mat-option>
+                                      </mat-autocomplete>
+                                </mat-form-field> -->
+                            </div>
+    
+    
+    
+                            <div class="gender w100">
+    
+                                <div class="pointer" fxFlex="row" fxLayoutAlign="start center" (click)="selectGender('MALE')">
+                                    <span class="ak-male"></span>
+                                    <span class="radio">
+                                        <mat-radio-button [checked]="paxForm.controls['Gender'].value == 'MALE'"></mat-radio-button>
+    
+                                        <div class="gernder-style mt-0" [class.error-clr]="submit && paxForm.controls['Gender'].hasError('required')">Male</div>
+    
+                                    </span>
+                                </div>
+    
+                                <div class="pointer" fxFlex="row" fxLayoutAlign="start center" (click)="selectGender('FEMALE')">
+                                    <span class="ak-female"></span>
+                                    <span class="radio">
+                                        <mat-radio-button [checked]="paxForm.controls['Gender'].value == 'FEMALE'"></mat-radio-button>
+                                        <div class="gernder-style mt-0" [class.error-clr]="submit && paxForm.controls['Gender'].hasError('required')">Female</div>
+                                    </span>
+                                </div>
+    
+                            </div>
+                        </div>
+    
+                        <div class="ps-right">
+    
+                            <div class="date">
+                                <mat-form-field appearance="outline" [owlDateTimeTrigger]="dt1">
+                                    <mat-label [class.error-clr]="submit && paxForm.controls['DOB'].hasError('required')">Date Of Birth </mat-label>
+                                    <input matInput placeholder="Date Of Birth" [owlDateTime]="dt1" [max]="toDay" required formControlName="DOB" autocomplete="off">
+                                    <mat-icon matSuffix><span class="ak-calendar"></span> </mat-icon>
+                                </mat-form-field>
+                                <owl-date-time [startView]="'multi-years'"  [pickerType]="'calendar'" #dt1></owl-date-time>
+                            </div>
+                            <div class="years">
+                                <div class="nu">{{ageOfPax}}</div>
+                                <div class="txt">years</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pst-row w100 mt-12 ">
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label [class.error-clr]="submit && paxForm.controls['POB'].hasError('required')">Place of Birth </mat-label>
+                                    <input matInput placeholder=""  required formControlName="POB" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" tabindex="-1" class="arabic-dir" formControlName="POBArabic" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label [class.error-clr]="submit && paxForm.controls['PIP'].hasError('required')">Passport Isuue Place</mat-label>
+                                    <input matInput placeholder="place" required formControlName="PIP" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" tabindex="-1" class="arabic-dir" formControlName="PIPArabic" autocomplete="off">
+                                </mat-form-field>
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="pst-row calender w100 mt-12">
+                        <div class="medium ">
+                            <mat-form-field appearance="outline" [owlDateTimeTrigger]="dt3">
+                                <mat-label [class.error-clr]="submit && paxForm.controls['DOI'].hasError('required')">Date Of Issue</mat-label>
+                                <input matInput placeholder="Date Of Issue" [owlDateTime]="dt3" [max]="toDay" required formControlName="DOI" autocomplete="off" >
+                                <mat-icon matSuffix><span class="ak-calendar"></span> </mat-icon>
+                            </mat-form-field>
+                            <owl-date-time [startView]="'multi-years'" [pickerType]="'calendar'" #dt3></owl-date-time>
+                        </div>
+                        <div class="medium">
+                            <mat-form-field appearance="outline" [owlDateTimeTrigger]="dt2">
+                                <mat-label [class.error-clr]="submit && paxForm.controls['DOE'].hasError('required')">Date of Expiry</mat-label>
+                                <input matInput placeholder="Date of Expiry" [owlDateTime]="dt2" [min]="toDay" required formControlName="DOE" autocomplete="off">
+                                <mat-icon matSuffix><span class="ak-calendar"></span> </mat-icon>
+                            </mat-form-field>
+                            <owl-date-time [startView]="'multi-years'" [pickerType]="'calendar'" #dt2></owl-date-time>
+                        </div>
+                        <div class="years">
+                            <div class="nu fs12 lh12">{{expiryDateRange}}</div>
+                            <div class="txt fs12">years</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w100">
+                <hr class="line w100 my-0">
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-climbing-dot"
+>
+  <p style="font-size: 20px; color: white">Uploading Passport...</p>
+</ngx-spinner>

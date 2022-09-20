@@ -1,0 +1,24 @@
+.booking-itinerary-div{
+    
+    .utid-text{
+        padding: 10px 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: #116063;
+        text-align: end;
+    }
+
+    .download-div-top{
+        padding-top: 45px;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .booking-itinerary-div{
+        .download-div-top{
+            padding-top: 0;
+            padding-bottom: 20px;
+        }
+    }
+    
+}

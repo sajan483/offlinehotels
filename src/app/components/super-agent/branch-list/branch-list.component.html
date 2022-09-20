@@ -1,0 +1,64 @@
+<div class="tbl mt100">
+    <div class="container">
+        <div class="header">
+            <h1>Branch List</h1>
+            <div class="header-right">
+                <div (click)="navigateAddBranch();" class="addAnotherBttn text-dark cursor-pointer mb-2">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Branch
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mb-5">
+            <table id="customers">
+                <thead>
+                    <tr>
+                        <th scope="col">Branch Name</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Number of Employees</th>
+                        <th scope="col">Active Trip</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="shimmer">
+                    <tr *ngFor="let k of [].constructor(10);">
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!shimmer">
+                    <tr *ngFor="let item of branch">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.phone_number}}</td>
+                        <td>{{ item.email }}</td>
+                        <td>{{ item.num_emps }}</td>
+                        <td>{{ item.active_trips }}</td>
+                        <td>
+                            <a type="button" (click)="navigateUpdatebranch(item.id);">
+                                <i class="fa fa-pencil f15" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

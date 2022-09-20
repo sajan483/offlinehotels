@@ -1,0 +1,157 @@
+<div class="confirmation-page-div ">
+
+    <div class="container" *ngIf="!shimmer">
+        <div class="row">
+
+            <div class="col-md-8 col-12">
+
+                <div class="mob_view">
+                    <app-payment-hotel-card 
+                    *ngIf="isHotelSeclection"
+                    [tripData]="tripData" 
+                    [travellers]="travellers"
+                    [currency]="selectCurrency"
+                    ></app-payment-hotel-card>
+
+                    <!-- <app-payment-transport-card
+                    *ngIf="!isHotelSeclection"
+                    [tripData]="tripData" 
+                    [travellers]="travellers"
+                    [currency]="selectCurrency"
+                    ></app-payment-transport-card> -->
+                
+                    <app-booking-summary 
+                    [tripData]="tripData?.prices_summary" 
+                    [currency]="selectCurrency" 
+                    [travellers]="travellers"
+                    ></app-booking-summary>
+                </div>
+                
+                <div>
+                    <app-group-leader-details 
+                    [travellersForm]="travellersForm" 
+                    [submitted]="submitted" 
+                    [nationalityList]="nationalityList"
+                    [ulogId]="searchDataParams.ulogId"
+                    [isDeepLink]="isDeepLink"
+                    [linkId]="searchDataParams.tripId"
+                    ></app-group-leader-details>
+                </div>
+
+                <div class="book-bttn-div common_card web_view" fxLayout="row" fxLayoutAlign="space-between center" >
+                    <div class="p10" [class.vibration-text]="submitted && !disablePayBttn" fxLayout="row" fxLayoutAlign="start start">
+                        <mat-checkbox [(ngModel)]="disablePayBttn" [class.red_text]="submitted && !disablePayBttn">{{'I accept the' | translate}}</mat-checkbox>
+                        <div style="width: 5px;"></div>
+                        <div class="terms_conditon_text" (click)="termsandcondition()">{{'Terms & Conditions' | translate}}</div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="p10">
+                            <button class="secondary_bttn" (click)="createLink()" [class.activeBttn]="isLinkReady">{{'Booking Request To UO' | translate}}</button>
+                        </div>
+                        <div class="p10">
+                            <button class="search_bttn" [class.activeBttn]="bookContinue" (click)="bookTrip('')">{{'Proceed to Pay' | translate}}</button>     
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-accept-tc common_card mob_view" [class.error-box-mob-tc]="submitted && !disablePayBttn" #termsAndConditionMobile>
+                    <div class="" fxLayout="row" fxLayoutAlign="start start">
+                        <mat-checkbox [(ngModel)]="disablePayBttn">{{'I accept the' | translate}}</mat-checkbox>
+                        <div style="width: 5px;"></div>
+                        <div class="terms_conditon_text" (click)="termsandcondition()">{{'Terms & Conditions' | translate}}</div>
+                    </div>
+                </div>
+
+                <div class="mob_view">
+                    <div class="booking-div-bottom">
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <button class="secondary_bttn bttn_txt_start" (click)="createLink()" [class.activeBttn]="isLinkReady">
+                                <span class="booking_text_div">{{'booking' | translate}}</span>
+                                <span>{{'Request To UO' | translate}}</span>
+                            </button>
+                            <button class="search_bttn" [class.activeBttn]="bookContinue" (click)="bookTrip(termsAndConditionMobile)">{{'Proceed to Pay' | translate}}</button>  
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cancellation-data-div common_card">
+                    <div class="heading">{{'Cancellation Charges' | translate}}:</div>
+                    <div class="p10">
+                        <!-- <app-cancellation-policy 
+                        [tripData]="cancellationData" 
+                        [currency]="selectCurrency"
+                        [isHotelSeclection]="isHotelSeclection"
+                        [totalAmound]="tripData?.prices_summary?.total_price"
+                        [isMobile]="isMobile"
+                        ></app-cancellation-policy> -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 web_view">
+                <div class="sticky-div">
+                    <app-payment-hotel-card 
+                    *ngIf="isHotelSeclection"
+                    [tripData]="tripData" 
+                    [travellers]="travellers"
+                    [currency]="selectCurrency"
+                    ></app-payment-hotel-card>
+
+                    <!-- <app-payment-transport-card
+                    *ngIf="!isHotelSeclection"
+                    [tripData]="tripData" 
+                    [travellers]="travellers"
+                    [currency]="selectCurrency"
+                    ></app-payment-transport-card> -->
+                
+                    <app-booking-summary 
+                    [tripData]="tripData?.prices_summary" 
+                    [currency]="selectCurrency" 
+                    [travellers]="travellers"
+                    ></app-booking-summary>
+                </div>
+                
+            </div>
+    
+        </div>
+    </div>
+
+    <div class="container" *ngIf="shimmer">
+        <app-shimmer-confirmation-page></app-shimmer-confirmation-page>
+    </div>
+
+</div>
+
+<div *ngIf="showPolicy">
+    <app-terms-and-condition-popup (closePopUp)="closeTermsAndCondition()"></app-terms-and-condition-popup>
+</div>
+
+<div *ngIf="showLinkPopup">
+    <app-booking-request-popup 
+    (closeBookingPopUp)="closeBookingRequestPopup()" 
+    [agencyNumberList]="agencyNumberList" 
+    [nationalityList]="nationalityList" 
+    [tripData]="tripData" 
+    [service]="searchDataParams.type" 
+    [ulogId]="searchDataParams.ulogId" 
+    [formValue]="travellersForm.value" 
+    [tripId]="customTripData.id" 
+    [travellersCount]="travellers" 
+    [startDate]="customTripData.start_date"
+    ></app-booking-request-popup>
+</div>
+
+<div *ngIf="confirmationPopup">
+    <app-popup-confirmation
+    [isHotelSeclection]="isHotelSeclection" 
+    [bookingData]="bookingData"
+    [currency]="selectCurrency" 
+    [ibanNumberList]="ibanNumberList"
+    (getPaymentData)="getPaymentData($event)"
+    ></app-popup-confirmation>
+</div>
+
+<div class="spinner-div" fxLayoutAlign="center center" *ngIf="spinnerLoader">
+    <img src="assets/images/ellipse_loader.gif" alt="">
+</div>

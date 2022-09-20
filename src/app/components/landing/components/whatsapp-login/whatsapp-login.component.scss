@@ -1,0 +1,60 @@
+.whatsapplogin-div{
+    .backgroundimage {
+        background: url(/assets/images/main-bg.png) no-repeat 100% center;
+        background-repeat: no-repeat;
+        min-height: calc(100vh - 40px);
+        background-size: 100% 100%;
+        background-attachment: fixed;
+    }
+    
+    .bagroundblure {
+        width: 100%;
+        min-height: calc(100vh - 40px);
+    }
+    
+    .extraimg {
+        position: absolute;
+        left: 22%;
+    }
+
+    .logoimg{
+        height: 80px;
+        width: fit-content;
+        img{
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+        }
+    }
+
+    .text-login{
+        font-size: 30px;
+        font-weight: 500;
+        color: #377678;
+        text-transform: uppercase;
+    }
+
+    .waviy {
+        position: relative;
+        -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.2));
+        font-size: 60px;
+      }
+      .waviy span {
+        position: relative;
+        display: inline-block;
+        color: #377678;
+        text-transform: uppercase;
+        animation: waviy 1s infinite;
+        animation-delay: calc(.1s * var(--i));
+        
+      }
+      @keyframes waviy {
+        0%,40%,100% {
+          transform: translateY(0)
+        }
+        20% {
+          transform: translateY(-20px)
+        }
+      }
+
+}

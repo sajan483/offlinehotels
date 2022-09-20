@@ -1,0 +1,50 @@
+
+
+.refund-policy-bar-div{
+    display: flex;
+    margin-bottom: 30px;
+    .roundFrom{
+        padding: 4px 10px;
+        background-color: #ff0000;
+        border-radius: 15px;
+        width: fit-content;
+        float: right;
+        color: white;
+    }
+    .line-bar{
+        background-color: #ff0000;
+        height: 5px;
+        width: 100%;
+    }
+    .line-bar-start{
+        background-color: #ff0000;
+        height: 5px;
+        width: 30px;
+    }
+    .text-amound-value{
+        text-align: center;
+        width: 100%;
+        line-height: 14px;
+        height: 15px;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+    .date-time-div{
+        position: relative;
+        .date-time-position{
+            position:absolute;
+            bottom: -33px;
+            right: -2px;
+            font-size: 12px;
+            text-align: start;
+            width: max-content;
+            text-align: end;
+            .date-text{
+                font-weight: bold;
+                line-height: 13px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+

@@ -1,0 +1,154 @@
+@media only screen and (max-width: 768px) {
+    .hidemobile {
+        display: none !important;
+    }
+    .pr0 {
+        padding-right: 0 !important;
+    }
+    .showmobile {
+        display: block !important;
+    }
+}
+
+.margintophead {
+    margin-top: 60px;
+}
+
+.showmobile {
+    display: none;
+}
+
+.first-div-dashboard {
+    background-color: #ebcb98fa;
+    color: #000;
+    padding: 18px;
+}
+
+.createpackge {
+    padding: 15px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.redleft {
+    border-left: 5px solid #e85232 !important;
+}
+
+.blueleft {
+    border-left: 5px solid #68c9e0 !important;
+}
+
+.roseleft {
+    border-left: 5px solid #e37cf7 !important;
+}
+
+.p20 {
+    padding: 20px;
+}
+
+.salesoverride {
+    color: #1b416c;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.blackbox {
+    width: 20px;
+    display: inline-block;
+    height: 25px;
+    background: black;
+}
+
+.totalcount {
+    font-size: 39px;
+    line-height: 39px;
+}
+
+.clr01 {
+    color: #010101;
+}
+
+.p12500 {
+    padding: 12px 5px 0 0;
+}
+
+.brdrright {
+    border-right: 1px solid #f0f0f0;
+}
+
+.salespersntage {
+    position: absolute;
+    text-align: center;
+    left: 40%;
+    top: 46%;
+}
+
+.viewallpckgs {
+    font-size: 13px;
+    border: 1px solid #9c999e;
+    border-radius: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.table thead th {
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #010101;
+}
+
+.tablehead {
+    background: #e9e9e9;
+}
+
+.table td {
+    font-size: 14px;
+    color: #010101;
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.textred {
+    color: #eb3323;
+}
+
+.redbox {
+    background: #e74432;
+}
+
+.commonbox {
+    width: fit-content;
+    padding: 2px 7px;
+    border-radius: 6px;
+    color: #ffffff;
+}
+
+.orngebox {
+    background: #f3a53b;
+}
+
+.commonp {
+    p {
+        margin-bottom: 0;
+        color: #ffffff;
+        font-size: 15px;
+        margin: 20px 15px;
+        cursor: pointer;
+    }
+}
+
+.bottommenu {
+    background: #293345;
+    margin: 36px 0;
+}
+
+.packagelisting {
+    p {
+        font-size: 14px;
+    }
+}

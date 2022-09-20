@@ -1,0 +1,252 @@
+@font-face {
+  font-family: "icomoon1";
+  src: url("../fonts/icomoon1/icomoon.eot?fvmp6x");
+  src: url("../fonts/icomoon1/icomoon.eot?fvmp6x#iefix") format("embedded-opentype"),
+    url("../fonts/icomoon1/icomoon.ttf?fvmp6x") format("truetype"),
+    url("../fonts/icomoon1/icomoon.woff?fvmp6x") format("woff"),
+    url("../fonts/icomoon1/icomoon.svg?fvmp6x#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ak-"],
+[class*=" ak-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon1" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.ak-hhr:before {
+  content: "\e94a";
+}
+.ak-mail-verified:before {
+  content: "\e948";
+}
+.ak-mob-verified:before {
+  content: "\e949";
+}
+.ak-travelers:before {
+  content: "\e947";
+}
+.ak-total:before {
+  content: "\e946";
+}
+.ak-train:before {
+  content: "\e945";
+}
+.ak-location2:before {
+  content: "\e943";
+}
+.ak-airport:before {
+  content: "\e944";
+}
+.ak-jeddah:before {
+  content: "\e942";
+}
+.ak-makkah:before {
+  content: "\e93d";
+}
+.ak-madinah:before {
+  content: "\e93e";
+}
+.ak-edit:before {
+  content: "\e93f";
+}
+.ak-location1:before {
+  content: "\e940";
+}
+.ak-plane:before {
+  content: "\e941";
+}
+.ak-h-booked:before {
+  content: "\e93c";
+}
+.ak-restriction:before {
+  content: "\e93a";
+}
+.ak-eye:before {
+  content: "\e93b";
+}
+.ak-car1:before {
+  content: "\e939";
+}
+.ak-check:before {
+  content: "\e938";
+}
+.ak-dinner:before {
+  content: "\e937";
+}
+.ak-passport1:before {
+  content: "\e936";
+}
+.ak-security-gate:before {
+  content: "\e935";
+}
+.ak-cloudy-fill:before {
+  content: "\e934";
+}
+.ak-ground-service:before {
+  content: "\e933";
+}
+.ak-nabawi-mosque:before {
+  content: "\e932";
+}
+.ak-halal:before {
+  content: "\e92f";
+}
+.ak-mosque:before {
+  content: "\e930";
+}
+.ak-reset:before {
+  content: "\e931";
+}
+.ak-printer:before {
+  content: "\e92e";
+}
+.ak-seat:before {
+  content: "\e923";
+}
+.ak-minus-circle:before {
+  content: "\e924";
+}
+.ak-plus-circle:before {
+  content: "\e925";
+}
+.ak-moon-1:before {
+  content: "\e926";
+}
+.ak-moon:before {
+  content: "\e927";
+}
+.ak-clock-1:before {
+  content: "\e928";
+}
+.ak-clock:before {
+  content: "\e929";
+}
+.ak-users:before {
+  content: "\e92a";
+}
+.ak-success:before {
+  content: "\e92b";
+}
+.ak-cloudy-night:before {
+  content: "\e92c";
+}
+.ak-meal:before {
+  content: "\e92d";
+}
+.ak-up:before {
+  content: "\e922";
+}
+.ak-search:before {
+  content: "\e921";
+}
+.ak-close1:before {
+  content: "\e91f";
+}
+.ak-close:before {
+  content: "\e920";
+}
+.ak-user:before {
+  content: "\e91e";
+}
+.ak-card1:before {
+  content: "\e91d";
+}
+.ak-information:before {
+  content: "\e913";
+}
+.ak-card:before {
+  content: "\e914";
+}
+.ak-car:before {
+  content: "\e915";
+}
+.ak-star:before {
+  content: "\e916";
+}
+.ak-checked:before {
+  content: "\e917";
+}
+.ak-download-arrow:before {
+  content: "\e918";
+}
+.ak-up-arrow:before {
+  content: "\e919";
+}
+.ak-refresh:before {
+  content: "\e91a";
+}
+.ak-filter1:before {
+  content: "\e91b";
+}
+.ak-filter:before {
+  content: "\e91c";
+}
+.ak-world:before {
+  content: "\e900";
+}
+.ak-linkedin:before {
+  content: "\e901";
+}
+.ak-instagram:before {
+  content: "\e902";
+}
+.ak-down-circle:before {
+  content: "\e903";
+}
+.ak-twitter:before {
+  content: "\e904";
+}
+.ak-facebook:before {
+  content: "\e905";
+}
+.ak-phone:before {
+  content: "\e906";
+}
+.ak-mail:before {
+  content: "\e907";
+}
+.ak-location:before {
+  content: "\e908";
+}
+.ak-hotel-building:before {
+  content: "\e909";
+}
+.ak-flight:before {
+  content: "\e90a";
+}
+.ak-passport:before {
+  content: "\e90b";
+}
+.ak-down:before {
+  content: "\e90c";
+}
+.ak-right:before {
+  content: "\e90d";
+}
+.ak-left:before {
+  content: "\e90e";
+}
+.ak-calendar:before {
+  content: "\e90f";
+}
+.ak-bus:before {
+  content: "\e910";
+}
+.ak-double-bed:before {
+  content: "\e911";
+}
+.ak-bed:before {
+  content: "\e912";
+}

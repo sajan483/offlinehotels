@@ -1,0 +1,261 @@
+<div [style.display]="showHotelDetails ? 'block' : 'none'" class="viewHtl" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog mirr_text_right" *ngIf="selectedHotel">
+    <div class="boxradus_hotel pt-0">
+      <div class="bg-white p8">
+        <div class="container d-flex justify-content-between">
+          <div *ngIf="selectedHotel?.meta_data">
+            <h2 class="fs22 mb-0">
+              {{selectedHotel?.name | titlecase}}
+              <span class="prd">({{selectedHotel?.provider.charAt(0)}})</span>
+              <span class="pl-1 mpr5">
+                <ngb-rating [(rate)]="selectedHotel.meta_data.rating" [readonly]="readonly" [max]=5>
+                  <ng-template let-fill="fill" let-index="index">
+                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                  </ng-template>
+                </ngb-rating>
+              </span>
+            </h2>
+          </div>
+          <div class="d-flex my-auto backbutton cursor-pointer" (click)="backHotel()">
+            <i class="uparrow icns icon_size_20 trnsfer mirr_hide"></i>
+            <span class="blue_text fs14 ">{{'Back To Search' | translate}}</span>
+            <i class="uparrow icns icon_size_20 trnsfer mirr_display"></i>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row container filterbox mx-auto bg-white mt-2 pl-0 pr-0">
+          <div class="col-md-7 col-12 row">
+            <div *ngIf="selectedHotel?.has_special_deal" class="hotelRibbon">
+              <span class="hotelRibbon3 hotelDetails">
+                {{'Special Deal' | translate}}
+              </span>
+            </div>
+            <div class="hotel_photo_gallery cursor-pointer" (click)="viewAllImagePopup()">
+              <div class="firstimg">
+                <img *ngIf="hotelPics && hotelPics[0] && hotelPics[0].length > 25" [src]='hotelPics[0]' alt="">
+              </div>
+              <div class="secongimg">
+                <img *ngIf="hotelPics && hotelPics[1] && hotelPics[1].length > 25" [src]='hotelPics[1]' alt="">
+              </div>
+              <div class="thirdimg">
+                <img *ngIf="hotelPics && hotelPics[2] && hotelPics[2].length > 25" [src]='hotelPics[2]' alt="">
+              </div>
+              <div class="forthimg position-relative">
+                <div class="allimagesgallery" *ngIf="hotelPics && hotelPics[4] && hotelPics[4].length >25">
+                  <i class="galleryplusicon icon_size_20 icns"></i>
+                  <div class="text-white">{{'View All' | translate}} ({{noOfImages}})</div>
+                </div>
+                <img *ngIf="hotelPics && hotelPics[3] && hotelPics[3].length >25" [src]='hotelPics[3]' alt="">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 col-12 pr-0">
+            <div class="pt2">
+              <div class="d-flex justify-content-between p-2 brdr_btm_d3">
+                <div>
+                  <div class="d-inline-flex">
+                    <i class="calendaricon icon_h16_w12 icns"></i>
+                    <div class="fs13 fw400 pl-1 pr-1">{{'CHECKIN' | translate}}</div>
+                    <i class="downarrow icon_h16_w12 icns"></i>
+                  </div>
+                  <h6 class="fs22 fw400 mb-0">{{selectedHotel?.check_in_time | DateTimeToDateFormat | date: 'mediumDate'}}
+                  </h6>
+                  <div class="clr52 fs15">{{selectedHotel?.check_in_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                  <p class="fs14 fw400 clr52">{{selectedHotel?.check_in_time | DateTimeToDateFormat | date:'EEEE'}}</p>
+                </div>
+                <div class="text-center mt-2">
+                  <i class="icon_size_20 icns nighticon"></i>
+                  <h5 class="clr52 fs14">{{numberOfDays}} {{'Night(s)' | translate}}</h5>
+                </div>
+                <div>
+                  <div class="d-inline-flex">
+                    <i class="calendaricon icon_h16_w12 icns"></i>
+                    <div class="fs13 fw400 pl-1 pr-1">{{'CHECKOUT' | translate}}</div>
+                    <i class="downarrow icon_h16_w12 icns"></i>
+                  </div>
+                  <h6 class="fs22 fw400 mb-0">{{selectedHotel?.check_out_time | DateTimeToDateFormat | date: 'mediumDate'}}
+                  </h6>
+                  <div class="clr52 fs15">{{selectedHotel?.check_out_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                  <p class="fs14 fw400 clr52">{{selectedHotel?.check_out_time | DateTimeToDateFormat | date:'EEEE'}}</p>
+                </div>
+              </div>
+              <div class="my-2">
+                <div class="p-2 roomsGuests">
+                  <label>{{'ROOMS & GUESTS' | translate}}</label>
+                  <h6 class="date">
+                    {{rooms.length}}<span class="fs16 clr52 fw500 pl-1">{{'Room(s)' | translate }} </span>
+                    {{totalTravellers}}
+                    <span class="fs16 clr52 fw500">{{'Guest(s)' | translate}} </span>
+                  </h6>
+                </div>
+                <div class="p-2" *ngIf="selectedHotel?.meta_data?.address">
+                  <div class="d-inline-flex">
+                    <i class="locationicon icns icon_size_15"></i>
+                    <div class="pl10 mpl0 mpr10">
+                      <div class="fs13 fw400">{{'ADDRESS' | translate }}</div>
+                      <div class="fs13 clr52">{{selectedHotel?.meta_data?.address}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-2 brdr_top_d3">
+                <div class="my-2">
+                  <div class="subpcc_text mb-2">Promo Code</div>
+                  <div class="fs14 fw500 mb-1">Apply Promocode</div>
+                  <div class="d-flex position-relative">
+                    <div><input type="text" [class.appliedPromoCode]="appliedPromoCode" [disabled]="appliedPromoCode"
+                        [(ngModel)]="subPccValue" class="subpcc_text_field"></div>
+                    <div class="promoClose" (click)="removePromoCode()" *ngIf="appliedPromoCode"><i
+                        class="fa fa-times-circle-o" aria-hidden="true"></i></div>
+                    <div><button class="searchbutton m-0 p10imp" (click)="applaySubPcc()"
+                        *ngIf="!appliedPromoCode">Apply</button></div>
+                    <div><button class="searchbutton m-0 p10imp" *ngIf="appliedPromoCode"><i class="fa fa-check"
+                          aria-hidden="true"></i></button></div>
+                  </div>
+                  <div class="pt-2" *ngIf="promoCode.length > 0">
+                    <div class="fs14 fw500">Available Promo Codes</div>
+                    <div class="mt-2">
+                      <span class="promo_code_list" *ngFor="let data of promoCode"
+                        (click)="selectPromoCode(data)">{{data}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right textunderline cursor-pointer" (click)="viewSpecialCode()">
+                {{!viewSpecialCodedata?'+':'-'}} More Option</div>
+              <div class="p-2 brdr_top_d3 moreOpFirst" *ngIf="viewSpecialCodedata">
+                <div class="my-2">
+                  <div class="subpcc_text mb-2">Special Code</div>
+                  <div class="fs14 fw500 mb-1">Apply Special Code</div>
+                  <div class="d-flex position-relative">
+                    <div><input type="text" [(ngModel)]="specialCode" class="subpcc_text_field"></div>
+                    <div class="promoClose" (click)="removeSPCode()" *ngIf="addSPCode"><i class="fa fa-times-circle-o"
+                        aria-hidden="true"></i></div>
+                    <div><button class="searchbutton m-0 p10imp" (click)="appalySPCode()"
+                        *ngIf="!addSPCode">Apply</button></div>
+                    <div><button class="searchbutton m-0 p10imp" *ngIf="addSPCode"><i class="fa fa-check"
+                          aria-hidden="true"></i></button></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container mt-3">
+        <mat-tab-group>
+          <mat-tab label="{{'Room Type' | translate}}">
+            <div *ngIf="loader" class="bgf2 p20">
+              <div class="w-100 shine lines"></div>
+              <div class="w-100 shine lines"></div>
+              <div class="w-100 shine lines"></div>
+              <div class="w-100 shine lines"></div>
+            </div>
+            <div id="selectRoom" *ngIf="!loader">
+              <section class="roomSelectWrap">
+                <aside class="roomPriceWrap fright mfLeft">
+                  <div class="roominfo-title text-center">
+                    {{'Total Price' | translate}}
+                  </div>
+                  <div class="stickyPrice text-center">
+                    <div>
+                      <div *ngIf="selectedRoomCount > 0" class="d-inline-flex mt15">
+                        <i class="selectedgreentickicon icns icon_size_20 mr10 mmr0 mml10"></i>
+                        <div class="green_text fs14 fw600">{{selectedRoomCount}} {{'Room
+                          Selected' | translate}}</div>
+                      </div>
+                    </div>
+                    <strong class="mt10" *ngIf="selectedRoomCount > 0">
+                      <span class="fw500 fs24 text-dark">{{currency}}
+                        {{currencyConversion(totalRoomPrice)}}</span>
+                    </strong>
+                    <div class="clr52 fs12 fw500 mt10" *ngIf="selectedRoomCount > 0">
+                      {{selectedRoomCount}} {{'room(s) for' | translate}} {{numberOfDays}}
+                      {{'Night(s)' | translate}}
+                    </div>
+                    <div class="green_text fs14 fw600 mt10" *ngIf="selectedRoomCount == 0">
+                      {{'Please select room(s)' | translate}}
+                    </div>
+                    <div>
+                      <button class="searchbutton mt10" [class.bttnactive]="activeBttn" [disabled]='makkaSelectActivate'
+                        (click)="bookHotel()">{{'Continue' |
+                        translate}}</button>
+                    </div>
+                   
+                  </div>
+                </aside>
+                <div class="roomInfoWrap">
+                  <div class="roomInfo-title textright mirr_text_right">{{'Occupancy' | translate}}
+                  </div>
+                  <div class="roomTypeNPrice-title textright mirr_text_right">{{'Room Type' |
+                    translate}}</div>
+                  <div class="roomPriceWrap-title textright mirr_text_right">{{'price' | translate}}
+                  </div>
+                  <app-select-room-group [selectedRoomGroups]="selectedRoomGroups" [isGrouped]="isGrouped" (showRoomDetails)="showRoomDetailsPopUp($event)"
+                    (onTotalRoomPriceChanged)="onTotalRoomPriceChanged($event)" (onHotelNameClear)="onHotelNameClear()"  (onHotelNameAdded)="onHotelNameAdded($event)"
+                    (onMakkaSelectActivate)="onMakkaSelectActivate()" (onDisableMakkaSave)="onDisableMakkaSave()" (onSelectedRoomCountChange)="onSelectedRoomCountChange($event)"
+                    [showGrpOptionButton]="showGrpOptionButton" [rooms]="rooms" (onMakkaSelectDeactivate)="onMakkaSelectDeactivate()"></app-select-room-group>
+                </div>
+
+              </section>
+            </div>
+
+          </mat-tab>
+          <mat-tab label="{{'More Details' | translate}}">
+            <div class="borderbox mb80 p20">
+              <div *ngIf="selectedHotel?.meta_data?.description" class="mb-3">
+                <div class="text-capitalize fs16 fw500">{{'Description' | translate}}</div>
+                <div class="p10">
+                  <p>{{selectedHotel?.meta_data?.description}}</p>
+                </div>
+              </div>
+              <div *ngIf="selectedHotel?.meta_data?.remark" class="mb-3">
+                <div class="text-capitalize fs16 fw500">{{'Remarks' | translate}}</div>
+                <div class="p10">
+                  <div style="font-size: 12px;" [innerHTML]="selectedHotel?.meta_data?.remark"></div>
+                </div>
+              </div>
+              <div *ngIf="selectedHotel?.meta_data?.amenities?.length > 0" class="mb-3">
+                <div class="text-capitalize fs16 fw500">{{'Amenities' | translate}}</div>
+                <div class="p10">
+                  <div class="row ml-0 mr-0">
+                    <div class="col-md-3 p-0" *ngFor="let item of selectedHotel?.meta_data.amenities">
+                      <i class="fa fa-star pl-1" aria-hidden="true"></i><span class="pl-2">{{item?.name}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngIf="selectedHotel?.meta_data?.amenities?.length == 0 && selectedHotel?.meta_data?.remark == null && selectedHotel?.meta_data?.description == null">
+                <div class="p10 text-center">
+                  {{'No Details' | translate}}
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="{{'Policy' | translate}}">
+            <div class="borderbox mb80 p20">
+              <div *ngIf="selectedHotel?.policies && selectedHotel?.policies.length > 0" class="mb-3">
+                <div>
+                  <div class="mb-2" *ngFor="let item of selectedHotel.policies">
+                    <div class="fw500 fs15 text-capitalize mb-1">{{item?.name}}</div>
+                    <div class="pl10 mpr10">
+                      <div [innerHTML]="item?.description"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="noDataPresent" *ngIf="selectedHotel?.policies && selectedHotel?.policies.length == 0">
+                {{'No Policies Found' | translate}}
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+        <div *ngIf="selectedRoomDetails">60vh
+          <app-room-details-popup [setViewData]="selectedRoomInfo"></app-room-details-popup>
+        </div>
+        <div *ngIf="roomImageGallery">
+          <app-hotel-image-popup [imagecollection]="hotelPics"></app-hotel-image-popup>
+        </div>

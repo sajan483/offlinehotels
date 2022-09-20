@@ -1,0 +1,260 @@
+<div class="tbl web_view">
+    <div class="pt-2 pb-3">
+      <table class="table" id="recentHistory">
+        <thead class="thead-light">
+          <tr>
+            <th>{{'UT No.' | translate}}</th>
+            <th>{{'Service' | translate}}</th>
+            <th>{{'Booking Date' | translate}}</th>
+            <th>{{'Group ID/Tag' | translate}}</th>
+            <th>{{'For Booking' | translate}}</th>
+            <th>{{'Amount' | translate}}</th>
+            <th>{{'Status' | translate}}</th>
+            <th>{{'View' | translate}}</th>
+            <th>{{'BRN' | translate}}</th>
+            <th>{{'Pax' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="shimmer">
+          <tr *ngFor="let k of [].constructor(10);let i = index;">
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+            <td>
+              <div class="shine h20 w-100"></div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!shimmer">
+          <tr *ngFor="let item of recentHistory;let i = index;" [class.processing]="item?.status == 'processing'" [class.success]="item?.status == 'success'" [class.partial_success]="item?.status == 'partial_success'" [class.cancelled]="item?.status == 'cancelled'" [class.partial_cancelled]="item?.status == 'partial_cancellation'" [class.failed]="item?.status == 'failed'">
+            <td><a class="bold-link cursor-pointer" (click)="viewhistory(item.id);">{{item?.reference_no!=null && item.reference_no!=undefined?item?.reference_no :  '--'}}</a></td>
+            <td>
+              <i class="makkahicon icns icon_size_20" title="Makkah" *ngIf="item.custom_trip.makkah_trip"></i>
+              <i class="madeenaicon icns icon_size_20" title="Madeena" *ngIf="item.custom_trip.madinah_trip"></i>
+              <i class="transportationicon icns icon_size_20" title="Transport"
+                *ngIf="item.custom_trip.trip_transportation"></i>
+            </td>
+            <td>{{item?.booking_date | date:'mediumDate'}}</td>
+            <td>{{item?.tag != undefined && item?.tag != null && item?.tag != ""?item?.tag : '--'}}</td>
+            <td>{{item?.for_booking_tag != undefined && item?.for_booking_tag != null && item?.for_booking_tag != ""?item?.for_booking_tag : '--'}}</td>
+            <td>{{currency}} {{item?.total_amount | ConvertCurrency : currency}}</td>
+            <td>
+  
+                <span class="green_text" *ngIf="item?.status == 'success'"><i class="icns icn_success icon_size_25" title="{{'Success' | translate}}"></i></span>
+              <span class="red_text" *ngIf="item?.status == 'failed'"><i class="icns icn_error icon_size_25" title="{{'Failed' | translate}}"></i></span>
+              <span class="darkyellow" *ngIf="item?.status == 'partial_success'"><i class="icns icn_partial_success icon_size_25" title="{{'Partially Success' |
+                translate}}"></i></span>
+              <span class="red_text" *ngIf="item?.status == 'cancelled'"><i class="icns icn_cancel icon_size_25" title="{{'Cancelled' | translate}}"></i></span>
+              <span class="red_gray" *ngIf="item?.status == 'partial_cancellation'">{{'Partially Cancelled' |
+                translate}}</span>
+              <span class="red_gray text-uppercase" *ngIf="item?.status == 'processing'"><i class="icns icn_processing icon_size_25" title="{{'processing' |
+                translate}}"></i></span>
+  
+            </td>
+            <td>
+                <i class="viewicon icon_size_25 icns cursor-pointer mr-2" (click)="viewhistory(item.id);"
+                  title="View Details"></i>
+  </td><td>
+                <span class="brnnumb mr-2">
+                  <i class="copyicon icon_size_20 icns cursor-pointer" [class.copyicon_disabled]="!((item.custom_trip.makkah_trip != undefined && item.custom_trip.makkah_trip.brn != '' && item.custom_trip.makkah_trip.brn != null) || (item.custom_trip.madinah_trip != undefined && item.custom_trip.madinah_trip.brn != '' && item.custom_trip.madinah_trip.brn != null) || (item.custom_trip.trip_transportation != undefined && item.custom_trip.trip_transportation.brn != '' && item.custom_trip.trip_transportation.brn != null))"
+                  (click)="toggleCopyBanner(i,((item.custom_trip.makkah_trip != undefined && item.custom_trip.makkah_trip.brn != '' && item.custom_trip.makkah_trip.brn != null) || (item.custom_trip.madinah_trip != undefined && item.custom_trip.madinah_trip.brn != '' && item.custom_trip.madinah_trip.brn != null) || (item.custom_trip.trip_transportation != undefined && item.custom_trip.trip_transportation.brn != '' && item.custom_trip.trip_transportation.brn != null)))"></i>
+                  <span class="brnnumbView border_box_shadow" id="cp_{{i}}">
+                    <div class="fs18 fw500 brdr_btm_d3">{{'BRN Details' | translate}}</div>
+                    <div class="mt-3" *ngIf="item.custom_trip.makkah_trip">
+                      <h3 class="fs16 fw500 mb-0">{{'Hotel in Makkah' | translate}}</h3>
+                      <div>
+                        <span class="text-uppercase fs13 clr7a">{{item.custom_trip.makkah_trip.name}}</span><span
+                          class="px-1">
+                          <ngb-rating [(rate)]="item.custom_trip.makkah_trip.rating" [readonly]="readonly" [max]=5>
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                            </ng-template>
+                          </ngb-rating>
+                        </span>
+                      </div>
+                      <div *ngIf="item.custom_trip.makkah_trip != undefined && item.custom_trip.makkah_trip.brn != '' && item.custom_trip.makkah_trip.brn != null">
+                        <span class="fs14 fw500 clr52">BRN : {{item.custom_trip.makkah_trip.brn}}</span>
+                        <span class="ml15 mml0 mmr15">
+                          <span (click)="copytext(item.custom_trip.makkah_trip.brn)" class="cursor-pointer list_clr mb-0"
+                            title="Copy BRN">
+                            <i class="copyicon icon_size_15 icns"></i>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+  
+                    <div class="mt-3" *ngIf="item.custom_trip.madinah_trip">
+                      <h3 class="fs16 fw500 mb-0">{{'Hotel in Madinah' | translate}}</h3>
+                      <div>
+                        <span class="text-uppercase fs13 clr7a">{{item.custom_trip.madinah_trip.name}}</span>
+                        <span class="px-1">
+                          <ngb-rating [(rate)]="item.custom_trip.madinah_trip.rating" [readonly]="readonly" [max]=5>
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                            </ng-template>
+                          </ngb-rating>
+                        </span>
+                      </div>
+                      <div *ngIf="item.custom_trip.madinah_trip != undefined && item.custom_trip.madinah_trip.brn != '' && item.custom_trip.madinah_trip.brn != null">
+                        <span class="fs14 fw500 clr52">BRN :
+                          {{item.custom_trip.madinah_trip.brn}}</span>
+                        <span class="ml15 mml0 mmr15">
+                          <span (click)="copytext(item.custom_trip.madinah_trip.brn)" class="cursor-pointer list_clr mb-0"
+                            title="Copy BRN">
+                            <i class="copyicon icon_size_15 icns"></i>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+  
+                    <div class="mt-3" *ngIf="item.custom_trip.trip_transportation">
+                      <h3 class="fs16 fw500 mb-0">{{'Transport' | translate}}</h3>
+                      <div>
+                        <span class="text-uppercase fs13 clr7a">{{item.custom_trip.trip_transportation.name}}</span>
+                      </div>
+                      <div *ngIf="item.custom_trip.trip_transportation != undefined && item.custom_trip.trip_transportation.brn != '' && item.custom_trip.trip_transportation.brn != null">
+                        <span class="fs14 fw500 clr52">BRN :
+                          {{item.custom_trip.trip_transportation.brn}}</span>
+                        <span class="ml15 mml0 mmr15">
+                          <span (click)="copytext(item.custom_trip.trip_transportation.brn)"
+                            class="cursor-pointer list_clr mb-0" title="Copy BRN">
+                            <i class="copyicon icon_size_15 icns"></i>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </span>
+                </span>
+                </td><td>
+                <div title="{{item?.custom_trip?.adults+item?.custom_trip?.children+item?.custom_trip?.infants}} traveller" class="d-inline mr-2">
+                  <i class="fa fa-user" aria-hidden="true"></i> x
+                  {{item?.custom_trip?.adults+item?.custom_trip?.children+item?.custom_trip?.infants}}
+                </div>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+<div class="mob_view">
+
+  <div *ngIf="shimmer">
+    <div class="common_card mb-2" *ngFor="let k of [].constructor(10);let i = index;">
+      <div class="shine h20 w-100 mb-2"></div>
+      <div class="shine h20 w-100 mb-2"></div>
+      <div class="shine h20 w-100 mb-2"></div>
+      <div class="shine h20 w-100 mb-2"></div>
+    </div>
+  </div>
+
+  <div *ngIf="!shimmer">
+    <div *ngFor="let item of recentHistory;let i = index;">
+      <div class="common_card mb-2" [class.mob_processing]="item?.status == 'processing'" [class.mob_success]="item?.status == 'success'" [class.mob_partial_success]="item?.status == 'partial_success'" [class.mob_cancelled]="item?.status == 'cancelled'" [class.mob_partial_cancelled]="item?.status == 'partial_cancellation'" [class.mob_failed]="item?.status == 'failed'">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" >
+            <div><a class="bold-link cursor-pointer" (click)="viewhistory(item.id);">{{item?.reference_no!=null && item.reference_no!=undefined?item?.reference_no :  '--'}}</a></div>
+            <div>
+              <span class="green_text" *ngIf="item?.status == 'success'">{{'Success' | translate}}</span>
+              <span class="red_text" *ngIf="item?.status == 'failed'">{{'Failed' | translate}}</span>
+              <span class="darkyellow" *ngIf="item?.status == 'partial_success'">{{'Partially Success' |translate}}</span>
+              <span class="red_text" *ngIf="item?.status == 'cancelled'">{{'Cancelled' | translate}}</span>
+              <span class="red_gray" *ngIf="item?.status == 'partial_cancellation'">{{'Partially Cancelled' |translate}}</span>
+              <span class="red_gray text-uppercase" *ngIf="item?.status == 'processing'">{{'processing' |translate}}</span>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="label_text">{{'Booking Date' | translate}}</div>
+              <div>{{item?.booking_date | date:'mediumDate'}}</div>
+            </div>
+            <div>
+              <div class="label_text">{{'Pax' | translate}}</div>
+              <div><i class="fa fa-user" aria-hidden="true"></i> x {{item?.custom_trip?.adults+item?.custom_trip?.children+item?.custom_trip?.infants}}</div>
+            </div>
+            <div>
+              <div class="label_text">{{'Amount' | translate}}</div>
+              <div>{{currency}} {{item?.total_amount | ConvertCurrency : currency}}</div>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center" >
+              <div class="label_text">{{'Group ID/Tag' | translate}}</div>
+              <div class="px-1">:</div>
+              <div>{{item?.tag != undefined && item?.tag != null && item?.tag != ""?item?.tag : '--'}}</div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" >
+              <div class="label_text">{{'For Booking' | translate}}</div>
+              <div class="px-1">:</div>
+              <div>{{item?.for_booking_tag != undefined && item?.for_booking_tag != null && item?.for_booking_tag != ""?item?.for_booking_tag : '--'}}</div>
+            </div>
+          </div>
+
+          <div class="service-brn-div" *ngIf="item.custom_trip.makkah_trip != undefined && item.custom_trip.makkah_trip.brn != '' && item.custom_trip.makkah_trip.brn != null">
+            <div class="fw500">{{'Hotel in Makkah' | translate}}</div>
+            <div class="fs13 clr7a">{{item.custom_trip.makkah_trip.name}} </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" >
+              <div>{{'BRN' | translate}} : {{item.custom_trip.makkah_trip.brn}}</div>
+              <div style="width: 5px;"></div>
+              <div (click)="copytext(item.custom_trip.makkah_trip.brn)"><i class="copyicon icon_size_15 icns"></i></div>
+            </div>
+          </div>
+
+          <div class="service-brn-div" *ngIf="item.custom_trip.madinah_trip != undefined && item.custom_trip.madinah_trip.brn != '' && item.custom_trip.madinah_trip.brn != null">
+            <div class="fw500">{{'Hotel in Makkah' | translate}}</div>
+            <div class="fs13 clr7a">{{item.custom_trip.madinah_trip.name}} </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" >
+              <div>{{'BRN' | translate}} : {{item.custom_trip.madinah_trip.brn}}</div>
+              <div style="width: 5px;"></div>
+              <div (click)="copytext(item.custom_trip.madinah_trip.brn)"><i class="copyicon icon_size_15 icns"></i></div>
+            </div>
+          </div>
+
+          <div class="service-brn-div" *ngIf="item.custom_trip.trip_transportation != undefined && item.custom_trip.trip_transportation.brn != '' && item.custom_trip.trip_transportation.brn != null">
+            <div class="fw500">{{'Transport' | translate}}</div>
+            <div class="fs13 clr7a">{{item.custom_trip.trip_transportation.company_name}} </div>
+            <div fxLayout="row wrap" fxLayoutAlign="start center" >
+              <div>{{'BRN' | translate}} : {{item.custom_trip.trip_transportation.brn}}</div>
+              <div style="width: 5px;"></div>
+              <div (click)="copytext(item.custom_trip.trip_transportation.brn)"> <i class="copyicon icon_size_15 icns"></i></div>
+            </div>
+          </div>
+
+          <div fxLayoutAlign="end center" >
+            <button class="search_bttn" (click)="viewhistory(item.id);">{{'View' | translate}}</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

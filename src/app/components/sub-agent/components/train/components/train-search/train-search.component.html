@@ -1,0 +1,195 @@
+<section>
+
+  <div class="row  modifysearch">
+    <div class="col-md-12 radio px-0">
+      <mat-radio-group [(ngModel)]="tripType" (change)="onRadioGroupChange()">
+        <mat-radio-button value="ONE_WAY">&nbsp;&nbsp;{{'ONE WAY'|translate}}&nbsp;&nbsp;&nbsp;&nbsp;</mat-radio-button>
+        <mat-radio-button value="ROUND_TRIP">&nbsp;&nbsp;{{'ROUND TRIP'|translate}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+
+  <div class="col-xl-12 col-lg-12 p10 row location-selection animationNavBar">
+    <div class="col-md-6 col-12 border_right_rail_search px-0 position_relative py-1">
+      <div class="from_to_selection_box mob_py10" #menuIcon id="sourceAirport" (click)="showFromList($event);">
+        <div class="mtextR w100">
+          <div class="select_source">{{'From' | translate}}</div>
+          <h6 class="fromtostation mb-0">{{selectedFromLocation?.name}}</h6>
+          <p class="pd4 railstation"> <span class=" ellipsis">{{selectedFromLocation?.full_name}}</span> <span
+              class="{{selectedFromLocation?.web_icon_code.replace('ak-','ak-')}} icon"></span></p>
+        </div>
+      </div>
+      <div class="fromtopopup frompopup" style="display: block;" #menuPopup *ngIf="isFromActive">
+        <label>
+          <img src="/assets/images/search_icon.png" alt="">
+          <input matInput [matAutocomplete]="auto" placeholder="{{'Select Source' | translate}}" #selectSourceInput
+            [formControl]="stateCtrl" class="qwerty fly-from-input ac_input">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let state of filteredStates|async" [value]="state.name"
+              (click)="setFromLocation(state)">
+              <a class="rail-selection">
+
+
+                <div class="sub-tab-by ">
+                  <div class="city-name-wraper">
+                    <div class="location">
+                      <span class="city-name">{{state?.name}}</span>
+                      <span class="airport-name ellipsis">{{state?.full_name}}</span>
+                    </div>
+                    <div class="airportcode d-flex">
+                      <span [class]="state?.web_icon_code.replace('ak-','ak-')"></span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </mat-option>
+          </mat-autocomplete>
+        </label>
+      </div>
+    </div>
+    <div class="col-md-6 col-12 px-0 position_relative py-1">
+      <div class="from_to_selection_box mob_py10" #menuIconTo id="destinationAirport" (click)="showToList($event);">
+        <div class="mtextR w100">
+          <p class="select_source">{{'To' | translate}}</p>
+          <h6 class="fromtostation mb-0">{{selectedToLocation?.name}}</h6>
+          <p class="pd4 railstation">
+            <span class=" ellipsis">{{selectedToLocation?.full_name}}</span>
+            <span class="{{selectedToLocation?.web_icon_code.replace('ak-','ak-')}} icon"></span>
+          </p>
+        </div>
+      </div>
+      <div class="fromtopopup topopup" style="display: block;" #menuPopupTo *ngIf="isToActive">
+        <label>
+          <img src="/assets/images/search_icon.png" alt="">
+          <input matInput [matAutocomplete]="autoD" placeholder="{{'Select Destination' | translate}}"
+            [formControl]="stateCtrlD" #selectDestinationInput class="fly-from-input ac_input">
+          <mat-autocomplete #autoD="matAutocomplete">
+            <mat-option *ngFor="let state of filteredStatesDs | async" [value]="state.iata"
+              (click)="setToLocation(state)">
+              <a class="rail-selection">
+                <div class="sub-tab-by ">
+                  <div class="city-name-wraper">
+                    <div class="location">
+                      <span class="city-name">{{state?.name}}</span>
+                      <span class="airport-name ellipsis">{{state?.full_name}}</span>
+                    </div>
+                    <div class="airportcode d-flex">
+                      <span [class]="state?.web_icon_code.replace('ak-','ak-')" class="icon"></span>
+                    </div>
+                  </div>
+                </div>
+
+              </a>
+            </mat-option>
+          </mat-autocomplete>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row rail-search-section">
+    <div class="date_details_body">
+      <div class="outer">
+        <div class="res-box1">
+          <div class="box" [owlDateTimeTrigger]="dt3" style="cursor: pointer;">
+            <div class="d-flex justify-content-between h-100">
+              <div class="d-flex my-auto">
+                <div class="lh_initial">
+                  <p class="select_source mtextR" style="margin-top: 25px;"> <span class="ak-calendar icon-size"></span> {{'Departs On' |
+                    translate}}</p>
+                  <p class="deparvdate mtextR position_absalute">{{departureDate | date:'mediumDate'}}</p>
+                  <input class="dt posIn" [(ngModel)]="departureDate" [min]="availableStartDate" [owlDateTime]="dt3"
+                    (ngModelChange)="onDepartureDateChanged($event)">
+                  <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box" [owlDateTimeTrigger]="dt4" style="cursor: pointer;">
+            <div class="d-flex justify-content-between h-100">
+              <div class="d-flex my-auto">
+                <div class="lh_initial">
+                  <p class="select_source mtextR" style="margin-top: 25px;"><span class="ak-calendar icon-size"></span> {{'Return' | translate}}
+                  </p>
+                  <p class="deparvdate mtextR position_absalute">{{returnDate | date:'mediumDate'}}</p>
+                  <input #returnDatePicker class="dt posIn clndrposout" [(ngModel)]="returnDate" [min]="departureDate"
+                    [disabled]="tripType=='ONE_WAY'" [owlDateTime]="dt4" (ngModelChange)="onReturnDateChanged($event)">
+                  <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="res-box2">
+          <div class="box" #menuIconClass>
+            <div class="d-flex justify-content-between h-100 cursor_pointer" (click)="travelersB()">
+              <div class="my-auto lh_initial">
+                <p class="select_source mtextR">{{'Travelers' | translate}}</p>
+                <p class="travelcount mtextR">
+                  {{'adult_child_infant'|translate:{"1":countadult,"2":countchild,"3":countinfa} }}</p>
+              </div>
+
+            </div>
+            <div class="travellerpopup counttravler" *ngIf="displayTabTravel" #menuPopupClass>
+              <!-- popupmoving -->
+              <div class="travellersouter class_travel">
+                <div class="d-flex flex-column w-100">
+                  <div class="d-flex justify-content-between travellerslide">
+                    <div class="texttraveller" style="padding-top: 5px;">{{'Adults' | translate}}</div>
+                    <div class="p-1" style="margin-left: 20px;" class="texttravellerd adult-count-display">
+                      {{countadult}}
+                    </div>
+                    <div>
+                      <div class="btn-group">
+                        <a class="firstbttn hvrNone" (click)="minusadult();">-</a>
+                        <a class="secondbttn hvrNone" (click)="addadult();">+</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column w-100">
+                  <div class="d-flex justify-content-between travellerslide">
+                    <div class="texttraveller" style="padding-top: 5px;">{{'Childs' | translate}}</div>
+                    <div class="p-1" style="margin-left: 20px;" class="texttravellerd adult-count-display">
+                      {{countchild}}
+                    </div>
+                    <div>
+                      <div class="btn-group">
+                        <a class="firstbttn hvrNone" (click)="minuschild();">-</a>
+                        <a class="secondbttn hvrNone" (click)="addchild();">+</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-column w-100">
+                  <div class="d-flex justify-content-between travellerslide">
+                    <div class="texttraveller" style="padding-top: 5px;">{{'Infants' | translate}}</div>
+                    <div class="p-1" style="margin-left: 20px;" class="texttravellerd adult-count-display">
+                      {{countinfa}}
+                    </div>
+                    <div>
+                      <div class="btn-group">
+                        <a class="firstbttn hvrNone" (click)="minusinfant();">-</a>
+                        <a class="secondbttn hvrNone" (click)="addinfant();">+</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-btn end res-none">
+        <button [class.activeBttn]="enableSearchButton" [disabled]="enableSearchButton"
+          class="search-rail-btn buttonactivate text-uppercase" type="button" (click)="search();">{{'Search' |
+          translate}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="box-btn end res-block">
+    <button [class.activeBttn]="enableSearchButton" [disabled]="enableSearchButton"
+      class="search-rail-btn buttonactivate text-uppercase" type="button" (click)="search();">{{'Search' |
+      translate}}</button>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+.rotate-90 {
+    transform: rotate(-90deg);
+}
+
+.add-image-box {
+    position: relative;
+    border: 3px dashed #6b6b6b;
+    height: 87px;
+    border-radius: 10px;
+    background: url('/assets/images/blue_plus.png') no-repeat;
+    background-position: 56px 14px;
+}
+
+.add-image-box input {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    width: 165px;
+    cursor: pointer;
+}
+
+.hero-image-size {
+    object-fit: cover;
+    height: 97px;
+}
+
+.closeimgicon {
+    position: absolute;
+    right: -8px;
+    top: -13px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.errorbrdr {
+    border: 1px solid #dc3545 !important;
+}

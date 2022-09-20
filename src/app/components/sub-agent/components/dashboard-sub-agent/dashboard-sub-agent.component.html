@@ -1,0 +1,116 @@
+<div class="container min_page_h">
+    <div class="dashboard-div">
+
+        <div class="service-list-div row">
+            <div class="col-md-3">
+                <div class="service-card" fxLayout="row" fxLayoutAlign="space-between center" (click)="navigetService('subagent/hotel-list','H')">
+                    <div class="service-icon">
+                        <span class="ak-hotel-building"></span>
+                    </div>
+                    <div class="text-center">
+                        <div class="service-text">{{'Hotel' | translate}}</div>
+                        <div class="brn-text">{{'With BRN' | translate}}</div>
+                    </div>
+                    <div class="right-arrow-icon">
+                        <img src="https://www.akbarumrah.com/assets/images/maqam.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card" fxLayout="row" fxLayoutAlign="space-between center" (click)="navigetService('subagent/transport-list','T')">
+                    <div class="service-icon">
+                        <span class="ak-bus"></span>
+                    </div>
+                    <div class="text-center">
+                        <div class="service-text">{{'Transport' | translate}}</div>
+                        <div class="brn-text">{{'With BRN' | translate}}</div>
+                    </div>
+                    <div class="right-arrow-icon">
+                        <img src="https://www.akbarumrah.com/assets/images/maqam.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="service-card" fxLayout="row" fxLayoutAlign="space-between center" (click)="navigetService('subagent/train','T')">
+                    <div class="service-icon">
+                        <span class="fa fa-subway"></span>
+                    </div>
+                    <div class="text-center">
+                        <div class="service-text">{{'Train' | translate}}</div>
+                        <div class="brn-text">{{'Groups Without BRN' | translate}}</div>
+                    </div>
+                    <div class="right-arrow-icon">
+                        <!-- <span class="ak-up-arrow "></span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <a class="service-card" fxLayout="row" fxLayoutAlign="space-between center" 
+                href="https://api.whatsapp.com/send?phone=97377952212&text= As-salamu alaykum, {{this.whatsappText}}" data-action="share/whatsapp/share">
+                    <div class="service-icon">
+                        <span class="fa fa-whatsapp"></span>
+                    </div>
+                    <div class="text-center">
+                        <div class="service-text">{{'Support' | translate}}</div>
+                        <div class="brn-text">{{'Whatsapp Support' | translate}}</div>
+                    </div>
+                    <div class="right-arrow-icon">
+                        <!-- <span class="ak-up-arrow "></span> -->
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <app-sales-overview [currency]="selectCurrency"></app-sales-overview>
+
+        <!-- <div>
+            <app-incentive></app-incentive>
+        </div> -->
+
+        <div class="pt20">
+            <div class="hedd-div">
+                <div class="hedd-text my-auto">{{'Booking Requests From External Agent' | translate}}</div>
+                <div class="view-all-bttn web_view" (click)="navigetServiceBookings()">{{'View All Requests' | translate}}</div>
+            </div>
+            <div fxLayoutAlign="end center" >
+                <div class="view-all-bttn mob_view" (click)="navigetServiceBookings()">{{'View All Requests' | translate}}</div>
+            </div>
+            <div>
+                <app-recieved-booking-request [currency]="selectCurrency" [isSearchData]="false" [lang]="selectLangCode"></app-recieved-booking-request>
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+<div class="mobile-service-div">
+    <div class="bottom-nav-div">
+        <div class="w-100 h-100" fxLayout="row" fxLayoutAlign="space-around center">
+            <div class="navigations-mob" (click)="navigetService('subagent/hotel-list','H')">
+                <div class="nav-con">
+                    <span class="ak-hotel-building"></span>
+                </div>
+                <div class="nav-text">{{'Hotel' | translate}}</div>
+            </div>
+            <div class="navigations-mob" (click)="navigetService('subagent/transport-list','T')">
+                <div class="nav-con">
+                    <span class="ak-bus"></span>
+                </div>
+                <div class="nav-text">{{'Transport' | translate}}</div>
+            </div>
+            <div class="navigations-mob" (click)="navigetService('subagent/train','T')">
+                <div class="nav-con">
+                    <span class="fa fa-subway"></span>
+                </div>
+                <div class="nav-text">{{'Train' | translate}}</div>
+            </div>
+            <a class="navigations-mob" href="https://api.whatsapp.com/send?phone=97377952212&text= As-salamu alaykum, {{this.whatsappText}}" data-action="share/whatsapp/share">
+                <div class="nav-con">
+                    <span class="fa fa-whatsapp"></span>
+                </div>
+                <div class="nav-text">{{'Support' | translate}}</div>
+            </a>
+        </div>
+    </div>
+</div>

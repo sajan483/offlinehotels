@@ -1,0 +1,41 @@
+.mob_view{
+    display: none;
+}
+@media only screen and (max-width: 992px) {
+    .mob_view{
+        display: block !important;
+    }
+    .web_view{
+        display: none !important;
+    }
+    .mob_hide{
+        display: none !important;
+    }
+    .mob_fs14{
+        font-size: 14px !important;
+    }
+    .mob_fs12{
+        font-size: 12px !important;
+    }
+    .mob_fs10{
+        font-size: 10px !important;
+    }
+    .mob_mb10{
+        margin-bottom: 10px !important;
+    }
+    .mob-d-between{
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+    .mob_px5{
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    .mob_pr0{
+        padding-right: 0 !important;
+    }
+    .mob_px0{
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}

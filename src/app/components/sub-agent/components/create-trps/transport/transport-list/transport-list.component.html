@@ -1,0 +1,78 @@
+<div class="transport-list-div">
+    <div class="hedder-transport-list-div">
+        <div class="container">
+            <h2>{{'Search Transport' | translate}}</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <app-transport-search-window 
+        [routeList]="routeList"
+        [routeId]="routeId"
+        [startDate]="startDate"
+        [vehicleCount]="vehicleCount"
+        [travelCount]="travelCount"
+        (postSearchData)="searchTransport($event)"
+        [bttnActive]="bttnActive"
+        ></app-transport-search-window>
+    </div>
+
+    <div class="container transport-main-div">
+        <div class="slct-trnprt" fxLayout="row" fxLayoutAlign="space-between start ">
+
+            <div class="main-filter-outer left">
+                <app-transport-filter
+                [shimmer]="filterShimmer"
+                [filterData]="filterData"
+                [companyName]="userFilter.company_name"
+                (transportCompanyName)="searchCompanyName($event)"
+                [filterPostData]="filterPostData"
+                (resetFilter)="resetFilterAll()"
+                (postDataForFilter)="filterTransportList($event)"
+                ></app-transport-filter>
+            </div>
+
+            <div class="right" *ngIf = "listShimmer">
+
+                <div *ngFor="let k of [].constructor(4);">
+                    <app-hotel-card-shimmer ></app-hotel-card-shimmer>
+                </div>
+
+            </div>
+
+            <div class="right" *ngIf = "!listShimmer">
+                <app-transport-sort
+                [countList]="listCount"
+                (sortData)="sortTransportList($event)"
+                ></app-transport-sort>
+
+                <div *ngFor="let item of transportList | filterBy:userFilter; let i = index">
+                    <app-transport-card 
+                    [vehicle]="item"
+                    [vehicleCount]="vehicleCount"
+                    [travelCount]="travelCount"
+                    [currency]="selectCurrency"
+                    [index]="i"
+                    (additionalServiceAdd)="clickAdditionalService($event)"
+                    (addFavorite)="addFavorite($event)"
+                    (policyShow)="showPolicy($event)"
+                    (saveService)="saveService($event)"
+                    ></app-transport-card>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<div *ngIf="cancellationPopUp">
+    <app-transport-cancellation-policy
+    [policyData]="policyData"
+    [currency]="selectCurrency"
+    (closePlolicy)="closePolicy()"
+    ></app-transport-cancellation-policy>
+</div>

@@ -1,0 +1,111 @@
+<div class="transport-card-div">
+    <div class="card-div">
+        <div class="row nomp">
+            <div class="col-md-3 col-12 nomp">
+                <div class="transportimage" [ngStyle]="{'background-image': 'url('+ ((vehicle?.categories[0]?.images[0]?.webp_url?.length)? vehicle.categories[0].images[0].webp_url: ((vehicle?.categories[0]?.images[0]?.image_url?.length)? vehicle.categories[0].images[0].image_url: '/assets/images/no_image.jpg')) +')'}">
+                    <div class="gallery" *ngIf="vehicle?.categories[0]?.images[0]?.webp_url?.length || vehicle?.categories[0]?.images[0]?.image_url?.length">
+                        <mat-icon aria-hidden="true">add_circle_outline</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 row col-12 nomp">
+                <div class="col-md-9 col-12 respd">
+                    <div class="heading_transport">
+                        <h3>{{vehicle?.company_name}}</h3>
+                        <p>{{vehicle?.vehicle_type_name}}</p>
+                    </div>
+                    <div class="row nomp w-100">
+                        <div class="col-md-6 col-12 nomp">
+                            <ul class="transport_list">
+                                <li class="categoryStar">
+                                    <span class="textclrvip vip" [ngClass]="{'vip': vehicle?.categories[0]?.category_name == 'VIP', 'normal': vehicle?.categories[0]?.category_name == 'Normal', 'premium': vehicle?.categories[0]?.category_name == 'Premium'}">{{vehicle?.categories[0]?.category_name}}</span>
+                                </li>
+                                <li>
+                                    <div fxLayout="row" fxLayoutAlign="start center" >
+                                        <mat-icon class="fas trns-mat-icon">airline_seat_recline_extra</mat-icon>
+                                        <div class="px-1">{{vehicle?.categories[0]?.capacity}} {{'Seater(s)' | translate}}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div fxLayout="row" fxLayoutAlign="start center" >
+                                        <mat-icon class="fas trns-mat-icon">directions_car</mat-icon>
+                                        <div class="px-1">{{'Model' | translate}} : {{vehicle?.categories[0]?.model}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 col-12 nomp">
+                            <ul class="transport_list">
+                                <li>{{'Total Pax' | translate}} : {{travelCount*vehicleCount}} ({{travelCount}} X {{vehicleCount}})</li>
+                                <li>{{'No. of Vehicle' | translate}} : {{vehicleCount}}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- <div *ngIf="barData.length > 0">
+                        <app-refund-policy-bar [barData]="barData" [currency]="currency"></app-refund-policy-bar>
+                    </div> -->
+
+                    <div class="addi_ser_transport" *ngIf="!vehicle?.fromCache && vehicle?.categories[0]?.additional_services.length > 0">
+                        <h4>{{'Additional Services' | translate}}</h4>
+                        <div class="mt-1" *ngFor="let item of vehicle?.categories[0]?.additional_services">
+                            <mat-checkbox (change)="checkAdditionalService($event,vehicle)">
+                                <span class="text_cap" title="">{{item?.description}}  - <strong>{{currency}} {{(item?.display_fare_summary?.total_amount)| ConvertCurrency : currency}}</strong></span>
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-12 nomp" fxLayout="column" fxLayoutAlign="space-between end" >
+
+                    <div *ngIf="vehicle?.fromCache">
+                        <app-card-loader></app-card-loader>
+                    </div>
+
+                    <div fxLayout="column" fxLayoutAlign="start end" *ngIf="!vehicle?.fromCache">
+                        <div class="fav_icon_div" (click)="clickFavIcon(vehicle)">
+                            <i class="fa fa-heart-o" aria-hidden="true" *ngIf="!vehicle.categories[0].is_favorited"></i>
+                            <i class="fa fa-heart" aria-hidden="true" *ngIf="vehicle.categories[0].is_favorited"></i>
+                        </div>
+                        <div class="customTooltip priceclass">
+                            {{currency}} {{(vehicle?.display_price)| ConvertCurrency : currency}} 
+                            <span class="customtooltiptext transportFare">
+                                <div class="container mb-2 fs12">
+                                    <div class="pt-2 fare_summary_heading">{{'Fare Summary' | translate}}</div>
+                                    <div class=" fw400 pt-1" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="vehicle?.categories[0]?.display_fare_summary?.base_amount">
+                                        <div>{{'Base Fare' | translate}} :</div>
+                                        <div>{{currency}} {{(vehicle?.categories[0]?.display_fare_summary?.base_amount)| ConvertCurrency : currency}}</div>
+                                    </div>
+                                    <div class=" fw400 pt-1" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="vehicle?.categories[0]?.display_fare_summary?.commission_discount">
+                                        <div>{{'Discount' | translate}} :</div>
+                                        <div>{{currency}} {{(vehicle?.categories[0]?.display_fare_summary?.commission_discount)| ConvertCurrency : currency}}</div>
+                                    </div>
+                                    <div class=" fw400 pt-1" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="vehicle?.categories[0]?.display_fare_summary?.tax_amount">
+                                        <div>{{'Tax' | translate}} :</div>
+                                        <div>{{currency}} {{(vehicle?.categories[0]?.display_fare_summary?.tax_amount)| ConvertCurrency : currency}}</div>
+                                    </div>
+                                    <div class=" fw400 pt-1" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="vehicle?.categories[0]?.display_fare_summary?.additional_service_amount">
+                                        <div>{{'Additional Service' | translate}} :</div>
+                                        <div>{{currency}} {{(vehicle?.categories[0]?.display_fare_summary?.additional_service_amount)| ConvertCurrency : currency}}</div>
+                                    </div>
+                                    <div class=" fw400 pt-1" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="vehicle?.categories[0]?.display_fare_summary?.total_amount">
+                                        <div>{{'Total Fare' | translate}} :</div>
+                                        <div>{{currency}} {{(vehicle?.categories[0]?.display_fare_summary?.total_amount)| ConvertCurrency : currency}}</div>
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <p class="fs12 clr52 mb-0">({{'Per Vehicle' | translate}})</p>
+                        <div class="mt-1">
+                            <button class="search_bttn" [disabled]="vehicle.categories[0].out_of_stock" (click)="selectVechicle(vehicle)">{{'Select' | translate}}</button>
+                        </div>
+                        <div class="fs12 red_text" *ngIf="vehicle.categories[0].out_of_stock">{{'Out Of Stock' | translate}}</div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="morelink" (click)="showPolicy()">{{'Policies' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

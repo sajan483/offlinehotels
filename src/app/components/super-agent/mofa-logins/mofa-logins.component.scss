@@ -1,0 +1,20 @@
+
+@import "~node_modules/ngx-chips/core/styles/core/_core.scss";
+
+$foundation-primary: #1779ba;
+$foundation-primary-dark: darken($foundation-primary, 10%);
+
+$foundation-theme: (
+    container-border-bottom: 1px solid $foundation-primary,
+    container-border-top: 1px solid $foundation-primary,
+    container-border-right: 1px solid $foundation-primary,
+    container-border-left: 1px solid $foundation-primary,
+    border-left: 1px solid $foundation-primary,
+    border-right: 1px solid $foundation-primary,
+    border-top: 1px solid $foundation-primary,
+    border-bottom: 1px solid $foundation-primary,
+);
+
+::ng-deep tag-input .ng2-tag-input.foundation-theme {
+    @include tag-input-theme($foundation-theme);
+}

@@ -1,0 +1,205 @@
+#searchDataEnter {
+    margin-bottom: 60px;
+    .ptb {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    .main-head {
+        font-size: 24px;
+        text-align: left;
+        padding: 0;
+        margin: 0 0 20px 0;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #1b416c;
+    }
+    .row-head {
+        font-size: 16px;
+        text-align: left;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 10px;
+        color: #1b416c;
+    }
+    .travellers-section {
+        margin: 0;
+        margin-bottom: 25px;
+        padding: 15px 0;
+        border-top: 1px solid #c4c4c4;
+        border-bottom: 1px solid #c4c4c4;
+        .br-right {
+            border-right: 1px solid #c4c4c4;
+        }
+        .field-style {
+            width: 95%;
+        }
+        .npd {
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .flight-section {
+        margin: 0;
+        margin-bottom: 25px;
+        padding: 15px 0;
+        border-top: 1px solid #c4c4c4;
+        border-bottom: 1px solid #c4c4c4;
+        .hint {
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+            margin: 0;
+            mat-icon {
+                margin: -3px 0 0 0;
+                font-size: 24px;
+            }
+        }
+        .airport-code {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin: 0;
+        }
+        .text-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .airport-name {
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            margin: 0;
+        }
+        .br-right {
+            border-right: 1px solid #c4c4c4;
+        }
+        .ht {
+            height: 70px;
+        }
+        .date-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 18px !important;
+            font-weight: bold;
+            color: #000;
+        }
+        .airline-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 18px !important;
+            font-weight: bold;
+            color: #000;
+            margin: 0;
+        }
+        .cr-point {
+            cursor: pointer;
+        }
+    }
+    .medinah-section {
+        margin: 0;
+        margin-bottom: 25px;
+        padding: 15px 0;
+        border-top: 1px solid #c4c4c4;
+        border-bottom: 1px solid #c4c4c4;
+        .hint {
+            font-size: 12px;
+            font-weight: bold;
+            color: #555;
+            margin: 0;
+            mat-icon {
+                margin: -3px 0 0 0;
+                font-size: 24px;
+            }
+        }
+        .date-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 18px !important;
+            font-weight: bold;
+            color: #000;
+        }
+        .ht {
+            height: 70px;
+        }
+        .br-right {
+            border-right: 1px solid #c4c4c4;
+        }
+    }
+    .btn-outer {
+        display: flex;
+        justify-content: center;
+        button {
+            background: #b5cb13 !important;
+            color: #000;
+            font-weight: normal;
+            float: right;
+            margin-top: 10px;
+        }
+        button:disabled {
+            background: #555 !important;
+            color: #fff !important;
+            cursor: not-allowed;
+        }
+    }
+}
+
+::ng-deep {
+    .mat-autocomplete-panel {
+        position: absolute !important;
+        width: 500px !important;
+        height: 500px !important;
+    }
+    .mat-option {
+        height: 60px !important;
+        line-height: normal !important;
+    }
+    .auto-wrap {
+        .city {
+            font-size: 16px !important;
+            color: #000 !important;
+            margin: 0 0 5px 0 !important;
+        }
+        .name {
+            font-size: 14px !important;
+            color: #333 !important;
+            margin: 0px !important;
+        }
+        .iata {
+            font-size: 12px !important;
+            color: #fff !important;
+            background: #555;
+            border-radius: 5px;
+            padding: 4px 3px;
+            margin: 8px 0 0 0px !important;
+            line-height: auto !important;
+            text-align: center;
+        }
+    }
+}
+
+.startcalendarposition {
+    position: absolute;
+    top: 22px;
+    right: 30px;
+}

@@ -1,0 +1,75 @@
+@import "../../../../../../assets/css/variable.scss";
+.full-width-btn {
+    width: $full-width;
+    background-color: #f1f4da;
+    color: #000;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding: 8px 0;
+    box-shadow: 0px 3px 7px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 20px;
+    border: 1px solid #e5ebb6;
+    &:hover {
+      background-color: #e1e5c5;
+    }
+    .ak-add-group {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    span.txt {
+      font-size: 19px;
+      font-weight: $regular;
+    }
+  }
+  .desktop {
+    .card {
+      position: relative;
+      .icon {
+        cursor: pointer;
+        position: absolute;
+        font-size: 18px;
+        right: -15px;
+        top: -15px;
+        background: #f1f4da;
+        border-radius: 50%;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.26);
+        -webkit-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.26);
+        -moz-box-shadow: -1px 2px 5px 0px rgba(0, 0, 0, 0.26);
+      }
+    }
+  }
+  
+  @media screen and (max-width: 800px) {
+    .card {
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+  
+  .add-pax-btn {
+    display: none;
+    &.show-on-mobile {
+      display: block;
+    }
+  }
+
+  .savButton{
+    background-color: #93a605;
+    border: 1px solid #93a605;
+    color: black;
+    border-radius: 4px;
+  }
+
+  .tc-link{
+    color: #367275;
+    cursor: pointer;
+    line-height: 23px;
+    &:hover{
+      text-decoration: underline;
+    }
+  }

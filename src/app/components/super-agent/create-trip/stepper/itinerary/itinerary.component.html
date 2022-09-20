@@ -1,0 +1,61 @@
+<div>
+    <div class="w-100 bgf2 ptpb25">
+        <div class="container d-flex justify-content-between">
+            <div class="fs22 lh22 fw600 text-black"> Package Itinerary Creation</div>
+            <div class="d-inline-flex cursor-pointer" (click)="back()">
+                <i class="blue_back_arrow icns icon_size_15"></i>
+                <div class="blue_back_clr lh15 fs15 ml-2">Back</div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3 mb-5">
+        <form [formGroup]="itineraryForm" (ngSubmit)="onSubmit()">
+            <div class="boxborder">
+                <div formArrayName="itinerary" *ngFor="let a of getItenirary().controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="row m-0 p30 brdr_top_d3">
+                            <div class="col-md-12 text-right" *ngIf="i > 0">
+                                <div class="fs16 fw400 cursor-pointer" (click)="removeItinerary(i)"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Remove</div>
+                            </div>
+                            <div class="col-md-4 mb30">
+                                <label class="fs14 fw400 lh14 pl-1">Day/Days :</label>
+                                <select class="owldatebrdr w-100 form-control" formControlName="days" [ngClass]="{ 'is-invalid': submitted && getValidity(i,'days') }">
+                                    <option value="">Select Day/Days</option>
+                                    <option *ngFor="let k of [].constructor(travelDays);let i = index;" [value] ="i+1" >{{i+1}} day(s)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb30">
+                                <label class="fs14 fw400 lh14 pl-1">Title :</label>
+                                <input type="text" class="owldatebrdr w-100 form-control" placeholder="Enter Title" formControlName="itinerary_title" [ngClass]="{ 'is-invalid': submitted && getValidity(i,'itinerary_title') }">
+                            </div>
+                            <div class="col-md-12 mb30 errortooltip">
+                                <label class="fs14 fw400 lh14 pl-1" >Add Overview :</label>
+                                <textarea class="form-control" [ngClass]="{ 'error_border': submitted && getValidity(i,'itinerary_overview') }" rows="3" formControlName="itinerary_overview"></textarea>
+                            </div>
+                            <!-- <div class="col-md-12 mb30 errortooltip">
+                                <label class="fs14 fw400 lh14 pl-1" >Add Overview :</label>
+                                <div [ngClass]="{ 'error_border': submitted && getValidity(i) }"><angular-editor formControlName="itinerary_overview" [config]="config" ></angular-editor></div>
+                            </div> -->
+                            <div class="col-md-12 ">
+                                <div class="w-100 row m-0">
+                                    <div class="col-md-3 p-0 mr-3 mb-3 position-relative" *ngIf="imageCollection[i].url != null">
+                                        <img [src]="imageCollection[i].url" class="hero-image-size w-100" alt="">
+                                    </div>
+                                    <div class="add-image-box col-md-2" >
+                                        <input type='file' accept="image/x-png,image/jpeg" (change)="onSelectDescriptionFile($event,i)" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end p30 pt-0" id="addItenaryDiv" *ngIf="imageCollection.length <= travelDays">
+                    <div class="addAnotherBttn cursor-pointer" (click)="addItinerary()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Another</div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="searchbutton" [class.bttnactive]="bttnactive">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>

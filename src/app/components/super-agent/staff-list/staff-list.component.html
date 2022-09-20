@@ -1,0 +1,78 @@
+<div class="tbl">
+    <div class="container mt100">
+        <div class="header">
+            <h1>Staff List</h1>
+            <div class="header-right">
+                <div (click)="navigate();" class="addAnotherBttn text-dark cursor-pointer mb-2">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Staff
+                </div>
+            </div>
+        </div>
+        <div>
+            <table id="customers">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Email Id
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Employer Type
+                        </th>
+
+                        <th>
+                            Employer name
+                        </th>
+                        <th>
+                            Rol
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="shimmer">
+                    <tr *ngFor="let k of [].constructor(10);">
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!shimmer">
+                    <tr *ngFor="let staff of staffList">
+                        <td>{{staff?.name}}</td>
+                        <td>{{staff?.email}}</td>
+                        <td>{{staff?.phone_number}}</td>
+                        <td>{{staff?.employer_type}}</td>
+                        <td>{{staff?.employer_name}}</td>
+                        <td>{{staff?.role}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10  ml-auto mr-auto mt-2">
+                <div class="float-right">
+                    <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="displayActivePage($event)"></app-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

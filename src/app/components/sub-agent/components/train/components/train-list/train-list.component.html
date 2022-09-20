@@ -1,0 +1,119 @@
+<div class="mt-2">
+  <div class="onward-section my-3">
+    <h3 class="title d-flex align-items-center font16">
+      {{'ONWARD'|translate}} <span class="subtitle ml-2"> [{{
+        'from_to_to'|translate:{"1":trainList.departure_station,"2":trainList.arrival_station} }}]</span>
+    </h3>
+    <ng-container *ngIf="!onWardEdit">
+      <app-train-selector [showPrice]="showFare" [isOnward]="true" [showClass]="trainList.seat_class" [currency]="currency"
+        *ngFor="let train of trainList.onward" [train]="train" (onSelected)="onWardEditToggle($event)">
+      </app-train-selector>
+    </ng-container>
+    <app-selected-train [isOnward]="true" [showPrice]="showFare" *ngIf="onWardEdit" [train]="selectedOnwardTrain"
+      (onEdit)="onWardEditToggle(null)">
+    </app-selected-train>
+  </div>
+  <div class="return-section my-3" *ngIf="hasReturn && selectedOnwardTrain!=null">
+    <h3 class="title d-flex align-items-center">
+      {{'RETURN'|translate}} <span class="subtitle ml-2"> [{{
+        'from_to_to'|translate:{"1":trainList.arrival_station,"2":trainList.departure_station} }}]</span>
+    </h3>
+    <ng-container *ngIf="!returnEdit">
+      <app-train-selector [showPrice]="showFare" [showClass]="selectedOnwardTrain?.selectedClass" [currency]="currency"
+        *ngFor="let train of trainList.return" [train]="train" (onSelected)="returnEditToggle($event)">
+      </app-train-selector>
+    </ng-container>
+    <app-selected-train [isOnward]="false" [showPrice]="showFare" *ngIf="returnEdit" [train]="selectedReturnTrain"
+      (onEdit)="returnEditToggle(null)">
+    </app-selected-train>
+  </div>
+  <div class="fare-section my-3" *ngIf="showFare">
+    <h3 class="title d-flex align-items-center">
+      {{'Fare Summary'|translate}}
+    </h3>
+    <app-fare-summary [totalFare]="totalFare" [currency]="currency"></app-fare-summary>
+  </div>
+  <div class=" borderflight" *ngIf="!isMobile">
+    <form [formGroup]="trainForm">
+      <div class="row mirrTextalignRight traveller-details">
+        <div class="form-group col-sm-6 col-md-4  {{invalidPhone  && phoneFocused ?'mb-0':''}}">
+          <label class="labletext ml-0 mb-2">{{'Phone Number' | translate}}*</label>
+          <div class="col-12 pl-0 pr-0 phone_row" id="phn">
+            <input ng2TelInput class="form-control"
+              [ng2TelInputOptions]="{preferredCountries:['in','sa', 'ae','qa'],separateDialCode:true}" #phoneInput
+              id="phoneInput" type="tel" (countryChange)="onCountryChange($event)" (input)="inputValidation($event)"
+              maxlength="15" formControlName="phone_number"
+              [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }"
+              onkeypress="if ( isNaN( String.fromCharCode(event.keyCode)) || event.keyCode==32) return false;" />
+            <div id="recaptcha-container"></div>
+          </div>
+        </div>
+        <div class=" col-sm-6 col-md-4">
+  
+          <div class="form-group col-12 pl-0 pr-0">
+            <label class="labletext ml-0 mb-2">{{'Email' | translate}}*</label>
+  
+            <div class="d-flex">
+              <input class="w100 pl-2 form-control" formControlName="email" type="text"
+              [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                (input)="validateEmail()">
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </form>
+    
+  </div>
+</div>
+<!-------------------------------------------------------------------------------------------------------------------------------- -->
+<div class=" borderflight " *ngIf="isMobile">
+  <form [formGroup]="trainForm">
+    <div class="row mirrTextalignRight">
+      <div class="form-group col-sm-6 col-md-4">
+        <label class="labletext ml-0 mb-2">{{'Phone Number' | translate}}*</label>
+        <div class="col-12 pl-0 pr-0 phone_row" id="phn">
+          <input ng2TelInput class="form-control"
+            [ng2TelInputOptions]="{preferredCountries:['in','sa', 'ae','qa'],separateDialCode:true}" #phoneInput
+            id="phoneInput" type="tel" (countryChange)="onCountryChange($event)" (input)="inputValidation($event)"
+            maxlength="15" formControlName="phone_number"
+            [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }"
+            onkeypress="if ( isNaN( String.fromCharCode(event.keyCode)) || event.keyCode==32) return false;" />
+          <div id="recaptcha-container"></div>
+        </div>
+      </div>
+      <div class=" col-sm-6 col-md-4">
+  
+        <div class="form-group col-12 pl-0 pr-0">
+          <label class="labletext ml-0 mb-2">{{'Email' | translate}}*</label>
+  
+          <div class="d-flex">
+            <input class="brd w100 pl-2 form-control" formControlName="email" type="text"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+              (input)="validateEmail()">
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </form>
+  
+</div>
+<div class="submit-section my-3 p-3 fs14">
+  <div class="d-flex justify-content-start align-items-center " style="cursor: pointer;">
+    <input type="checkbox" class="checkbox " id="checkbox" [(ngModel)]="acceptTerms" [checked]="acceptTerms" /> &nbsp;
+    &nbsp;<span class="terms">
+      <ng-container (click)="acceptTerms=!acceptTerms">{{'I have read and accept the' | translate}} </ng-container><a
+        (click)="onTermsClicked()" class="condition">{{'Terms & Conditions' | translate}} </a>
+    </span>
+  </div>
+  <div class="sub-btn">
+    <button class="search_bttn " type="button" id="continueBooking" [disabled]="isValidEnquiry()"
+      (click)="enquire()">{{'Submit'|translate}}</button>
+  </div>
+</div>
+
+<app-success-modal [showModal]="showSuccessModal" (onHideModal)="toggleSuccessModal()" [utNo]="utNo">
+</app-success-modal>
+
+<app-rail-terms-conditions *ngIf="isTermsActive"></app-rail-terms-conditions>

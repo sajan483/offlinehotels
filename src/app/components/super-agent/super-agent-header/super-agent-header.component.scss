@@ -1,0 +1,131 @@
+@media only screen and (max-width: 768px) {
+    .hidemobile {
+        display: none !important;
+    }
+    .dinsplaymobile {
+        display: block !important;
+    }
+}
+
+.positionfixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-color: #fce7c8;
+    z-index: 99;
+}
+
+.navbar {
+    padding: 0;
+}
+
+.logohight {
+    height: 45px;
+    margin: 10px 0;
+}
+
+.logohightSubAgent{
+    height: 50px;
+}
+
+.hidesystem {
+    display: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    p {
+        margin-bottom: 0;
+    }
+    .wlcmtext {
+        font-size: 18px;
+        font-weight: 500;
+        height: 20px;
+    }
+    .f15 {
+        font-size: 15px;
+        font-weight: 500;
+    }
+    .bgred {
+        background-color: #c6392d;
+        border-radius: 0 0 15px 15px;
+        color: #ffffff;
+    }
+}
+
+.bgred:hover {
+    background-color: #c6392d !important;
+    color: #ffffff !important;
+}
+
+.dropdown-content {
+    transition: height 2s;
+    display: none;
+    right: 0;
+    min-width: 200px;
+    width: max-content;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+    border-radius: 15px;
+    a {
+        cursor: pointer;
+    }
+}
+
+.padngover {
+    padding: 10px;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 0 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.clrred {
+    color: #c6392d;
+}
+
+.custom-select {
+    background: url("/assets/images/down_arrow.png") no-repeat right transparent;
+    background-size: 17px 19px;
+    color: #000000;
+    border: none;
+    font-size: 13px;
+    box-shadow: none;
+    option {
+        color: #000;
+    }
+    option:hover {
+        background-color: #027ce9;
+        color: #fff;
+    }
+}
+
+.ws100imp {
+    width: 100px !important;
+}
+
+.margin_currncy_drop{
+    margin-right: 25px;
+}
+
+@media screen and (max-width: 992px) {
+    .margin_currncy_drop{
+        margin-right: 5px;
+    }
+}

@@ -1,0 +1,207 @@
+<div class="margintophead">
+    <div class="first-div-dashboard text-center animationdiv">
+        <div class="container">
+            <h1 class="mb-0 fs34">WELCOME..!!</h1>
+            <h5 class="mb-0 fs18">View Your recent orders and mange your bookings.</h5>
+        </div>
+    </div>
+    <div class="container">
+        <div class="secont_div_dashboard mt15">
+            <div class="row m-0">
+                <!-- <div class="col-md-4 pl-0 pr0 animationdiv">
+                    <div class="flexbetween createpackge redleft borderbox cursor-pointer" (click)="navigate('superagent/createTrip');">
+                        <i class="icns createpackages icon_size_60"></i>
+                        <p class="my-auto fw500">CREATE PACKAGE</p>
+                        <i class="icns rightarrow icon_size_25 my-auto"></i>
+                    </div>
+                </div>
+                <div class="col-md-4 animationdiv">
+                    <div class="flexbetween createpackge blueleft borderbox cursor-pointer" (click)="navigate('superagent/branch_list');">
+                        <i class="icns menubranches icon_size_60"></i>
+                        <p class="my-auto fw500">BRANCHES</p>
+                        <i class="icns rightarrow icon_size_25 my-auto"></i>
+                    </div>
+                </div>
+                <div class="col-md-4 pl-0 pr-0 animationdiv">
+                    <div class="flexbetween createpackge roseleft borderbox cursor-pointer" (click)="navigate('superagent/staff_list');">
+                        <i class="icns staffmanagment icon_size_60"></i>
+                        <p class="my-auto fw500">STAFF MANAGEMENT</p>
+                        <i class="icns rightarrow icon_size_25 my-auto"></i>
+                    </div>
+                </div> -->
+                <div class="col-md-8 pl-0 mt15 animationdiv">
+                    <div class="borderbox p20">
+                        <div class="flexbetween">
+                            <div class="mt-1 salesoverride">SALES OVERVIEW</div>
+                            <div>
+                                <div id="selectDateToChart">
+                                    <ng-multiselect-dropdown name="city" [data]="months" [(ngModel)]="selectedItem" [settings]="dropdownSettings" (onSelect)="onItemSelect(selectedItem)">
+                                    </ng-multiselect-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-0">
+                            <div class="col-md-6 brdrright">
+                                <div class="d-flex p20">
+                                    <div class="p12500">
+                                        <i class="icns upgreen icon_size_25"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="totalcount mb-0"><span class="blackbox"></span> {{dashboardData?.sales_overview?.total_revenue}}</h1>
+                                        <p class="fs14 clr01">TOTAL REVENUE</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex p20">
+                                    <div class="p12500">
+                                        <i class="icns upgreen icon_size_25"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="totalcount mb-0"><span class="blackbox"></span> {{dashboardData?.sales_overview?.total_earn}}</h1>
+                                        <p class="fs14 clr01">TOTAL YOU EARN</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex p20">
+                                    <div class="p12500">
+                                        <i class="icns upgreen icon_size_25"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="totalcount mb-0"><span class="blackbox"></span> {{dashboardData?.sales_overview?.no_of_sales}}</h1>
+                                        <p class="fs14 clr01">NO. OF SALES</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex p20">
+                                    <div class="p12500">
+                                        <i class="icns downred icon_size_25"></i>
+                                    </div>
+                                    <div>
+                                        <h1 class="totalcount mb-0"><span class="blackbox"></span> {{dashboardData?.sales_overview?.branch_sales}}</h1>
+                                        <p class="fs14 clr01">BRANCH SALES</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 pl-0 pr-0 mt15">
+                    <div class="borderbox p20">
+                        <div class="d-flex justify-content-end">
+                            <div id="selectDateToChart">
+                                <ng-multiselect-dropdown name="city" [data]="months" [(ngModel)]="selectedItem" [settings]="dropdownSettings" (onSelect)="onItemSelect(selectedItem)">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="position-relative">
+                            <div class="salespersntage">
+                                <p class="totalcount fw500 mb-0">{{dashboardData?.sales_overview?.sales_percentage}}%</p>
+                                <p class="fs14 mb-0">SALES</p>
+                            </div>
+                            <canvas id="myChart" height="215" width="300"></canvas>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card mt70">
+                  <div class="card-header">
+                    <h1 class="card-title fs18 mb-0">Recent Enquiry & Bookings</h1>
+                  </div>
+                  <div class="card-body">
+                    <ul class="nav nav-tabs">
+                      <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#enquiry">B2C Bookings</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#bookings">
+                          B2B Bookings
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="enquiry">
+                        <app-view-enquiry></app-view-enquiry>
+                      </div>
+                      <div class="tab-pane" id="bookings">
+                        <app-view-bookings></app-view-bookings>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 pl-0 pr-0 mt15 mb-2 animationdiv">
+                    <div class="borderbox p20">
+                        <div class="flexbetween">
+                            <div class="salesoverride">PACKAGES OVERVIEW</div>
+                            <!-- <div class="viewallpckgs hidemobile">View All Packages</div> -->
+                            <div class="viewallpckgs showmobile">View All</div>
+                        </div>
+                        <table class="table mt-2 hidemobile">
+                            <thead class="tablehead">
+                                <tr>
+                                    <th scope="col">Package Name</th>
+                                    <th scope="col">Departure From</th>
+                                    <th scope="col">Departure Date</th>
+                                    <th scope="col">Travel group size</th>
+                                    <th scope="col">Slots Available</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="shimmer">
+                                <tr *ngFor="let k of [].constructor(3);">
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!shimmer">
+                                <tr *ngFor="let package of dashboardData?.packages_overview">
+                                    <td>{{package?.package_name | titlecase}}</td>
+                                    <td>{{package?.location}}</td>
+                                    <td>
+                                        <p>{{package?.start_date | date : 'dd MMMM'}} Onwards</p>
+                                        <p *ngIf="package?.remaining_days != 'expired'" class="textred">({{package?.remaining_days}} days remaining )</p>
+                                    </td>
+                                    <td>{{package?.max_passengers}}</td>
+                                    <td>
+                                        <p class="redbox commonbox">{{package?.slots_available}}</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="showmobile">
+                            <div class="borderbox mt-2 p-2 packagelisting" *ngFor="let package of dashboardData?.packages_overview">
+                                <p><strong>{{package?.package_name | titlecase}}</strong></p>
+                                <p><strong>Departure From :</strong>{{package?.location}}</p>
+                                <p><strong>Departure Date :</strong>{{package?.start_date | date : 'dd MMMM'}} Onwards</p>
+                                <p><strong>Travel group size :</strong>{{package?.max_passengers}}</p>
+                                <p><strong>Slots Available :</strong>{{package?.slots_available}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="bottommenu hidemobile animationdiv">
+        <div class="container">
+            <div class="flexcenter commonp">
+                <p (click)="navigate('superagent/createTrip')">CREATE PACKAGES</p>
+                <p (click)="navigate('/superagent/branch_list')">BRANCHES</p>
+                <p (click)="navigate('/superagent/staff_list')">STAFF MANAGEMENT</p>
+                <p (click)="navigate('/superagent/view_package')">VIEW PACKAGES</p>
+                <p (click)="navigateagencyprofile()">MY PROFILE</p>
+            </div>
+        </div>
+    </div>
+</div>

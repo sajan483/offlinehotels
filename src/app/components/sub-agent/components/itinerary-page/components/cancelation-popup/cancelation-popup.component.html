@@ -1,0 +1,74 @@
+<div style="display: block;" id="cancellationpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal ticket_cancellation_popup">
+    <div class="modal-dialog popupmoving">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: none;padding-bottom: 0px;">
+                <h6 class="modal-title pl-3 paddingR15">{{'CONFIRM CANCELLATION' | translate}}</h6>
+                <button type="button" class="close cancelclose" (click)="closecancelPopup();">&times;</button>
+            </div>
+            <div class="modal-body mb-4">
+                <div class="container p-3 paymentpage_policies mirr_text_right">
+                    <table class="table " style="border: 1px solid #dee2e6;">
+                        <thead>
+                            <tr>
+                                <!-- <th scope="col"></th> -->
+                                <th scope="col">{{'Items' | translate}}</th>
+                                <th scope="col">{{'Name' | translate}}</th>
+                                <th scope="col">{{'Status' | translate}}</th>
+                                <th scope="col">{{'Refund Amount' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngIf="cancel?.makkah_hotel_booking" [class.bgcolors]="cancel?.makkah_hotel_booking?.success == false">
+                                <!-- <th><mat-checkbox [disabled]="!makkahCancellation?.success" (change)="makkahcheck();"></mat-checkbox></th> -->
+                                <td>{{'Makkah Hotel' | translate}}</td>
+                                <td>{{details?.makka_hotel_booking?.trip_hotel?.hotel?.name}}</td>
+                                <td *ngIf="!cancel?.makkah_hotel_booking?.success" style="color: red;">{{'No Cancellation Policy Found' | translate}}</td>
+                                <td *ngIf="cancel?.makkah_hotel_booking?.success" style="color: green;">
+                                    {{cancel?.makkah_hotel_booking?.cancellation_prices?.cancellation_status}} </td>
+                                <td *ngIf="!cancel?.makkah_hotel_booking?.success">0</td>
+                                <td *ngIf="cancel?.makkah_hotel_booking?.success">{{currency}} {{cancel?.makkah_hotel_booking?.cancellation_prices?.total_refund  | ConvertCurrency : currency}}</td>
+                            </tr>
+                            <tr *ngIf="cancel?.medinah_hotel_booking" [class.bgcolors]="cancel?.medinah_hotel_booking?.success == false">
+                                <!-- <th><mat-checkbox [disabled]="!cancel?.medinah_hotel_booking?.success" (change)="medinahcheck();"></mat-checkbox></th> -->
+                                <td>{{'Medina Hotel' | translate}}</td>
+                                <td>{{details?.madina_hotel_booking?.trip_hotel?.hotel?.name}}</td>
+                                <td *ngIf="!cancel?.medinah_hotel_booking?.success" style="color: red;">{{'No Cancellation Policy Found' | translate}}</td>
+                                <td *ngIf="cancel?.medinah_hotel_booking?.success" style="color: green;">
+                                    {{cancel?.medinah_hotel_booking?.cancellation_prices?.cancellation_status}} </td>
+                                <td *ngIf="!cancel?.medinah_hotel_booking?.success">0</td>
+                                <td *ngIf="cancel?.medinah_hotel_booking?.success">{{currency}} {{cancel?.medinah_hotel_booking?.cancellation_prices?.total_refund | ConvertCurrency : currency}}</td>
+                            </tr>
+                            <tr *ngIf="cancel?.transport_booking" [class.bgcolors]="cancel?.transport_booking?.success == false">
+                                <td>{{'Transport' | translate}}</td>
+                                <td>{{details?.transport_booking?.trip_transportation?.company.name}}</td>
+                                <td *ngIf="!cancel?.transport_booking?.success" style="color: red;">{{'No Cancellation Policy Found' | translate}}</td>
+                                <td *ngIf="cancel?.transport_booking?.success" style="color: green;">
+                                    {{cancel?.transport_booking?.cancellation_prices?.cancellation_status}} </td>
+                                <td *ngIf="!cancel?.transport_booking?.success">0</td>
+                                <td *ngIf="cancel?.transport_booking?.success">{{currency}} {{cancel?.transport_booking?.cancellation_prices?.total_refund  | ConvertCurrency : currency}}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="rfTxt">{{'Total Refundable Amount' | translate}}</td>
+                                <td class="rfTxt">{{currency}} {{cancel?.transport_booking?.cancellation_prices?.total_refund + cancel?.medinah_hotel_booking?.cancellation_prices?.total_refund + cancel?.makkah_hotel_booking?.cancellation_prices?.total_refund  | ConvertCurrency : currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <label class="remarks pt-2 floatright" for="remarks">{{'Remarks' | translate}}</label>
+                    <form [formGroup]="registerForm">
+                        <textarea name="remarks" formControlName="cancellation_text" class="form-control" type="text" id="confirmCancellationInput" placeholder="{{'Please mention the reason for cancellation' | translate}}" [ngClass]="{ 'is-invalid': submitted && f.cancellation_text.errors }"></textarea>
+                        <div *ngIf="submitted && f.cancellation_text.errors" class="invalid-feedback">
+                            <div *ngIf="f.cancellation_text.errors.required">{{'Remarks is required' | translate}}</div>
+                        </div>
+                    </form>
+                    <p class="note text_right"><i class="fa fa-info-circle pr-2" aria-hidden="true"></i>{{'Please Note' | translate}}</p>
+                    <p class="note_txt text_right">{{'Standard Terms and Conditions Apply..' | translate}}</p>
+                </div>
+                <div><button (click)="confirmCancellation()" type="submit" [class.bttnactive]="btnactv" class="searchbutton float_right mirr_float_left">{{'CONFIRM CANCELLATION' | translate}}</button> </div>
+            </div>
+        </div>
+    </div>
+</div>

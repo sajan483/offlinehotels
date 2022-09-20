@@ -1,0 +1,107 @@
+<div [formGroup]="searchForm" id="searchDataEnter">
+    <div class="row travellers-section">
+        <div class="col-md-4 npd position-relative" [owlDateTimeTrigger]="dt5">
+            <mat-form-field appearance="outline" class="field-style" >
+                <mat-label>Search Date</mat-label>
+                <input matInput type="text" [owlDateTime]="dt5" placeholder="Start Date" [min]="todayStamp" formControlName="date">
+            </mat-form-field>
+            <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+            <i class="icns calendaricon icon_size_25 cursor-pointer startcalendarposition mirr_clndr_icon"></i>
+        </div>
+        <div class="col-md-4 npd">
+            <mat-form-field appearance="outline" class="field-style">
+                <mat-label>Number Of Travellers</mat-label>
+                <input matInput type="number" placeholder="No of Adults" formControlName="adult" numberOnly>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 npd">
+            <mat-form-field appearance="outline" class="field-style">
+                <mat-label>Currency</mat-label>
+                <mat-select [(value)]="selectedCurrency">
+                  <mat-option *ngFor="let data of currency" (click)="selectCurrency(data)" [value]="data.currency">
+                    {{data.currency}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-md-4 npd">
+            <mat-form-field appearance="outline" class="field-style">
+                <mat-label>Package Days</mat-label>
+                <input matInput type="number" placeholder="No of dyas" formControlName="package_days" numberOnly (input)="packageDays($event.target.value)">
+                <mat-hint class="red_text" *ngIf="pkg_days_err">{{err_msg}}</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 npd">
+            <mat-form-field appearance="outline" class="field-style">
+                <mat-label>Makkah Nights</mat-label>
+                <input matInput type="number" placeholder="No of Nights in makkah" formControlName="makkahDays" numberOnly (input)="makkhDays($event.target.value)">
+                <mat-hint class="red_text" *ngIf="makkah_dys_err">{{err_msg}}</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4 npd">
+            <mat-form-field appearance="outline" class="field-style">
+                <mat-label>Madeena Nights</mat-label>
+                <input matInput type="number" placeholder="No of Nights in madeena" formControlName="madeenaDyas" numberOnly (input)="madeenaDays($event.target.value)">
+                <mat-hint class="red_text" *ngIf="madeena_dys_err">{{err_msg}}</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+    <p class="row-head">SELECT FLIGHT DETAILS</p>
+    <div class="row flight-section">
+        <div class="col-md-4 br-right">
+            <p class="hint">SELECT SOURCE</p>
+            <input class="text-input" type="text" matInput [formControl]="source" [matAutocomplete]="fromList">
+            <mat-autocomplete #fromList="matAutocomplete">
+                <mat-option *ngFor="let option of airportListFilteredSrc | async" [value]="option.iata" (click)="setFromLocation(option)">
+                    <div class="auto-wrap row">
+                        <div class="col-md-10">
+                            <p class="city"> {{option.city}}</p>
+                            <p class="name">{{option.name}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="iata">{{option.iata}}</p>
+                        </div>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+            <p class="airport-name">{{fromLocation.city}}</p>
+            <mat-error *ngIf="srcError">From & To airports can't be same</mat-error>
+        </div>
+        <div class="col-md-4 br-right">
+            <p class="hint">SELECT DESTINATION</p>
+            <input class="text-input" type="text" matInput [formControl]="destination" [matAutocomplete]="destList">
+            <mat-autocomplete #destList="matAutocomplete">
+                <mat-option *ngFor="let option of airportListFilteredDest | async" [value]="option.iata" (click)="setDestLocation(option)">
+                    <div class="auto-wrap row">
+                        <div class="col-md-10">
+                            <p class="city"> {{option.city}}</p>
+                            <p class="name">{{option.name}}</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="iata">{{option.iata}}</p>
+                        </div>
+                    </div>
+                </mat-option>
+            </mat-autocomplete>
+            <p class="airport-name">{{destLocation.city}}</p>
+            <mat-error *ngIf="destError">From & To airports can't be same</mat-error>
+        </div>
+        <div class="col-md-4 ht d-flex align-items-center cr-point">
+            <div>
+                <p class="hint align-middle">
+                    SELECT AIRLINE
+                    <mat-icon class="align-middle">keyboard_arrow_down</mat-icon>
+                </p>
+                <input class="airline-input" type="text" matInput [formControl]="airline" [matAutocomplete]="airlines">
+                <mat-autocomplete #airlines="matAutocomplete">
+                    <mat-option *ngFor="let option of airlinesFiltered | async" [value]="option.name" (click)="setAirline(option)">
+                        {{option.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </div>
+        </div>
+    </div>
+    <div class="btn-outer">
+        <button class="searchbutton bttnactive" [disabled]="!submit || destError" [class.bttnactive]="bttnactive" (click)="submitData()" mat-raised-button>{{homePage?'CREATE PACKAGE':'CHANGE'}}</button>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+.passport_section{
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #c9c8c8;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.upload-boxs{
+  background: #f4f4f4;
+  cursor: pointer;
+  min-height: 345px;
+  text-align: center;
+  .upload_logo{
+    height: 90px;
+    margin-bottom: 10px;
+  }
+}
+
+.upload-image{
+  background-color: white;
+  position: relative;
+  border: 1px solid #c8c8c8;
+  
+}
+
+.close-bttn-pos{
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.close-bttn-pos:hover{
+  color: red;
+}
+
+.second-section{
+  padding-top: 10px;
+  border-top: 1px dashed #cecece;
+}
+
+#passportRead{
+  .mat-icon {
+    height: 40px;
+    width: 40px;
+  }
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.navigateBtn{
+  .previous{
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f1f1f1;
+    color: black;
+    cursor: pointer;
+  }
+  .next{
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #04AA6D;
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.hide-file-div{
+  display: none;
+}
+
+.view-images{
+  position: fixed;
+  left: 0;
+  top: 60px;
+  width: 43vw;
+  height: auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  .closeImagePopup{
+    color: white;
+    background-color: red;
+    padding: 1px 6px;
+    border-bottom-left-radius: 20px;
+    font-size: 18px;
+    width: fit-content;
+    position: absolute;
+    right: 0;
+    top: -3px;
+    cursor: pointer;
+  }
+}

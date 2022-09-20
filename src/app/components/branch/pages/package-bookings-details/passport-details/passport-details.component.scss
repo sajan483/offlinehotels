@@ -1,0 +1,58 @@
+.passport_section{
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #c9c8c8;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  
+  .upload-boxs{
+    background: #f4f4f4;
+    cursor: pointer;
+    min-height: 345px;
+    text-align: center;
+    .upload_logo{
+      height: 90px;
+      margin-bottom: 10px;
+    }
+  }
+  
+  .second-section{
+    padding-top: 10px;
+    border-top: 1px dashed #cecece;
+  }
+  
+  #passportRead{
+    .mat-icon {
+      height: 40px;
+      width: 40px;
+    }
+    .example-headers-align .mat-expansion-panel-header-title,
+    .example-headers-align .mat-expansion-panel-header-description {
+      flex-basis: 0;
+    }
+  
+    .example-headers-align .mat-expansion-panel-header-description {
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+  .navigateBtn{
+    .previous{
+      text-decoration: none;
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #f1f1f1;
+      color: black;
+      cursor: pointer;
+    }
+    .next{
+      text-decoration: none;
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #04AA6D;
+      color: white;
+      cursor: pointer;
+    }
+  }

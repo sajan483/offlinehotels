@@ -1,0 +1,192 @@
+<div class="filter-wrapper" #filterWrapper *ngIf="!shimmer">
+    <div #componentToAnimate class="animated-div " [ngStyle]="{'marginTop.px': 10 }"
+      [@.disabled]="DisabledAnimation">
+      <div class="white-bg">
+        <div fxLayout="row" fxLayoutAlign="end start" class="reset-all-div">
+          <div class="postion-reset-all">
+            <a (click)="resetFilterAll()" class="reset-all" fxLayout="row" fxLayoutAlign="center center">{{'Reset All' | translate}}</a>
+          </div>
+        </div>
+        
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('transportName')">
+            <span class="ak-right right" [class.expand]="showFiltertransportName"></span>
+            {{'Company Name' | translate}}
+          </h2>
+        </div>
+        <div class=" m-b-20 with-closebtn"  *ngIf="showFiltertransportName" [@expand] >
+          <input #input type="text" class="form-control text_box" name="hotelSearch" placeholder="{{'Search by Company name' | translate}}"
+          [(ngModel)]="companyName" autocomplete="off" (input)="companyFilter($event)">
+        </div>
+
+        <mat-divider class="divider"></mat-divider>
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('vehicleType')">
+            <span class="ak-right right" [class.expand]="showFiltervehicleType"></span>
+            {{'Vehicle Type' | translate}}
+          </h2>
+        </div>
+        <ul class="checkouter with-only-link overflow-hidden" *ngIf="showFiltervehicleType" [@expand]>
+          <li *ngFor="let item of filterData?.vehicle_type; let i = index">
+            <mat-checkbox [checked]="item.checked" class="check" [disabled]="item?.item_count == 0" (change)="filterVehicleType($event,i)">
+              <span class="ellipsistext-fullwidth" title="">{{item?.item_text}} ({{item?.item_count}})</span>
+            </mat-checkbox>
+          </li>
+        </ul>
+
+        <mat-divider class="divider"></mat-divider>
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('category')">
+            <span class="ak-right right" [class.expand]="showFilterCategory"></span>
+            {{'Category' | translate}}
+          </h2>
+        </div>
+        <ul class="checkouter with-only-link overflow-hidden" *ngIf="showFilterCategory" [@expand]>
+          <li *ngFor="let item of filterData?.category; let i = index">
+            <mat-checkbox [checked]="item.checked" class="check" [disabled]="item?.count == 0" (change)="filterCategory($event,i)">
+              <span class="ellipsistext-fullwidth" title="">{{item?.name}} ({{item?.count}})</span>
+            </mat-checkbox>
+          </li>
+        </ul>
+
+        <mat-divider class="divider"></mat-divider>
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('vehicleModel')">
+            <span class="ak-right right" [class.expand]="showFiltervehicleModel"></span>
+            {{'Vehicle Model' | translate}}
+          </h2>
+        </div>
+        <ul class="checkouter with-only-link overflow-hidden" *ngIf="showFiltervehicleModel" [@expand]>
+          <li *ngFor="let item of filterData?.vehicle_model; let i = index">
+            <mat-checkbox [checked]="item.checked" class="check" (change)="filterVehicleModel($event,i)">
+              <span class="ellipsistext-fullwidth" title="">{{item?.model}} ({{item?.count}})</span>
+            </mat-checkbox>
+          </li>
+        </ul>
+
+        <mat-divider class="divider" *ngIf="filterData?.additional_service.length > 0"></mat-divider>
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="filterData?.additional_service.length > 0">
+          <h2 (click)="toggleFilterSections('additionalService')">
+            <span class="ak-right right" [class.expand]="showFilterAdditionalService"></span>
+            {{'Additional Services' | translate}}
+          </h2>
+        </div>
+        <ul class="checkouter with-only-link overflow-hidden" *ngIf="showFilterAdditionalService" [@expand] >
+          <li *ngFor="let item of filterData?.additional_service; let i = index">
+            <mat-checkbox [checked]="item.checked" class="check" (change)="filterAdditionalService($event,i)">
+              <span class="ellipsistext-fullwidth" title="">{{item?.description}} ({{item?.count}})</span>
+            </mat-checkbox>
+          </li>
+        </ul>
+        
+      </div>
+    </div>
+</div>
+
+  
+  <!-- skeleton -->
+  
+  <div class="filter-wrapper skeleton" *ngIf="shimmer">
+    <div class="skeleton white-bg">
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <div class="inputdiv shine"></div>
+  
+      <mat-divider class="divider shine"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <ul class="checkstyle">
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 55%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 65%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 35%"></p>
+        </li>
+      </ul>
+  
+      <mat-divider class="divider shine"></mat-divider>
+  
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <div class="inputdiv shine"></div>
+      <mat-divider class="divider shine"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <ul class="checkstyle">
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 55%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 65%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 35%"></p>
+        </li>
+      </ul>
+  
+      <mat-divider class="divider"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <ul class="checkstyle">
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 55%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 65%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 35%"></p>
+        </li>
+      </ul>
+  
+    </div>
+  </div>
+  
+  
+  <!-- /skeleton -->

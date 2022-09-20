@@ -1,0 +1,50 @@
+<div>
+  <div class="header-flight-list-div">
+    <div class="container">
+        <div class="d-flex justify-content-between">
+            <div>
+                <h2>{{'Search Flights' | translate}}</h2>
+            </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+  <div class="pt10">
+    <app-flight-search></app-flight-search>
+</div>
+<div >
+    <ng-container *ngIf="isLoading">
+        <app-flight-card-loader>
+        </app-flight-card-loader>
+
+    </ng-container>
+    <!--  [minPrice]="minAmount" parent to child -->
+    <ng-container *ngIf="!isLoading && onwardReturn.length>0">
+      <div class="container">
+        <div class="row ">
+          <div class="col-md-3 col-lg-3 col-sm-6 col-12 pr0">
+            <app-flight-filter
+            [valuePrice]="valuePrice"
+            [currency]="selectedCurrency"
+            [filteringData]="filteringData"
+            (filterData)="filterList($event)"
+            (resetFilter)="resetFilter()"
+
+            ></app-flight-filter>
+          </div>
+
+          <div class="col-md-9 col-lg-9 col-sm-6 col-12 pl0">
+            <app-flight-card
+            (onSelectFlight)="onSelectFlight($event)"
+
+            *ngFor="let flight of onwardReturn" [flightList]="flight"
+            ></app-flight-card>
+          </div>
+
+        </div>
+      </div>
+
+
+    </ng-container>
+</div>

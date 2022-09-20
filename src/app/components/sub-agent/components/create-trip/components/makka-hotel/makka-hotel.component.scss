@@ -1,0 +1,357 @@
+$primary_blue:#027ce9;
+@media only screen and (max-width: 768px) {
+    .hotel_name {
+        white-space: normal !important;
+    }
+    .mrhntopphone {
+        margin-top: 190px;
+    }
+    .smallmt {
+        margin-top: -30px !important;
+    }
+    .uitk-card-content {
+        margin-left: 0 !important;
+        padding: 0 !important;
+    }
+    .result-details-left {
+        padding-left: 15px !important;
+    }
+}
+
+.filterdiv {
+    display: block;
+    margin-bottom: -4px;
+    margin-left: 13px;
+}
+
+.filter_section_outer,
+.hotel_filter_section {
+    border-radius: 5px;
+    background: #fff;
+    padding: 6px 10px;
+}
+
+.fliter-arrow {
+    div {
+        display: inline;
+    }
+    button {
+        border: none;
+        background: none;
+        outline: none;
+    }
+}
+
+.haram_filter {
+    padding: 4px 17px;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+    outline: none;
+}
+
+.padding_hotel1 {
+    padding: 10px;
+}
+
+.uitk-card {
+    background: #fff;
+    border-radius: 4px;
+    position: relative;
+    width: 100%;
+}
+
+.uitk-grid {
+    flex: 1 0 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.link-container {
+    position: relative;
+    width: 100%;
+}
+
+.uitk-card section {
+    position: relative;
+}
+
+.uitk-card-media {
+    border-bottom-left-radius: 0.5rem;
+    flex-basis: 20%;
+    display: flex;
+    border-top-left-radius: 0.5rem;
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 5px 9px 5px 5px;
+}
+
+.uitk-card-media .title {
+    width: 100%;
+}
+
+.title__media-container {
+    height: 100%;
+}
+
+.listing-photo-gallery {
+    position: relative;
+}
+
+.noimghotel {
+    background: url("/assets/images/no_image.jpg") no-repeat 73% center;
+    background-size: cover;
+    width: 100%;
+}
+
+.photo-gallery {
+    height: 200px;
+    position: relative;
+}
+
+.photo-gallery img {
+    height: 100%;
+    width: 100%;
+}
+
+.uitk-card-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 65%;
+    min-width: 0;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    padding: 0.75rem;
+}
+
+.result-details-left {
+    width: 70%;
+    float: left;
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+.hotel_name {
+    color: #000;
+    line-height: 25px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: calc(22 / 18);
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.desptn {
+    display: inline-block;
+    width: 100%;
+    white-space: inherit;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.readmorenavigate {
+    color: #0e82d4;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.dsplynone {
+    display: none;
+}
+
+.result-details-right {
+    height: 100%;
+    padding-right: 20px;
+    width: 30%;
+    float: left;
+    display: block;
+    box-sizing: border-box;
+    position: relative;
+    // margin-top: 20px;
+}
+
+.hotel_prise {
+    font-weight: 600;
+    font-size: 20px;
+    padding-right: 0px;
+}
+
+.divexpandanimation {
+    max-height: 34px;
+    transition: max-height 0.5s ease-out;
+}
+
+.viewHtlShimmer {
+    position: fixed;
+    top: 132px;
+    left: 0;
+    z-index: 9;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+.example-list-section {
+    font-size: 13px;
+    color: #525252;
+    font-weight: normal;
+    height: auto;
+    overflow: unset;
+    overflow-y: auto;
+    display: block;
+    ul {
+        padding-left: 0px;
+        li {
+            list-style: none;
+        }
+    }
+}
+
+.maxhght0 {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.filter-group-btn-section {
+    padding: 14px 0 14px 0;
+    border-top: 1px solid #ccc;
+}
+
+.apply-fliter {
+    padding: 11px 45px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #b5cb13;
+    border-radius: 21px;
+    border: none;
+    outline: none;
+}
+.cancel-filter {
+    outline: none;
+    padding: 11px 45px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: $primary_blue;
+    border-radius: 21px;
+    border: solid 1px $primary_blue;
+    margin-left: 230px;
+}
+.reset-filter {
+    color: $primary_blue;
+    border: none;
+    outline: none;
+    background: none;
+}
+.more_filter {
+    font-size: 14px;
+}
+.fliter-arrow {
+    div {
+        display: inline;
+    }
+    button {
+        border: none;
+        background: none;
+        outline: none;
+        i {
+            color: $primary_blue;
+        }
+    }
+}
+.textright {
+    text-align: right;
+}
+.amen-scroll{
+    height: 200px;
+    overflow: auto;
+}
+.lnht{
+    height:40px;
+}
+.heart_shimmer{
+  width: 40px;
+    height: 40px;
+}
+
+.desptn{
+text-align: justify;
+}
+.mirr_Fare_splitup {
+    right: unset!important;
+    left: 100px!important;
+}
+
+
+// We need to use ::ng-deep to overcome view encapsulation
+::ng-deep {
+  .custom-slider .ngx-slider .ngx-slider-bar {
+    background: #ffe4d1;
+    height: 2px;
+  }
+  .custom-slider .ngx-slider .ngx-slider-selection {
+    background: #e7537e;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-pointer {
+    width: 8px;
+    height: 16px;
+    top: auto; /* to remove the default positioning */
+    bottom: 0;
+    background-color: #0e295a;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-pointer:after {
+    display: none;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-bubble {
+    bottom: 14px;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-limit {
+    font-weight: bold;
+    color: #e7537e;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-tick {
+    width: 1px;
+    height: 10px;
+    margin-left: 4px;
+    border-radius: 0;
+    background: #ffe4d1;
+    top: -1px;
+  }
+
+  .custom-slider .ngx-slider .ngx-slider-tick.ngx-slider-selected {
+    background: #e7537e;
+  }
+  .custom-slider .ngx-slider .ngx-slider-bubble{
+    font-size: 12px;
+  }
+}

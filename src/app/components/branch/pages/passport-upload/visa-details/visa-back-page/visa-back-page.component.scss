@@ -1,0 +1,362 @@
+@import "../../../../../../../assets/css/variable.scss";
+.visa-back-page {
+  padding-top: 15px;
+  .w100 {
+    width: $full-width;
+  }
+  .w50 {
+    width: 50%;
+  }
+  .fs-20 {
+    font-size: 20px;
+  }
+  .mt-20 {
+    margin-top: 20px;
+  }
+  .mt-10 {
+    margin-top: 10px;
+  }
+  .mb-15 {
+    margin-bottom: 15px;
+  }
+  .mt-12 {
+    margin-top: 12px;
+  }
+  .arabic-dir {
+    direction: rtl;
+    text-align: right;
+  }
+  hr.line {
+    border-top: 1px dashed #939393;
+  }
+  .ak-copy {
+    font-size: 22px;
+    color: #6e6e6e;
+  }
+  .ak-female {
+    font-size: 38px;
+  }
+  .ak-male {
+    font-size: 38px;
+  }
+  .ak-translate1 {
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 6px;
+  }
+  .ak-upload {
+    font-size: 65px;
+    color: #bcbcbc;
+  }
+  .ak-add-documents {
+    font-size: 50px;
+    color: #bcbcbc;
+  }
+
+  .ak-add-group {
+    font-size: 30px;
+    margin-right: 15px;
+  }
+  .ak-calendar {
+    cursor: pointer;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+
+  .translatediv {
+    .translate {
+      display: flex;
+      justify-content: flex-end;
+      top: -15px;
+      right: 10px;
+      position: relative;
+      .txt {
+        background-color: #f8ce53;
+        font-weight: $regular;
+        font-size: 13px;
+        border-radius: 4px;
+        padding: 4px 10px;
+        position: absolute;
+        display: flex;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: flex-start;
+        align-items: center;
+        cursor: pointer;
+        img {
+          width: 15%;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .passport-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+    .page {
+      &-one {
+        input[type="file"] {
+          display: none;
+        }
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 2%;
+        align-items: stretch;
+        .upload-box {
+          width: 50%;
+          background: #f4f4f4;
+          cursor: pointer;
+          min-height: 400px;
+
+          .icon {
+            overflow: hidden;
+            transform: scale(1);
+            -moz-transform: scale(1);
+            transition: 0.5s;
+            color: #bcbcbc;
+            font-size: 50px;
+          }
+
+          p {
+            margin-top: 15px;
+          }
+
+          &:hover {
+            .icon {
+              opacity: 0.8;
+              transition: all 0.4s ease;
+              -o-transition: all 0.4s ease;
+              -webkit-transition: all 0.4s ease;
+              cursor: pointer;
+              transform: scale(1.2);
+              -moz-transform: scale(1.2);
+            }
+          }
+
+          // input[type="file"] {
+          //   display: none;
+          // }
+        }
+        .pst {
+          &-img {
+            border: 1px solid #d7d7d7;
+            padding: 15px;
+            position: relative;
+            img {
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              display: block;
+            }
+            .pst-code {
+              background-color: #fdf7e1;
+              color: $black-clr;
+              padding: 5px;
+              font-weight: $bold;
+              font-size: 1vw;
+              padding: 10px 0 10px 29px;
+              letter-spacing: 4px;
+            }
+            .icons {
+              position: absolute;
+              right: 0;
+              top: 0;
+              padding: 25px;
+              button {
+                margin: 0 5px;
+              }
+              .mat-flat-button.mat-accent,
+              .mat-raised-button.mat-accent,
+              .mat-fab.mat-accent,
+              .mat-mini-fab.mat-accent {
+                background-color: #94a311;
+              }
+            }
+          }
+          &-data {
+            padding: 18px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 15px;
+            .pst-row {
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-start;
+              align-items: center;
+              gap: 2%;
+              .medium {
+                width: 33%;
+              }
+            }
+          }
+        }
+      }
+      &-two {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 2%;
+        .pst {
+          &-img {
+            border: 1px solid #d7d7d7;
+            padding: 15px;
+            img {
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              display: block;
+            }
+            .pst-code {
+              background-color: #fdf7e1;
+              color: $black-clr;
+              padding: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+  ::ng deep .mat-radio-label-content {
+    padding-left: 0 !important;
+  }
+}
+
+@media screen and (min-width: 1210px) {
+  .visa-back-page {
+    .passport-img {
+      .page {
+        &-one {
+          .pst {
+            &-data {
+              .pst-row {
+                .pass {
+                  &-history {
+                    width: 14%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .visa-back-page {
+    .passport-img {
+      .page {
+        &-one {
+          flex-direction: column;
+          .upload-box {
+            width: $full-width !important;
+          }
+          .pst {
+            &-img {
+              &.w50 {
+                width: $full-width;
+              }
+            }
+            &-data {
+              &.w50 {
+                width: $full-width;
+              }
+            }
+          }
+        }
+      }
+      .add-data {
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .visa-back-page {
+    padding-top: $reset;
+    .card {
+      box-shadow: none;
+      padding: 0;
+    }
+    .arabic {
+      margin-top: 10px;
+    }
+    .passport-img {
+      .page-one {
+        .pst-data {
+          gap: 0;
+          .pst-row {
+            flex-direction: column;
+            justify-content: space-between;
+            .pass-type {
+              width: $full-width;
+              padding-bottom: 20px;
+            }
+            .passnumrow {
+              width: $full-width;
+              padding-bottom: 20px;
+            }
+            .medium {
+              width: $full-width;
+              padding-bottom: 20px;
+            }
+          }
+        }
+        .pst-img {
+          padding: 0;
+        }
+      }
+      .add-data {
+        flex-flow: wrap;
+        justify-content: space-between;
+        gap: 16px;
+        .small {
+          width: 48%;
+        }
+        .date {
+          width: 48%;
+        }
+        .area {
+          width: $full-width;
+        }
+      }
+    }
+    hr.line {
+      display: none;
+    }
+    .translatediv {
+      margin-top: 15px;
+      .translate {
+        justify-content: flex-start;
+        padding-bottom: 15px;
+        .txt {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+}
+
+.error_bg{
+  background-color: #ffa9a9;
+}
+
+.errorBrdr{
+  border: 1px solid #ff3535;
+}
+
+.error-clr{
+  color: #ff3535 !important;
+}

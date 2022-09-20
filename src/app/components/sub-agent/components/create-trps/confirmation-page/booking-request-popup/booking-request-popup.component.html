@@ -1,0 +1,28 @@
+<div class="booking-request-div" fxLayoutAlign="center center">
+    <div class="booking-req-popup popupAnimation">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div>
+                    <h5 class="title">{{'Send booking request to your Umrah Operator' | translate}}</h5>
+                    <div class="fs10 clr52">{{'Your Umrah operator can see this booking on their dashboard' | translate}}</div>
+                </div>
+                <div class="close-icon" (click)="close()"><span class="ak-close1"></span></div>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <p class="mb-0 fw500 fs12 mb-1">{{'Your Umrah Operator`s registered mobile number/login Id' | translate}}</p>
+                    <input ng2TelInput [ng2TelInputOptions]="{preferredCountries:['sa','in', 'ae','qa'], separateDialCode:true}" class="form-control"  #mobInput id="mobInput" type="text" (countryChange)="onCountryChangeDeep($event)"
+                    (input)="inputValidationDeep($event)" maxlength="15" numberOnly [(ngModel)]="mobileNumber" (intlTelInputObject)="telInputObject($event)"/>
+                </div>
+                <div class="pt10" *ngIf="agencyNumberList.length > 0">
+                    <mat-radio-group [(ngModel)]="mobileNumber" class="radio-bttn-group">
+                        <mat-radio-button class="example-radio-button" *ngFor="let k of agencyNumberList" [value]="k.phone_number" (click)="addAgencyNumberForBookingRequest(k)">{{k?.company_name}} - {{k?.phn_country_code}}-{{k?.phone_number}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="search_bttn" [disabled]="mobileNumber == ''" [class.activeBttn]="isLinkReady" (click)="callLinkCreator()">{{'Send' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

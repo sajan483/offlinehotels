@@ -1,0 +1,44 @@
+.received-req-div{
+  padding-top: 10px;
+  .search-div{
+    width: 100%;
+    margin-bottom: 20px;
+    .calendarposition {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+      font-size: 15px;
+    }
+  }
+  .search-head{
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 10px;
+  }
+  .card-div{
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+    .inner-card{
+      padding: 10px 20px;
+      border-bottom: 1px solid #eae7e7;
+    }
+  }
+  .table td{
+    padding: 5px;
+  }
+  .center-div{
+    border-left: 1px solid #eeee;
+    border-right: 1px solid #eeee;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .received-req-div{
+    .mob_margin{
+      margin-bottom: 5px;
+    }
+  }
+}

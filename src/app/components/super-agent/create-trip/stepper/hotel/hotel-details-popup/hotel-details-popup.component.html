@@ -1,0 +1,233 @@
+<ng-container *ngIf="!loader && !selectedRoomDetails && !viewImagePopup">
+    <div class="bg-white p8">
+        <div class="container d-flex justify-content-between">
+            <div *ngIf="selectedHotel?.name">
+                <h2 class="fs22 mb-0">
+                    {{selectedHotel?.name | titlecase}}
+                    <span class="pl-1"></span>
+                    <ngb-rating [(rate)]="selectedHotel.meta_data.rating" readonly="true" [max]=5>
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="pkg_star" [class.pkg_filled]="fill === 100">&#9733;</span>
+                        </ng-template>
+                    </ngb-rating> 
+                </h2>
+            </div>
+            <div class="d-flex my-auto backbutton cursor-pointer" (click)="hideHotelDetailsPopup()">
+                <i class="uparrow icns icon_size_20 trnsfer"></i>
+                <span class="blue_text fs14 ">Back to Search</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row container filterbox mx-auto bg-white mt-2 pl-0 pr-0">
+            <div class="col-md-7 col-12 row">
+                <div *ngIf="selectedHotel?.has_special_deal" class="hotelRibbon positionRibbon">
+                    <span class="hotelRibbon3">
+                                    {{'Has special deal' }}
+                                </span>
+                </div>
+                <div class="hotel_photo_gallery cursor-pointer" (click)="openImgPopup()" *ngIf="hotelPics">
+                    <div class="firstimg">
+                        <img [src]='hotelPics[0]' alt="">
+                    </div>
+                    <div class="secongimg">
+                        <img [src]='hotelPics[1]' alt="">
+                    </div>
+                    <div class="thirdimg">
+                        <img [src]='hotelPics[2]' alt="">
+                    </div>
+                    <div class="forthimg position-relative" *ngIf="hotelPics[3]">
+                        <div class="allimagesgallery">
+                            <i class="galleryplusicon icon_size_20 icns"></i>
+                            <div class="text-white">View All ({{noOfImages}})</div>
+                        </div>
+                        <img [src]='hotelPics[3]' alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-12 pr-0">
+                <div class="pt25">
+                    <div class="d-flex justify-content-between p-2 brdr_bottom">
+                        <div>
+                            <div class="d-inline-flex">
+                                <i class="calendaricon icon_h16_w12 icns"></i>
+                                <div class="fs13 fw400 pl-1 pr-1">CHECKIN</div>
+                                <i class="downarrow icon_h16_w12 icns"></i>
+                            </div>
+                            <h6 class="fs22 fw400 mb-0">{{selectedHotel?.check_in_time | date:'shortTime'}}
+                            </h6>
+                        </div>
+                        <div class="text-center my-auto">
+                            <i class="icon_size_20 icns nighticon"></i>
+                            <h5 class="clr52 mb-0 fs14">{{noOfDays}} Night(s) </h5>
+                        </div>
+                        <div>
+                            <div class="d-inline-flex">
+                                <i class="calendaricon icon_h16_w12 icns"></i>
+                                <div class="fs13 fw400 pl-1 pr-1">CHECKOUT</div>
+                                <i class="downarrow icon_h16_w12 icns"></i>
+                            </div>
+                            <h6 class="fs22 fw400 mb-0">{{selectedHotel?.check_out_time | date:'shortTime'}}
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="d-inline-flex">
+                            <i class="locationicon icns icon_size_15"></i>
+                            <div class="pl-2">
+                                <div class="fs13 fw400">{{'ADDRESS' }}</div>
+                                <div class="fs13 clr52">{{selectedHotel?.meta_data?.address}}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt-2 d-inline-flex">
+                                <div *ngIf="selectedHotel?.meta_data.phone" class="d-inline-flex pr-3">
+                                    <div class="pr-2"><i class="Phoneicon icns icon_size_15"></i></div>
+                                    <div class="fs12 clr52">{{selectedHotel?.meta_data?.phone}}</div>
+                                </div>
+                                <div *ngIf="selectedHotel?.meta_data.email" class="d-inline-flex">
+                                    <div class="pr-2"><i class="mailicon icns icon_size_15"></i></div>
+                                    <div class="fs12 clr52">{{selectedHotel?.meta_data?.email}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <mat-tab-group>
+            <mat-tab label="RoomType">
+                <div id="selectRoom">
+                    <section class="roomSelectWrap">
+                        <div class="roomInfoWrap">
+                            <div class="col-md-12 bg-white">
+                                <div class="row">
+                                    <span class="txt-font pl-4 pt-4">Room Type</span> <span class="ml-auto txt-font  pt-4 mr12">Enter your
+                                                    rate for the room</span>
+                                </div>
+                                <hr class="pb-0">
+                                <div class="row mb-2 btmBrdr" *ngFor="let room of selectedRoomGroups;let i = index ">
+                                    <div class="col-md-8 bg1 btmBrdr">
+                                        <div class="row">
+                                            <p class="pl-4 fntSz16">{{room.name}}</p>
+                                        </div>
+                                        <div class="row pl-4">
+                                            <i class="hotelbedicon icns icon_size_20"></i><span class="pl-1 font14Lt">
+                                                            <p>1 {{'Room for'}} {{room?.adult_number}} {{'Adult(s)'}}</p>
+                                                        </span>
+                                        </div>
+                                        <div class="">
+                                            <span>{{room?.deal_description}}</span>
+                                            <span id="features">
+                                                <tag-input [(ngModel)]="room.features" [editable]="true"
+                                                    [identifyBy]="'id'" [displayBy]="'name'">
+                                                </tag-input>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 bg2 p-1 height200">
+                                        <div class="row">
+                                            <!-- <div class="col-md-4 ml-4 mt-4">
+                                                <p class="mb-0 txt-font">Adult</p>
+                                                <div class="row br-rad brdr">
+                                                    <div class="input-group-prepend bg-white brdr-rt">
+                                                        <span class="input-group-text brdr-rt p8 fs10" id="basic-addon1">{{currency}}</span>
+                                                    </div>
+                                                    <input type="text" id="adultPrice{{i}}" class="txt" placeholder="20000" aria-label="200" aria-describedby="basic-addon1">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 ml-4 mt-4">
+                                                <p class="mb-0 txt-font">Child</p>
+                                                <div class="row brdr br-rad">
+                                                    <div class="input-group-prepend bg-white brdr-rt">
+                                                        <span class="input-group-text brdr-rt br-rad p8 fs10" id="basic-addon1">{{currency}}</span>
+                                                    </div>
+                                                    <input type="text" id="childPrice{{i}}" class="br-rad txt" placeholder="20000" aria-label="200" aria-describedby="basic-addon1">
+                                                </div>
+                                            </div> -->
+                                            <div *ngIf="!room.isChecked" class="row m-auto br-rad bgLgrn cursor-pointer" (click)="selectHotelRoom($event,room,i)">
+                                                <div class="chkbxHtlDtls bgWt mt12"></div>
+                                                <span class="pad6">Select Room</span>
+                                            </div>
+                                            <div *ngIf="room.isChecked" class="row m-auto br-rad bgLgrn cursor-pointer" (click)="selectHotelRoom($event,room,i)">
+                                                <div *ngIf="room.isChecked" class="chkbxHtlDtls mt7"><i class="fa fa-check-square"></i></div>
+                                                <span class="pad6">Select Room</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-2">
+                                        <a class="roomview pl-4  pb-2 pt-2" (click)="showRoomDetailsPopUp(room)">+ More Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-12 row mx-0 p20 boxborder mb150" id="hotelSelectionSection">
+                    <div class="col-md-4 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Adult Cost for {{noOfDays}} days ({{currency}} {{currencyConversion(roomdata?.amount)}}):</label>
+                        <div class="input-group w-100">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                            </div>
+                            <input type="number" [(ngModel)]="adultPrice" class="owldatebrdr w80 form-control" [min]=1>
+                        </div>
+                    </div>
+                    <div class="col-md-4 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Child Cost for {{noOfDays}} days ({{currency}} {{currencyConversion(roomdata?.amount)}}):</label>
+                        <div class="input-group w-100">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                            </div>
+                            <input type="number" [(ngModel)]="childPrice" class="owldatebrdr w80 form-control" [min]=1>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center my-auto">
+                        <button class=" btn" [disabled]="!disableHotelSaveBtn()" [class.bttnactive]="bttnactive" (click)="saveSelectedHotel(selectedHotel.city)">continue</button>
+                    </div>
+                    
+                </div>
+
+            </mat-tab>
+            <mat-tab label="More Details">
+                <div class="borderbox mb80 p20">
+                    <h1 class="fs24">{{'Details' }}</h1>
+                    <p>{{selectedHotel?.meta_data?.description}}</p>
+                    <h1 *ngIf="selectedHotel?.extensions?.length > 0" class="amntStyle">Extensions</h1>
+                    <p *ngFor="let extension of selectedHotel?.extensions">{{extension?.value}}</p>
+                    <h1 *ngIf="selectedHotel?.meta_data?.remark" class="amntStyle">{{'Remarks' }}</h1>
+                    <div class="fnt12" [innerHTML]="selectedHotel?.meta_data?.remark"></div>
+                    <div *ngIf="selectedHotel?.meta_data.amenities.length == 0">
+                        {{'No Amenities' }}
+                    </div>
+                    <div class="row ml-0 mr-0 mt10">
+                        <div class="col-md-3 p-0" *ngFor="let item of selectedHotel?.meta_data.amenities">
+                            <i class="fa fa-star" aria-hidden="true"></i>{{item?.name}}
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Policy">
+                <div class="borderbox mb80 p20">
+                    <div class="inner-policy_div textright" *ngFor="let policy of selectedHotel?.policies">
+                        <p>{{policy?.description}}</p>
+                    </div>
+                    <div class="noDataPresent" *ngIf="selectedHotel?.policies && selectedHotel?.policies.length == 0">
+                        {{'No Policies Found' }}
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</ng-container>
+
+<div *ngIf="selectedRoomDetails && !viewImagePopup">
+    <app-roomdetails-popup [setViewData]="selectedRoomInfo" (showHotelDetailsEmitter)="getDetailsPopupFlag($event)"></app-roomdetails-popup>
+</div>
+
+<div *ngIf="viewImagePopup">
+    <app-hotel-image-popup [hotelPics]="hotelPics" (showHotelImgEmitter)="getImgPopupFlag($event)"></app-hotel-image-popup>
+</div>

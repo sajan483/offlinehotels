@@ -1,0 +1,109 @@
+<div class="hotel-list-div">
+  <div class="hedder-hotel-list-div">
+    <div class="container">
+      <h2>{{'Search Hotels' | translate}}</h2>
+    </div>
+  </div>
+
+    <div class="container">
+        <app-hotel-search-window 
+        (setSearchBody)="getSearchBody($event)" 
+        [bttnActive]="bttnActive"
+        [isMobile]="isMobile"
+        ></app-hotel-search-window>
+    </div>
+    
+    <div class="container hotel-main-div">
+        <div class="slcthotel" fxLayout="row" fxLayoutAlign="space-between start ">
+            <div class="main-filter-outer left">
+                <app-hotel-filter-web 
+                [shimmer]="listShimmer"
+                [hoteName]="userFilter.name"
+                [starFilter]="starFilter"
+                [minPrice]="minAmount"
+                [maxPrice]="maxAmound"
+                [valuePrice]="valuePrice"
+                [aminitiesList]="filterAminitiesList"
+                [mealPlan]="mealPlan"
+                [hotelChainNameList]="filterHotelChainNameList"  
+                [currency]="selectCurrency"
+                [filterData]="filterData"
+                (filterLists)="filterList($event)"
+                (hoteNameFilter)="hotelFilterData($event)"
+                (resetFilter)="resetFilter()"
+                ></app-hotel-filter-web>
+            </div>
+            <div class="right" *ngIf="listShimmer">
+              <app-hotel-card-shimmer *ngFor="let k of [].constructor(9);"></app-hotel-card-shimmer>
+            </div>
+            <div class="right" *ngIf="!listShimmer && hotelsList.length > 0">
+
+                <div class="hotel-count-div" fxLayout="row" fxLayoutAlign="space-between center">
+                  <h2>{{hotelCount}} {{'Hotels found' | translate}}</h2>
+                  <div *ngIf="!isMobile">
+                    <app-hotel-sort 
+                      [city]="location" 
+                      (sortData)="sortHotelList($event)"
+                    ></app-hotel-sort>
+                  </div>
+                </div>
+
+                <app-hotel-card *ngFor="let item of hotelsList | filterBy: userFilter" 
+                [hotelData]="item" 
+                [location]="location" 
+                [searchId]="searchId" 
+                [occupancy]="occupancy"
+                [currency]="selectCurrency"
+                [ulogId]="ulogId"
+                [travellCount]="travellCount"
+                (addFavorited)="addFavHotel($event)" 
+                ></app-hotel-card>
+            </div>
+            <div class="right no-data-found" *ngIf="!listShimmer && hotelsList.length == 0 && mobResetFilterBttn"  fxLayout="column" fxLayoutAlign="start center">
+              <div class="no-data-found-img"><img src="assets/images/no_filter_data.jpg" alt=""></div>
+              <h2>{{'No Hotel(s) Found.' | translate}}</h2>
+              <div>{{'No Hotel(s) found for applied filters. Please reset filters or change filter criteria.' | translate}}</div>
+              <button class="secondary_bttn" (click)="resetFilter()">{{'Reset' | translate}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="mobile-filter-div mob_view">
+      <div class="d-flex">
+          <div class="flex-fill filder-text-div" (click)="showFilter()">
+              <span class="ak-filter"></span> {{'Filter' | translate}}
+          </div>
+          <div class="flex-fill filder-text-div" (click)="showSorting()">
+              <span class="fa fa-sort"></span> {{'Sorting' | translate}}
+          </div>
+      </div>
+  </div>
+</div>
+
+<app-side-panel-up [open]="popupShow" [heading]="'Hotel Filters'" (close)="closeFilter()">
+        <app-hotel-filter-web 
+          [shimmer]="listShimmer"
+          [hoteName]="userFilter.name"
+          [starFilter]="starFilter"
+          [minPrice]="minAmount"
+          [maxPrice]="maxAmound"
+          [valuePrice]="valuePrice"
+          [aminitiesList]="filterAminitiesList"
+          [mealPlan]="mealPlan"
+          [hotelChainNameList]="filterHotelChainNameList"  
+          [currency]="selectCurrency"
+          [filterData]="filterData"
+          (filterLists)="filterList($event)"
+          (hoteNameFilter)="hotelFilterData($event)"
+          (resetFilter)="resetFilter()"
+          [isMobile]="isMobile"
+        ></app-hotel-filter-web>
+</app-side-panel-up>
+
+<app-side-panel-up [open]="sortingShow" [heading]="'Hotel Sorting'" (close)="closeSorting()">
+        <app-hotel-sort 
+          [city]="location" 
+          (sortData)="sortHotelList($event)"
+          [isMobile]="isMobile"
+        ></app-hotel-sort>
+</app-side-panel-up>
+

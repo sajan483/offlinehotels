@@ -1,0 +1,298 @@
+<div class="outer" *ngIf="bookingDetails">
+
+    <div class="page_hedear_div">
+        <div class="container">
+            <div class="steps d-flex justify-content-between align-items-center">
+                <div class="d-flex step-element align-items-center">
+                    <div class="ico">
+                        <img src="assets/images/train1.png">
+                    </div>
+                    <div class="px-2 ml-2 text_start">
+                        <div class="fs16">
+                            {{'from_to_to'|translate:{"1":bookingDetails.departure_station,"2":bookingDetails.arrival_station}
+                            }}</div>
+                        <div class="fs13">{{'Departure' | translate}}
+                            {{bookingDetails.requested_date|date:'dd/MM/y'}} <ng-container
+                                *ngIf="bookingDetails.trip_type!='ONE_WAY'">| {{'Return' | translate}}
+                                {{bookingDetails.requested_date|date:'dd/MM/y'}}
+                            </ng-container> |
+                            {{'Passengers' | translate}} |
+                            {{'adult_child_infant'|translate:{"1":bookingDetails.adults,
+                            "2":bookingDetails.children, "3":bookingDetails.infants} }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container " *ngIf="isLoadingCompleted">
+        <div *ngIf="!isMobile">
+            <div class="d-flex justify-content-between w-100 message-box  mt-3 align-items-center"
+                *ngIf="bookingDetails.booking.payment_status!='completed' && bookingDetails.status=='blocked'">
+                <div class="mt-2 align-items-center">
+                    <h6>{{'Your booking has been blocked' | translate}}</h6>
+                    <p>{{'Please process your payment within 24 Hr confirm the booking' | translate}}</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between w-100 message-box  success mt-3 align-items-center"
+                *ngIf="bookingDetails.booking?.status?.toLowerCase() == 'success'">
+                <div class="mt-2 align-items-center">
+                    <h6>{{'Booking Success' | translate}}</h6>
+                    <p>{{'Please download your ticket' | translate}}</p>
+                </div>
+                <div class="align-items-center">
+                    <a class="btn btn-white" style="cursor: pointer;" [href]="bookingDetails.booking.ticket">Download
+                        Ticket</a>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isMobile">
+            <div class="w-100 message-box  mt-3 align-items-center"
+                *ngIf="bookingDetails.booking.payment_status!='completed' && bookingDetails.status=='blocked'">
+                <div class="mt-2 align-items-center">
+                    <h6>{{'Your booking has been blocked' | translate}}</h6>
+                    <p>{{'Please process your payment within 24 Hr confirm the booking' | translate}}</p>
+                </div>
+            </div>
+            <div class="w-100 message-box  success mt-3 align-items-center"
+                *ngIf="bookingDetails.booking?.status?.toLowerCase() == 'success'">
+                <div class="mt-2 align-items-center">
+                    <h6>{{'Booking Success' | translate}}</h6>
+                    <p>{{'Please download your ticket' | translate}}</p>
+                </div>
+                <div class="align-items-center">
+                    <a class="btn btn-white w-100" style="cursor: pointer;"
+                        [href]="bookingDetails.booking.ticket">{{'Download Ticket' | translate}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between w-100 message-box mt-3 align-items-center"
+            *ngIf="bookingDetails.booking.payment_status=='completed' && bookingDetails.booking.travellers.length==0">
+            <div class="mt-2 align-items-center">
+                <h6>{{'Your payment is successfull and your booking status is in progress' | translate}}</h6>
+                <p>{{'Please update travellers details' | translate}}</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between w-100 message-box mt-3 align-items-center"
+            *ngIf="bookingDetails.booking.payment_status=='completed' && bookingDetails.booking.travellers.length>0 && bookingDetails.booking?.status?.toLowerCase() != 'success'">
+            <div class="mt-2 align-items-center">
+                <h6>{{'Your booking status is in progress' | translate}}</h6>
+                <p>{{'Please wait till the ticket is generated' | translate}}</p>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between w-100 message-box  mt-3 align-items-center"
+            *ngIf="bookingDetails.status.toUpperCase()=='REQUESTED'">
+            <div class="mt-2 align-items-center">
+                <h6>{{'Booking Request has been Send' | translate}}</h6>
+                <p>{{'Please wait till the booking confirmation' | translate}}</p>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between w-100 message-box danger mt-3 align-items-center"
+            *ngIf="bookingDetails.booking.payment_status?.toLowerCase() == 'failed'">
+            <div class="mt-2 align-items-center">
+                <h6>{{'Booking Failed' | translate}}</h6>
+                <p>{{'Sorry! your booking has been failed' | translate}}</p>
+            </div>
+        </div>
+        <div class="traveller-section my-3" *ngIf="bookingDetails.booking.payment_status=='completed'">
+            <h3 class="title1 d-flex align-items-center">
+                {{'Traveller Details'|translate}}
+            </h3>
+            <app-rail-traveller-info (onSave)="saveTravellerInfo()" [travellers]="bookingDetails.booking.travellers"
+                 [bookingId]="bookingDetails.booking.id"
+                *ngIf="bookingDetails.adults!=undefined && bookingDetails.infants!=undefined && bookingDetails.children!=undefined && bookingDetails.booking.id"
+                [childCount]="bookingDetails.children" [infantCount]="bookingDetails.infants"
+                [adultCount]="bookingDetails.adults"></app-rail-traveller-info>
+        </div>
+        <div class="onward-section my-3">
+            <h3 class="title1 d-flex align-items-center">
+                {{'Booking Details'|translate}}
+            </h3>
+            <div class="makkah-onwards box fs14">
+                <div class="onward-left">
+                    <!-- <div class="details-left"> -->
+                    <div class="departure-details row1">
+                        <div>
+                            <div class="title">{{'Reference No.'|translate}}</div>
+                            <span>{{bookingDetails.booking_request_no}}</span>
+                        </div>
+                    </div>
+                    <div class="arrival-details">
+                        <div class="title">{{'Requested Date'|translate}}</div>
+                        <span>{{bookingDetails.requested_date|date:'dd/MM/yyyy'}}</span>
+                    </div>
+                    <div class="duration">
+                        <div>
+                            <div class="title">{{'Booking Status'|translate}}</div>
+                            <span>{{bookingDetails.status}}</span>
+                        </div>
+                    </div>
+                    <div class="class" *ngIf="bookingDetails.booking.payment_status">
+                        <div class="title">{{'Payment Status'|translate}}</div>
+                        <span>{{bookingDetails.booking.payment_status}}</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+        <div class="onward-section my-3" *ngFor="let journey  of bookingDetails.journeys;index as i">
+            <h3 class="title1 d-flex align-items-center">
+                {{journey.journey_type|translate}} <span class="subtitle ml-2"> [{{journey.departure_station}} {{'to' | translate}} {{journey.arrival_station}}]</span>
+            </h3>
+            <div class="makkah-onwards box fs14">
+                <div class="onward-left">
+                    <div class="details-left">
+                        <div class="departure-details row1">
+                            <span class="ak-train icon"></span>
+                            <div>
+                                <div class="title">{{'Departure'|translate}}</div>
+                                <span>{{journey.departure_time}}</span>
+                                <div class="date fs12" *ngIf="i==0">{{journey.onward_date|date:'dd MMM yyyy'}}</div>
+                                <div class="date fs12" *ngIf="i==1">{{journey.return_date|date:'dd MMM yyyy'}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arrival-details">
+                            <div class="title">{{'Arrival'|translate}}</div>
+                            <span>{{journey.arrival_time}}</span>
+                            <div class="date fs12" *ngIf="i==0">{{journey.onward_date|date:'dd MMM yyyy'}}</div>
+                            <div class="date fs12" *ngIf="i==1">{{journey.return_date|date:'dd MMM yyyy'}}</div>
+                        </div>
+
+                    </div>
+                    <div class="details-right">
+                        <div class="duration">
+                            <div class="title">{{'Duration'|translate}}</div>
+                            <span>{{journey.duration}} </span> <span class="title">| {{journey.stops}} </span>
+                        </div>
+                        <div class="class">
+                            <div class="title">{{'Train No.'|translate}}</div>
+                            <span>{{journey.train_number}} </span>
+                        </div>
+                        <div class="class">
+                            <div class="title">{{'Class'|translate}}</div>
+                            <span>{{(journey.seat_class.toLowerCase()=='Economy_Class'.toLowerCase()?'Economy':'Business')|translate}}</span>
+                        </div>
+                        <div class="price" *ngIf="showPrice">{{currency}} {{journey.price | ConvertCurrency:currency}}
+                            <span class="title"> {{'Approx'|translate}} </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="fare-section my-3" *ngIf="bookingDetails.booking.id==null">
+            <h3 class="title1 d-flex align-items-center">
+                {{'Fare Summary'|translate}}
+            </h3>
+
+            <div class="fare-summary">
+                <div class="left">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div>
+                            <span class="ak-travelers"></span>
+                        </div>
+                        <div style="width: 25px;"></div>
+                        <div>
+                            <div class="title">{{'Total travelers'|translate}}</div>
+                            <div class="fs15 fw500">{{bookingDetails.adults+bookingDetails.children+bookingDetails.infants}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="right" *ngIf="bookingDetails.config?.is_price_show">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div>
+                            <span class="ak-total"></span>
+                        </div>
+                        <div style="width: 25px;"></div>
+                        <div class="pr">
+                            <div class="title">{{'Total Fare'|translate}}</div>
+                            <div class="sar">{{currency}} {{bookingDetails.total_price | ConvertCurrency : currency}}</div>
+                            <div class="apr">{{'Approx'|translate}} <span>( {{'Terms and condition' | translate}} )</span></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="fare-section my-3" *ngIf="bookingDetails.booking.id!=null">
+
+            <h3 class="title1 d-flex align-items-center">
+                {{'Fare Summary'|translate}}
+            </h3>
+            <div class="fare-summary">
+                <div class="left">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div>
+                            <span class="ak-travelers"></span>
+                        </div>
+                        <div style="width: 25px;"></div>
+                        <div>
+                            <div class="title">{{'Total travelers'|translate}}</div>
+                            <div class="fs15 fw500">{{bookingDetails.adults+bookingDetails.children+bookingDetails.infants}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+
+                </div>
+                <div class="right ">
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <div><span class="ak-total"></span></div>
+                        <div style="width: 25px;"></div>
+                        <div class="pr" >
+                            <div class="title">{{'Total Fare'|translate}}</div>
+                            <div class="sar">{{currency}} {{bookingDetails.booking.total_amount | ConvertCurrency : currency}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="bookingDetails.booking.payment_status!='completed' && bookingDetails.status=='blocked'" class="d-flex flex-row bg-white justify-content-between align-items-center active-click ng-star-inserted">
+            <div class="d-flex trmsCont res-full">
+            </div>
+            <div class=" res-full">
+                <button (click)="processPayment()" [class.activeBttn]="buttonActive" class="search_bttn" id="continueBooking" type="submit">{{'Proceed to Payment' | translate}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container " *ngIf="!isLoadingCompleted">
+        <div class="onward-section my-3">
+            <div class="col-md-12 col-12 mob_px5">
+                <div class="shine lines w-100"></div>
+            </div>
+            <div class="col-md-12 col-12 mob_px5" *ngFor="let i of [].constructor(1)">
+                <div class="shine bsize200 w-100 h200"></div>
+                <div class="shine h100 w-100"></div>
+            </div>
+            <div class="return-section my-3">
+                <div class="col-md-12 col-12 mob_px5">
+                    <div class="shine lines w-100"></div>
+                </div>
+                <div class="col-md-12 col-12 mob_px5" *ngFor="let i of [].constructor(1)">
+                    <div class="shine bsize200 w-100 h200"></div>
+                    <div class="shine h100 w-100"></div>
+                </div>
+            </div>
+            <div class="fare-section my-3">
+                <div class="col-md-12 col-12 mob_px5">
+                    <div class="shine lines w-100"></div>
+                </div>
+                <div class="col-md-12 col-12 mob_px5">
+                    <div class="shine bsize200 w-100 h200"></div>
+                    <div class="shine h100 w-100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

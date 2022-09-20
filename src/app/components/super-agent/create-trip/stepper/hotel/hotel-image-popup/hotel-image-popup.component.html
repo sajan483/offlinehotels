@@ -1,0 +1,35 @@
+<div [style.display]="showHotelImages ? 'block' : 'none'" class="viewiHotelmages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="d-flex justify-content-end mtb20">
+            <div class="htlimgpopupclose" (click)="closeHtlImgPopup()">
+                <img src="assets/images/close.svg" alt="">
+            </div>
+        </div>
+
+        <div *ngFor="let img of hotelPics; index as i">
+            <span *ngIf="imageshow==i">
+                    <img [src]="img" class="mainimageshow imgmoving" alt="">
+                </span>
+
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="positionofbottom" id="galleryImageCollection">
+        <div>
+            <owl-carousel-o [options]="customOptions">
+
+                <ng-container *ngFor="let slide of hotelPics;index as i">
+                    <ng-template carouselSlide>
+                        <div class="d-flex justify-content-center">
+                            <img [src]="slide" alt="" [class.borderseslctimg]="imageshow==i" class="listingimages" alt="" (click)="imageshow=i">
+                        </div>
+                    </ng-template>
+                </ng-container>
+
+            </owl-carousel-o>
+        </div>
+    </div>
+
+</div>

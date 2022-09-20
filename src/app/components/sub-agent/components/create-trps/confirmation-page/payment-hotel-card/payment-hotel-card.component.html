@@ -1,0 +1,95 @@
+<div class="payment-hotel-card-div common_card mt20">
+    <div class="payment-head" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+        <div class="text_start" fxLayout="row wrap">
+            <div class="hotel-name">{{tripData?.hotel?.name}}</div>
+            <div style="width: 2px;"></div>
+            <div class="my-auto">
+                <span fxLayout="row" fxLayoutAlign="start center" *ngIf="tripData?.hotel?.user_review != null">
+                    <span class="material-icons star-icon" *ngFor="let k of [].constructor(tripData?.hotel?.user_review)">star</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="fs12 clr52 text_start" *ngIf="tripData?.hotel?.phone_number != null" fxLayout="row" fxLayoutAlign="start center">
+            <div><span class="ak-phone clrmain"></span></div>
+            <div style="width: 5px;"></div>
+            <a class="link-click-div" href="tel:+966{{tripData?.hotel?.phone_number}}">+966{{tripData?.hotel?.phone_number}}</a>
+        </div>
+
+        <div class="fs12 clr52 text_start" *ngIf="tripData?.hotel?.email != null" fxLayout="row" fxLayoutAlign="start center">
+            <div><span class="ak-mail clrmain"></span></div>
+            <div style="width: 5px;"></div>
+            <a class="link-click-div" href="mailto:{{tripData?.hotel?.email}}">{{tripData?.hotel?.email}}</a>
+        </div>
+        
+        <div class="fs12 clr52 text_start" *ngIf="tripData?.hotel?.address != null" fxLayout="row" fxLayoutAlign="start start">
+            <div><span class="ak-location clrmain"></span></div>
+            <div style="width: 5px;"></div>
+            <a class="link-click-div" href="https://maps.google.com/?q={{tripData?.hotel?.latitude}},{{tripData?.hotel?.longitute}}" target="_blank">{{tripData?.hotel?.address}}, {{tripData?.hotel?.city}}</a>
+        </div>
+    </div>
+
+    <div class="amound-div">
+        <div class="total-amound">{{currency}} {{tripData?.prices_summary?.total_price | ConvertCurrency : currency}}</div>
+    </div>
+
+    <div class="payment-body">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="hotel-datas text_start">
+                    <span>{{'No: of Guest' | translate}}:</span>
+                    <strong>{{travellers}}</strong>
+                    <span class="divider"></span>
+                    <span>{{'Rooms' | translate}}:</span>
+                    <strong>{{tripData?.rooms.length}}</strong>
+                </div>
+            </div>
+            <div class="col-md-12 my-auto">
+                <div class="d-flex justify-content-between">
+                    <div class="text_start">
+                        <p class="heading"><span><i class="ak-calendar"></i></span> {{'Check In' | translate }}</p>
+                        <h6 class="checkinTime">{{tripData?.check_in_time | DateTimeToDateFormat | date:'mediumDate'}}</h6>
+                        <div class="clr52 fs14">{{tripData?.check_in_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                        <p class="clr52 fs13">{{tripData?.check_in_time | DateTimeToDateFormat | date:'EEEE'}}</p>
+                    </div>
+                    <div class="text-center">
+                        <div><i class="fa fa-moon-o night_icon" aria-hidden="true"></i></div>
+                        <h5 class="nightcount" > {{tripData?.num_of_days}} {{'Nights' | translate}}</h5>
+                    </div>
+                    <div class="text_start">
+                        <p class="heading"><span><i class="ak-calendar"></i></span> {{'Check Out' | translate}} </p>
+                        <h6 class="checkinTime">{{tripData?.check_out_time | DateTimeToDateFormat | date:'mediumDate'}}</h6>
+                        <div class="clr52 fs13">{{tripData?.check_out_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                        <p class="clr52 fs13">{{tripData?.check_out_time | DateTimeToDateFormat | date:'EEEE'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hotel-summary">
+        <div id="timeLine">
+            <div>
+                <ul class="sessions">
+                    <span *ngFor="let rooms of tripData?.room_variations">
+                        <li *ngFor="let item of rooms.room">
+                            <div class="time textOverFlowDot" *ngIf="item?.name">{{item?.name.split('-')[0]}} X {{item?.quantity}}</div>
+                            <div fxLayout="row wrap" fxLayoutGap="3px" class="mt-2">
+                                <div class="fs12 clr52" *ngFor="let k of item.pax_info">
+                                    <span *ngIf="k.type == 'ADT'"><strong>{{k.quantity}}</strong> {{'Adult(s)'}}</span>
+                                </div>
+                                <div class="fs12 clr52" *ngFor="let k of item.pax_info">
+                                    <span *ngIf="k.type == 'CHD'"><strong>{{k.quantity}}</strong> {{'Child'}}</span>
+                                </div>
+                                <div class="mealtype mb-1" *ngIf="rooms?.meal_title"><i class="fa fa-coffee px-1" aria-hidden="true"></i>{{rooms?.meal_title}}</div>
+                                <div class="refundable non-ref mb-1" *ngIf="!item.cancellation_policy.is_refundable">{{'Non Refundable' | translate}}</div>
+                                <div class="refundable refund mb-1" *ngIf="item.cancellation_policy.is_refundable">{{'Refundable' | translate}}</div>
+                            </div>
+                        </li>
+                    </span>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,152 @@
+<div class="mainDivPackage  mt100">
+    <div class="booking-div">
+        <div class="text-center text-white fs16 fw500">{{masterData?.title}}</div>
+    </div>
+    <div class="mt-2 container">
+        <mat-tab-group>
+            <mat-tab label="Bookings">
+                <div class="bookings-div">
+                    <div class="row mx-0">
+                        <div class="col-md-6 pl-0 brdr_right_d3">
+                            <div class="fw500 fs16" *ngIf="masterPackageList">All Bookings</div>
+                            <div class="fw500 fs16" *ngIf="!masterPackageList">{{selectedPackage?.date | date:'mediumDate'}} Bookings</div>
+                            <div *ngIf="bookings.length > 0  && !shimmer">
+                                <table class="table" id="bookingTable">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">UT No.</th>
+                                        <th scope="col">Pax Count</th>
+                                        <th scope="col">Booking Date</th>
+                                        <th scope="col"></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let item of bookings">
+                                        <td>{{item?.reference_no}}</td>
+                                        <td>{{item?.adults + item?.children_with_bed + item?.children_without_bed + item?.infants}}</td>
+                                        <td>{{item?.booking_date | date:'mediumDate'}}</td>
+                                        <td><button class="btn btn-sm btn-primary fs12" (click)="showBooking(item.id)">View</button></td>
+                                      </tr>
+                                      <tr>
+                                    </tbody>
+                                </table>
+                                <div class="row" *ngIf="totalPage>1">
+                                    <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+                                      <div class="float-right">
+                                        <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="paginate($event)">
+                                        </app-pagination>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="bookings.length == 0 && !shimmer">
+                                <div class="d-flex justify-content-center">
+                                    <div>
+                                        <img src="/assets/images/noreslt.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="shimmer">
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                                <div class="shine lines w-100 mb-2"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-0 text-right">
+                            <button class="btn allbooking" (click)="getAllBookings(1)">All Bookings</button>
+                            <bi-calendar [Date]="packageTempDate" [months]="1" (monthChanged)="monthChangedBookings($event)" (dateSelected)="onDateChanged($event)" (click)="$event.stopPropagation();" #dualCalendar></bi-calendar>
+                        </div>
+                    </div>
+                </div>
+            </mat-tab>
+
+
+            <mat-tab label="Days Wise Manage">
+                <div id="openPopup" data-toggle="modal" data-target="#exampleModal"></div>
+                <div class="bookings bg-white">
+                    <bi-calendar [Date]="packageTempDate" [months]="2" (monthChanged)="monthChangedMaxSlot($event)" (dateSelected)="onDateWiseChanged($event)" (click)="$event.stopPropagation();" #dualCalendarDays></bi-calendar>
+                </div>
+            </mat-tab>
+
+
+            <mat-tab label="Add availability">
+                <div class="bookings">
+                    <div class="fs20 fw500 my-2">Add Package Availability</div>
+                    <div class="container px-0 mb-3">
+                        <div class="availabilityDate">
+                            <div class="pt20 d-flex justify-content-center">
+                               <div class="position-relative" [owlDateTimeTrigger]="dt10">
+                                    <input  [owlDateTime]="dt10" [selectMode]="'range'" [(ngModel)]="dateRange" class="form-control" [min]="minDate" placeholder="select Date Range">
+                                    <owl-date-time [pickerType]="'calendar'" #dt10></owl-date-time>
+                                    <div class="daterangeIcon">
+                                        <i class="icns calendaricon icon_size_20"></i>
+                                    </div>
+                               </div>
+                               <div class="pl-2">
+                                   <button class="addAnotherBttn" (click)="addRange()">+ Add Date Range</button>
+                               </div>
+                            </div>
+                            <div *ngIf="dateRangeArray.length > 0" class="row mx-0 pt20">
+                                <div class="col-md-4 pb-2" *ngFor="let data of dateRangeArray;let i = index;">
+                                    <div class="dateCard">
+                                        <div class="rangeClose" (click)="removeRange(i)">X</div>
+                                        <div class="fw500 Premium_blue">Range {{i+1}}:</div>
+                                        <div class="pl-3">
+                                            <div>From : {{data.start_date }}</div>
+                                            <div>To : {{data.end_date }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <button class="searchbutton" [class.bttnactive]="bttnactive" (click)="availabilityAdd()">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fs14 fw500">Availability calendar</div>
+                    <div class="bg-white">
+                        <bi-calendar [Date]="packageTempDate" (monthChanged)="monthChangedAvailability($event)" [months]="2" (click)="$event.stopPropagation();" (dateSelected)="onDateAvailibility($event)" #availabiltyClndr></bi-calendar>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+          
+    </div>
+
+
+
+     <!-- day wise popup -->
+     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{selectedPackage?.date | date:'mediumDate'}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        Maximum Pax : {{selectedPackage?.max_passengers}}
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        Slot Available : {{selectedPackage?.availability}}
+                    </div>
+                    <div class="col-md-6 mb-2 mt-3">
+                        <mat-slide-toggle [checked]="checked" color="primary" (change)="convert()">Available for booking?</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closePopUp">Close</button>
+              <button type="button" class="btn btn-primary" [class.bttnactive]="bttnActive" (click)="deactivatePackage()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</div>

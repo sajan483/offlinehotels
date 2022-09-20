@@ -1,0 +1,48 @@
+<div class="transaction-history-div">
+    <div class="page_hedear_div">
+        <div class="container">
+            <h2>{{'Transactions' | translate}}</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div fxLayoutAlign="end center" class="pt10">
+            <button class="search_bttn" (click)="navigateToReportGenerationPage()">{{'Generate Report' | translate}}</button>
+        </div>
+
+        <div class="common_card serach-card">
+            <div class="pb10 web_view">
+                <app-filter-booking-list (setSearchBody)="searchData($event)"></app-filter-booking-list>
+            </div>
+            <div>
+                <app-booking-list [recentHistory]="history" [currency]="selectCurrency" [language]="selectLangCode" [shimmer]="shimmer"></app-booking-list>
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-10  ml-auto mr-auto mt-2">
+                        <div class="float-right">
+                            <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="paginateHistoryList($event)"></app-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-filter-div mob_view">
+        <div class="d-flex">
+            <div class="flex-fill filder-text-div" (click)="showFilter()">
+                <span class="ak-filter"></span> {{'Filter' | translate}}
+            </div>
+            <div class="flex-fill filder-text-div" (click)="searchData('')">
+                <span class="ak-reset"></span> {{'Reset' | translate}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<app-side-panel-up [open]="popupShow" [heading]="'Search Transactions'" (close)="closeFilter()">
+    <app-filter-booking-list (setSearchBody)="searchData($event)"></app-filter-booking-list>
+</app-side-panel-up>

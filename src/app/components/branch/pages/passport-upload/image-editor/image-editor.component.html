@@ -1,0 +1,11 @@
+<div class="imgediter-outer">
+    <main>
+        <div class="content" fxLayout="row" fxLayoutAlign="center center">
+            <app-photo-editor [disableCropperHeightCheck]="disableCropperHeightCheck" [imageChanedEvent]="imageChangedEvent" (imageCropped)="imageCropped($event)"
+                imageFormat="png" [viewMode]="0" 
+                [file]="fileSource"
+                (closeDialog)="closeDialog(fileSource.fileData)">
+            </app-photo-editor>
+        </div>
+    </main>
+</div>

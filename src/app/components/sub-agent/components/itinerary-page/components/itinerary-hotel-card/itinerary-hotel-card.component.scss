@@ -1,0 +1,45 @@
+.itinerary-hotel-card-div{
+    margin-bottom: 20px;
+    .errorBox {
+        box-shadow: 0 4px 6px -1px #ff7f7f1a, 0 2px 4px -1px #ff66660f;
+        background-color: #fff2f2;
+    }
+    .brdrbottom {
+        border-bottom: 1px solid #e1e1e1;
+    }
+    .booked-text{
+        text-transform: uppercase;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .divider-div{
+        border-right: 1px solid #e1e1e1;
+        margin: 0 5px;
+        height: 20px;
+    }
+    .linebyline {
+        span {
+            margin-left: 8px;
+            font-size: 13px;
+        }
+        .crossline {
+            border-right: 1px solid;
+        }
+    }
+
+    .brdrR {
+        border-right: 1px solid #e1e1e1;
+    }
+    
+    .brdrL {
+        border-left: 1px solid #e1e1e1;
+    }
+    
+    .brdrtop {
+        border-top: 1px solid #e1e1e1;
+    }
+    p{
+        margin-bottom: 0;
+    }
+}
+

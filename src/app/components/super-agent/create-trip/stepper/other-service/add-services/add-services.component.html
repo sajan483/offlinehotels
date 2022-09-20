@@ -1,0 +1,153 @@
+<div>
+    <div style="overflow: hidden;">
+
+        <section class="row mx-0 w-100 slideRight" *ngIf="navigateDiv == 'category'">
+            <div class="col-md-12 fw500 fs16 pb-2 d-flex justify-content-between">
+                <div>Categories</div>
+            </div>
+            <div class="col-md-4 row mx-0 pl-0 cursor-pointer" *ngFor="let item of serviceData" (click)="viewShope(item.id)">
+                <div class="row mx-0 col-md-12 px-0 cardCtegory">
+                    <div class="col-md-4 px-0">
+                        <img class="imgaeCard" src="{{categoryUrl+'/'+item?.image}}" alt="">
+                    </div>
+                    <div class="col-md-8 my-auto text-capitalize fw500">{{item?.name}}</div>
+                </div>
+            </div>
+        </section>
+
+        <section *ngIf="navigateDiv == 'subCategory'">
+            <div class="fw500 fs16 pb-2 d-flex justify-content-between">
+                <div>Sub Categories</div>
+                <div (click)="backAddons('category')" class="blue_text cursor-pointer"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</div>
+            </div>
+            <div *ngIf="shimmer" class="row mx-0 w-100 pt-2 slideRight">
+                <div class="col-md-4 mb-2 row mx-0 pl-0 cursor-pointer" *ngFor="let k of [].constructor(3);">
+                    <div class="row mx-0 col-md-12 px-0 cardCtegory">
+                        <div class="col-md-4 px-0">
+                            <div class="shine imgaeCard"></div>
+                        </div>
+                        <div class="col-md-8 my-auto text-capitalize fw500 overflowDot">
+                            <div class="shine h20 w-100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!shimmer">
+                <div *ngIf="subCategoryValue.length == 0" class="row mx-0 w-100 pt-2">
+                    <div class="py-2 text-center fw600 fs20 clr52 col-md-12">
+                        No category Items Found
+                    </div>
+                </div>
+
+                <div *ngIf="subCategoryValue.length > 0" class="row mx-0 w-100 pt-2">
+                    <div class="col-md-4 mb-2 row mx-0 pl-0 cursor-pointer" *ngFor="let data of subCategoryValue" (click)="viewSubCategory(data.id)">
+                        <div class="row mx-0 col-md-12 px-0 cardCtegory">
+                            <div class="col-md-4 px-0">
+                                <img class="imgaeCard" src="{{categoryUrl+'/'+data?.image}}" alt="">
+                            </div>
+                            <div class="col-md-8 my-auto text-capitalize fw500 overflowDot">
+                                <div class="col-md-8 my-auto text-capitalize fw500 overflowDot">{{data?.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+
+        <section *ngIf="navigateDiv == 'lowerCategory'">
+            <div class="fw500 fs16 pb-2 d-flex justify-content-between">
+                <div>Lower Categories</div>
+                <div (click)="backAddons('subCategory')" class="blue_text cursor-pointer"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</div>
+            </div>
+            <div *ngIf="shimmer" class="row mx-0 w-100 pt-2 slideRight">
+                <div class="col-md-6 mb-2 row mx-0 pl-0 cursor-pointer" *ngFor="let k of [].constructor(4);">
+                    <div class="row mx-0 col-md-12 px-0 cardCtegory">
+                        <div class="col-md-4 px-0">
+                            <div class="shine imgaeCard"></div>
+                        </div>
+                        <div class="col-md-8 my-auto text-capitalize fw500 overflowDot">
+                            <div class="shine h20 w-100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!shimmer">
+                <div *ngIf="lowerCategoryValue.length == 0" class="row mx-0 w-100 pt-2">
+                    <div class="py-2 text-center fw600 fs20 clr52 col-md-12">
+                        No category Items Found
+                    </div>
+                </div>
+                <div *ngIf="lowerCategoryValue.length > 0" class="row mx-0 w-100 pt-2">
+                    <div class="col-md-6 mb-2 row mx-0 pl-0 cursor-pointer" *ngFor="let data of lowerCategoryValue" (click)="viewItems(data.id)">
+                        <div class="row mx-0 col-md-12 px-0 cardCtegory">
+                            <div class="col-md-4 px-0">
+                                <img class="imgaeCard" src="{{categoryUrl+'/'+data?.image}}" alt="">
+                            </div>
+                            <div class="col-md-8 my-auto text-capitalize fw500 overflowDot">
+                                <div class="col-md-8 my-auto text-capitalize fw500 overflowDot">{{data?.name}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section *ngIf="navigateDiv == 'Items'">
+            <div class="fw500 fs16 pb-2 d-flex justify-content-between">
+                <div>Items</div>
+                <div (click)="backAddons('lowerCategory')" class="blue_text cursor-pointer"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</div>
+            </div>
+            <div *ngIf="shimmer" class="row mx-0 w-100 pt-2 slideRight">
+                <div class="col-md-3 mb-2 row mx-0 pl-0 cursor-pointer" *ngFor="let k of [].constructor(4);">
+                    <div class="card w-100">
+                        <div class="shine h100"></div>
+                        <div class="card-body p-2">
+                          <div class="shine h20 w-100 pb-2"></div>
+                          <div class="shine h20 w-100 pb-2"></div>
+                          <div class="shine h20 w-100"></div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+            <div *ngIf="!shimmer">
+
+                <div *ngIf="itemsValue.length == 0" class="row mx-0 w-100 pt-2">
+                    <div class="py-2 text-center fw600 fs20 clr52 col-md-12">
+                        No Items Available
+                    </div>
+                </div>
+
+                <div *ngIf="itemsValue.length > 0" class="row mx-0 w-100 pt-2">
+                    <div class="col-md-3 mb-2 row mx-0 pl-0 cursor-pointer" *ngFor="let data of itemsValue" >
+                        <div class="card w-100 position-relative">
+                            <div class="discount_div" *ngIf="data.discount > 0">
+                                <div *ngIf="data.discount_type == 'percent'">{{data.discount}}% OFF</div>
+                                <div *ngIf="data.discount_type == 'amount'">{{currency}} {{currencyConversion(data.discount)}} OFF</div>
+                            </div>
+                            <img class="card-img-top h100" [src]="productUrl+'/'+data.image" alt="Card image cap">
+                            <div class="card-body p-2">
+                              <h5 class="card-title fs14">{{data?.name}}</h5>
+                              <p class="card-text clr52 fs12">{{data?.description}}</p>
+                              <div *ngIf="data.discount > 0">
+                                {{currency}} {{discountAmount(data.price,data.discount,data.discount_type)}} <span class="clr7a text-linethrough fs13">{{currency}} {{currencyConversion(data.price)}}</span>
+                              </div>
+                              <div *ngIf="data.discount == 0">
+                                {{currency}} {{currencyConversion(data.price)}}
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div> 
+            </div>
+
+                       
+
+        </section>
+
+    </div>
+</div>

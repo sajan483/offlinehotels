@@ -1,0 +1,25 @@
+.ticket_cancellation_popup {
+    background-color: #00000082;
+    .modal-title {
+        color: #d32f2f;
+    }
+    .modal-dialog {
+        max-width: 1000px;
+    }
+    .remarks {
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .note {
+        font-size: 13px;
+        font-weight: 500;
+        color: #d32f2f;
+    }
+    .note_txt {
+        color: #777;
+    }
+}
+.rfTxt{
+    font-size: 14px;
+    font-weight: 600;
+}

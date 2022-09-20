@@ -1,0 +1,139 @@
+<div>
+    <div class="w-100 bgf2 ptpb25">
+        <div class="container d-flex justify-content-between">
+            <div class="fs22 lh22 fw600 text-black">Payment Details</div>
+            <div class="d-inline-flex cursor-pointer" (click)="back()">
+                <i class="blue_back_arrow icns icon_size_15"></i>
+                <div class="blue_back_clr lh15 fs15 ml-2">Back</div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="boxborder" *ngIf="totalAdult != 0">
+            <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                <div class="fw600 fs16">Fare Summary </div>
+            </div>
+            <div class="w-100 m-0 p30">
+                <table class="table table-borderless" id="fareSplitUp">
+                    <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Adult</th>
+                        <th scope="col">Child</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="fareSummary.flightAdult != 0">
+                        <th>Flight</th>
+                        <td>{{currency}} {{fareSummary.flightAdult | number:'1.0'}}</td>
+                        <td>{{currency}} {{fareSummary.flightChild | number:'1.0'}}</td>
+                      </tr>
+                      <tr *ngIf="fareSummary.MakkahAdult != 0">
+                        <th>Makkah Hotel</th>
+                        <td>{{currency}} {{fareSummary.MakkahAdult | number:'1.0'}}</td>
+                        <td>{{currency}} {{fareSummary.makkahChild | number:'1.0'}}</td>
+                      </tr>
+                      <tr *ngIf="fareSummary.madeenaAdult != 0">
+                        <th>Medinah Hotel</th>
+                        <td>{{currency}} {{fareSummary.madeenaAdult | number:'1.0'}}</td>
+                        <td>{{currency}} {{fareSummary.madeenaChild | number:'1.0'}}</td>
+                      </tr>
+                      <tr *ngIf="fareSummary.transport != 0">
+                        <th>Transport</th>
+                        <td>{{currency}} {{fareSummary.transport | number:'1.0'}}</td>
+                        <td>{{currency}} {{fareSummary.transport | number:'1.0'}}</td>
+                      </tr>
+                      <tr *ngIf="fareSummary.visaAdult != 0">
+                        <th>Visa</th>
+                        <td>{{currency}} {{fareSummary.visaAdult | number:'1.0'}}</td>
+                        <td>{{currency}} {{fareSummary.visaChild | number:'1.0'}}</td>
+                      </tr>
+                      <tr *ngIf="fareSummary.service != 0">
+                        <th>Other Service</th>
+                        <td>{{currency}} {{fareSummary.service | number:'1.0'}}</td>
+                        <td>{{currency}} {{fareSummary.service | number:'1.0'}}</td>
+                      </tr>
+                      <tr>
+                        <th></th>
+                        <th>{{currency}} {{totalAdult | number:'1.0'}}</th>
+                        <th>{{currency}} {{totalChild | number:'1.0'}}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <form [formGroup]="advancepayment" (ngSubmit)="onSubmit()">
+            <div class="boxborder p30 mt-2">
+                <div class="row m-0">
+                    <div class="col-md-4 mb30 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Trip Cost Per Adult :</label>
+                        <div class="input-group w-100">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                            </div>
+                            <input type="number" class="owldatebrdr w80 form-control" [min]=1 formControlName="adult_price" [ngClass]="{ 'is-invalid': submitted && f.adult_price.errors }">
+                            <div *ngIf="submitted && f.adult_price.errors" class="errortooltiptext top110">
+                                this field is required
+                            </div>
+                        </div>
+                        <!-- <p class="fs13 clr86">Suggested Amount : {{suggestedAmound.adult_price}}</p> -->
+                    </div>
+                    <div class="col-md-4 mb30 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Trip Cost Per Kids (With Bed) :</label>
+                        <div class="input-group w-100">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                            </div>
+                            <input type="number" class="owldatebrdr w80 form-control" [min]=1 formControlName="child_with_bed_price" [ngClass]="{ 'is-invalid': submitted && f.child_with_bed_price.errors }">
+                            <div *ngIf="submitted && f.child_with_bed_price.errors" class="errortooltiptext top110">
+                                this field is required
+                            </div>
+                        </div>
+                        <!-- <p class="fs13 clr86">Suggested Amount : {{suggestedAmound.child_with_bed_price}}</p> -->
+                    </div>
+                    <div class="col-md-4 mb30 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Trip Cost Per Kids (Without Bed) :</label>
+                        <div class="input-group w-100">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                            </div>
+                            <input type="number" class="owldatebrdr w80 form-control" [min]=0 formControlName="child_without_bed_price" [ngClass]="{ 'is-invalid': submitted && f.child_without_bed_price.errors }">
+                            <div *ngIf="submitted && f.child_without_bed_price.errors" class="errortooltiptext top110">
+                                this field is required
+                            </div>
+                        </div>
+                        <!-- <p class="fs13 clr86">Suggested Amount : {{suggestedAmound.child_without_bed_price}}</p> -->
+                    </div>
+                    <div class="col-md-4 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Advance Payable (0 - 100%):</label>
+                        <div class="input-group w-100">
+                            <input type="number" class="owldatebrdr w80 form-control" [min]=0 formControlName="advance_pct" [ngClass]="{ 'is-invalid': submitted && f.advance_pct.errors }">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">%</span>
+                            </div>
+                            <div *ngIf="submitted && f.advance_pct.errors" class="errortooltiptext top110">
+                                this field is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Branch Commission (0 - 100%):</label>
+                        <div class="input-group w-100">
+                            <input type="number" class="owldatebrdr w80 form-control" [min]=0 formControlName="b2b_pct" [ngClass]="{ 'is-invalid': submitted && f.b2b_pct.errors }">
+                            <div class="input-group-prepend w20">
+                                <span class="input-group-text priceicon" id="basic-addon1">%</span>
+                            </div>
+                            <div *ngIf="submitted && f.b2b_pct.errors" class="errortooltiptext top110">
+                                this field is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3 mb30">
+                <button type="submit" class="searchbutton" [class.bttnactive]="bttnactive">Continue</button>
+            </div>
+            <div class="p20"></div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<div>
+    <div class="w-100 bgf2 p10">
+        <div class="container d-flex justify-content-between">
+            <div class="d-inline-flex cursor-pointer my-auto" (click)="back()">
+                <i class="blue_back_arrow icns icon_size_15"></i>
+                <div class="blue_back_clr lh15 fs15 ml-2">Back</div>
+            </div>
+            <div>
+                <button class="btn btn-info" (click)="navigate()">Skip <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="fs22 py-2 container lh22 fw600 text-black">Add-Ons Service </div>
+    <div class="container mt-1 mb-5">
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="d-flex justify-content-end" *ngIf="addButton">
+                <div class="addAnotherBttn cursor-pointer mb-2" (click)="addFoodService()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Service</div>
+                <!-- <div class="addAnotherBttn cursor-pointer mb-2 ml-2" (click)="addService()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Service</div> -->
+            </div>
+            <div class="boxborder">
+
+                <section *ngIf="foodDiv">
+                    <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                        <div class="fw600 fs16">Service</div>
+                        <div class="fs16 fw400 cursor-pointer" (click)="removeFood()"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Remove</div>
+                    </div>
+                    <div class="p30">
+                        <app-add-services [serviceData]="serviceData"></app-add-services>
+                    </div>
+                </section>
+                
+                <!-- <div *ngIf="serviceBox">
+                    <div formArrayName="arr" *ngFor="let a of getControls(); let i = index">
+                        <div [formGroupName]="i">
+                            <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                                <div class="fw600 fs16">Service {{i+1}}</div>
+                                <div class="fs16 fw400 cursor-pointer" (click)="removeItem(i)"><i class="fa fa-times-circle-o" aria-hidden="true"></i> Remove</div>
+                            </div>
+                            <div class="row m-0 p30">
+                                <div class="col-md-4 mb30">
+                                    <label class="fs14 fw400 lh14 pl-1">Service :</label>
+                                    <div class="shine w-100 h35 brdr_rdius_4" *ngIf="serviceShimmer"></div>
+                                    <select class="owldatebrdr w-100 form-control" *ngIf="!serviceShimmer" formControlName="category">
+                                        <option value="" disabled selected hidden>Select Service</option>
+                                        <option *ngFor="let item of serviceCategoryList" [value]="item.item_id">{{item.item_text}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb30">
+                                    <label class="fs14 fw400 lh14 pl-1">Name :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Enter Name" formControlName="name">
+                                </div>
+                                <div class="col-md-4 mb30">
+                                    <label class="fs14 fw400 lh14 pl-1">Description :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control form-control" placeholder="Enter Description" formControlName="description">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="fs14 fw400 lh14 pl-1">Price :</label>
+                                    <div class="input-group w-100">
+                                        <div class="input-group-prepend w20">
+                                            <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                                        </div>
+                                        <input type="text" class="owldatebrdr w80 form-control" numberOnly formControlName="price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end p30">
+                        <div class="addAnotherBttn cursor-pointer" (click)="addItem()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Another</div>
+                    </div>
+                </div> -->
+                <div>
+                    <div class="w-100 bgf2 p20 fs16 fw600 brdr_btm_d3">
+                        Visa Services Offered
+                    </div>
+                    <div class="row m-0 p30">
+                        <div class="col-md-4 mb30 errortooltip">
+                            <label class="fs14 fw400 lh14 pl-1">Visa Service :</label>
+                            <div class="shine w-100 h35 brdr_rdius_4" *ngIf="visaShimmer"></div>
+                            <select class="owldatebrdr w-100 form-control" *ngIf="!visaShimmer" formControlName="visaservice" (change)="getVisa($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.visaservice.errors }">
+                                <option value="" disabled selected hidden>Select Visa Service</option>
+                                <option *ngFor="let item of visaService" [value]="item.item_id">{{item.item_text}}</option>
+                            </select>
+                            <div *ngIf="submitted && f.visaservice.errors" class="errortooltiptext top107">
+                                this field is required
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb30 errortooltip">
+                            <label class="fs14 fw400 lh14 pl-1">Rate For Adult :</label>
+                            <div class="input-group w-100">
+                                <div class="input-group-prepend w20">
+                                    <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                                </div>
+                                <input type="number" class="owldatebrdr w80 form-control" [min]=1 formControlName="adultpricevisa" [ngClass]="{ 'is-invalid': submitted && f.adultpricevisa.errors }">
+                                <div *ngIf="submitted && f.adultpricevisa.errors" class="errortooltiptext top110">
+                                    this field is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb30 errortooltip">
+                            <label class="fs14 fw400 lh14 pl-1">Rate For Kid :</label>
+                            <div class="input-group w-100">
+                                <div class="input-group-prepend w20">
+                                    <span class="input-group-text priceicon" id="basic-addon1">{{currency}}</span>
+                                </div>
+                                <input type="number" [min]=1 class="owldatebrdr w80 form-control" formControlName="childpricevisa" [ngClass]="{ 'is-invalid': submitted && f.childpricevisa.errors }">
+                                <div *ngIf="submitted && f.childpricevisa.errors" class="errortooltiptext top110">
+                                    this field is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <button class="searchbutton" [class.bttnactive]="bttnactive">Continue</button>
+            </div>
+        </form>
+    </div>
+</div>

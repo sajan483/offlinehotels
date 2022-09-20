@@ -1,0 +1,82 @@
+<div class="container-fluid" id="top">
+    <div class="container mb80  mt100">
+        <div class="profiledetailsbrdr">
+            <h4 class="text-center text-uppercase mt-3">Agency Details</h4>
+            <h6 class="text-center text-uppercase pt-3">Personal Details</h6>
+            <div class="d-flex justify-content-center">
+                <table class="table table-striped bg-light mt-3 w-75">
+                    <tbody>
+                        <tr>
+                            <td class="text-right">Name</td>
+                            <td>:</td>
+                            <td>{{profile?.primary_contact?.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Phone Number</td>
+                            <td>:</td>
+                            <td>{{profile?.primary_contact?.phone_number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Email</td>
+                            <td>:</td>
+                            <td>{{profile?.primary_contact?.email}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Role</td>
+                            <td>:</td>
+                            <td>{{profile?.primary_contact?.role}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h6 class="mt-5 text-center">Agency Details</h6>
+            <div class="d-flex justify-content-center">
+                <table class="table table-striped bg-light w-75">
+                    <tbody>
+                        <tr>
+                            <td class="text-right">Agency Name</td>
+                            <td>:</td>
+                            <td>{{profile?.name}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Phone number</td>
+                            <td>:</td>
+                            <td>{{profile?.phone_number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Email</td>
+                            <td>:</td>
+                            <td>{{profile?.email}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Commercial RegNo</td>
+                            <td>:</td>
+                            <td>{{profile?.approval_requests[0]?.commercial_regno}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">IATA Licence No.</td>
+                            <td>:</td>
+                            <td>{{profile?.approval_requests[0]?.iata_license}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Mobile No.</td>
+                            <td>:</td>
+                            <td>{{profile?.approval_requests[0]?.mobile}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Passport Number</td>
+                            <td>:</td>
+                            <td>{{profile?.approval_requests[0]?.passport_number}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right">Signatory Name</td>
+                            <td>:</td>
+                            <td>{{profile?.approval_requests[0]?.signatory_name}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

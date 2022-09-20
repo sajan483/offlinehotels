@@ -1,0 +1,155 @@
+.sub-agent-header-div{
+    background-color: #fff;
+    z-index: 10;
+    padding: 8px;
+    .logo-img{
+        height: 40px;
+        width: fit-content;
+        cursor: pointer;
+        img{
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    .cmpny-name{
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+    .nav-link{
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 3px 6px;
+        text-transform: uppercase;
+        &:hover{
+            border-bottom: solid #c3996b;
+        }
+    }
+    .user-profile{
+        cursor: pointer;
+        .welcome-text{
+            font-size: 12px;
+            line-height: 13px;
+            font-weight: 500;
+            width: max-content;
+            text-align: end;
+        }
+        .user-logo-h{
+            height: 33px;
+            width: 33px;
+        }
+        .user-name{
+            font-size: 14px;
+            line-height: 14px;
+            text-align: end;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+    }
+    .mat-menu-text{
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 14px;
+    }
+
+    .language-div{
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 3px 5px;
+        height: 28px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        .icon{
+            color: #116063;
+        }
+    }
+
+    .menu-bar-div{
+        color: #956b3d;
+        font-size: 16px;
+    }
+    
+}
+
+.sticky-header {
+    box-shadow: 0px 2px 13px rgb(5 5 5 / 20%);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    transition: all .5s ease;
+}
+
+.hhricon{
+    font-size: 20px;
+    color: #c3996b;
+}
+
+.logout-icon{
+    font-size: 20px;
+}
+
+::ng-deep .mat-menu-panel .mat-menu-content .mat-menu-item {
+    height: 35px;
+    line-height: 35px;
+    text-transform: uppercase;
+}
+
+::ng-deep .mat-menu-panel {
+    .mat-menu-content {
+      .mat-menu-item {
+        text-transform: capitalize;
+        font-weight: 400;
+        color: #363636;
+        position: relative;
+
+        &::before {
+          content: "";
+          left: 0px;
+          top: 50%;
+          width: 4px;
+          height: 0%;
+          background: #116063;
+          position: absolute;
+          z-index: 11;
+          opacity: 0;
+          border-radius: 0 999px 999px 0;
+        //   @include transition(all 0.5s ease);
+          transition: all 0.5s ease;
+        }
+
+        &:hover {
+          &::before {
+            height: 100%;
+            opacity: 1;
+            top: 0;
+          }
+        }
+      }
+    }
+  }
+
+@media screen and (max-width: 992px) {
+    .sub-agent-header-div{
+        padding: 8px 0;
+        .logo-img{
+            height: 25px;
+            width: fit-content;
+            cursor: pointer;
+            img{
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+        .cmpny-name{
+            font-size: 16px;
+            line-height: 16px;
+        }
+        .nav-link{
+            font-size: 11px;
+        }
+    }
+}
+

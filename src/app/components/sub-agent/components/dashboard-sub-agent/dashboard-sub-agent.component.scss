@@ -1,0 +1,113 @@
+.dashboard-div{
+    .service-list-div{
+        .service-card{
+            margin-top: 10px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+            border: 0 solid rgba(0, 0, 0, 0.125);
+            border-radius: 0.25rem;
+            padding: 10px;
+            width: 100%;
+            background-color: #fff;
+            cursor: pointer;
+            transition-duration: 0.4s;
+            color: #000;
+            text-decoration: unset;
+            &:hover{
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+            }
+        }
+        .service-icon{
+            font-size: 20px;
+            color: #116063;
+            background-color: #1160631a;
+            border-radius: 50%;
+            padding: 5px;
+            span{
+                padding: 5px;
+            }
+        }
+        .service-text{
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: 18px;
+        }
+        .right-arrow-icon{
+            height: 20px;
+            img{
+                height: 100%;
+                width: auto;
+                object-fit: contain;
+            }
+        }
+        .brn-text{
+            font-size: 10px;
+            font-weight: 400;
+            text-transform: capitalize;
+            color: #c59b6d;
+        }
+    }
+
+    .hedd-div{
+        display: flex;
+        justify-content: space-between;
+        .hedd-text{
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    }
+    
+    .view-all-bttn{
+        background-color: #fff;
+        border: 1px solid #956b3d;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 12px;
+        color: #956b3d;
+        cursor: pointer;
+        text-transform: capitalize;
+        width: fit-content;
+        &:hover{
+            background-color: #f2f2f2;
+        }
+    }
+}
+
+.mobile-service-div{
+    display: none;
+    .bottom-nav-div{
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 99;
+        background-color: #fff;
+        height: 75px;
+    }
+    .navigations-mob{
+        text-align: center;
+        color: #116063;
+        .nav-con{
+            font-size: 25px;
+        }
+        .nav-text{
+            font-size: 12px;
+            font-weight: 500;
+        }
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .dashboard-div{
+        margin-bottom: 80px;
+    }
+    .service-list-div{
+        display: none;
+    }
+    .mobile-service-div{
+        display: block;
+    }
+}

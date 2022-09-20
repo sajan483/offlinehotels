@@ -1,0 +1,65 @@
+<div class="filter-booking-list">
+    <div class="row ">
+        <div class="col-md-3 col-12 pading_fields">
+            <div class="label-text">{{'Search UT Number' | translate}}</div>
+            <input type="text" class="form-control" placeholder="{{'Search UT Number' | translate}}" [(ngModel)]="searchUtNumber">
+        </div>
+        <div class="col-md-3 col-12 pading_fields">
+            <div class="label-text">{{'Search Group Id/Tag' | translate}}</div>
+            <input type="text" class="form-control" placeholder="{{'Search Group Id/Tag' | translate}}" [(ngModel)]="searchTag">
+        </div>
+        <div class="col-md-3 col-12 pading_fields">
+            <div class="label-text">{{'Search BRN' | translate}}</div>
+            <input type="text" class="form-control" placeholder="{{'Search BRN' | translate}}" [(ngModel)]="searchBrn">
+        </div>
+        <div class="col-md-3 col-12 pading_fields">
+            <div class="label-text">{{'Hotel/Transportation Company Name' | translate}}</div>
+            <input type="text" class="form-control" placeholder="{{'Hotel/Transportation Company Name' | translate}}" [(ngModel)]="searchCompany">
+        </div>
+        <div class="col-md-3 col-12 pading_fields" >
+            <div class="label-text">{{'Booking Date' | translate}}</div>
+            <div [owlDateTimeTrigger]="dt1" class="position-relative">
+                <input type="text" class="form-control" placeholder="{{'Booking Date' | translate}}" [owlDateTime]="dt1" [(ngModel)]="bookingDate" [selectMode]="'range'" [max]="toDay">
+                <span class="ak-calendar calanderIcon"></span>
+            </div>
+            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+        </div>
+        <div class="col-md-3 col-12 pading_fields">
+            <div class="label-text">{{'Status' | translate}}</div>
+            <mat-select class="form-control" [(value)]="statusData">
+                <mat-option value="success">{{'Success' | translate}}</mat-option>
+                <mat-option value="cancelled">{{'Cancelled' | translate}}</mat-option>
+                <mat-option value="failed">{{'Failed' | translate}}</mat-option>
+                <mat-option value="cart">{{'Cart' | translate}}</mat-option>
+                <mat-option value="available">{{'Available' | translate}}</mat-option>
+                <mat-option value="processing">{{'Processing' | translate}}</mat-option>
+                <mat-option value="partial_success">{{'Partial Success' | translate}}</mat-option>
+                <mat-option value="partial_cancellation">{{'Partial Cancellation' | translate}}</mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-3 col-12 pading_fields">
+            <div class="label-text">{{'Services' | translate}}</div>
+            <mat-select class="form-control" [(value)]="searchService">
+                <mat-option value="Makkah">{{'Makkah Hotel' | translate}}</mat-option>
+                <mat-option value="Medinah">{{'Medinah Hotel' | translate}}</mat-option>
+                <mat-option value="Transport">{{'Transport' | translate}}</mat-option>
+            </mat-select>
+        </div>
+        <div class="col-md-2 mt-auto web_view pading_fields">
+            <button class="search_bttn w-100" (click)="searchFilter()">{{'Search' | translate}}</button>
+        </div>
+        <div class="col-md-1 mt-auto web_view pading_fields">
+            <button class="secondary_bttn w-100" title="reset" (click)="resetFilter()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
+    <div class="mob_view">
+        <div class="poaition-bttn-mob">
+            <div fxLayout="row" fxLayoutAlign="end center" >
+                <button class="secondary_bttn" title="reset" (click)="resetFilter()"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+                <div style="width: 10px;"></div>
+                <button class="search_bttn" (click)="searchFilter()">{{'Search' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+.booking-request-div{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: #00000062;
+    .booking-req-popup{
+        width: 600px;
+        overflow: hidden;
+        .popup-content{
+            max-height: 800px;
+            background-color: #fff;
+            box-shadow: 0 0 9px 0 rgb(0 0 0 / 15%);
+            border: 1px solid rgba(156,170,179,.28);
+            border-radius: 5px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            .popup-header{
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                padding: 20px;
+                border-bottom: 1px solid #dee2e6;
+                .title{
+                    font-size: 18px;
+                    line-height: 18px;
+                    margin-bottom: 0;
+                    text-transform: capitalize;
+                }
+                .close-icon{
+                    font-size: 18px;
+                    line-height: 18px;
+                    cursor: pointer;
+                }
+            }
+            .popup-body{
+                max-height: 60vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 20px;
+            }
+        }
+    }
+    .radio-bttn-group{
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0;
+    }
+}

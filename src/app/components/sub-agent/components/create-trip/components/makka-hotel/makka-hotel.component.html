@@ -1,0 +1,272 @@
+<div class="animationdiv">
+  <div class="mt140 mb-5 smallmt">
+    <div class="hotel_filter_section filterbox col-md-12 row mrhntopphone mx-auto animationdiv">
+      <div class="col-md-1 pl-0 pr-0 pt-1 ml-0 mr-0 fliter-arrow my-auto">
+        <div class="">
+          <div class="">{{'Filters' | translate }}</div>
+        </div>
+      </div>
+      <div *ngIf="!isHotelListSortedByHaramDistance " class="col-md-2 col-8  my-auto ">
+        <div (click)="haramdistancefilterUp()" class="cursor-pointer">
+          <span *ngIf="this.hotelsList[0].config.location == 'MAKKA'" class="pr-2 fs13">{{'Haram Distance' |translate }}</span>
+          <span *ngIf="this.hotelsList[0].config.location == 'MADEENA'" class="pr-2 fs13">{{'Nabawi Distance' |translate }}</span>
+          <span class="fliter-arrow">
+            <div>
+              <button><i class="fa fa-angle-up"></i></button>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div *ngIf="isHotelListSortedByHaramDistance" class="col-md-2 col-4  my-auto ">
+        <div (click)="haramdistancefilterDown()" class="cursor-pointer">
+          <span *ngIf="this.hotelsList[0].config.location == 'MAKKA'" class="pr-2 fs13">{{'Haram Distance' |translate }}</span>
+          <span *ngIf="this.hotelsList[0].config.location == 'MADEENA'" class="pr-2 fs13">{{'Nabawi Distance' |translate }}</span>
+          <span class="fliter-arrow">
+            <div>
+              <button><i class="fa fa-angle-down"></i></button>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-1  my-auto  col-2">
+        <div class="cursor-pointer" (click)="priceHotelFilter()">
+          <span class="pr-2 fs13">{{'price' | translate}}</span>
+          <span class="fliter-arrow">
+            <div *ngIf="!isHotelsSortedByPrice">
+              <button><i class="fa fa-angle-down"></i></button>
+            </div>
+            <div *ngIf="isHotelsSortedByPrice">
+              <button><i class="fa fa-angle-up"></i></button>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-2  my-auto  col-2">
+        <div class="cursor-pointer" (click)="toggleFavSort()">
+          <span class="pr-2 fs13">{{'Favorites' | translate}}</span>
+          <span class="fliter-arrow">
+            <div *ngIf="!isHotelSortedByFav">
+              <button><i class="fa fa-angle-down"></i></button>
+            </div>
+            <div *ngIf="isHotelSortedByFav">
+              <button><i class="fa fa-angle-up"></i></button>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-2 my-auto" (click)="moreFilter()">
+        <div class="cursor-pointer">
+          <span class="pr-2 fs13">{{'More Filter' | translate}}</span>
+          <span class="fliter-arrow">
+            <div *ngIf="!moreFilterArrow">
+              <button><i class="fa fa-angle-down"></i></button>
+            </div>
+            <div *ngIf="moreFilterArrow">
+              <button><i class="fa fa-angle-up"></i></button>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-md-1 my-auto" (click)="resetAllFilter()">
+        <div class="cursor-pointer">
+          <span class="pr-0 fs14">{{'Reset All' | translate}}</span>
+        </div>
+      </div>
+      <div class="col-md-3 text-right ml-auto pr-0">
+        <input class="haram_filter fs13 mt5" type="text" name="search" [(ngModel)]="userFilter.name" autocomplete="off"
+          placeholder="{{'Search By Hotel Name' | translate}}">
+      </div>
+      <div class="col-md-12 p-0 " *ngIf="showHotelFilterDiv">
+        <div class="mt8 row ml-0 mr-0 brdr_top_d3">
+          <div class="col-md-4 mt20">
+            <h4 class="fs14">{{'STAR CATEGORY' | translate}}</h4>
+            <div>
+              <span class="example-list-section">
+                <ul>
+                  <li *ngFor="let item of getAllRatings(); let i = index">
+                    <mat-checkbox [checked]="item.Tounched" (change)="addFilterModel(item.Type,'starRating',$event)">
+                      <ngb-rating [rate]="item.Type" [readonly]="readonly" [max]=5>
+                        <ng-template let-fill="fill" let-index="index">
+                          <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                        </ng-template>
+                      </ngb-rating> ({{item.Type}})
+                    </mat-checkbox>
+                  </li>
+                </ul>
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4 mt20 brdr_left_right_d3">
+            <div>
+              <h4 class="fs14">{{'PRICE RANGE' | translate}}</h4>
+              <span class="pr-2 fs13 clr52">{{'Choose a price range to search in' | translate}}</span>
+              <span>
+                <div class="custom-slider">
+
+                <ngx-slider  [(value)]="minPriceRange" [(highValue)]="maxPriceRange" [options]="options" (valueChange)="onInputPriceRangeFilter($event)" (highValueChange)="onInputPriceRangeFilter($event)"></ngx-slider>
+                </div>
+                <!-- <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" min="300" max="10000"
+                  [(ngModel)]="hotelPriceRange" (input)="onInputPriceRangeFilter($event)"></mat-slider> -->
+              </span>
+            </div>
+          </div>
+          <div class="col-md-4 mt20">
+            <div>
+              <h4 class="fs14">{{'AMENITIES' | translate}}</h4>
+              <span class="example-list-section amen-scroll">
+                <ul>
+                  <li *ngFor="let item of getAllAmenities(); let i = index">
+                    <mat-checkbox [checked]="item.Tounched" (change)="addFilterModel(item.Name,'amenities',$event)">
+                      {{item.Name}} </mat-checkbox>
+                  </li>
+                </ul>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-12 row m-0 pl-0 pr-0 filter-group-btn-section">
+          <div class="col-md-6 col-6"></div>
+          <div class="col-md-6 col-6 textRight mirrTextLeft">
+            <span>
+              <button class="cancel-filter" type="button"  (click)="closeFilterPoup()">{{'Cancel' | translate}}</button>
+            </span>
+            <span>
+              <button class="apply-fliter" type="button"[class.bttnactive]="bookContinue" (click)=applyFilter()>{{'Apply' | translate}}</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="padding_hotel1" *ngFor="let item of getAllActiveHotelList() | filterBy: userFilter;let i = index">
+      <div class="uitk-card uitk-grid border_box_shadow">
+        <div class="link-container uitk-grid">
+          <div class="row w-100 m-0">
+            <div class="col-md-4 col-12 pr-0 pl-0">
+              <section class="uitk-cell uitk-card-media">
+                <div *ngIf="item.has_special_deal" class="hotelRibbon">
+                  <span class="hotelRibbon3 hotellist">
+                    {{'Special Deal' | translate }}
+                  </span>
+                </div>
+                <div *ngIf="item.umrah_hotel_code == subPcc_hotel_code" class="hotelRibbon">
+                  <span class="hotelRibbon3 hotellist">
+                    {{'Promo Code Applied' | translate }}
+                  </span>
+                </div>
+                <header class="title">
+                  <div class="listing-photo-gallery title__media-container">
+                    <span>
+                      <section class="uitk-cell uitk-card-media title__media-container">
+                        <div class="photo-gallery noimghotel">
+                          <img src="{{item.images.image_webp_url}}" *ngIf="item?.images?.image_webp_url != null && item?.images?.image_webp_url?.length > 25" alt="">
+                        </div>
+                      </section>
+                    </span>
+                  </div>
+                </header>
+              </section>
+            </div>
+            <div class="col-md-8 col-12 pr-0 pl-0">
+              <div class="uitk-card-content row">
+                <div class="result-details-left col-md-8 col-12">
+                  <div class="d-flex flex-column ">
+                    <div class="d-inline-flex">
+                      <div class="d-flex">
+                        <h3 class="hotel_name" title="{{item?.name}}">{{item?.name | titlecase }}</h3><span
+                          style="color:white">({{item?.providers!=undefined && item?.providers != null && item?.providers.length>0 ?item?.providers[0]?.provider?.charAt(0):""}})</span>
+                      </div>
+                      <div class="pl-1 mpr5">
+                        <ngb-rating [(rate)]="item.rating" [readonly]="readonly" [max]=5>
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                      </div>
+                    </div>
+                    <div class="d-inline-flex pb5" *ngIf="item.haram_distance != null">
+                      <div class="pr10 mpl10 mpr0"><i class="makkahharam icns icon_size_15"></i></div>
+                      <div *ngIf="item?.haram_distance < 1000" class="fs13 clr52 fw400"><strong
+                          class="clr01 fs14 fw500">{{'HARAM' | translate}}</strong> {{item?.haram_distance}} Meters
+                      </div>
+                      <div *ngIf="item?.haram_distance > 1000" class="fs13 clr52 fw400"><strong
+                          class="clr01 fs14 fw500">{{'HARAM' | translate}}</strong> {{item?.haram_distance /1000}} Km
+                      </div>
+                    </div>
+                    <div class="d-inline-flex pb5" *ngIf="item.nabawi_distance != null">
+                      <div class="pr10 mpl10 mpr0"><i class="madeenanabawi icns icon_size_15"></i></div>
+                      <div *ngIf="item.nabawi_distance < 999" class="fs13 clr52 fw400"><strong
+                          class="clr01 fs14 fw500">NABAWI</strong> {{item?.nabawi_distance}} Meters
+                      </div>
+                      <div *ngIf="item.nabawi_distance > 999" class="fs13 clr52 fw400"><strong
+                          class="clr01 fs14 fw500">NABAWI</strong> {{item?.nabawi_distance / 1000}} Km
+                      </div>
+                    </div>
+                    <div class="d-inline-flex pb5" *ngIf="item.address">
+                      <div class="pr10 mpl10 mpr0"><i class="locationicon icns icon_size_15"></i></div>
+                      <div class="fs12 clr52">{{item?.address}}</div>
+                    </div>
+                    <div *ngIf="item.description">
+                      <div class="pb5 fs13 clr52 desptn divexpandanimation" id="descrptionLess{{i}}">
+                        {{item?.description}}</div>
+                        <ng-container *ngIf="item.description.length > 200">
+                      <div class="readmorenavigate fs13" id="readMoreBttn{{i}}" (click)="readMore($event,i)">+ {{'Read
+                        More' | translate}}</div>
+                      <div class="readmorenavigate fs13 dsplynone" id="readLessBttn{{i}}" (click)="readLess($event,i)">-
+                        {{'Read Less' | translate}}</div>
+                        </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-end flex-column result-details-right pr-0 col-md-4 col-12">
+                  <div class="text-center" *ngIf="fromCache">
+                    <div *ngIf="item.umrah_hotel_code == subPcc_hotel_code && !item.fromCache" class="fs12 red_text">
+                      {{'PROMO RATE' | translate}}</div>
+                    <div class="d-flex align-items-center">
+                      <h3 class="hotel_prise mb-0">{{currency}} {{currencyConversion(item?.amount)}}
+                      </h3>
+                      <div class="text-right ml-2">
+                        <div class=" boxshine heart_shimmer shine" *ngIf="favLoader==item.umrah_hotel_code"></div>
+                        <i class="icns icn_fav_border icon_size_40" *ngIf="favLoader!=item.umrah_hotel_code"
+                          [class.icn_fav_border]="!item.favorited"
+                          [class.icn_fav_filled]="item.favorited"
+                          (click)="toggleFavourite(item.umrah_hotel_code)"></i>
+
+                      </div>
+                    </div>
+                    <button class="searchbutton float_right mirr_float_left m-0" id="showHotelSelect{{i}}"
+                      (click)="showHotelDetailsPopUp(item)">{{'Select Room' | translate }}</button>
+                  </div>
+                  <div class="text-center" *ngIf="!fromCache">
+                    <h3 *ngIf="item.fromCache" class="lnht shine width40 hotel_prise"
+                      style="width:119px;margin-left: 103px;"></h3>
+                    <div *ngIf="item.umrah_hotel_code == subPcc_hotel_code && !item.fromCache" class="fs12 red_text">
+                      {{'PROMO RATE' | translate}}</div>
+                    <h3 *ngIf="!item.fromCache" class="hotel_prise">{{currency}} {{currencyConversion(item?.amount)}}
+                    </h3>
+                    <h3 *ngIf="item.fromCache" class="lnht shine width40 hotel_prise"
+                      style="width:119px;margin-left: 103px;"></h3>
+                    <button *ngIf="!item.fromCache" class="searchbutton float_right mirr_float_left m-0"
+                      id="showHotelSelect{{i}}" (click)="showHotelDetailsPopUp(item)">{{'Select Room' | translate
+                      }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div [style.display]="showDetailsShimmer ? 'block' : 'none'" class="viewHtlShimmer" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="bg_body w-100">
+    <app-loader-hotel-popup></app-loader-hotel-popup>
+  </div>
+</div>
+
+<div *ngIf="showHotelDetails">
+  <app-hotel-details-popup (handleNotif)="childEvent($event)" [hotelDetailsData]="hotelData"
+    (changeItinerary)="childEventForChangeItinerary($event)" (detailsFlag)="getDetailsPopupFlag($event)">
+  </app-hotel-details-popup>
+</div>

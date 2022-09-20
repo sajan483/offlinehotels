@@ -1,0 +1,71 @@
+<div class="payment-hotel-card-div common_card mt20">
+    <div class="payment-head" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+        <div class="text_start">
+            <div class="hotel-name">{{tripData?.selected_transportation?.company_name}}</div>
+        </div>
+
+        <div class="fs12 clr52 text_start" *ngIf="tripData?.company?.phone_number != null" fxLayout="row" fxLayoutAlign="start center">
+            <div><span class="ak-phone clrmain"></span></div>
+            <div style="width: 5px;"></div>
+            <a class="link-click-div" href="tel:+966{{tripData?.company?.phone_number}}">+966{{tripData?.company?.phone_number}}</a>
+        </div>
+
+        <div class="fs12 clr52 text_start" *ngIf="tripData?.company?.email != null" fxLayout="row" fxLayoutAlign="start center">
+            <div><span class="ak-mail clrmain"></span></div>
+            <div style="width: 5px;"></div>
+            <a class="link-click-div" href="mailto:{{tripData?.company?.email}}">{{tripData?.company?.email}}</a>
+        </div>
+        
+        <div class="fs12 clr52 text_start" *ngIf="tripData?.company?.address != null" fxLayout="row" fxLayoutAlign="start start">
+            <div><span class="ak-location clrmain"></span></div>
+            <div style="width: 5px;"></div>
+            <div>{{tripData?.company?.address}}, <strong>{{tripData?.company?.city}}</strong></div>
+        </div>
+        
+    </div>
+
+    <div class="amound-div">
+        <div class="total-amound">{{currency}} {{tripData?.prices_summary?.total_price | ConvertCurrency : currency}}</div>
+    </div>
+
+    <div class="payment-body" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div><strong>{{tripData?.vehicle_types[0]?.name}}</strong></div>
+            <div class="px-1">-</div>
+            <div class="text_start categoryStar">
+                <span class="textclrvip vip" [ngClass]="{'vip': tripData?.categories[0]?.name == 'VIP', 'normal': tripData?.categories[0]?.name == 'Normal', 'premium': tripData?.categories[0]?.name == 'Premium'}">{{tripData?.categories[0]?.name}}</span>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <div><strong>{{'Route' | translate}}</strong></div>
+            <div class="px-1">:</div>
+            <div>{{tripData?.selected_transportation?.route_name}}</div>
+        </div>
+    </div>
+
+    <div class="hotel-summary">
+        <div class="hotel-summary-data">{{'Start on'}} {{tripData?.selected_transportation?.start_date | DateTimeToDateFormat | date:'mediumDate'}}</div>
+        <div id="timeLine">
+            <div>
+                <ul class="sessions">
+                    <span>
+                        <li>
+                            <div class="time">{{tripData?.trip_vehicles[0]?.booked_quantity}} x {{tripData?.vehicle_types[0]?.name}}</div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px" class="mt-2 clr52 fs12">
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <div>{{'Model'}} : <strong>{{tripData?.selected_transportation?.vehicle_types[0]?.categories[0]?.model}}</strong></div>
+                                    <div class="px-2 clr01 fw400 fs16">|</div>
+                                    <div>{{'Traveller'}} : <strong>{{travellers}}</strong></div>
+                                </div>
+                                <div class="refundable non-ref mb-1" *ngIf="!tripData.selected_transportation.cancellation_policy.is_refundable">{{'Non Refundable' | translate}}</div>
+                                <div class="refundable refund mb-1" *ngIf="tripData.selected_transportation.cancellation_policy.is_refundable">{{'Refundable' | translate}}</div>
+                            </div>
+                        </li>
+                    </span>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>

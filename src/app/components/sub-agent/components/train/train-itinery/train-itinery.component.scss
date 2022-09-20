@@ -1,0 +1,245 @@
+.bdr {
+    border: 1px solid red !important;
+}
+
+.train-booking-list-div{
+  .mobile-list-card{
+    margin-bottom: 20px;
+  }
+  .top-div{
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .title{
+    color: #818181;
+    font-size: 12px;
+  }
+  .value{
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .second-div{
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eaeaea;
+  }
+  .bottom-div{
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .shimmer-div-data{
+    height: 30px;
+    width: 100px;
+  }
+  .shimmer-div-data2{
+    height: 30px;
+    width: 150px;
+  }
+}
+
+  .borderboxs {
+    background: #fff;
+    border: 1px solid rgba(156, 170, 179, 0.28);
+    box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.1);
+    // margin: 10px 50px 10px 111px;
+    padding: 20px;
+    min-height: 247px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .rounddiv {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    position: absolute;
+    left: -100px;
+  }
+  
+  .bgprofilr {
+    background-color: #f8e9c4;
+    transition: .3s;
+  
+  }
+  
+  .profileImg {
+    background: url("/assets/images/profileicon.png") no-repeat center center;
+  }
+  
+  .bgbooking {
+    background-color: #b1b1f8;
+  }
+  
+  .bookingImg {
+    background: url("/assets/images/create-packages-icon.png") no-repeat center center;
+  }
+  
+  .itenerary {
+  
+    ul,
+    li {
+      list-style: none;
+      padding: 0;
+    }
+  
+    .sessions {
+      margin-top: 15px;
+      border-radius: 12px;
+      position: relative;
+    }
+  
+    li {
+      padding-bottom: 1.5rem;
+      border-left: 4px solid rgba(158, 169, 178, 0.28);
+      position: relative;
+      padding-left: 20px;
+      margin-left: 10px;
+  
+      &:before {
+        content: "";
+        width: 15px;
+        height: 15px;
+        background: #b0ce02;
+        border: 1px solid #b0ce02;
+        border-radius: 50%;
+        position: absolute;
+        left: -10px;
+        top: 0px;
+      }
+  
+      &:last-child {
+        border-left: 0px !important;
+  
+        &:before {
+          content: "";
+          width: 15px;
+          height: 15px;
+          background: #b0ce02;
+          border: 1px solid #b0ce02;
+          border-radius: 50%;
+          position: absolute;
+          left: -6px;
+          top: 0px;
+        }
+      }
+    }
+  }
+  
+  .pdngdetails {
+    padding: 20px 0 0 110px;
+  }
+  
+  .padngbook {
+    padding: 40px 0 0 110px;
+  }
+  
+  .active_page_btn {
+    background-color: grey;
+    color: white;
+  }
+  
+  .table tr th {
+    border-bottom: 0px !important;
+    border-top: 0px !important;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .eye-icon {
+    font-size: 16px;
+  }
+  
+  .res-info {
+    display: flex;
+    word-break: break-word;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .rounddiv{
+      height: 170px;
+      width: 170px;
+      left: -30px;
+    }
+  }
+  
+  @media screen and (max-width: 900px) {
+    .bgprofilr {
+      display: none;
+      transition: .3s;
+    }
+  
+    .pdngdetails {
+      padding: 0;
+      width: 100%;
+    }
+  
+    .itenerary {
+      li {
+        &:last-child {
+          padding-bottom: 0 !important;
+        }
+      }
+    }
+  
+    .borderboxs {
+      min-height: auto !important;
+      padding: 20px 5px;
+    }
+  
+    .rounddiv {
+      display: none;
+    }
+  
+    .pl100 {
+      padding-left: 0;
+      overflow: auto;
+  
+      margin-bottom: 20px;
+    }
+  
+    .table {
+      width: 768px !important;
+      overflow: auto;
+    }
+  
+  
+  }
+  
+  @media screen and (max-width:600px) {
+    .itenerary {
+      li {
+        padding-left: 0;
+        margin-left: 0;
+        border-left: 0px;
+        padding-bottom: 15px;
+  
+        &::before {
+          display: none !important;
+        }
+  
+        .res-dnone {
+          display: none !important;
+        }
+      }
+    }
+  }
+  
+  @media screen and (max-width: 450px) {
+    .res-info {
+      flex-direction: column;
+    }
+  }
+  
+  .icon{
+    font-size: 45px;
+    color: white; 
+  }
+  
+  .bgwhite{
+    background-color: #c3996bc5;
+  }
+

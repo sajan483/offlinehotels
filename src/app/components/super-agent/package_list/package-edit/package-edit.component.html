@@ -1,0 +1,192 @@
+<div class="top-of-div mt100">
+    <div class="container">
+        <div class="d-flex justify-content-between pt-3">
+            <h1 class="fs22">Package Edit</h1>
+            <div class="d-flex" *ngIf="!shimmer">
+                <button class="addAnotherBttn cursor-pointer mx-2" (click)="manuallyEdit()">Manually Edit Services</button>
+                <button class="addAnotherBttn cursor-pointer" (click)="moreEdit()">More Edit</button>
+            </div>
+        </div>
+        <div class="mt-2">
+            <mat-tab-group>
+                <mat-tab label="Master Package">
+                    <form [formGroup]="masterDatasForm">
+                        <div class="boxborder">
+                            <div>
+                                <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                                    <div class="fw600 fs16">Add Generic Info</div>
+                                    <!-- <div class="cursor-pointer"><i class="blue_back_arrow rotate-90 icns icon_size_20"></i></div> -->
+                                </div>
+                                <div class="row m-0 p30">
+                                    <div class="col-md-5 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Add Title :</label>
+                                        <input type="text" class="owldatebrdr w-100 form-control viewInfoText" placeholder="Title" formControlName="title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                                        <div *ngIf="submitted && f.title.errors" class="errortooltiptext top107">
+                                            this field is required
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb30 errortooltip position-relative">
+                                        <label class="fs14 fw400 lh14 pl-1">Location (Package Starting From) :</label>
+                                        <input type="text" class="owldatebrdr w-100 form-control viewInfoText" placeholder="location" formControlName="location" [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                                        <div *ngIf="submitted && f.location.errors" class="errortooltiptext top107">
+                                            this field is required
+                                        </div>
+                                        <div class="textViewFocus">
+                                            Info : Starting Airport is {{masterPackage?.starting_airport.split('|')[0]}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Select Category :</label>
+                                        <select class="owldatebrdr w-100 form-control" formControlName="category" [ngClass]="{ 'is-invalid': submitted && f.category.errors }">
+                                            <option value="vip">Vip</option>
+                                            <option value="premium">Premium</option>
+                                            <option value="normal">Normal</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.category.errors" class="errortooltiptext top107">
+                                            this field is required
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Number of Travellers :</label>
+                                        <input type="number" class="owldatebrdr w-100 form-control" placeholder="Number of Travellers" formControlName="maxPax" [ngClass]="{ 'is-invalid': submitted && f.maxPax.errors }">
+                                        <div *ngIf="submitted && f.maxPax.errors" class="errortooltiptext top107">
+                                            this field is required
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Currency :</label>
+                                        <select class="owldatebrdr w-100 form-control" formControlName="selectCurrency" (change)="changeCurrency($event.target.value)" [ngClass]="{ 'is-invalid': submitted && f.selectCurrency.errors }">
+                                            <option *ngFor="let item of currency" [value]="item.currency">{{item.currency}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Add Overview :</label>
+                                        <div [class.errorbrdr]="submitted && f.overview.errors">
+                                            <angular-editor formControlName="overview" [config]="config" [ngClass]="{ 'is-invalid': submitted && f.overview.errors }"></angular-editor>
+                                            <div *ngIf="submitted && f.overview.errors" class="errortooltiptext top102">
+                                                this field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>              
+            
+                            <div>
+                                <div class="w-100 bgf2 p20 d-flex justify-content-between brdr_btm_d3">
+                                    <div class="fw600 fs16">Add Exclusions & Inclusions</div>
+                                    <!-- <div class="cursor-pointer"><i class="blue_back_arrow rotate-90 icns icon_size_20"></i></div> -->
+                                </div>
+                                <div class="row m-0 p30">
+                                    <div class="col-md-12 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Exclusions :</label>
+                                        <div [class.errorbrdr]="submitted && f.exclusion.errors">
+                                            <angular-editor formControlName="exclusion" [config]="config" [ngClass]="{ 'is-invalid': submitted && f.exclusion.errors}"></angular-editor>
+                                            <div *ngIf="submitted && f.exclusion.errors" class="errortooltiptext top102">
+                                                this field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Inclusion :</label>
+                                        <div [class.errorbrdr]="submitted && f.inclusion.errors">
+                                            <angular-editor formControlName="inclusion" [config]="config" [ngClass]="{ 'is-invalid': submitted && f.inclusion.errors}"></angular-editor>
+                                            <div *ngIf="submitted && f.inclusion.errors" class="errortooltiptext top102">
+                                                this field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="w-100 bgf2 p20 d-flex justify-content-between brdr_btm_d3">
+                                    <div class="fw600 fs16">Terms & Conditions</div>
+                                    <!-- <div class="cursor-pointer"><i class="blue_back_arrow rotate-90 icns icon_size_20"></i></div> -->
+                                </div>
+                                <div class="row m-0 p30">
+                                    <div class="col-md-12 mb30 errortooltip">
+                                        <label class="fs14 fw400 lh14 pl-1">Policies :</label>
+                                        <div [class.errorbrdr]="submitted && f.polices.errors">
+                                            <angular-editor formControlName="polices" [config]="config" [ngClass]="{ 'is-invalid': submitted && f.polices.errors}"></angular-editor>
+                                            <div *ngIf="submitted && f.polices.errors" class="errortooltiptext top102">
+                                                this field is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="searchbutton" (click)="saveMsPackage()" [class.bttnactive]="bttnactive">Save</button>
+                        </div>
+                    </form>
+                    
+                </mat-tab>
+
+
+                <mat-tab label="Images">
+                    <div class="boxborder">
+                        <div>
+                            <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                                <div class="fw600 fs16">Marketing Image</div>
+                            </div>
+                            <div class="col-md-12 p30">
+                                <label class="fs14 fw400 lh14 pl-1">Change Marketing Image :</label>
+                                <div class="w-100 row m-0">
+                                    <div class="col-md-3 p-0 mr-3 position-relative" *ngFor='let url of urls ;let i = index;'>
+                                        <img [src]="url" class="hero-image-size w-100" alt="">
+                                        <div class="closeimgicon" (click)="deleteTripImg(i)"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="add-image-box col-md-2" *ngIf="imageAddButton">
+                                        <input type='file' (change)="addTripImages($event)" accept="image/x-png,image/jpeg" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <section>
+                            <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                                <div class="fw600 fs16">Change Package Images</div>
+                                <div class="fs12 darkyellow"><i class="fa fa-info-circle" aria-hidden="true"></i> Please Upload atleast 3 Package Images</div>
+                            </div>
+                            <div class="row m-0 p30">
+                                <div class="row col-md-12 m-0">
+                                    <div class="col-md-3 p-0 mr-3 mb-3 position-relative" *ngFor='let url of imageCollectionUrl ;let i = index;'>
+                                        <img [src]="url.file" class="hero-image-size w-100" alt="">
+                                        <div class="closeimgicon" (click)="deletepackageImages(i,url)"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
+                                    </div>
+                                    <div class="add-image-box col-md-2">
+                                        <input type='file' (change)="addpackageImages($event)" accept="image/x-png,image/jpeg" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button class="searchbutton" (click)="saveImages()" [class.bttnactive]="bttnactive">Save</button>
+                    </div>
+                </mat-tab>
+                <!-- <mat-tab label="Primary Package Edit">
+                    <div class="boxborder">
+                        <div>
+                            <div class="w-100 bgf2 p20 brdr_btm_d3 d-flex justify-content-between">
+                                <div class="fw600 fs16">Edit Primary Package</div>
+                            </div>
+                        </div>
+                        <div class="row mx-0">
+                            <div class="col-md-5 mb30 errortooltip">
+                                <label class="fs14 fw400 lh14 pl-1">Number of Days :</label>
+                                <input type="number" class="owldatebrdr w-100 form-control viewInfoText" placeholder="enter Days" [(ngModel)]="packageDays">
+                            </div>
+                            <div class="d-flex justify-content-center mt-3">
+                                <button class="searchbutton" (click)="savePackage()" [class.bttnactive]="bttnactive">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab> -->
+
+            </mat-tab-group>
+              
+        </div>
+    </div>
+    
+</div>

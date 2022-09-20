@@ -1,0 +1,156 @@
+@import "../../../../../../../assets/css/variable.scss";
+.pax {
+  .pax-details {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: $full-width;
+    .passenger {
+      display: flex;
+      flex-direction: row;
+      width: 35%;
+      align-items: center;
+      justify-content: space-between;
+      .pax-icon {
+        span {
+          width: $full-width;
+          font-size: 19px;
+        }
+        img{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+      }
+      .pax-name {
+        width: $full-width;
+        padding: 0 10px;
+        h2 {
+          font-size: 19px;
+          line-height: 22px;
+          margin: $reset;
+        }
+        span {
+          font-size: 16px;
+          font-weight: $bold;
+          margin: $reset;
+          letter-spacing: 6px;
+        }
+      }
+    }
+
+    .visa-type,
+    .membership {
+      width: 17%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      span {
+        font-size: 11px;
+        color: #8a8888;
+        line-height: 20px;
+      }
+      p {
+        font-size: 13px;
+        font-weight: $bold;
+        margin: $reset;
+      }
+    }
+
+    .nationality {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 11%;
+      span {
+        font-size: 11px;
+        color: #8a8888;
+        line-height: 20px;
+      }
+      .nation {
+        display: flex;
+        flex-direction: row;
+        p {
+          display: flex;
+          font-size: 13px;
+          font-weight: $bold;
+          margin: $reset;
+          padding: 0 6px;
+        }
+      }
+    }
+
+    .icon {
+      width: 135px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      span {
+        padding: 0 10px;
+        cursor: pointer;
+        font-size: 25px;
+        &.ak-send {
+          color: #93a605;
+          cursor: default;
+        }
+        &.ak-close {
+          font-size: 22px;
+          color: #141414 ;
+        }
+        &.ak-delete-button{
+          color: #141414 ;
+        }
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width:950px) {
+  .pax{
+    .pax-details{
+      .passenger {
+        .pax-name{
+          h2{
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:800px) {
+  .pax{
+    .pax-details{
+      row-gap: 10px;
+      .passenger {
+        width: $full-width;
+        .pax-name{
+          h2{
+            font-size: 16px;
+          }
+        }
+      }
+      .visa-type, .membership, .nationality{
+        width: 33%;
+      }
+      .icon{
+        width: $full-width;
+        padding-top: 10px;
+        border-top: 1px dashed #ccc;
+      }
+    }
+  }
+}
+@media screen and (max-width:550px) {
+  .pax{
+    .pax-details{
+      .visa-type, .membership, .nationality{
+        width: $full-width;
+      }
+    }
+  }
+}

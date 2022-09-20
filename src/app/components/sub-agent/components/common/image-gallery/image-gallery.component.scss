@@ -1,0 +1,701 @@
+.galleryloader {
+    background: url(/assets/images/gallery-loader.svg) no-repeat center center;
+    background-size: auto 38px;
+    min-width: 150px;
+    min-height: 80px;
+  }
+  .img-loaders {
+    animation: flash 1s linear 0s infinite normal forwards;
+    -webkit-animation: flash 1s linear 0s infinite normal forwards;
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(8%, #eee),
+      color-stop(18%, #ddd),
+      color-stop(33%, #eee)
+    );
+    background: -webkit-linear-gradient(left, #eee 8%, #ddd 18%, #eee 33%);
+    background: -o-linear-gradient(left, #eee 8%, #ddd 18%, #eee 33%);
+    background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+    -webkit-background-size: 1000px 104px;
+    background-size: 1000px 104px;
+  }
+  .reset-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .categories-dom-proxy {
+    .categories-wrapper {
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+        li {
+          color: rgba(255, 255, 255, 0.33);
+          font-size: 14px;
+          font-weight: 400;
+          display: inline-block;
+          padding: 7px;
+          cursor: pointer;
+        }
+        li.active {
+          color: #fff;
+        }
+      }
+      overflow: hidden;
+      position: relative;
+    }
+    position: relative;
+    padding: 0px 50px;
+    .category-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      color: #fff;
+      border: 0;
+      background-color: transparent;
+      z-index: 100;
+      width: 50px;
+      text-align: center;
+      cursor: pointer;
+      outline: 0;
+    }
+    .category-control.prev {
+      left: 0;
+      opacity: 0;
+    }
+    .category-control.next {
+      right: 0;
+      opacity: 0;
+    }
+    &:hover {
+      .category-control.prev {
+        opacity: 1;
+      }
+      .category-control.next {
+        opacity: 1;
+      }
+    }
+  }
+  .raw-images-wrapper {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      white-space: nowrap;
+      transition: 1s all;
+      li {
+        text-align: center;
+        display: inline-block;
+        vertical-align: middle;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+    overflow: hidden;
+    position: relative;
+    .raw-control {
+      position: absolute;
+      top: 50%;
+      font-size: 2rem;
+      color: #fff;
+      border: 0;
+      background-color: transparent;
+      cursor: pointer;
+      outline: 0;
+      z-index: 100;
+      font-weight: bold;
+    }
+    .raw-control[disabled] {
+      opacity: 0.5;
+    }
+    .raw-control.prev {
+      left: 50px;
+    }
+    .raw-control.next {
+      right: 50px;
+    }
+  }
+  .thumbnail-wrapper {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      white-space: nowrap;
+      li {
+        display: inline-block;
+        width: 12.5%;
+        position: relative;
+        transition: 0.4s opacity;
+        opacity: 0.4;
+        &::before {
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: 100%;
+          background-size: cover;
+          // background: url(../../../../../assets/images/defaultbg.png);
+          background-repeat: no-repeat;
+          z-index: 1;
+          position: absolute;
+          content: "";
+        }
+        &:hover {
+          opacity: 1;
+        }
+        img {
+          width: 100%;
+          max-width: 100%;
+          height: 100px;
+          display: block;
+          object-fit: cover;
+          position: relative;
+          z-index: 2;
+          transform: scale(0.98);
+          cursor: pointer;
+          transition: 0.7s all;
+        }
+      }
+      li.active {
+        opacity: 1;
+      }
+    }
+    overflow: hidden;
+  }
+  .gallery-wrapper {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    header {
+      display: flex;
+      padding: 12px 50px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      justify-content: space-between;
+      font-size: 1.4rem;
+      .close-icon {
+        width: 36px;
+        height: 36px;
+        background: #d32f2f;
+        padding: 3px;
+        border-radius: 5px;
+        cursor: pointer;
+        .ak-cancel {
+          color: #fff;
+          font-size: 16px;
+        }
+      }
+      .content {
+        span {
+          font-size: 22px;
+          font-weight: 500;
+          color: #fff;
+          text-transform: capitalize;
+        }
+        .stars-wrapper {
+          margin-left: 15px;
+        }
+        .star-icon {
+          width: 16px;
+          height: 16px;
+          font-size: 19px;
+          color: #efb400;
+          line-height: 16px;
+          margin-right: 4px;
+        }
+      }
+    }
+    .slideshow-wrapper {
+      max-height: calc(100% - 200px);
+      position: relative;
+      min-height: calc(100% - 250px);
+      .slide-control {
+        position: absolute;
+        top: 50%;
+      }
+      .slide-control.prev {
+        left: 50px;
+      }
+      .slide-control.next {
+        right: 50px;
+      }
+      ul {
+        display: table;
+        li {
+          img {
+            max-width: 700px !important;
+            object-fit: contain;
+            max-height: 50vh;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+  .thumbnail-dom-proxy {
+    position: relative;
+    padding: 0 50px;
+    .thumbnail-control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      z-index: 100;
+      background-color: transparent;
+      border: 0;
+      outline: 0;
+      cursor: pointer;
+    }
+    .thumbnail-control.prev {
+      left: 20px;
+      opacity: 0;
+    }
+    .thumbnail-control.next {
+      right: 20px;
+      opacity: 0;
+    }
+    &:hover {
+      .thumbnail-control.prev {
+        opacity: 1;
+      }
+      .thumbnail-control.next {
+        opacity: 1;
+      }
+    }
+  }
+  .photo-gallery {
+    background: rgba(0, 0, 0, 0.87);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 150;
+  }
+  .loadingcontent {
+    margin-top: 10px;
+    h4 {
+      color: #ccc;
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+    p {
+      color: #fff;
+      font-size: 15px;
+    }
+  }
+  .container-width {
+    width: 57px;
+    height: 57px;
+    .box1 {
+      border: 8px solid #d32f2f;
+      box-sizing: border-box;
+      position: absolute;
+      display: block;
+      width: 57px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+      -webkit-animation: anime1 4s 0s forwards ease-in-out infinite;
+      animation: anime1 4s 0s forwards ease-in-out infinite;
+    }
+    .box2 {
+      border: 8px solid #d32f2f;
+      box-sizing: border-box;
+      position: absolute;
+      display: block;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+      -webkit-animation: anime2 4s 0s forwards ease-in-out infinite;
+      animation: anime2 4s 0s forwards ease-in-out infinite;
+    }
+    .box3 {
+      border: 8px solid #d32f2f;
+      box-sizing: border-box;
+      position: absolute;
+      display: block;
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+      -webkit-animation: anime3 4s 0s forwards ease-in-out infinite;
+      animation: anime3 4s 0s forwards ease-in-out infinite;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    header {
+      .content {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        .stars-wrapper {
+          margin: 15px 0 15px 0 !important;
+        }
+      }
+    }
+  }
+  
+  @-webkit-keyframes flash {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+  @keyframes flash {
+    0% {
+      background-position: -468px 0;
+    }
+    100% {
+      background-position: 468px 0;
+    }
+  }
+  @-webkit-keyframes anime1 {
+    0% {
+      width: 57px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    12.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    25% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    37.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    50% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    62.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    75% {
+      width: 23px;
+      height: 57px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    87.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    100% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+  }
+  @keyframes anime1 {
+    0% {
+      width: 57px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    12.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    25% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    37.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    50% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    62.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+    75% {
+      width: 23px;
+      height: 57px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    87.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    100% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+  }
+  @-webkit-keyframes anime2 {
+    0% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    12.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    25% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    37.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    50% {
+      width: 57px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    62.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    75% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    87.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    100% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+  }
+  @keyframes anime2 {
+    0% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    12.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    25% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    37.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    50% {
+      width: 57px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+    62.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    75% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    87.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    100% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+  }
+  @-webkit-keyframes anime3 {
+    0% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    12.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    25% {
+      width: 23px;
+      height: 57px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    37.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    50% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    62.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    75% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    87.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    100% {
+      width: 57px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+  }
+  @keyframes anime3 {
+    0% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    12.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    25% {
+      width: 23px;
+      height: 57px;
+      margin-top: 0px;
+      margin-left: 34px;
+    }
+    37.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    50% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    62.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    75% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    87.5% {
+      width: 23px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 34px;
+    }
+    100% {
+      width: 57px;
+      height: 23px;
+      margin-top: 34px;
+      margin-left: 0px;
+    }
+  }
+  

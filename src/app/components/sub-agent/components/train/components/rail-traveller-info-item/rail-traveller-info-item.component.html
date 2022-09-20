@@ -1,0 +1,144 @@
+<form [formGroup]="travellerForm">
+  <div class=" header p-2 my-1">
+    <div class="d-flex align-items-center justify-content-between fs15">
+      <div class="d-flex align-items-center ">
+        <mat-icon class="mr-2" style="cursor: pointer;" (click)="toggle()">{{isHidden?'chevron_right':'expand_more'}}</mat-icon>
+        <mat-icon class="mr-2">person</mat-icon>Traveller {{index+1}} - {{title}}
+      </div>
+      <div *ngIf="isEditable">
+        <mat-icon *ngIf="index!=0" class="mr-2" style="cursor: pointer;" (click)="removeTraveller()">delete</mat-icon>
+       
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="!isHidden">
+    <div class="gender-section d-flex my-2">
+      <div class="radio py-2 px-4" style="cursor: pointer;" (click)="isEditable?setGender('MALE'):null"
+        [class.selected]="f.gender.value=='MALE'">
+        Male
+      </div>
+      <div class="radio  py-2 px-4 ml-2" style="cursor: pointer;" (click)="isEditable?setGender('FEMALE'):null"
+        [class.selected]="f.gender.value=='FEMALE'">
+        Female
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <input id="first_name_{{index}}" class="form-control" formControlName="first_name" placeholder="First Name*" />
+          <div *ngIf="f.first_name.invalid && (f.first_name.dirty || f.first_name.touched)" class="alert">
+            <div *ngIf="f.first_name.errors?.required">
+              First Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <input id="middle_name_{{index}}" class="form-control" formControlName="middle_name" placeholder="Middle Name" />
+          
+        </div>
+      </div> -->
+      <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <input id="family_name_{{index}}" class="form-control" formControlName="family_name" placeholder="Family Name*" />
+          <div *ngIf="f.family_name.invalid && (f.family_name.dirty || f.family_name.touched)" class="alert">
+            <div *ngIf="f.family_name.errors?.required">
+              Family Name is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xs-12 col-sm-12 col-lg">
+  
+      </div>
+      <div class="col-xs-12 col-sm-12 col-lg">
+  
+      </div>
+    </div>
+    <div class="row"> -->
+      <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <input id="dob_{{index}}" class="form-control" [owlDateTimeTrigger]="dt1" #dob [owlDateTime]="dt1" formControlName="dob"
+            placeholder="Date of Birth*" />
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+          <div *ngIf="f.dob.invalid && (f.dob.dirty || f.dob.touched)" class="alert">
+            <div *ngIf="f.dob.errors?.required">
+              DOB is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <select id="document_type_{{index}}" class="form-control" formControlName="document_type">
+            <option [ngValue]="null" [disabled]="true">Document Type *</option>
+            <option *ngFor="let document of documents" [value]="document.item_id">{{document.item_text}}</option>
+          </select>
+          <div *ngIf="f.document_type.invalid && (f.document_type.dirty || f.document_type.touched)" class="alert">
+            <div *ngIf="f.document_type.errors?.required">
+              Document Type is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <input id="document_id_{{index}}" class="form-control" formControlName="document_id" placeholder="Document ID *" />
+          <div *ngIf="f.document_id.invalid && (f.document_id.dirty || f.document_id.touched)" class="alert">
+            <div *ngIf="f.document_id.errors?.required">
+              Document ID is required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <input id="date_of_expiry_{{index}}" class="form-control" [owlDateTimeTrigger]="dt2" #dob [owlDateTime]="dt2" placeholder="Date of Expiry"
+            formControlName="date_of_expiry" />
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+        </div>
+      </div> -->
+      <!-- <div class="col-xs-12 col-sm-12 col-lg">
+        <div class="form-group">
+          <select id="nationality_{{index}}" class="form-control" formControlName="nationality" formControlName="nationality">
+            <option [ngValue]="null" [disabled]="true">Nationality</option>
+            <option *ngFor="let nationality of nationalities" [value]="nationality.item_id">{{nationality.item_text}}
+            </option>
+          </select>
+        </div>
+      </div> -->
+    </div>
+  </ng-container>
+  <!-- <div class="row">
+    <div class="col">
+      <label class=" d-flex align-items-center"><input  type="checkbox" class="mr-1" name="" id=""><b>Special Needs</b></label>
+    </div>
+  </div> -->
+  <!-- <div class="row">
+
+    <div class="col">
+      <div class="form-group">
+        <select class="form-control">
+          <option>Type</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <input class="form-control" placeholder="Concession Id Number"/>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <input class="form-control" placeholder="Care Taker"/>
+      </div>
+    </div>
+    <div class="col">
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div> -->
+</form>

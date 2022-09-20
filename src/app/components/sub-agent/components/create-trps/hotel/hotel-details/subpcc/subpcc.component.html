@@ -1,0 +1,30 @@
+<div class="subpcc-div">
+    <div class="card-subpcc">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row p10">
+                    <div class="col-md-5 col-6">
+                        <label for="" class="label-text textOverFlowDot">{{'Promocode' | translate}} ({{'SupPcc' | translate}})</label>
+                        <input type="text" class="form-control" [(ngModel)]="promoCode">
+                    </div>
+                    <div class="col-md-5 col-6">
+                        <label for="" class="label-text textOverFlowDot">{{'Special Code' | translate}}</label>
+                        <input type="text" class="form-control" [(ngModel)]="specialCode">
+                    </div>
+                    <div class="col-md-2 mt-auto button-pdng-mob">
+                        <button class="search_bttn w-100" (click)="apply()">{{'Apply' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="saved-subpccs" *ngIf="promoCodeList.length > 0">
+                    <div class="save-text">{{'Saved Promocode' | translate}} :</div>
+                    <div>
+                        <span class="supccs" *ngFor="let data of promoCodeList" (click)="setPromoCode(data)">{{data}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="save-notification">{{'Now you can try a SUBPCC to check the best price without saving, we will automatically add the new SUBPCC to your profile if you book with it.' | translate}}</div>
+    </div>
+</div>

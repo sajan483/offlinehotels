@@ -1,0 +1,29 @@
+<div class="hotel-sort-div">
+    <div class="sort-div" *ngIf="!isMobile">
+        <div>
+          <div class="sorting-button" [matMenuTriggerFor]="sortedMenu" fxLayout="row" fxLayoutAlign="start center">
+            <div class="fw400">{{'Sort By' | translate}} :</div>
+            <div style="width: 5px;"></div>
+            <div>{{sortText | translate}}</div>
+            <div style="width: 5px;"></div>
+            <span class="ak-sort-down fs12"></span>
+          </div>
+          <mat-menu #sortedMenu="matMenu" [hasBackdrop]="true">
+            <button mat-menu-item (click)="setDortList(1,'Lower price')">{{'Lowest price' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(2,'Higher price')">{{'Highest price' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(3,'Haram Distance')" *ngIf="city == 'MAKKA'">{{'Haram Distance' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(5,'Nabawi Distance')" *ngIf="city == 'MADEENA'">{{'Nabawi Distance' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(7,'My favorites')">{{'My favorites' | translate}}</button>
+          </mat-menu>
+        </div>
+    </div>
+    <div class="mob-sort-div" *ngIf="isMobile">
+      <mat-radio-group [(ngModel)]="sortText" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="10px">
+        <mat-radio-button value="Lower price" (click)="setDortList(1,'Lower price')">{{'Lowest price' | translate}}</mat-radio-button>
+        <mat-radio-button value="Higher price" (click)="setDortList(2,'Higher price')">{{'Highest price' | translate}}</mat-radio-button>
+        <mat-radio-button value="Haram Distance" (click)="setDortList(3,'Haram Distance')" *ngIf="city == 'MAKKA'">{{'Haram Distance' | translate}}</mat-radio-button>
+        <mat-radio-button value="Nabawi Distance" (click)="setDortList(5,'Nabawi Distance')" *ngIf="city == 'MADEENA'">{{'Nabawi Distance' | translate}}</mat-radio-button>
+        <mat-radio-button value="My favorites" (click)="setDortList(7,'My favorites')">{{'My favorites' | translate}}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+</div>

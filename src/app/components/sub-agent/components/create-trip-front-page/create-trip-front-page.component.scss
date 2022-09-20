@@ -1,0 +1,375 @@
+@media only screen and (max-width: 768px) {
+    .mrBtm {
+        margin-bottom: 30px !important;
+    }
+    .tablewidth {
+        display: none;
+    }
+    .algn {
+        display: inline-block !important;
+    }
+}
+
+.algn {
+    display: flex;
+}
+
+.justifycenter {
+    justify-content: center;
+}
+
+.travellerpopup {
+    position: absolute;
+    left: 72px;
+    top: 70px;
+    z-index: 99;
+}
+
+.travellersouter {
+    background: #fff;
+    width: 240px !important;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.23);
+}
+
+.btn-group a {
+    border: 1px solid #d4d4d4;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.btn-group .firstbttn {
+    border-radius: 7px 0 0 7px;
+    padding: 4px 10px;
+    background-color: white;
+    color: #000;
+}
+
+.hideButton{
+    border-radius: 7px 0 0 7px;
+    padding: 4px 10px;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #6e6e6e !important;
+}
+
+.hideButton2{
+    border-radius: 0 7px 7px 0;
+    padding: 4px 10px;
+    color: #000;
+    text-decoration: none;
+    border: 1px solid #6e6e6e !important;
+}
+
+.btn-group .secondbttn {
+    border-radius: 0 7px 7px 0;
+    padding: 4px 10px;
+    background-color: white;
+    color: #000;
+}
+
+.btn-group .firstbttn:hover,
+.btn-group .secondbttn:hover {
+    background-color: #b5cb13;
+    color: white;
+    text-decoration: none;
+}
+
+.travellerpopup p {
+    color: gray;
+    font-size: 10px;
+}
+
+.travellerpopup .justify-content-between {
+    padding: 10px 15px;
+}
+
+.exampleradiogroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.travellerpopup .texttravellerd {
+    padding-top: 5px;
+}
+
+.travellerpopup .texttraveller,
+.travellerpopup .texttravellerd {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.owldatepicker {
+    width: 100%;
+    height: 42px;
+    padding-left: 10px;
+}
+
+.travellersouterr {
+    background: #fff;
+    width: 200px !important;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.23);
+}
+
+.mat-radio-button~.mat-radio-button {
+    margin-left: 0px;
+}
+
+.selectPop {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-start;
+    align-items: flex-start;
+}
+
+.pad15 {
+    padding: 15px 15px 0 15px;
+}
+
+.subStyle {
+    height: 40px;
+    width: 100%;
+    padding: 7px 20px;
+}
+
+.travellerOuter {
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-start;
+    align-items: flex-start;
+}
+
+.bg_main_img {
+    background-image: url(/assets/images/header-bg.png);
+    background-size: 100% 100%;
+}
+
+.textform {
+    .subtext {
+        margin-bottom: 0;
+        color: #000000;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    p {
+        margin-bottom: 0;
+        color: #000000;
+    }
+    .search_bttn {
+        background-color: #b5cb13;
+        color: #000;
+        padding: 10px 26px;
+        border-radius: 4px;
+        cursor: pointer;
+        outline: none;
+        border: none;
+    }
+    .search_bttn:disabled {
+        background-color: #d3d3d3;
+        cursor: not-allowed;
+        outline: none;
+    }
+}
+
+.travellerpopupp {
+    z-index: 100;
+    position: absolute;
+    top: 49px;
+    left: 12px;
+}
+
+.daysposition {
+    position: absolute;
+    right: -22px;
+    top: 0px;
+    h6 {
+        font-weight: 600;
+    }
+}
+
+.maxheightAnimation {
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+}
+
+.w200 {
+    width: 200px;
+}
+
+.calendarposition {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+}
+
+.my6mx10 {
+    margin: 6px 10px;
+}
+
+.bordrservice {
+    min-height: 47px;
+    border: 1px solid #a8a8a8;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.mdtryStrr {
+    color: red;
+    font-size: 20px
+}
+
+.mt8 {
+    margin-top: 8px;
+}
+
+.disableGoBttn {
+    background-color: #5252 !important;
+    border: 1px solid #c7c7c7 !important;
+    color: white !important;
+    cursor: alias !important;
+}
+
+.downBttn{
+    border: 1px solid #a8a8a8;
+    background-color: white;
+    color: black;
+    border-radius: 0 4px 4px 0;
+}
+
+.subpcc_text{
+    min-height: 47px;
+    border: 1px solid #a8a8a8;
+    background-color: white;
+    border-radius: 4px 0 0 4px;
+    width: 100%;
+    padding: 7px 10px;
+}
+
+.swap-animation-down{
+    position: relative;
+    animation-name: swaping;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes swaping {
+    0%   {top:100px;}
+    100% {top:0px;}
+}
+
+.swap-animation-up{
+    position: relative;
+    animation-name: swapingUp;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+@keyframes swapingUp {
+    0%   {bottom:100px;}
+    100% {bottom:0px;}
+}
+
+.position-switch{
+    position: absolute;
+    left: 85px;
+    top: -16px;
+}
+
+.inputCount {
+    text-align: center;
+    width: 60px;
+    border: none;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.inputCount:focus-visible {
+    outline: 0!important;
+    border: 1px solid #a8a8a8!important;
+}
+
+/*Tab Cusotm*/
+.tab-item.active{
+      text-align: center;
+    border-top-right-radius: 25px;
+  font-weight: bold;
+background-color: white;
+color: #c59b6d;
+    border-top-left-radius: 25px;
+    padding: 10px;
+}
+.tab-item{
+  text-align: center;
+border-top-right-radius: 25px;
+background-color: #c59b6d;
+    color: white;
+border-top-left-radius: 25px;
+padding: 10px;
+}
+.salesoverride {
+    color: #1b416c;
+    font-size: 16px;
+    font-weight: 500;
+}
+.ht{
+   height:298px;
+}
+.bordrservice2{
+    min-height: 38px;
+    border: 1px solid #a8a8a8;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.totalcount2 {
+    font-size: 30px;
+    line-height: 30px;
+}
+
+.clr{
+    color:#d47a18 !important;
+}
+.intBg{
+    background:#fcfafa;
+}
+.brdr-tp{
+    border-top: 1px solid #eed2d2;
+}
+.bd{
+    height: 240px;
+}
+.pl-20{
+    padding-left: 20px;
+}
+.p13{
+    padding: 13px;
+}
+.pl-20{
+    padding-left: 20px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+.coming-soon{
+  position: relative;
+  color: #808080;
+  font-size: 3em
+}
+.coming-soon:before {
+    content: attr(data-text);
+    position: absolute;
+    overflow: hidden;
+    max-width: 7em;
+    white-space: nowrap;
+    color: #1b416c;
+    animation: loading 3s linear infinite;
+}
+@keyframes loading {
+    0% {
+        max-width: 0;
+    }
+
+}

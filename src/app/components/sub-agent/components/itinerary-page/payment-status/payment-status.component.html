@@ -1,0 +1,110 @@
+<div class="payment-success-page-div min_page_h">
+    <div class="top_section" *ngIf="bknStatus == 'processing' || bknStatus == 'success' || bknStatus == 'partial_success'">
+        <div class="container">
+            <div class="w-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxLayout="row" fxLayoutAlign="start center" >
+                    <div>
+                        <img src="/assets/images/confirmation-tick.png" alt="">
+                    </div>
+                    <div style="width: 10px;"></div>
+                    <div>
+                        <h1 class="text-uppercase fs28 fw600 text-white">{{'Thank You..!!' | translate}}</h1>
+                        <h3 class="text-white fs18" *ngIf="bknStatus == 'success'">{{'Your payment has been processed successfully' | translate}}</h3>
+                    </div>
+                </div>
+                <div class="text-white fs14" *ngIf="tripData?.reference_no">
+                    <div>{{'Umrah Trip Transaction Id' | translate}}</div>
+                    <div class="fs18">{{tripData?.reference_no}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg" *ngIf="bknStatus == 'failed'">
+        <div class="container">
+            <div class="w-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxLayout="row" fxLayoutAlign="start center" >
+                    <div>
+                        <i class="fa fa-times-circle closeimg" aria-hidden="true"></i>
+                    </div>
+                    <div style="width: 10px;"></div>
+                    <div>
+                        <h1 class="text-uppercase fs28 fw600 text-white">{{'Something Went Wrong..!!' | translate}}</h1>
+                        <h3 class="text-white fs18">{{'Your payment has been Failed' | translate}}, {{'Please Contact Customer care' | translate}} : 00-973-77952212</h3>
+                    </div>
+                </div>
+                <div class="text-white fs14" *ngIf="tripData?.reference_no">
+                    <div>{{'Umrah Trip Transaction Id' | translate}}</div>
+                    <div class="fs18">{{tripData?.reference_no}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg" *ngIf="bknStatus == 'cancelled'">
+        <div class="container">
+            <div class="w-100" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div fxLayout="row" fxLayoutAlign="start center" >
+                    <div>
+                        <i class="fa fa-times-circle closeimg" aria-hidden="true"></i>
+                    </div>
+                    <div style="width: 10px;"></div>
+                    <div>
+                        <h1 class="text-uppercase fs28 fw600 text-white">{{'Cancelled..!!' | translate}}</h1>
+                        <h3 class="text-white fs18">{{'Booking has been Cancelled' | translate}}</h3>
+                    </div>
+                </div>
+                <div class="text-white fs14" *ngIf="tripData?.reference_no">
+                    <div>{{'Umrah Trip Transaction Id' | translate}}</div>
+                    <div class="fs18">{{tripData?.reference_no}}</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container" *ngIf="shimmer">
+        <app-itinerary-shimmer></app-itinerary-shimmer>
+    </div>
+
+    <div class="container" *ngIf="!shimmer">
+        <div class="main-div-itinerary">
+            <div class="row">
+                <div class="col-md-9">
+                    <div *ngIf="tripData?.makka_hotel_booking && tripData?.makka_hotel_booking != null && tripData?.makka_hotel_booking != undefined">
+                        <app-itinerary-hotel-card [hotel]="tripData?.makka_hotel_booking" [currency]="selectCurrency"></app-itinerary-hotel-card>
+                    </div>
+
+                    <div *ngIf="tripData?.madina_hotel_booking && tripData?.madina_hotel_booking != null && tripData?.madina_hotel_booking != undefined">
+                        <app-itinerary-hotel-card [hotel]="tripData?.madina_hotel_booking" [currency]="selectCurrency"></app-itinerary-hotel-card>
+                    </div>
+
+                    <div *ngIf="tripData?.transport_booking && tripData?.transport_booking?.total_price && tripData?.transport_booking?.total_price != null && tripData?.transport_booking?.total_price != undefined">
+                        <app-itinerary-transport-card [tripTransport]="tripData?.transport_booking" [currency]="selectCurrency"></app-itinerary-transport-card>
+                    </div>
+
+                    <div>
+                        <app-itinerary-pax-details [tripTravellers]="tripData?.travellers"></app-itinerary-pax-details>
+                    </div>
+
+                </div>
+
+                <div class="col-md-3 download-div-top">
+
+                    <app-itinerary-download-section 
+                    [downloadShow]="downloadShow" 
+                    [tripId]="tripId" 
+                    [lang]="selectLangCode"
+                    [tripData]="tripData"
+                    [currency]="selectCurrency"
+                    ></app-itinerary-download-section>
+                    
+                    <app-itinerary-fare-summary [tripData]="tripData" [currency]="selectCurrency"></app-itinerary-fare-summary>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,66 @@
+<div class="hotel-cars-div">
+    <div class="uitk-card row mx-0" [class.animation_card]="hotelData?.fromCache">
+        <div class="hotelRibbon-div" *ngIf="hotelData?.has_special_deal">
+            {{'Special Deal' | translate}}<span></span>
+        </div>
+        <div class="fav_icon_div">
+            <i class="fa fa-heart-o" aria-hidden="true" *ngIf="!hotelData?.favorite" (click)="addFavHotel(hotelData?.umrah_hotel_code)"></i>
+            <i class="fa fa-heart" aria-hidden="true" *ngIf="hotelData?.favorite" (click)="addFavHotel(hotelData?.umrah_hotel_code)"></i>
+        </div>
+        <div class="col-md-3 image-div">
+            <div class="photo-gallery">
+                <img src="{{(hotelData?.images?.image_webp_url?.length)? hotelData?.images?.image_webp_url : ((hotelData?.images?.image_url?.length)?hotelData?.images?.image_url:'/assets/images/no_image.jpg')}}" alt="">
+            </div>
+        </div>
+        <div class="col-md-9 row px-0 mx-0">
+            <div class="col-md-8 card-body-div">
+                <h3 class="hotel_name">{{hotelData?.name}}</h3>
+                <div>
+                    <span fxLayout="row" fxLayoutAlign="start center">
+                        <span class="material-icons star-icon" *ngFor="let k of [].constructor(hotelData?.rating)">star</span>
+                    </span>
+                </div>
+
+                <div class="haram-distance" fxLayout="row" fxLayoutAlign="start center" *ngIf="location == 'MAKKA'">
+                    <div class="icon-haram" fxLayoutAlign="start center"><img src="/assets/images/haram.png" alt=""></div>
+                    <div style="width: 5px;"></div>
+                    <div class="text-haram" *ngIf="hotelData?.haram_distance < 1000">{{hotelData?.haram_distance}} {{'Meters from' | translate}} <strong class="text-uppercase">{{'Haram' | translate}}</strong></div>
+                    <div class="text-haram" *ngIf="hotelData?.haram_distance >= 1000">{{hotelData?.haram_distance / 1000}} {{'Kms from' | translate}} <strong class="text-uppercase">{{'Haram' | translate}}</strong></div>
+                </div>
+
+                <div class="haram-distance" fxLayout="row" fxLayoutAlign="start center" *ngIf="location == 'MADEENA'">
+                    <div class="icon-haram" fxLayoutAlign="center center"><img src="/assets/images/nabwa.png" alt=""></div>
+                    <div style="width: 5px;"></div>
+                    <div class="text-haram" *ngIf="hotelData?.nabawi_distance < 1000">{{hotelData?.nabawi_distance}} {{'Meters from' | translate}} <strong class="text-uppercase">{{'Nabawi' | translate}}</strong></div>
+                    <div class="text-haram" *ngIf="hotelData?.nabawi_distance >= 1000">{{hotelData?.nabawi_distance / 1000}} {{'Kms from' | translate}} <strong class="text-uppercase">{{'Nabawi' | translate}}</strong></div>
+                </div>
+
+                <div class="location-text" fxLayout="row" fxLayoutAlign="start center">
+                    <div class="size" fxLayoutAlign="center center"><i class="fa fa-map-marker icon" aria-hidden="true"></i></div>
+                    <div style="width: 5px;"></div>
+                    <div class="address-text">{{hotelData?.address}}</div>
+                </div>
+                <div class="inclusion-div" *ngIf="hotelData?.meal_provided || hotelData?.amenities.length > 0">
+                    <div class="inc-title">{{'Inclusions' | translate}}:</div>
+                    <div fxLayout="row wrap" class="datas-div">
+                        <div class="inc-div" *ngIf="hotelData?.meal_provided"><i class="fa fa-coffee px-1" aria-hidden="true"></i> {{'Meals' | translate}}</div>
+                        <div class="inc-div" *ngFor="let k of hotelData?.amenities">{{k?.name}}</div>
+                    </div>
+                    <div (click)="moreBttnClick($event)" class="read_more_bttn">{{is_readmore?'+ More':'- Less'}}</div>
+                </div>
+                <!-- <div class="discription-div" *ngIf="hotelData?.description">
+                    <div class="discription-text" [innerHTML]="hotelData?.description"></div>
+                    <div (click)="moreBttnClick($event)" class="read_more_bttn">{{is_readmore?'+ Read More':'- Read Less'}}</div>
+                </div> -->
+            </div>
+            <div class="col-md-4 select-div" fxLayout="column" fxLayoutAlign="center end" fxLayoutGap="5px" *ngIf="!hotelData?.fromCache">
+                <h3 class="hotel_price">{{currency}} {{hotelData?.amount | ConvertCurrency : currency | number: '1.0-0'}}</h3>
+                <button class="search_bttn Select_room_button" (click)="showDetails(hotelData)">{{'Select Room' | translate}}</button>
+                <div class="clr52">{{'Per Pax' | translate}} : {{currency}} {{hotelData?.amount/travellCount | ConvertCurrency : currency | number: '1.0-0'}}</div>
+            </div>
+            <div class="col-md-4 select-div" fxLayout="column" fxLayoutAlign="center end" *ngIf="hotelData?.fromCache">
+                <app-card-loader></app-card-loader>
+            </div>
+        </div>
+    </div>
+</div>

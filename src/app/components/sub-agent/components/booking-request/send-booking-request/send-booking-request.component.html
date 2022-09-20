@@ -1,0 +1,152 @@
+<div class="send-req-div">
+
+  <div class="search-div common_card">
+    <div class="search-head">{{'Search Booking' | translate}}</div>
+    <div class="row">
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'Service Type' | translate}}</div>
+        <mat-select class="form-control" [(value)]="productType" >
+          <mat-option value="" disabled>{{'Select Service' | translate}}</mat-option>
+          <mat-option value="1">{{'Makkah' | translate}}</mat-option>
+          <mat-option value="2">{{'Madeena' | translate}}</mat-option>
+          <mat-option value="3">{{'Transport' | translate}}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'External Agent' | translate}}</div>
+        <mat-select class="form-control" [(value)]="company">
+          <mat-option value="" disabled>{{'Select External Agent' | translate}}</mat-option>
+          <mat-option *ngFor="let item of companies" [value]="item">{{item}}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'Travel Date' | translate}}</div>
+        <div [owlDateTimeTrigger]="dt1" class="position-relative">
+          <input  placeholder="{{'Travel Date' | translate}}"
+            class="form-control" [(ngModel)]="travelDate"
+           [owlDateTime]="dt1" [selectMode]="'range'" >
+           <span class="ak-calendar calendarposition"></span>
+        </div>
+        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+      </div>
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'Requested Date' | translate}}</div>
+        <div [owlDateTimeTrigger]="dt2" class="position-relative">
+          <input  placeholder="{{'Requested Date' | translate}}"
+            class="form-control" [(ngModel)]="rquestDate"
+           [owlDateTime]="dt2" [selectMode]="'range'" >
+           <span class="ak-calendar calendarposition"></span>
+        </div>
+        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+      </div>
+
+      <div class="col-md-12 col-12 mb10 mt-auto">
+        <div class="w-100 " fxLayout="row" fxLayoutAlign="end center" >
+          <button class="secondary_bttn" (click)="reservationReset()"><i class="fa fa-refresh"></i> {{'Reset' | translate}}</button>
+          <div style="width: 10px;"></div>
+          <button class="search_bttn" (click)="filterReservation()">{{'Search' | translate}}</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+    <div class="mb-5" *ngIf="!shimmer && shareLinkDatas.length > 0">
+      <div class="search-head">{{'List of Requests' | translate}}</div>
+      <div class="">
+        <div *ngFor="let k of shareLinkDatas;let i = index;" class="card-div common_card">
+         <div class="inner-card" *ngFor="let item of k.service;let j = index;">
+            <p class="mb-0 font-weight-bold" *ngIf="j == 0">{{k?.shared_to_agency | titlecase}}</p>
+            <div class="row">
+              <div class="col-md-5 brdrRgt py-2">
+                <p class="mb-0" *ngIf="item.service == 'makkah_hotel'">{{item?.name}}({{'Makkah' | translate}})</p>
+                <p class="mb-0" *ngIf="item.service == 'medinah_hotel'">{{item?.name}}({{'Medinah' | translate}})</p>
+                <p class="mb-0" *ngIf="item.service == 'transportation'">{{item?.name}}</p>
+                <p class="mb-0">{{'Requested on' | translate}} {{k.tags[0]?.request_date}}</p>
+              </div>
+
+              <div class="col-md-5 brdrRgt">
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
+                      <td class="clr52">{{'Travel Date' | translate}}</td>
+                      <td>:</td>
+                      <td>{{k.tags[0]?.start_date}}</td>
+                    </tr>
+                    <tr>
+                      <td class="clr52">{{'Trip Id' | translate}}</td>
+                      <td>:</td>
+                      <td>{{k?.trip}}</td>
+                    </tr>
+                    <tr>
+                      <td class="clr52">{{'Occupancy' | translate}}</td>
+                      <td>:</td>
+                      <td>
+                        <span *ngIf="k.tags[0]?.room_count > 0 && item.service != 'transportation'">{{k.tags[0]?.room_count}} {{'Room(s)' | translate}}</span>  <span class="ml-1" *ngIf="k.tags[0]?.total_travelers > 0"> {{k.tags[0]?.total_travelers}} {{'pax' | translate}}</span>
+                        <span *ngIf="item.service == 'transportation'"><span >{{k.tags[0]?.vehicle_count}} {{'Vehicle(s)' | translate}}</span>  <span class="ml-1" *ngIf="k.tags[0]?.total_travelers > 0"> {{k.tags[0]?.total_travelers}} {{'pax' | translate}}</span></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="col-md-2">
+                <div class="text-center dibtng" *ngIf="item?.status == 'success'">{{'Booked' | translate}}</div>
+                <div class="font-weight-bold">{{currency | translate}} {{item?.price | ConvertCurrency : currency}}</div>
+              </div>
+
+              <div class="col-md-12 pt-2 brn_voucher_div" *ngIf="item.brn != null">
+                <div class="d-flex">
+                    <div class="mt17 mb-2"><span class="font-weight-bold">BRN</span> {{item?.brn}} </div><div class=" ml-2 mt17 dibtn cursor-pointer"(click)="copyBrn(item.brn)">{{'Copy' | translate}}</div>
+                </div>
+                <div *ngIf="k.service.length > 1 && j == 2" class="text_end"><button class="search_bttn">{{'Download Voucher' | translate}}</button></div>
+                <div *ngIf="k.service.length == 1" class="text_end"><button class="search_bttn" (click)="downloadVoucher(k.pdf_voucher)">{{'Download Voucher' | translate}}</button></div>
+              </div>
+              <div class="col-md-12 pt-2 d-flex justify-content-end " *ngIf="item.brn == null ">
+               <button class="search_bttn" [disabled]="item.brn == null" (click)="viewBook(k.pdf_voucher)">{{'Download Voucher' | translate}}</button>
+              </div>
+
+            </div>
+          
+          
+         </div>
+       </div>
+      </div>
+     </div>
+    <div class="bg-white mt-2 px-4 py-3" *ngIf="shimmer">
+      <div class="card-div" *ngFor="let k of [].constructor(5);let i = index;">
+        <div class="inner-card">
+          <div class="row w-100">
+            <div class="col-md-12"><div class="shine h20 w-50 mb-2"></div></div>
+            <div class="col-md-5">
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+            </div>
+            <div class="col-md-5">
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+            </div>
+            <div class="col-md-2">
+              <div class="shine h20 w-100"></div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div>
+      <div class="bg-white mb-3 p-3 mt-2" *ngIf="!shimmer && shareLinkDatas.length == 0">
+        <div *ngFor="let k of [].constructor(1);let i = index;">
+          <div colspan="6" class="text-center">Sorry, No record(s) found</div>
+        </div>
+      </div>
+    </div>
+    
+</div>

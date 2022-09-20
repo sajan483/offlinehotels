@@ -1,0 +1,343 @@
+$font_style: Roboto;
+$font_color: #022543;
+$primary_blue: #027ce9;
+$common_blue: #0a0f2c;
+$bg_color: #f5f6f8;
+$font_size_noral: 12px;
+$font_size_heading: 14px;
+$primaryWhite: #ffffff;
+$font_black_color: #000;
+$div_line_color: #ebebeb;
+$fl_label_color: #363636;
+$fl_btn_color: #d32f2f;
+$swap_icon_color: crimson;
+$primary_color: #116063;
+$primary_color_var: #c59b6d;
+$white: #ffffff;
+$grey: #363636;
+$btn_gradient_dark:#187477;
+$btn_gradient_light:#0bc0c6;
+.div_search {
+    background-color: $bg_color;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: 0 !important;
+    min-height: 80px;
+}
+
+.fl_child_div {
+    display: flex;
+    border-right: 2px solid $div_line_color;
+}
+
+.fl_child_bar {
+    border-right: 2px solid $div_line_color;
+}
+
+.padding5 {
+    padding: 5px;
+}
+
+.depart_cal {
+    display: flex;
+    justify-content: left;
+}
+
+.fl-search-middle_lable {
+    padding-left: 2%;
+    font-size: 100%;
+    text-transform: capitalize;
+}
+
+.cal-icon {
+    font-size: 13px !important;
+    height: 13px !important;
+    width: 13px !important;
+}
+
+.icon-down-angle {
+    font-size: 15px !important;
+}
+
+.flfrom_class {
+    width: calc(((50% - 10px)/ 5) + 60px);
+    cursor: pointer
+}
+
+.fl_class85 {
+    width: 85%;
+}
+
+.flto_class {
+    width: calc(((50% - 10px)/ 5) + 60px);
+    cursor: pointer
+}
+
+.fldepdate_class {
+    width: calc(((100% - 190px)/ 5) - 40px);
+    cursor: pointer;
+    position: relative;
+}
+
+.flreturndate_class {
+    width: calc(((100% - 190px)/ 5) - 40px);
+    cursor: pointer;
+}
+
+.fltraveller_class {
+    width: calc(((100% - 190px)/ 5) - 40px);
+    cursor: pointer;
+}
+
+.fl_label {
+    font-size: 10px !important;
+    font-weight: 500;
+    color: $fl_label_color;
+    text-transform: uppercase;
+    white-space: nowrap;
+    width: 100%;
+    text-align: start;
+}
+
+.fl_place {
+    color: $font_black_color;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fl_icon_swap {
+    // transform: rotate(90deg);
+    position: absolute;
+    right: -13px;
+    color: $primary_color;
+}
+
+.fl_icon_gps {
+    opacity: .5;
+}
+
+.flbtn_class {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center flex-end;
+    align-items: center;
+    text-align: center;
+    width: 190px;
+}
+
+.current-location {
+    position: absolute;
+    right: 17px;
+    top: 50%;
+    z-index: 50;
+    transform: scale(.8) translateY(-50%);
+}
+
+.fl_desc {
+    font-size: 12px;
+    color: $fl_label_color;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.from_block {
+    margin: 0;
+    padding: 0;
+}
+
+.flbtn_search {
+    text-transform: capitalize;
+}
+
+.fullwidth {
+    width: 100%;
+}
+
+.topopup {
+    left: 0px;
+    top: 22px;
+}
+
+.fromtopopup {
+    width: calc(100% - 15px);
+    position: absolute;
+    float: left;
+    border-radius: 28px;
+    background-color: $white;
+    box-shadow: none;
+    z-index: 9999;
+    padding-left: 15px;
+}
+
+.travellerpopup label,
+.fromtopopup label {
+    width: 100%;
+    position: relative;
+    min-height: auto;
+    margin-bottom: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 9999;
+}
+
+.travellerpopup label img,
+.fromtopopup label img {
+    position: absolute;
+    left: 16px;
+    top: 13px;
+    height: 19px;
+    width: 19px;
+    color: #00205b;
+}
+
+.travellerpopup input,
+.fromtopopup input {
+    width: 100%;
+    background: $white;
+    box-shadow: 0 -1px 4px -1px rgb(0 0 0 / 20%), 0px 5px 4px 0px rgb(0 0 0 / 12%);
+    padding: 12px 10px 12px 44px;
+    font-size: 14px;
+    color: #666;
+    font-weight: normal;
+    display: block;
+    border: none;
+    outline: none;
+}
+
+::ng-deep .autocomplete {
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%) !important;
+    border-top: 1px solid #adadad57;
+    min-width: 250px !important;
+}
+
+.airport-selection {
+    .sub-tab-by {
+        line-height: initial;
+        display: flex;
+        justify-content: space-between;
+    }
+    .city-name {
+        font-size: 14px;
+        line-height: 14px;
+        color: black;
+        margin-bottom: 5px;
+    }
+    .airport-name {
+        color: #9b9b9b;
+        font-size: 12px;
+        line-height: 12px;
+    }
+    .airportcode {
+        background: #404040;
+        padding: 2px 3px;
+        color: #ffffff;
+        font-size: 12px;
+        line-height: 14px;
+        min-width: 28px;
+        display: inline-block;
+        height: fit-content;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}
+
+.airport-selection:hover {
+    text-decoration: none;
+}
+
+.dt {
+    border: none;
+    width: 100px;
+    height: 0px;
+    color: white;
+}
+
+.posIn {
+    z-index: -1;
+    position: relative;
+    outline: none;
+    border: none;
+    color: white;
+    width: 100px;
+    height: 1px;
+    left: -36px;
+    top: 15px;
+}
+
+.travellerpopup {
+    width: calc(100% - 15px);
+    overflow: hidden;
+    position: fixed;
+    float: left;
+    border-radius: 5px;
+    background-color: $white;
+    box-shadow: none;
+    z-index: 9999;
+    padding-left: 15px;
+    min-width: 125px;
+    max-width: 250px;
+    box-shadow: 0 4px 5px 0 rgb(0 0 0 / 23%);
+}
+
+.adult_count_div {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: space-between;
+    align-items: stretch;
+    max-height: 100%;
+    padding: 15px;
+}
+
+.adult_count_div input {
+    font-size: 16px;
+    margin: 0;
+    color: $grey;
+    width: 40px !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.plusminus_btn {
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    max-height: 100%;
+}
+
+.btns {
+    align-items: center;
+    border: none;
+    background-color: $white;
+    width: 100%;
+    border: 1px solid $div_line_color;
+}
+
+.btns:hover {
+    background-color: $primary_color_var;
+}
+
+.right_radius5 {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.left_radius5 {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.traveller-selection {
+    text-decoration: none;
+    color: $font_black_color;
+}

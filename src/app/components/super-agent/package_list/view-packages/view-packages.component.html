@@ -1,0 +1,282 @@
+<div class="tbl">
+  <div class="container mb60 mt60 mt100">
+    <div class="row">
+      <div class="col-12 mb-2">
+        <div class="header d-flex justify-content-between">
+          <h2>Package List</h2>
+          <button class="btn btn-success" (click)="viewFilter()"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+        </div>
+      </div>
+      <div class="col-md-12 mb-2" *ngIf="filterDiv">
+        <div class="filter-data row mx-0">
+          <div class="col-md-4 pl-0">
+            <div class="fs16 fw500">Published To</div>
+            <div class="fs14 clr52 pl-2 mt-2">
+              <div *ngFor="let box of publishFilter">
+                <mat-checkbox [checked]="box.checked" (change)="publishSelect(box.name)">{{box?.name}}</mat-checkbox>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 brdr_right_d3 brdr_left_d3">
+            <div class="fs16 fw500">Package Status</div>
+            <div class="fs14 clr52 pl-2 mt-2">
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="activeFilterData">
+                  <mat-radio-button class="example-radio-button" *ngFor="let season of activeFilter" [value]="season.active">{{season?.name}}</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+          <div class="col-md-4 pr-0">
+            <input type="text" class="form-control" [(ngModel)]="searchData" placeholder="Search">
+          </div>
+          <div class="col-md-12 px-0">
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary mx-2" (click)="initialFilter()">Reset</button>
+              <button type="button" class="btn btn-success" (click)="searchFilter()">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <ng-container *ngIf="!shimmer">
+        <div *ngIf="packages.length == 0">
+          <div class="d-flex justify-content-center filter-data mt-2">
+            <div>
+                <img src="/assets/images/noreslt.png" alt="">
+            </div>
+        </div>
+        </div>
+        <div *ngIf="packages.length > 0">
+          <div class="row" *ngFor="let item of packages">
+            <div class="col-md-12">
+              <div class="card mb-2">
+                <div class="card-body p-0">
+                  <div class="item-list">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="thumb-image">
+                          <a>
+                            <img [src]="item?.images?.file" class="img-responsive" [alt]="item.title">
+                          </a>
+                          <!-- <div class="service-wishlist " data-id="17" data-type="tour">
+                            <i class="fa fa-heart"></i>
+                          </div> -->
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="item-title">
+                          <a href="javascript:void(0)">
+                            {{item.title}}
+                          </a>
+                        </div>
+                        <div class="row ">
+                          <div class="col-md-6">
+                            <div class="location">
+                              <i class="icofont-money"></i>
+                              Price: <span class="sale-price"></span> <span class="price"><b>{{item.currency}} {{item.amount}}</b></span>
+                            </div>
+                            <div class="location">
+                              <i class="icofont-wall-clock"></i>
+                              Number Of Days: {{item?.no_of_days}}
+                            </div>
+    
+                            <div class="location">
+                              <i class="icofont-wall-clock"></i>
+                              Id : <strong>{{item?.reference_code}}</strong>
+                            </div>
+    
+                          </div>
+                          <div class="col-md-6">
+                            <!-- <div class="location">
+                              <i class="icofont-wall-clock"></i>
+                              Operated By: {{item?.operated_by}}
+                            </div> -->
+                            <div class="location">
+                              <i class="icofont-wall-clock"></i>
+                              Location: {{item?.location}}
+                            </div>
+                            <div class="location textOverFlowDot">
+                              <i class="icofont-wall-clock"></i>
+                              Boarding Airport: {{item?.starting_airport.split('|')[0]==null?item?.starting_airport:item?.starting_airport.split('|')[0]}}
+                            </div>
+                            <div  class="location">
+                              <i class="icofont-wall-clock"></i>
+                              Published To: <span class="fw600">{{item?.published_to==null?'Not Published':item?.published_to}}</span>
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="col-xs-12 col-sm-12 control-action">
+                          <a (click)="duplicatePackage(item)" class="btn btn-primary">Clone</a>
+                          <a  (click)="viewPackage(item.primary_package)" class="btn btn-info">View</a>
+                          <a (click)="editPackage(item.id)" class="btn editbttn" *ngIf="item?.is_editable">Edit</a>
+                          <a *ngIf="item.published_to != 'UNPUBLISHED' && !item.active" (click)="enablePackage(item.id)" class="btn btn-success">Enable</a>
+                          <a *ngIf="item.published_to != 'UNPUBLISHED' && item.active" (click)="enablePackage(item.id)" class="btn btn-secondary">Disable</a>
+                          <a (click)="manageBooking(item.id)" *ngIf="item.published_to != 'UNPUBLISHED'" class="btn managebtn">Manage Bookings</a>
+                          <a (click)="visaRequests(item.id)" *ngIf="item.published_to != 'UNPUBLISHED'" class="btn visabtn">Visa Requests</a>
+                          <a (click)="visaSubmission(item.id)" *ngIf="item.published_to != 'UNPUBLISHED'" class="btn visabtn">Visa Submissions</a>
+                          
+                          <!-- <a class="btn btn-danger"
+                            data-confirm="Do you want to delete?">Del</a>
+                          <a
+                            class="btn btn-secondary">Make hide</a> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </ng-container>
+      <ng-container *ngIf="shimmer">
+        <div class="row" *ngFor="let k of [].constructor(10);">
+          <div class="col-md-12">
+            <div class="card mb-2">
+              <div class="card-body">
+                <div class="item-list">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="thumb-image">
+                        <a>
+                          <div class="shine h190"></div>
+                        </a>
+                        <!-- <div class="service-wishlist " data-id="17" data-type="tour">
+                          <i class="fa fa-heart"></i>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="item-title">
+                        <a href="javascript:void(0)">
+                          <div class="shine w-100 h25"></div>
+                        </a>
+                      </div>
+                      <div class="row ">
+                        <div class="col-md-6">
+                          <div class="location">
+                            <i class="icofont-money"></i>
+                            Price: <span class="sale-price "></span> <span class="price"><b><div class="shine w-50 h25  float-right"></div></b></span>
+                          </div>
+                          <div class="location">
+                            <i class="icofont-wall-clock"></i>
+                            Number Of Days: <div class="shine w-50 h25  float-right"></div>
+                          </div>
+
+                          <div class="location">
+                            <i class="icofont-wall-clock"></i>
+                            Id : <div class="shine w-50 h25  float-right"></div>
+                          </div>
+
+                        </div>
+                        <div class="col-md-6">
+                          <div class="location">
+                            <i class="icofont-wall-clock"></i>
+                            Operated By: <div class="shine w-50 h25  float-right"></div>
+                          </div>
+
+                          <div class="location">
+                            <i class="icofont-wall-clock"></i>
+                            Boarding Airport: <div class="shine w-50 h25  float-right"></div>
+                          </div>
+                          <div  class="location">
+                            <i class="icofont-wall-clock"></i>
+                            Published To: <div class="shine w-50 h25  float-right"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-12 col-sm-12 control-action">
+
+                        <!-- <a class="btn btn-danger"
+                          data-confirm="Do you want to delete?">Del</a>
+                        <a
+                          class="btn btn-secondary">Make hide</a> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <!-- <table id="customers">
+        <thead class="fluxPos">
+          <tr>
+            <th>
+              Title
+            </th>
+            <th>
+              Start Date
+            </th>
+            <th>
+              Operated By
+            </th>
+            <th>
+              Number Of Days
+            </th>
+            <th>
+              Max Pax
+            </th>
+
+            <th>
+              Boarding Airport
+            </th>
+            <th>
+              Published To
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngIf="shimmer">
+          <tr *ngFor="let k of [].constructor(10);">
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+            <td>
+              <div class="shine w-100 h25"></div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!shimmer">
+          <tr *ngFor="let item of packages" (click)="viewPackage(item.id,item.published_to)">
+            <td>{{item?.title}}</td>
+            <td>{{item?.start_date | date:'mediumDate'}}</td>
+            <td>{{item?.operated_by}}</td>
+            <td>{{item?.num_days}}</td>
+            <td>{{item?.max_passengers}}</td>
+            <td>{{item?.boarding_airport}}</td>
+            <td>
+              <div *ngIf="item?.published_to != null">{{item?.published_to}}</div>
+              <div *ngIf="item?.published_to == null">Not published</div>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+<div class="row" *ngIf="totalPage>1">
+  <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+    <div class="float-right">
+      <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="paginate($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
+  </div>
+</div>

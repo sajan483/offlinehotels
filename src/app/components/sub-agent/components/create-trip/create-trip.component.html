@@ -1,0 +1,710 @@
+<div class="container-fluid topofcomponent position-relative pl-0 pr-0" id="subAgencyCreateTrip">
+    <div class="bgbluestepper"></div>
+    <div class="container mirr_text_right">
+        <div>
+            <mat-horizontal-stepper #stepper>
+                <mat-step label="{{'Makkah Hotel' | translate }}" *ngIf="steps.includes('1') && !swapHotel" state="apartment">
+                    <div *ngIf="showShimmer">
+                        <app-loader></app-loader>
+                    </div>
+                    <div *ngIf="hotelsList && hotelsList.length > 0">
+                        <div class="headerdiv">
+                            <div class="container d-flex justify-content-between">
+                                <div class="pl4">
+                                    <h3 class="fs22 mb-0">{{'Hotels in Makkah' | translate}}</h3>
+                                    <p class="blue_text">
+                                        <span class="clr52">{{'No of Days In Makkah' | translate}} </span><span class="clr_blue_18 fw600 px-1">{{noOfDaysInMakkah}}</span>
+                                        <span class="crossbarsamll phonehide"></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'No of Guest' | translate}}
+                                            </span ><span class="clr_blue_18 fw600 px-1">{{travellersCount}}</span></span>
+                                        <span class="crossbarsamll phonehide "></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'Start' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{makkahCheckInDate | DateTimeToDateFormat | date:'mediumDate'}}</span>
+                                        </span>
+                                        <span class="phonehide ml-2"><span class="clr52 ">{{'End' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{makkahCheckOutDate | DateTimeToDateFormat | date:'mediumDate'}}</span></span>
+                                    </p>
+                                </div>
+                                <div class="d-flex my-auto backbutton cursor-pointer" (click)="backToHomePage();">
+                                    <div class="mirr_hide"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                    <div class="blue_text fs14 phonehide">{{'Back to Home Page' | translate}}</div>
+                                    <div class="mirr_display"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="hotelsList.length > 0">
+                        <app-makka-hotel (notifyGrandparent)="createTripHandle($event)" (notifyCreateTripForChange)="moveToPaymentPage()" [hotelsList]="hotelsList">
+                        </app-makka-hotel>
+                     </div>
+                    </div>
+                </mat-step>
+                <mat-step label="{{'Madeena Hotel' | translate }}" *ngIf="steps.includes('2') && !swapHotel" state="apartment">
+                    <div *ngIf="showShimmer">
+                        <app-loader></app-loader>
+                    </div>
+                    <div *ngIf="hotelsList && hotelsList.length > 0">
+                        <div class="headerdiv">
+                            <div class="container d-flex justify-content-between">
+                                <div class="pl4">
+                                    <h3 class="fs22 mb-0">{{'Hotels in Madinah' | translate }}</h3>
+                                    <p class="blue_text">
+                                        <span class="clr52">{{'No of Days In Madinah' | translate}}
+                                        </span><span class="clr_blue_18 fw600 px-1">{{noOfDaysInMadeena}}</span>
+                                        <span class="crossbarsamll phonehide"></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'No of Guest' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{travellersCount}}</span></span>
+                                        <span class="crossbarsamll phonehide "></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'Start' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{madeenaCheckInDate | date:'mediumDate'}}</span>
+                                        </span>
+                                        <span class="phonehide ml-2"><span class="clr52 ">{{'End' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{madeenaCheckOutDate | date:'mediumDate'}}</span></span>
+                                    </p>
+                                </div>
+                                <div class="d-flex my-auto backbutton cursor-pointer" (click)="backToHomePage();">
+                                    <div class="mirr_hide"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                    <div class="blue_text fs14 phonehide">{{'Back to Home Page' | translate}}</div>
+                                    <div class="mirr_display"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="hotelsList.length > 0">
+                        <app-makka-hotel (notifyGrandparent)="createTripHandle($event)" (notifyCreateTripForChange)="moveToPaymentPage()" [hotelsList]="hotelsList">
+                        </app-makka-hotel>
+                       </div>
+                    </div>
+                </mat-step>
+                <mat-step label="{{'Madeena Hotel' | translate }}" *ngIf="steps.includes('1') && swapHotel" state="apartment">
+                    <div *ngIf="showShimmer">
+                        <app-loader></app-loader>
+                    </div>
+                    <div *ngIf="hotelsList && hotelsList.length > 0">
+                        <div class="headerdiv">
+                            <div class="container d-flex justify-content-between">
+                                <div class="pl4">
+                                    <h3 class="fs22 mb-0">{{'Hotels in Madinah' | translate }}</h3>
+                                    <p class="blue_text">
+                                        <span class="clr52">{{'No of Days In Madinah' | translate}}
+                                        </span><span class="clr_blue_18 fw600 px-1">{{noOfDaysInMadeena}}</span>
+                                        <span class="crossbarsamll phonehide"></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'No of Guest' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{travellersCount}}</span></span>
+                                        <span class="crossbarsamll phonehide "></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'Start' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{madeenaCheckInDate | date:'mediumDate'}}</span>
+                                        </span>
+                                        <span class="phonehide ml-2"><span class="clr52 ">{{'End' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{madeenaCheckOutDate | date:'mediumDate'}}</span></span>
+                                    </p>
+                                </div>
+                                <div class="d-flex my-auto backbutton cursor-pointer" (click)="backToHomePage();">
+                                    <div class="mirr_hide"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                    <div class="blue_text fs14 phonehide">{{'Back to Home Page' | translate}}</div>
+                                    <div class="mirr_display"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="hotelsList.length > 0">
+                        <app-makka-hotel (notifyGrandparent)="createTripHandle($event)" (notifyCreateTripForChange)="moveToPaymentPage()" [hotelsList]="hotelsList">
+                        </app-makka-hotel>
+                       </div>
+                    </div>
+                </mat-step>
+                <mat-step label="{{'Makkah Hotel' | translate }}" *ngIf="steps.includes('2') && swapHotel" state="apartment">
+                    <div *ngIf="showShimmer">
+                        <app-loader></app-loader>
+                    </div>
+                    <div *ngIf="hotelsList && hotelsList.length > 0">
+                        <div class="headerdiv">
+                            <div class="container d-flex justify-content-between">
+                                <div class="pl4">
+                                    <h3 class="fs22 mb-0">{{'Hotels in Makkah' | translate}}</h3>
+                                    <p class="blue_text">
+                                        <span class="clr52">{{'No of Days In Makkah' | translate}} </span><span class="clr_blue_18 fw600 px-1">{{noOfDaysInMakkah}}</span>
+                                        <span class="crossbarsamll phonehide"></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'No of Guest' | translate}}
+                                            </span ><span class="clr_blue_18 fw600 px-1">{{travellersCount}}</span></span>
+                                        <span class="crossbarsamll phonehide "></span>
+                                        <span class="phonehide"><span class="clr52 ">{{'Start' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{makkahCheckInDate | date:'mediumDate'}}</span>
+                                        </span>
+                                        <span class="phonehide ml-2"><span class="clr52 ">{{'End' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{makkahCheckOutDate | date:'mediumDate'}}</span></span>
+                                    </p>
+                                </div>
+                                <div class="d-flex my-auto backbutton cursor-pointer" (click)="backToHomePage();">
+                                    <div class="mirr_hide"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                    <div class="blue_text fs14 phonehide">{{'Back to Home Page' | translate}}</div>
+                                    <div class="mirr_display"><i class="uparrow icns icon_size_20 trnsfer"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="hotelsList.length > 0">
+                        <app-makka-hotel (notifyGrandparent)="createTripHandle($event)" (notifyCreateTripForChange)="moveToPaymentPage()" [hotelsList]="hotelsList">
+                        </app-makka-hotel>
+                     </div>
+                    </div>
+                </mat-step>
+                <mat-step label="{{'Transport' | translate}}" *ngIf="steps.includes('3')" state="directions_bus">
+                    <div class="pr-0 pl-0 pt-1 mt80">
+                        <div class="headerdiv">
+                            <div class="container d-flex justify-content-between">
+                                <div class="pl4">
+                                    <h3 class="fs22 mb-0">{{'Transport' | translate}}</h3>
+                                    <p class="blue_text">
+                                        <span class="phonehide"><span class="clr52 ">{{'No of Guest' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{travellersCount}}</span></span>
+                                        <span class="crossbarsamll phonehide "></span>
+                                        <span class="phonehide "><span class="clr52 ">{{'Start' | translate}}
+                                            </span><span class="clr_blue_18 fw600 px-1">{{transportStartDate | date:'mediumDate'}}</span></span>
+                                    </p>
+                                </div>
+                                <div class="d-flex my-auto backbutton modifySearch cursor-pointer" (click)="transportSearchPop();">
+                                    <div class="mirr_display"><i class="downarrow icns icon_size_w20_h15 "></i></div>
+                                    <div class="blue_text fs14 phonehide">{{'MODIFY SEARCH' | translate}}</div>
+                                    <div class="mirr_hide"><i class="downarrow icns icon_size_w20_h15 "></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="mt60">
+                                <div class="animationdiv" *ngIf="showShimmerTransport">
+                                    <div *ngFor="let item of freeArray">
+                                        <div class="displyflex box border_box_shadow">
+                                            <div class="photo m-2 shine wdth100"></div>
+                                            <div>
+                                                <div class="lines shine m-1 width40 wdth100"></div><br>
+                                                <div class="lines shine m-1 width40 wdth100"></div><br>
+                                                <div class="lines shine m-1 width40 wdth100"></div><br>
+                                                <div class="lines shine m-1 width40 wdth100"></div>
+                                            </div>
+                                            <div class="ml-auto phonenone">
+                                                <div class="lines shine m-1 width21"></div><br>
+                                                <div class="lines shine m-1 width21"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="showTransportOptionCard" class="col-md-12 box border_box_shadow row" style="height:244px">
+                                    <div class=" transportimage col-md-3">
+                                        <img src="/assets/images/noreslt.png">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class=" pt-3">
+                                            <p class="fs15 ">{{'The service you are searching for is unavailable at the moment.' | translate}}</p>
+                                            <p class="fs15">{{'Alternative options available.' | translate}}</p>
+                                        </div>
+                                        <div class="pl-2 pt-2" >
+                                            <mat-radio-group (change)="setUserOptionForTrasport($event)">
+                                                <div class="row mx-0">
+                                                    <div class="" *ngFor="let option of transportOptions">
+                                                        <div class="mealOption">
+                                                            <mat-radio-button style="margin-top:5px" value="{{option}}">
+                                                                <div class="vat-tax">{{'Show' | translate}} {{option}}</div>
+                                                            </mat-radio-button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="d-flex">
+                                            <button class="searchbutton ml-auto" [disabled]="!userOptionBtn" (click)="filterTransportList()">{{'Continue' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <app-transport (notifyGrandparent)="createTripHandle($event)" [transportData]="transportList" [vehicleTypeData]="vehicleTypeList" [dropdownList]="dropdownList"></app-transport>
+                            </div>
+                        </div>
+                    </div>
+                </mat-step>
+                <mat-step label="{{'Payment' | translate}}" state="payment">
+
+                    <form [formGroup]="paymentForm">
+                        <div class="mt80 prcStrip">
+                            <div class="d-flex container justify-content-between">
+                                <p class="priceStl fw600 Premium_blue">{{'Preview & Payment' | translate}}</p>
+                                <div>
+                                    <p class="ml-3 priceStl fw600 Premium_blue" ><span>{{'Total Amount' | translate}}</span><span class="ml-2">SAR  {{tripData?.total_price | number:'.2-2'}}</span></p>
+                                    <p *ngIf="tripData?.adults+ tripData?.children+tripData?.infants > 1" class="text-right mb-0 fw600 " style="color: gray;"><span class="ml-2">SAR  {{(tripData?.total_price/(tripData?.adults+ tripData?.children+tripData?.infants)) | number:'.2-2'}}</span><span>{{' / Pax' | translate}}</span></p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-12 p-0 mt150">
+                            <div class="col-md-12" *ngIf="tripMakkahHotel || tripMadeenaHotel">
+                                <h3 class="fs16 fw600 Premium_blue">{{'Hotel details'| translate}}</h3>
+                            </div>
+                            <app-payment-hotel *ngIf="tripMakkahHotel && !swapHotel" [tripHotel]="tripMakkahHotel" (notifyCreateTrip)="moveToCorrespondingPage($event)" [city]="cityFirst">
+                            </app-payment-hotel>
+                            <app-payment-hotel *ngIf="tripMadeenaHotel" [tripHotel]="tripMadeenaHotel" (notifyCreateTrip)="moveToCorrespondingPage($event)" [city]="citySecond">
+                            </app-payment-hotel>
+                            <app-payment-hotel *ngIf="tripMakkahHotel && swapHotel" [tripHotel]="tripMakkahHotel" (notifyCreateTrip)="moveToCorrespondingPage($event)" [city]="cityFirst">
+                            </app-payment-hotel>
+                            <div *ngIf="tripTransport">
+                                <div class="col-md-12">
+                                    <h3 class="fs16 fw600 Premium_blue">{{'Transport details' | translate }}
+                                    </h3>
+                                </div>
+                                <div *ngIf="!makkatransport">
+                                    <app-payment-transport (notifyCreatetrip)="moveToTransportPage()" [transportFailed]="transportFailed" [tripTransport]="tripTransport" [tripData]="tripData">
+                                    </app-payment-transport>
+                                </div>
+                            </div>
+
+                            <div>
+                                <app-main-traveller-details [travellersForm]="travellersForm" [submitted]="submitted" [paramTripId]="params.tripId"></app-main-traveller-details>
+                            </div>
+
+                            <div class="col-md-12 pl-0 pr-0 pb-0">
+                                
+                                <div class="d-flex p10 cursor-pointer">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked" (change)="policyCheck($event)">
+                                        <label class="custom-control-label mirr_hide" for="defaultUnchecked">{{'I accept the' | translate}}</label>
+                                        <label class="custom-control-label mirr_display" for="defaultUnchecked"></label>
+                                    </div>
+                                    <div class="px-1 mirr_display">{{'I accept the' | translate}}</div>
+                                    <div class="ml-2 textunderline clr_blue_18" (click)="termsandcondition()">
+                                        {{'Terms & Conditions' | translate}}
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button  (click)="createLink()" [disabled]="disablePayBttn" type="submit" [class.bttnactive]="isLinkReady"  class="searchbutton mr-0 mt-0 ml-3">{{'Booking Request To UO' | translate}}</button>
+                                    <button (click)="bookTrip()" [disabled]="disablePayBttn" type="submit" [class.bttnactive]="bookContinue" id="continueBooking" class="searchbutton mr-0 mt-0 ml-3">{{'Proceed to Pay' | translate}}</button>
+                                </div>
+                                <div style="height: 100px;background:#eaeaea;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>
+
+
+<div [style.display]="showIbanPopup ? 'block' : 'none'" class="modal" id="ibanPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog container">
+        <div class="modal-content">
+
+            <div class="modal-header text-white">
+                <div class="d-flex">
+                    <div class="mt-1 pr-2">
+                        <i class="icon_size_30 icns round_tick_grey"></i>
+                    </div>
+                    <div class="w-100">
+                        <h4 class="modal-title fw500">{{'Booking Confirmation' | translate}}</h4>
+                        <div class="fs12 text-right">{{'Total payable amount for your booking is' | translate}} <span class="fs20 fw600 pl-2 lh20">{{currency}} {{currencyConversion(paymentPopupValue?.total_amount)}}</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ticketDiv">
+                <div class="d-flex">
+                    <div class="my-auto pr-2">
+                        <i class="round_info_grey icns icon_size_30"></i>
+                    </div>
+                    <div>
+                        <div class="fs16 fw500">{{'Umrah Trip Id' | translate}} :  {{paymentPopupValue?.reference_no}} <span class="pl-3 fw400 fs12 cursor-pointer" (click)="copyLinkB2b(paymentPopupValue?.reference_no)"><i class="copyicon icns icon_size_15"></i> Copy</span></div>
+                        <div class="fs12 clr52">{{'Have a Query? Reach us at support@akbarumrah.com and mention the ticket id in it. Happy to help you!!' | translate}}</div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="paymentPopupDetailsPolicyShow">
+                <div class="p20 bookingServiceDetails">
+                    <div class="d-flex">
+                        <div class="pr-2">
+                            <i class="booking_details_icon icns icon_size_30"></i>
+                        </div>
+                        <div class="w-100">
+                            <div class="fs16 fw500">{{'Booking Details' | translate}}</div>
+                            <div class="mt-2" *ngIf="paymentHotelData && paymentHotelData != null">
+                                <div class="d-flex">
+                                    <div class="imgeSize">
+                                        <img src="/assets/images/no_image.jpg" alt="">
+                                    </div>
+                                    <div class="pl10">
+                                        <div class="d-flex">
+                                            <div class="fs14 fw500 text-capitalize my-auto pr-2">{{paymentHotelData?.trip_hotel?.hotel?.name}}</div>
+                                            <ngb-rating [(rate)]="paymentHotelData.trip_hotel.hotel.user_review" [readonly]="readonly" [max]=5>
+                                                <ng-template let-fill="fill" let-index="index">
+                                                    <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                                                </ng-template>
+                                            </ngb-rating>
+                                        </div>
+                                        <div class="fs12"><span class="fw500">{{'Rooms' | translate}}: </span> <span class="fw400 clr52 pl-1" *ngFor="let room of paymentHotelData?.rooms;let i = index;">{{i+1}}. {{room.title}},</span></div>
+                                        <div class="d-flex">
+                                            <div class="fw500 fs12">{{'CHECKIN' | translate}} : <span class="clr52 fw500">{{paymentHotelData?.trip_hotel?.check_in_time | DateTimeToDateFormat | date:'mediumDate'}}</span></div>
+                                            <div class="dividerDiv"></div>
+                                            <div class="fw500 fs12">{{'CHECKOUT' | translate}} : <span class="clr52 fw500">{{paymentHotelData?.trip_hotel?.check_out_time | DateTimeToDateFormat | date:'mediumDate'}}</span></div>
+                                            <div class="dividerDiv"></div>
+                                            <div class="fw500">{{'Number Of Pax' | translate}} : <span class="clr52 fw400">{{paymentPopupValue?.custom_trip?.adults + paymentPopupValue?.custom_trip?.children + paymentPopupValue?.custom_trip?.infants}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-2" *ngIf="paymentTransportData && paymentTransportData != null">
+                                <div class="d-flex">
+                                    <div class="imgeSize" *ngIf="paymentTransportData?.selected_transportation?.vehicle_types[0]?.image.length == 0">
+                                        <img src="/assets/images/no_image.jpg" alt="">
+                                    </div>
+                                    <div class="imgeSize" *ngIf="paymentTransportData?.selected_transportation?.vehicle_types[0]?.image.length > 0">
+                                        <img *ngIf="paymentTransportData?.selected_transportation?.vehicle_types[0]?.image[0]?.jpeg_image != null" src="{{paymentTransportData?.selected_transportation?.vehicle_types[0]?.image[0]?.jpeg_image}}" alt="">
+                                        <img *ngIf="paymentTransportData?.selected_transportation?.vehicle_types[0]?.image[0]?.jpeg_image == null" src="{{paymentTransportData?.selected_transportation?.vehicle_types[0]?.image[0]?.webp_image}}" alt="">
+                                    </div>
+                                    <div class="pl10">
+                                        <div class="fs14 fw500 text-capitalize my-auto pr-2">{{paymentTransportData?.selected_transportation?.vehicle_types[0].vehicle_type_name}} - {{paymentTransportData?.selected_transportation?.company_name}} ({{paymentTransportData?.categories[0]?.name}})</div>
+                                        <div class="fs12"><span class="fw500">{{'Route' | translate}}: </span> <span class="fw400 clr52 pl-1">{{paymentTransportData?.selected_transportation?.route_name}}</span></div>
+                                        <div class="d-flex">
+                                            <div class="fw500 fs12">{{'Start Date' | translate}} : <span class="clr52 fw500">{{paymentTransportData?.selected_transportation?.start_date | DateTimeToDateFormat | date:'mediumDate'}}</span></div>
+                                            <div class="dividerDiv"></div>
+                                            <div class="fw500 fs12">{{'Maximum Capacity' | translate}} : <span class="clr52 fw500">{{paymentTransportData?.vehicle_types[0]?.max_capacity}} {{'Seats' | translate}}</span></div>
+                                            <div class="dividerDiv"></div>
+                                            <div class="fw500">{{'Number of Pax' | translate}} : <span class="clr52 fw400">{{paymentPopupValue?.custom_trip?.adults + paymentPopupValue?.custom_trip?.children + paymentPopupValue?.custom_trip?.infants}}</span></div>
+                                            <div class="dividerDiv"></div>
+                                            <div class="fw500">{{'Number of Vehicle' | translate}} : <span class="clr52 fw400">{{paymentTransportData?.trip_vehicles[0]?.booked_quantity}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="cancellationDiv brdr_top_d3">
+                    <div class="d-flex">
+                        <div class=" pr-2">
+                            <i class="policy_icon icns icon_size_30"></i>
+                        </div>
+                        <div class="w-100">
+                            <div class="fs16 fw500">{{'Cancellation Charges' | translate}}:</div>
+
+                            <!-- <div *ngIf="paymentTransportData && paymentTransportData != null">
+                                <div class="marginDatas">
+                                    <div class=" mt-2">
+                                        <div class="d-flex justify-content-between commonHeight">
+                                            <div class="d-flex calculateWidth">
+                                                <div class="position-relative my-auto flex-fill" *ngIf="currentDate < paymentTransportData.selected_transportation.start_time_stamp">
+                                                    <div class="horizondelLine pr25">
+                                                        <hr  [class.borderClrGreen]="true">
+                                                    </div>
+                                                    <div class="datePosition">
+                                                        <div class="fw500 fs13">{{paymentTransportData.selected_transportation.cancellation_policy.rules[0].from_date_time | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                                                     <div class="fs400 fs12">{{paymentTransportData.selected_transportation.cancellation_policy.rules[0]?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                    </div>
+                                                    <div class="roundFrom1" [class.borderClrGreen]="true">
+                                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="amountPosition">
+                                                        <div class="fw500 fs13" style="color: green;">Free Cancellation</div>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative my-auto flex-fill" *ngFor="let rules of paymentTransportData.selected_transportation.cancellation_policy.rules">
+                                                    <div class="horizondelLine pr25" *ngIf="rules.end_timer > currentDate ">
+                                                        <hr [class.borderClrGreen]="rules.charge.chargeAmount == 0"
+                                                        [class.brderYelow]="rules.charge.chargeAmount < paymentTransportData.prices_summary.total_price">
+                                                    </div>
+                                                    <div class="datePosition" *ngIf="rules.end_timer > currentDate ">
+                                                        <div class="fw500 fs13">{{rules?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                                                        <div class="fs400 fs12">{{rules?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                    </div>
+                                                    <div class="roundFrom" *ngIf="rules.end_timer > currentDate " [class.clrChangeGreen]="rules.charge.chargeAmount == 0" 
+                                                        [class.clrBacYellow]="rules.charge.chargeAmount < paymentTransportData.prices_summary.total_price">
+                                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="amountPosition" *ngIf="rules.end_timer > currentDate " >
+                                                        <div *ngIf="rules?.charge?.chargeValue != '100.00'" class="fs12 fw500 clr52">{{'Cancellation Charges' | translate}}</div>
+                                                        <div *ngIf="rules?.charge?.chargeValue == '100.00'" class="fw500 fs13" style="color: red;">Non Refundable</div>
+                                                        <div *ngIf="rules?.charge?.chargeValue != '100.00'" class="fw500 fs13">{{currency | translate}} {{(paymentTransportData.prices_summary.total_price*rules?.charge?.chargeValue)/100 | number : '1.2-2'}} </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-fill my-auto position-relative">
+                                                    <div class="horizondelLine pr45"><hr></div>
+                                                    <div class="roundFromCheckin text-uppercase">{{'Start' | translate}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                             <div *ngIf="paymentTransportData && paymentTransportData != null">
+                                <div class="marginDatas">
+                                    <div class=" mt-2">
+                                        <div class="d-flex justify-content-between commonHeight">
+                                            <div class="d-flex calculateWidth">
+                                                <div class="position-relative my-auto flex-fill" *ngIf="currentDate < paymentTransportData.selected_transportation.start_time_stamp">
+                                                    <div class="datePosition2">
+                                                        <div class="fw500 fs13">{{today | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                                                     <!-- <div class="fs400 fs12">{{paymentTransportData.selected_transportation.cancellation_policy.rules[0]?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div> -->
+                                                    </div>
+                                                    <div class="horizondelLine pr25">
+                                                        <hr  [class.borderClrGreen]="true">
+                                                    </div>
+                                                    <div class="datePosition">
+                                                        <div class="fw500 fs13">{{decrementDateByOne(paymentTransportData.selected_transportation.cancellation_policy.rules[0].from_date_time) | date:'mediumDate'}}</div>
+                                                     <!-- <div class="fs400 fs12">{{paymentTransportData.selected_transportation.cancellation_policy.rules[0]?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div> -->
+                                                    </div>
+                                                    <div class="roundFrom1" [class.borderClrGreen]="true">
+                                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="amountPosition">
+                                                        <div class="fw500 fs13 font-weight-bold" style="color: green;">Free Cancellation</div>
+                                                    </div>
+                                                </div>
+                                                <ng-container *ngFor="let rules of paymentTransportData.selected_transportation.cancellation_policy.rules">
+                                                    <div class="position-relative my-auto flex-fill" *ngIf="rules.end_timer > currentDate ">
+                                                        <div >
+                                                            <div class="horizondelLine pr25" >
+                                                                <hr [class.borderClrGreen]="rules.charge.chargeAmount == 0" *ngIf="rules?.charge?.chargeValue != '100.00'"
+                                                                [class.brderYelow]="rules.charge.chargeAmount < paymentTransportData.prices_summary.total_price">
+                                                                <hr [class.borderClrGreen]="rules.charge.chargeAmount == 0" *ngIf="rules?.charge?.chargeValue == '100.00'"
+                                                                [class.brderRed]="rules?.charge?.chargeValue == '100.00'">
+                                                            </div>
+                                                            <div class="datePosition" >
+                                                                <div class="fw500 fs13" >{{rules?.to_date_time| date:'mediumDate'}}</div>
+                                                                <!-- <div class="fs400 fs12">{{rules?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div> -->
+                                                            </div>
+                                                            <div class="roundFrom" *ngIf="rules?.charge?.chargeValue != '100.00'"  [class.clrChangeGreen]="rules.charge.chargeAmount == 0" 
+                                                                [class.clrBacYellow]="rules.charge.chargeAmount < paymentTransportData.prices_summary.total_price">
+                                                                <i class="fa fa-usd" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="roundFrom" *ngIf="rules?.charge?.chargeValue == '100.00'" [class.clrChangeGreen]="rules.charge.chargeAmount == 0" 
+                                                                [class.clrBacRed]="rules.charge.chargeAmount < paymentTransportData.prices_summary.total_price">
+                                                                <i class="fa fa-usd" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="amountPosition"  >
+                                                                <div *ngIf="rules?.charge?.chargeValue != '100.00'" class="fs12 fw500 clr52">{{'Cancellation Charges' | translate}}</div>
+                                                                <div *ngIf="rules?.charge?.chargeValue == '100.00'" class="fw500 fs13" style="color: red;">Non Refundable</div>
+                                                                <div *ngIf="rules?.charge?.chargeValue != '100.00'" class="fw500 fs13">{{currency | translate}} {{(paymentTransportData.prices_summary.total_price*rules?.charge?.chargeValue)/100 | number : '1.2-2'}} </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                                
+                                                <div class="flex-fill my-auto position-relative">
+                                                    <div class="horizondelLine pr45"><hr></div>
+                                                    <div class="roundFromCheckin text-uppercase">{{'Start' | translate}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="paymentHotelData && paymentHotelData != null">
+                                <div class="marginDatas" *ngIf="roomCollection.length > 1">
+                                    <div class=" mt-2">
+                                        <mat-tab-group mat-stretch-tabs >
+                                            <mat-tab *ngFor="let item of roomCollection;let i = index" label="Room {{i+1}}">
+                                                <div class="fw500 fs14 py-2">{{item?.name}}</div>
+                                                <div class="d-flex justify-content-between position-relative commonHeight" *ngIf="item.cancellation_policy.rules && item.cancellation_policy.rules.length > 0">
+                                                    <div class="d-flex calculateWidth">
+                                                        <div class="position-relative my-auto flex-fill" *ngFor="let rules of item.cancellation_policy.rules">
+                                                            <div class="horizondelLine pr25">
+                                                                <hr [class.borderClrGreen]="rules.charge.chargeAmount == 0"
+                                                                    [class.brderYelow]="rules.charge.chargeAmount < item.amount">
+                                                            </div>
+                                                            <div class="datePosition">
+                                                                <div class="fw500 fs13">{{rules?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                                                                <div class="fs400 fs12">{{rules?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                            </div>
+                                                            <div class="roundFrom" [class.clrChangeGreen]="rules.charge.chargeAmount == 0"
+                                                                [class.clrBacYellow]="rules.charge.chargeAmount < item.amount">
+                                                                <i class="fa fa-usd text-white" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="amountPosition">
+                                                                <div class="fs12 fw500 clr52">{{'Cancellation Charges' | translate}}</div>
+                                                                <div class="fw500 fs13">{{currency}} {{currencyConversion(rules?.charge?.chargeAmount)}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="flex-fill my-auto position-relative">
+                                                            <div class="horizondelLine pr73"><hr></div>
+                                                            <div class="roundFromCheckin text-uppercase">{{'CHECKIN' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="item.cancellation_policy.rules && item.cancellation_policy.rules.length == 0">
+                                                    <div class="fs400 fs12" *ngIf="!item.cancellation_policy.is_refundable">{{'Non-Refundable' | translate}}</div>
+                                                    <div class="fs400 fs12" *ngIf="item.cancellation_policy.is_refundable">{{'Refundable' | translate}}</div>
+                                                </div>
+                                            </mat-tab>
+                                        </mat-tab-group>
+                                    </div>
+                                </div>
+                                <div class="marginDatas" *ngIf="roomCollection.length == 1">
+                                    <div class=" mt-2" *ngFor="let item of roomCollection">
+                                        <div class="d-flex justify-content-between position-relative commonHeight" *ngIf="item.cancellation_policy.rules && item.cancellation_policy.rules.length > 0">
+                                            <div class="d-flex calculateWidth">
+                                                <div class="position-relative my-auto flex-fill" *ngFor="let rules of item.cancellation_policy.rules">
+                                                    <div class="horizondelLine pr25">
+                                                        <hr [class.borderClrGreen]="rules.charge.chargeAmount == 0"
+                                                            [class.brderYelow]="rules.charge.chargeAmount < item.amount">
+                                                    </div>
+                                                    <div class="datePosition">
+                                                        <div class="fw500 fs13">{{rules?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                                                        <div class="fs400 fs12">{{rules?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                    </div>
+                                                    <div class="roundFrom" [class.clrChangeGreen]="rules.charge.chargeAmount == 0"
+                                                        [class.clrBacYellow]="rules.charge.chargeAmount < item.amount">
+                                                        <i class="fa fa-usd text-white" aria-hidden="true"></i>
+                                                    </div>
+                                                    <div class="amountPosition">
+                                                        <div class="fs12 fw500 clr52">{{'Cancellation Charges' | translate}}</div>
+                                                        <div class="fw500 fs13">{{currency}} {{currencyConversion(rules?.charge?.chargeAmount)}}</div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-fill my-auto position-relative">
+                                                    <div class="horizondelLine pr73"><hr></div>
+                                                    <div class="roundFromCheckin text-uppercase">{{'CHECKIN' | translate}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="item.cancellation_policy.rules && item.cancellation_policy.rules.length == 0">
+                                            <div class="fs400 fs12" *ngIf="!item.cancellation_policy.is_refundable">{{'Non-Refundable' | translate}}</div>
+                                            <div class="fs400 fs12" *ngIf="item.cancellation_policy.is_refundable">{{'Refundable' | translate}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="brdr_top_d3 p20">
+                <div class="d-flex">
+                    <div class=" pr-2">
+                        <i class="payment_details_icon icns icon_size_30"></i>
+                    </div>
+                    <div class="w-100">
+                        <div class="fs16 fw500">Enter your payment details</div>
+                        <div class="marginDatas">
+                            <div class="col-md-12 px-0">
+                                <div class="col-md-12 pb-1 px-0"><strong style="color: red;">*</strong> {{'IBAN Accound Number' | translate}}:</div>
+                                <div class="col-md-12 px-0 row mx-0">
+                                    <div class="col-md-7 px-0 position-relative"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <input type="text" class="form-control" placeholder="eg: SA1000000000000000000000" id="acc_no" (input)="iBanNumberValidation($event.srcElement.value)" (keypress)="omit_special_char($event)" [(ngModel)]="accNo" oninput="this.value = this.value.toUpperCase()" [ngClass]="{ 'is-invalid': ibanValidation }">
+                                        <div class="dropdown-menu">
+                                            <div class="cursor-pointer d-flex justify-content-between hoverListIban" *ngFor="let iban of ibanNumberList" (click)="selectIbanNumber(iban)">
+                                                <div class="p10">{{iban.iban}}</div>
+                                                <div class="p10 clr52">{{iban.tag}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="positionDownarrow">
+                                            <i class="downarrow icns icon_size_20 cursor-pointer"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 px-0">
+                                        <input type="text" class="form-control" placeholder="Tag" [(ngModel)]="ibanTagName">
+                                    </div>
+                                    <div class="col-md-1 px-0">
+                                        <button class="saveibanBttn" title="Save Iban" [class.bttnactive]="saveBttnActive" (click)="SaveIbanDat()"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                                <div *ngIf="ibanValidation" class="red_text fs12 mirr_text_right">
+                                    <div>{{ibanMessge | translate}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-3 px-0">
+                                <div class="col-md-12 px-0 pb-1"><strong style="color: red;">*</strong> {{'Google Auth Code' | translate}}:</div>
+                                <!-- <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6,allowNumbersOnly:true}"></ng-otp-input> -->
+                                <div class="red_text" *ngIf="lengthAuthCode">Please Enter 6 digit Google Authentication code.</div>
+                                <div class="d-flex lh12 fs12 pt-2">
+                                    <i class="fa fa-info-circle pr-1" aria-hidden="true"></i> Google auth code token expires in <span class="red_text fw500 fs13 pl-1">30 sec</span>.
+                                </div>
+                                <!-- <div class="col-md-12 px-0"><input type="text" class="form-control" id="auth_code" [(ngModel)]="authCode"></div> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footeDiv brdr_top_d3 d-flex justify-content-end">
+                <button class="searchbutton cancelBttn my-0 mr-2" (click)="closeIbanPopUp()">{{'Cancel' | translate}}</button>
+                <button type="button" class="searchbutton m-0" (click)="onSubmitButtonClicked()" data-dismiss="modal">{{'Submit' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner id="hotelSpinner" bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <div>
+        <img class="spinnerImg" src="assets/images/paymentLoader.gif" alt="">
+    </div>
+</ngx-spinner>
+
+<app-terms-and-condition *ngIf="policy"></app-terms-and-condition>
+<app-terms-condition-arabic *ngIf="policyArabic"></app-terms-condition-arabic>
+
+<div [style.display]="modifySearchTransportPopup ? 'block' : 'none'" class="modal popup_bg" id="modifyTransport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button id="ibanClose" type="button" class="close" (click)="closemodifySearchTransportPopup()" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body" style="font-size: 12px;">
+                    <div class="row mx-0">
+                        <!-- <div class="col-md-3">
+                            <p class="mb-0 fs14 pl-1">{{'Vehicle Type' | translate}}</p>
+                            <select class="removeoutline bordrservice w-100 pl10 fs14" name="" id="" [(ngModel)]="vehicleId" (change)="onVehicleSelectArray($event.target.value)">
+                                <option *ngFor="let item of vehicleTypeList" [value]="item.item_id">{{item.item_text}}</option>
+                            </select>
+                        </div> -->
+                        <div class="col-md-3">
+                            <p class="mb-0 fs14 pl-1">{{'Vehicle Count' | translate}}</p>
+                            <input type="text" numberOnly class="removeoutline bordrservice w-100 pl10 fs14" [(ngModel)]="vehicleCount" [min]="1" (input)="getVehicleCount($event)">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-0 fs14 pl-1">{{'Route' | translate}}</p>
+                            <select name="" class="removeoutline bordrservice w-100 pl10 fs14" id="" [(ngModel)]="routeId">
+                                <option *ngFor="let item of routeList" [value]="item.item_id">{{item.item_text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="searchbutton" [disabled]="disableModifyTransportBttn" (click)="modfyTransportSearch()" data-dismiss="modal">{{'Search' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div [style.display]="showLinkPopup ? 'block' : 'none'" class="modal" id="linkpopup2" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog " style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div class="modal-content mob_min_h98">
+            <div class="modal-header">
+                <div class="mirr_text_right">
+                    <h6 class="mb-0 font-weight-bold fs17"> {{'Send booking request to your Umrah Operator' | translate}}</h6>
+                    <p class="clr52 fs10">{{'Your Umrah operator can see this booking on their dashboard' | translate}}</p>
+                </div>
+                <button id="ibanClose" type="button" class="close my-auto py-0" (click)="closeLinkPoupup()" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body mirr_text_right">
+
+                <div class="modal-body p-0" style="font-size: 12px;">
+                    <div class="col-md-12 row m-0 p-0">
+                        <div class=" col-md-12 m-0 p-0">
+                            <div>
+                                <p class="mb-0 font-weight-bold mb-1">{{'Your Umrah Operator`s registered mobile number/login Id' | translate}}</p>
+                                <input ng2TelInput [ng2TelInputOptions]="{preferredCountries:['sa','in', 'ae','qa'], separateDialCode:true}" class="form-control"  #mobInput id="mobInput" type="text" (countryChange)="onCountryChangeDeep($event)"
+                                (input)="inputValidationDeep($event)" maxlength="15" numberOnly [(ngModel)]="mobileNumber" />
+                                <!-- <p *ngIf="phone_error" class="mb-0" style="color: red;">Please enter a valid phone number</p> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt10" *ngIf="agencyNumberList.length > 0" id="bookingRequestNumbers">
+                        <mat-radio-group [(ngModel)]="mobileNumber" class="example-radio-group">
+                            <mat-radio-button class="example-radio-button" *ngFor="let k of agencyNumberList" [value]="k.phone_number" (click)="addAgencyNumberForBookingRequest(k)">{{k?.company_name}} - {{k?.phn_country_code}}-{{k?.phone_number}}</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div *ngIf="callB2bLink" class="d-flex m-0 p-0 mt-2 justify-content-end">
+                    <button class="searchbutton ml-2" [disabled]="mobileNumber == ''" [class.bttnactive]="isLinkReady" (click)="callLinkCreator()">{{'Send' | translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

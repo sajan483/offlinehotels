@@ -1,0 +1,221 @@
+<nav class="navbar navbar-expand-lg navbar-light positionfixed">
+  <div class="collapse navbar-collapse container">
+      <a class="navbar-brand cursor-pointer" *ngIf="branchActive" (click)="navigatepage('branch/packages');"><img class="logohight" src="/assets/images/akbar-umrah-logo.png" alt=""></a>
+      <a class="navbar-brand cursor-pointer" *ngIf="superAgencyActive" (click)="navigatepage('superagent/dashboard');"><img class="logohight" src="/assets/images/akbar-umrah-logo.png" alt=""></a>
+      <a class="navbar-brand cursor-pointer" *ngIf="subAgencyActive && userLogo!='null'" (click)="navigatepage('subagent/home');"><img class="logohightSubAgent" [src]="userLogo" alt=""/></a>
+      <a class="navbar-brand cursor-pointer p15" *ngIf="subAgencyActive && userLogo=='null'" (click)="navigatepage('subagent/home');" style="font-weight: 800;height:64px;">{{agencyName.length>25?(agencyName.substr(0,25)+'....'):agencyName}}</a>
+      <div style="height: 64px;" *ngIf="subAgencyActive"></div>
+      <form class="form-inline my-2 my-lg-0">
+          <div class="margin_currncy_drop" *ngIf="!superAgencyActive && !branchActive">
+              <select id="langConverter" class="custom-select ws100imp wdth74" [(ngModel)]="languageSelect" (change)="changeLangValue($event.target.value)" name="languageSelect">
+                  <option *ngFor="let option of languageOptions" value={{option.lang}}>{{option.langName}}</option>
+              </select>
+          </div>
+          <div class="margin_currncy_drop" *ngIf="!superAgencyActive && !branchActive">
+              <select id="langConverter" class="custom-select  wdth74" [(ngModel)]="currency" (change)="changeCurrency($event.target.value)" name="currency">
+                  <option *ngFor="let option of currencyList" value={{option.currency}}>{{option.currency}}</option>
+              </select>
+          </div>
+          <div class="dropdown" *ngIf="subAgencyActive">
+              <div class="d-flex cursor-pointer hidemobile mr-3">
+                  <div class="pr-2 mpl10 text-right">
+                      <!-- <p class="mb-0 wlcmtext text-capitalize">{{userType}} <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                      <p class="mb-0 f15">{{'Agent Code' | titlecase}}: {{agentId}}</p> -->
+                      <p class="mb-0 wlcmtext text-capitalize">{{'Welcome' | translate}} <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                      <p class="mb-0 f15 text-capitalize">{{userType}}</p>
+                  </div>
+                  <i class="userpic icns icon_size_40"></i>
+              </div>
+              <div class="dinsplaymobile hidesystem mr-3">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+              </div>
+              <div class="dropdown-content animationdivfast">
+                  <a (click)="navigatepage('subagent/home');">
+                      <div class="d-flex padngover mt-2">
+                          <i class="icns createpackages icon_size_25"></i>
+                          <p class="f15 my-auto pl15 mpl0 mpr15" [class.clrred]="router.url === 'subagent/home'">{{'Create Package' | translate }}
+                          </p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('subagent/SubPccListing');">
+                      <div class="d-flex padngover">
+                          <i class="icns subpccicon icon_size_20"></i>
+                          <p class="f15 my-auto pl20 mpl0 mpr15" [class.clrred]="router.url === 'subagent/SubPccListing'">
+                              {{'Manage Sub Pcc' | translate }}
+                          </p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('subagent/history');">
+                      <div class="d-flex padngover">
+                          <i class="icns historyicon icon_size_20"></i>
+                          <p class="f15 my-auto pl20 mpl0 mpr15" [class.clrred]="router.url === 'subagent/history'">
+                              {{'Transactions' | translate }}
+                          </p>
+                      </div>
+                  </a>
+                  <!-- <a (click)="navigatepage('subagent/IBAN/details');">
+                      <div class="d-flex padngover">
+                          <i class="icns walletIcon icon_size_20"></i>
+                          <p class="f15 my-auto pl20 mpl0 mpr15" [class.clrred]="router.url === 'IBAN/details'">
+                              {{'My E-Wallet Account' | translate }}
+                          </p>
+                      </div>
+                  </a> -->
+                  <a (click)="navigatepage('subagent/profilepage');">
+                      <div class="d-flex padngover">
+                          <i class="icns myprofile icon_size_20"></i>
+                          <p class="f15 my-auto pl20 mpl0 mpr15" [class.clrred]="router.url === 'subagent/profilepage'">{{'My Profile' | translate }}</p>
+                      </div>
+                  </a>
+                  <a class="open-zammad-chat">
+                      <div (click)="callChat()" class="d-flex padngover open-zammad-chat">
+                          <i class="icns chatIcon icon_size_20"></i>
+                          <p class="f15 my-auto pl20">{{'Chat' | translate}}
+                          </p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('subagent/knowledge-base');">
+                      <div class="d-flex padngover">
+                          <i class="icns knowledge icon_size_20"></i>
+                          <p class="f15 my-auto pl20">{{'Knowledge Base' | translate}}
+                          </p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('subagent/requested-history');">
+                    <div class="d-flex padngover">
+                        <i class="icns historyicon icon_size_20"></i>
+                        <p class="f15 my-auto pl20 mpl0 mpr15" [class.clrred]="router.url === 'subagent/history'">
+                            {{'Requested History' | translate }}
+                        </p>
+                    </div>
+                  </a>
+                  <a class="bgred" (click)="logout();">
+                      <div class="d-flex padngover">
+                          <i class="icns logouticon icon_size_20"></i>
+                          <p class="f15 my-auto pl20 mpl0 mpr15">{{'Logout' | translate }}</p>
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+          <div class="dropdown" *ngIf="superAgencyActive">
+              <div class="d-flex cursor-pointer hidemobile">
+                  <div class="pr-2">
+                      <p class="mb-0 wlcmtext">Welcome <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                      <p class="mb-0 f15" style="color: brown;">{{userType}}</p>
+                  </div>
+                  <i class="userpic icns icon_size_40"></i>
+              </div>
+              <div class="dinsplaymobile hidesystem mr-3">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+              </div>
+              <div class="dropdown-content animationdivfast">
+                  <a class="" (click)="navigatepage('superagent/dashboard');">
+                      <div class="d-flex padngover mt-2">
+                          <i class="icns dashboardicon icon_size_25"></i>
+                          <p class="f15 my-auto pl15" [class.clrred]="router.url === '/superagent/dashboard'">
+                              Dashboard</p>
+                      </div>
+                  </a>
+                  <a class="" (click)="navigatepage('superagent/createTrip');">
+                      <div class="d-flex padngover mt-2">
+                          <i class="icns createpackages icon_size_25"></i>
+                          <p class="f15 my-auto pl15" [class.clrred]="router.url === '/superagent/createTrip'">Create New Package</p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('/superagent/branch_list');">
+                      <div class="d-flex padngover">
+                          <i class="icns menubranches icon_size_20"></i>
+                          <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/branch_list'">
+                              Branches</p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('/superagent/staff_list');">
+                      <div class="d-flex padngover">
+                          <i class="icns staffmanagment icon_size_20"></i>
+                          <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/staff_list'">Staff Mangement
+                          </p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('/superagent/view_package');">
+                      <div class="d-flex padngover">
+                          <i class="icns view_list_icon icon_size_20"></i>
+                          <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/view_package'">View Packages
+                          </p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('/superagent/view_enquiry_bookings');">
+                    <div class="d-flex padngover">
+                        <i class="icns booking_icon icon_size_20"></i>
+                        <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/view_enquiry_bookings'">View Bookings
+                        </p>
+                    </div>
+                </a>
+                  <!-- <a (click)="navigatepage('/superagent/account_details');">
+                      <div class="d-flex padngover">
+                          <i class="icns accountdetailsicon icon_size_20"></i>
+                          <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/account_details'">
+                              Account Details</p>
+                      </div>
+                  </a> -->
+                  <a (click)="navigateagencyprofile();">
+                      <div class="d-flex padngover">
+                          <i class="icns myprofile icon_size_20"></i>
+                          <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/profile/1'">My Profile
+                          </p>
+                      </div>
+                  </a>
+
+                  <a class="bgred" (click)="logout();">
+                      <div class="d-flex padngover">
+                          <i class="icns logouticon icon_size_20"></i>
+                          <p class="f15 my-auto pl20">Logout</p>
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+          <div class="dropdown" *ngIf="branchActive">
+              <div class="d-flex cursor-pointer hidemobile">
+                  <div class="pr-2">
+                      <p class="mb-0 wlcmtext">Welcome <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                      <p class="mb-0 f15" style="color: brown;">{{userType}}</p>
+                  </div>
+                  <i class="userpic icns icon_size_40"></i>
+              </div>
+              <div class="dinsplaymobile hidesystem mr-3">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+              </div>
+              <div class="dropdown-content animationdivfast">
+                  <a class="" (click)="navigatepage('branch/packages');">
+                      <div class="d-flex padngover mt-2">
+                          <i class="icns createpackages icon_size_25"></i>
+                          <p class="f15 my-auto pl15" [class.clrred]="router.url === '/branch/packages'">Packages</p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('branch/bookings');">
+                      <div class="d-flex padngover">
+                          <i class="icns booking_icon icon_size_20"></i>
+                          <p class="f15 my-auto pl20">Bookings</p>
+                      </div>
+                  </a>
+                  <a (click)="navigatepage('branch/profile');">
+                      <div class="d-flex padngover">
+                          <i class="icns myprofile icon_size_20"></i>
+                          <p class="f15 my-auto pl20">My Profile</p>
+                      </div>
+                  </a>
+                  <a class="bgred" (click)="logout();">
+                      <div class="d-flex padngover">
+                          <i class="icns logouticon icon_size_20"></i>
+                          <p class="f15 my-auto pl20">Logout</p>
+                      </div>
+                  </a>
+              </div>
+          </div>
+
+      </form>
+  </div>
+</nav>
+
+<app-support *ngIf="supportPopup"></app-support>

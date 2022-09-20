@@ -1,0 +1,142 @@
+<div class="container">
+    <div class="bg-white" style="margin-top: 100px;">
+        <h4 class=" pt-2 pl30 mb-0">Generate Reports</h4>
+        <!-- <div class="d-flex my-2 ml-3 pl-3">
+            <div class="d-flex align-content-center">
+                <input type="radio" (change)="selectRadio($event)"  style="margin-top: 5px;"  name="drone" value="current"
+                       checked = "true">
+                <p class="mb-0 ml-1" for="huey">Current Month</p>
+            </div>
+            <div class="d-flex ml-2  align-content-center">
+                <input type="radio" (change)="selectRadio($event)" style="margin-top: 5px;"  name="drone" value="previous">
+                <p class="mb-0 ml-1" for="dewey">Previous Month</p>
+            </div>
+        </div> -->
+        <div class="d-flex my-2 ml-3 pl-3">
+            <div class="d-flex align-content-center">
+               <div class="outer" *ngIf="current"><div class="round"></div></div>
+               <div class="outer" *ngIf="!current" (click)="selectOption('Current')"></div>
+               <p class="mb-0 ml-1" style="font-size: 16px;" for="huey">Current Month</p>
+            </div>
+            <div class="d-flex ml-2  align-content-center">
+              <div class="outer" *ngIf="previous" ><div class="round"></div></div>
+              <div class="outer" *ngIf="!previous" (click)="selectOption('Previous')"></div>
+              <p class="mb-0 ml-1"  style="font-size: 16px;" for="dewey">Previous Month</p>
+            </div>
+        </div> 
+          
+        <div class="col-md-12 d-flex  pl-3 pr-3 pb-3" *ngIf="currentOption">
+            <div class="col-md-4 mr-0 pr-0">
+                 <p class="mb-0 fs14 pl-1">{{'Start Date' | translate}}
+                 <div [owlDateTimeTrigger]="dt1" class="position-relative">
+                   <input  placeholder="{{'Check-in date' | translate}}"
+                     class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="rtStartDate"
+                    [max]="rtStartMaxDate" [owlDateTime]="dt1" (ngModelChange)="startDateChange()">
+                   <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                 </div>
+                 <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+         </div>
+         <div class="col-md-4 mr-0 pr-0">
+             <p class="mb-0 fs14 pl-1">{{'End Date' | translate}}
+             <div [owlDateTimeTrigger]="dt2" class="position-relative">
+               <input placeholder="{{'End date' | translate}}"
+                 class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="rtEndDate"
+                 [min]="rtEndMinDate" [max]="today" [owlDateTime]="dt2" (ngModelChange)="endDateChange()">
+               <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+             </div>
+             <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+         </div>
+         <div class="col-md-4 mt9 mr-0 pr-0">
+            <button class="searchbutton pad" style="width: 100%;" (click)="generateReport()">Generate Report</button>
+         </div>
+     </div>
+     <div class="col-md-12 d-flex bg-white pl-3 pr-3 pb-3" *ngIf="previousOption">
+         <div class="col-md-4 mr-0 pr-0">
+             <p class="mb-0 fs14 pl-1">{{'Year' | translate}}
+             <div id="h" >
+                 <select  class="bordrservice removeoutline w100 pl-2" >
+                   <option *ngFor="let year of years;" [value]="year">{{year}}</option>
+                 </select>
+             </div>
+         </div>
+         <div class="col-md-4 mr-0 pr-0">
+             <p class="mb-0 fs14 pl-1">{{'Month' | translate}}
+             <div id="head1" >
+                 <select class="bordrservice removeoutline w100 pl-2" (change)="selectMonth($event)">
+                 <option value=''>Select month</option>
+                 <option value='1'>Janaury</option>
+                 <option value='2'>February</option>
+                 <option value='3'>March</option>
+                 <option value='4'>April</option>
+                 <option value='5'>May</option>
+                 <option value='6'>June</option>
+                 <option value='7'>July</option>
+                 <option value='8'>August</option>
+                 <option value='9'>September</option>
+                 <option value='10'>October</option>
+                 <option value='11'>November</option>
+                 <option   value='12'>December</option>
+                 </select>
+             </div>
+         </div>
+         <div class="col-md-4 mt9 mr-0 pr-0">
+            <button class="searchbutton pad" style="width: 100%;" (click)="generateReport()">Generate Report</button>
+         </div>
+     </div>
+    </div>
+    <div class="tbl p-2 bg-white mt-3">
+        <div class="pt-2 pb-3">
+          <table class="table" id="recentHistory">
+            <thead class="thead-light">
+              <tr>
+                <th>{{'Serial No.' | translate}}</th>
+                <th>{{'Year' | translate}}</th>
+                <th>{{'Month' | translate}}</th>
+                <th>{{'Status' | translate}}</th>
+                <th>{{'Download' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="!recentReport">
+              <tr *ngFor="let k of [].constructor(10);let i = index;">
+                <td>
+                  <div class="shine h20 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h20 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h20 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h20 w-100"></div>
+                </td>
+                <td>
+                    <div class="shine h20 w-100"></div>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="recentReport">
+              <tr *ngFor="let item of recentReports;let i = index;" [class.processing]="item?.status == 'processing'" [class.success]="item?.status == 'success'" [class.partial_success]="item?.status == 'partial_success'" [class.cancelled]="item?.status == 'cancelled'" [class.partial_cancelled]="item?.status == 'partial_cancellation'" [class.failed]="item?.status == 'failed'">
+                <td>{{i+1}}</td>
+                <td>{{item?.year}}</td>
+                <td *ngIf="item?.month == 1">January</td>
+                <td *ngIf="item?.month == 2">February</td>
+                <td *ngIf="item?.month == 3">March</td>
+                <td *ngIf="item?.month == 4">April</td>
+                <td *ngIf="item?.month == 5">May</td>
+                <td *ngIf="item?.month == 6">June</td>
+                <td *ngIf="item?.month == 7">July</td>
+                <td *ngIf="item?.month == 8">Agust</td>
+                <td *ngIf="item?.month == 9">September</td>
+                <td *ngIf="item?.month == 10">October</td>
+                <td *ngIf="item?.month == 11">November</td>
+                <td *ngIf="item?.month == 12">December</td>
+                <td *ngIf="item?.mail_sent">Mail Sent</td>
+                <td *ngIf="!item?.mail_sent">Inprogress</td>
+                <td><a class="bold-link cursor-pointer" href="{{item.file}}" download="">Download</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>

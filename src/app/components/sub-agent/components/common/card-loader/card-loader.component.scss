@@ -1,0 +1,30 @@
+.card-loader-div{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+    .yellow {
+        background-color: #d5b38d;
+        border-radius: 100%;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        animation: bounce 1.5s 0.5s linear infinite;
+        margin: 5px;
+    }
+    
+}
+
+@keyframes bounce {
+    0%, 50%, 100% {
+        transform: scale(1);
+        filter: blur(0px);
+    }
+    25% {
+        transform: scale(0.6);
+        filter: blur(1px);
+    }
+    75% {
+        filter: blur(1px);
+        transform: scale(1.4);
+    }
+}

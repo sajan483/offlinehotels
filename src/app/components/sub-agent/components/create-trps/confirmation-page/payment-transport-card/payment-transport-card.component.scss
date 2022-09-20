@@ -1,0 +1,162 @@
+.payment-hotel-card-div{
+    width: 100%;
+    .payment-head{
+        padding: 10px;
+        border-bottom: 1px solid #e1e1e1;
+        .hotel-name{
+            text-transform: capitalize;
+            color: #000;
+            font-size: 16px;
+            line-height: 18px;
+            font-weight: 500;
+        }
+    }
+    .categoryStar {
+        .vip {
+            color: #fac82a;
+            padding-right: 8px;
+        }
+        .textclrvip {
+            color: #0a4170;
+            font-weight: 500;
+            padding: 1px 6px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 12px;
+            &.vip {
+                background: #ffaa20;
+            }
+            &.normal {
+                background: #4cc3ac;
+            }
+            &.premium {
+                background: #b89d73;
+            }
+        }
+    }
+    .total-amound{
+        color: #116063;
+        font-weight: 600;
+        font-size: 16px;
+        text-align: end;
+    }
+    .link-click-div{
+        color: #956b3d;
+        &:hover{
+            color: #116063;
+        }
+    }
+    .amound-div{
+        padding: 0 10px;
+        background-color: #f5e0ca;
+    }
+    .payment-body{
+        padding: 10px;
+        .hotel-datas{
+            font-size: 12px;
+            padding-bottom: 10px;
+            span{
+                color: #525252;
+                font-weight: 400;
+            }
+            strong{
+                padding-left: 3px;
+                color: #116063;
+            }
+            .divider{
+                border-right: 1px solid #525252;
+                margin: 0 5px;
+            }
+        }
+    }
+
+    .hotel-summary{
+        border-top: 1px solid #e1e1e1;
+        padding: 10px;
+        .hotel-summary-data{
+            font-size: 14px;
+            text-align: start;
+            font-weight: 500;
+            padding-bottom: 5px;
+        }
+        .refundable{
+            font-size: 12px;
+            padding: 0 3px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+        .non-ref{
+            background-color: #edc1c1;
+            border: 1px solid #db0c0c;
+            color: #db0c0c;
+        }
+        .refund{
+            background-color: #bae0c0;
+            border: 1px solid #00a11b;
+            color: #00a11b;
+        }
+    }
+
+    #timeLine {
+        @mixin tablet-and-up {
+            @media screen and (min-width: 769px) {
+                @content;
+            }
+        }
+        @mixin mobile-and-up {
+            @media screen and (min-width: 601px) {
+                @content;
+            }
+        }
+        @mixin tablet-and-down {
+            @media screen and (max-width: 768px) {
+                @content;
+            }
+        }
+        @mixin mobile-only {
+            @media screen and (max-width: 600px) {
+                @content;
+            }
+        }
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+        }
+        .sessions {
+            border-radius: 12px;
+            position: relative;
+            margin-bottom: 0;
+        }
+        li {
+            padding-bottom: 1.5rem;
+            border-left: 4px solid #a3bdbd;
+            position: relative;
+            padding-left: 11px;
+            margin-left: 10px;
+            padding-bottom: 6px;
+            &:before {
+                content: "";
+                width: 15px;
+                height: 15px;
+                background: #116063;
+                border: 1px solid #116063;
+                border-radius: 50%;
+                position: absolute;
+                left: -10px;
+                top: 0px;
+            }
+        }
+        .time {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 16px;
+            text-transform: capitalize;
+            text-align: start;
+            @include mobile-only {
+                margin-bottom: 0.3rem;
+                font-size: 0.85rem;
+            }
+        }
+    }
+}

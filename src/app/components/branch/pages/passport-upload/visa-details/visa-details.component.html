@@ -1,0 +1,45 @@
+<ng-container>
+    <ng-container *ngFor="let tab of tabArray; let i = index">
+        <section #headDiv>
+            <app-passenger-details [appForm]="visaApplicationFormGroup" [paxIndex]="i" (editPax)="editPax(i)" *ngIf="tab.headOpen"></app-passenger-details >
+        </section>
+
+        <section class="desktop" #contentDiv>
+            <div class="card" *ngIf="tab.contentOpen">
+                <app-visa-front-page [appForm]="visaApplicationFormGroup" [paxIndex]="i" [submit]="submit" [nationalities]="nationalities"></app-visa-front-page>
+                <!-- <app-visa-back-page [appForm]="visaApplicationFormGroup" [paxIndex]="i" [submit]="submit"></app-visa-back-page> -->
+                <app-upload-document [appForm]="visaApplicationFormGroup" [paxIndex]="i" [submit]="submit"></app-upload-document>
+                <div class="d-flex justify-content-end">
+                    <button class="addAnotherBttn" [class.bttnactive]="bttnActive" [disabled]="bttnActive" (click)="saveAndNext(i)">{{(i+1 == paxCount) ? 'Save' : 'Save & Next'}}</button>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+    <div fxLayout="row" fxLayoutAlign="space-between center"  class="mt-3">
+        <div fxLayout="row" fxLayoutAlign="start start">
+            <mat-checkbox [(ngModel)]="tcChecked" [disabled]="visaApplicationFormGroup.invalid">I accept the </mat-checkbox>
+            <div style="width: 5px;"></div>
+            <div class="tc-link" data-toggle="modal" data-target="#exampleModal">Terms & Conditions</div>
+        </div>
+        <button class="searchbutton" (click)="requestVisa()" [class.bttnactive]="requestVisaActveBttn" [disabled]="visaApplicationFormGroup.invalid" [disabled]="disableBttnVisa">Request Visa</button>
+    </div>
+</ng-container>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Terms & Conditions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Please check that the information entered matches the passport. Umrahtrip is not liable if the name or other information is incorrect.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,47 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es5",
+    "skipLibCheck":true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "paths": {
+
+
+      "bi-datepicker": [
+
+
+        "dist/bi-datepicker",
+
+      ],
+
+
+      "bi-datepicker/*": [
+
+
+        "dist/bi-datepicker/*"
+
+      ]
+
+    }
+  },
+  
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}

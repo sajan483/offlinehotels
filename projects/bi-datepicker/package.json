@@ -1,0 +1,14 @@
+{
+    "name": "bi-datepicker",
+    "version": "0.0.0",
+    "peerDependencies": {
+      "@angular/common": "^8.0.0",
+      "@angular/platform-browser": "^8.0.0",
+      "@angular/animations": "^8.0.0",
+      "@angular/core": "^8.0.0",
+      "@angular/flex-layout": "^8.0.0-beta.26",
+      "@angular/material": "^8.0.0",
+      "@angular/cdk": "^8.0.0",
+      "moment": "^2.24.0"
+    }
+  }

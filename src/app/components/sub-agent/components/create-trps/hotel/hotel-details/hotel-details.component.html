@@ -1,0 +1,123 @@
+<div class="hotel-details-div" *ngIf="!shimmer">
+    <div class="hedder-hotel-name">
+        <div class="container">
+            <div class="d-flex">
+                <h2>{{selectedHotel?.name}}</h2>
+                <div class="star_rating my-auto">
+                    <span fxLayout="row" fxLayoutAlign="start center">
+                        <span class="material-icons star-icon" *ngFor="let k of [].constructor(selectedHotel?.meta_data?.rating);">star</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        
+        <app-hotel-imge-details 
+        [details]="selectedHotel" 
+        [hotelPics]="hotelPics" 
+        [roomCount]="roomLength" 
+        [totalCount]="travellers" 
+        [ImageGallery]="ImageGallery"
+        [nights]="numberOfDays"
+        ></app-hotel-imge-details>
+
+        <app-subpcc
+         [hotelCode]="selectedHotel.umrah_hotel_code" 
+         [ulogId]="searchDataParams.ulogId" 
+         [promoCode]="searchDataParams.subpcc_code" 
+         [specialCode]="searchDataParams.special_code"
+         (searchSubPcc)="applySubPcc($event)"
+         ></app-subpcc>
+
+        <app-loader-hotel-details [hotelShimmer]="false" *ngIf="roomShimmer"></app-loader-hotel-details>
+
+        <div class="roomtypeborder" *ngIf="!roomShimmer">
+            <section class="roomSelectWrap">
+                <div class="roomInfoWrap">
+                    <div class="item">
+                        <div class="itemheading web_view">
+                            <div class="roomInfo-title mtextR">{{'Occupancy' | translate}}</div>
+                            <div class="roomTypeNPrice-title mtextR">{{'Room Type' | translate}}</div>
+                            <div class="roomPriceWrap-title mtextR">{{'Price' | translate}}</div>
+                        </div>
+                        <app-room-selection [selectedRoomGroups]="selectedRoomGroups" 
+                            [isGrouped]="isGrouped" 
+                            (showRoomDetails)="showRoomDetailsPopUp($event)"
+                            (onTotalRoomPriceChanged)="onTotalRoomPriceChanged($event)"
+                            (onHotelNameClear)="onHotelNameClear()"
+                            (onHotelNameAdded)="onHotelNameAdded($event)"
+                            (onMakkaSelectActivate)="onMakkaSelectActivate()"
+                            (onDisableMakkaSave)="onDisableMakkaSave()"
+                            (onSelectedRoomCountChange)="onSelectedRoomCountChange($event)"
+                            [roomLength]="roomLength"
+                            [currency]="selectCurrency"
+                            (onMakkaSelectDeactivate)="onMakkaSelectDeactivate()">
+                        </app-room-selection>
+                    </div>
+                </div>
+
+                <aside class="roomPriceWrap web_view">
+                    <div class="roominfo-title text-center mirror_hide">{{'Total Price' | translate}}</div>
+                    <div class="selected-room">
+                        <div class="container">
+                            <div class="stickyPrice">
+                                <div class="sticy_top">
+                                    <div class="howmanyroomselect" *ngIf="selectedRoomCount > 0">{{selectedRoomCount}} {{'Room Selected' | translate}} </div>
+                                    <div class="PriceWrapPrice text-center " *ngIf="selectedRoomCount > 0">
+                                        <strong>{{selectCurrency}} {{totalRoomPrice | ConvertCurrency : selectCurrency}}</strong>
+                                    </div>
+                                    <small class="selectedRoom" *ngIf="selectedRoomCount > 0"> {{selectedRoomCount}} {{'room(s) for' | translate}} {{numberOfDays}} {{'Nights' | translate}}</small>
+                                    <div class="howmanyroomselect" *ngIf="selectedRoomCount == 0"><span>{{'Please Select Room(s)' | translate}}</span></div>
+                                </div>
+                            </div>
+                            <div class="sticy_bottom">
+                                <div class="d-flex justify-content-center w100 mt-2">
+                                    <button class="search_bttn" [class.activeBttn]="activeBttn" [disabled]='makkaSelectActivate' (click)="bookHotel()">{{'Continue' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <aside class="mob_view" *ngIf="!makkaSelectActivate">
+                    <div class="mobile-room-selectiom-div">
+                        <div fxLayout="row" fxLayoutAlign="space-between center" >
+                            <div>
+                                <div *ngIf="selectedRoomCount > 0">{{selectedRoomCount}} {{'Room Selected' | translate}} </div>
+                                <div *ngIf="selectedRoomCount > 0">
+                                    <strong>{{selectCurrency}} {{totalRoomPrice | ConvertCurrency : selectCurrency}}</strong>
+                                </div>
+                                <small *ngIf="selectedRoomCount > 0"> {{selectedRoomCount}} {{'room(s) for' | translate}} {{numberOfDays}} {{'Nights' | translate}}</small>
+                                <div *ngIf="selectedRoomCount == 0"><span>{{'Please Select Room(s)' | translate}}</span></div>
+                            </div>
+                            <div>
+                                <button class="search_bttn" [class.activeBttn]="activeBttn" [disabled]='makkaSelectActivate' (click)="bookHotel()">{{'Continue' | translate}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+            </section>
+        </div>
+
+        <div>
+            <app-hotel-other-details [selectedHotel]="selectedHotel"></app-hotel-other-details>
+        </div>
+
+        <div style="margin-top: 60px;"></div>
+
+    </div>
+</div>
+
+<div *ngIf="shimmer">
+    <app-loader-hotel-details></app-loader-hotel-details>
+</div>
+
+<div *ngIf="showRoomDetails">
+    <app-room-details
+    (closePopUp)="closeRoomDetailsPopUp()" 
+    [setViewData]="roomDetails" 
+    [currency]="selectCurrency"
+    ></app-room-details>
+</div>

@@ -1,0 +1,11 @@
+<div class="box p-4" *ngIf="currentCount>0">
+  <app-rail-traveller-info-item [isHidden]="travellerInfo.at(i).value.is_hidden" (onRemove)="removeTraveller($event)" [isEditable]="travellerInfo.at(i).value.is_verified" [nationalities]="nationalityList" [documents]="documents"  *ngFor="let k of [].constructor(currentCount);index as i"  [travellerForm]="travellerInfo.at(i)" [index]="i" [title]="travellerInfo.at(i).value.traveller_type|titlecase">
+  </app-rail-traveller-info-item>
+  
+  <div class="btn-wrapper bdr" *ngIf="adultCount+childCount+infantCount==currentCount">
+    <button (click)="save()" class=" btn-gradient px-3">{{'Save'|translate}}</button>
+  </div>
+  <div class="btn-wrapper bdr" *ngIf="adultCount+childCount+infantCount>currentCount">
+    <button (click)="addTraveller()" class=" btn-gradient px-3">{{'Add Traveller'|translate}}</button>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+.text_jstify{
+    text-align: justify;
+}
+
+.textOverFlowDot{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text_start{
+    text-align: start;
+}
+
+.text_end{
+    text-align: end;
+}
+
+.dflex{
+    display: flex;
+}
+
+.cursor_pointer {
+    cursor: pointer;
+}
+
+.justfy-between{
+    justify-content: space-between;
+}
+
+.w100{
+    width: 100%;
+}
+
+.w40{
+    width: 40%;
+}
+
+.w20{
+    width: 20%;
+}
+
+.w60{
+    width: 60%;
+}
+
+.h100{
+    height: 100%;
+}
+
+.text_cap{
+    text-transform: capitalize;
+}
+
+.text_box{
+    height: 35px;
+    font-size: 14px;
+}
+
+.min_page_h{
+    min-height: calc(100vh - 96px);
+}
+
+.page_hedear_div{
+    background-color: #116063;
+    padding: 10px;
+    h2{
+        color: #dfdce3;
+        font-size: 22px;
+        margin-bottom: 0;
+    }
+}
+
+.common_card{
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+    border: 0 solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    background-color: white;
+    padding: 10px;
+}
+
+.mobile-filter-div{
+    background-color: rgb(28, 28, 28);
+    color: white;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    .filder-text-div{
+      font-weight: bold;
+      font-size: 16px;
+      text-align: center;
+      padding: 13px 0;
+      border-right: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+    }
+}

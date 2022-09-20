@@ -1,0 +1,221 @@
+<div class="border_box_shadow bgclrwhite mb-3" [class.bgclrred]="showTransportNotAvailable" *ngIf="tripTransport">
+    <div class="row m-0 p10">
+        <div class="col-md-12 p-0 brdrbottom mb10" *ngIf="showTransportNotAvailable">
+            <div class="d-inline-flex">
+                <div><i class="sadicon icns icon_size_25"></i></div>
+                <div class="sadred fs14 fw600 oopstext mpr10">{{'Sorry !! We are not getting availability from Maqam-GDS. Please modify.' | translate}}
+                </div>
+                <div *ngIf="deepLinkStatus == '0'" class="textunderline list_clr cursor-pointer pl10 mpl0 mpr10" (click)="changeTransport()">{{'Modify' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 col-12 pl-0 pr-0 my-auto">
+            <i class="transportblueicon icns icon_size_30 imgposition mirr_float_right"></i>
+            <div class="Premium_blue fs14 fw600">
+                <p class="text-uppercase">{{tripTransport?.vehicle_types[0]?.name | translate}}</p>
+                <p>{{tripTransport?.selected_transportation?.start_date | DateTimeToDateFormat | date:'mediumDate'}}</p>
+            </div>
+        </div>
+        <div class="col-md-9 col-12 brdrR brdrL my-auto">
+            <div class="float_left mirr_float_right">
+                <p class="fw600 fs16">{{tripTransport?.company?.name | titlecase}} - <span class="Premium_blue fs14 pl10 mpr10" style="color: #c28f1c;"> {{tripTransport?.categories[0]?.name}}</span><span *ngIf="noOfVehicle > 1"> x {{noOfVehicle}}</span></p>
+                <div class="linebyline clr52 fs13">
+                    <strong class="fw600">{{'Route' | translate}} :</strong>
+                    <span>{{tripTransport?.route?.name}}</span>
+                    <span *ngIf="deepLinkStatus == '0'" class="textunderline list_clr cursor-pointer pl10 mpl0 mpr10" (click)="changeTransport()">{{'Modify' |
+                        translate}}</span>
+                    <span class="textunderline list_clr cursor-pointer pl10 mpl0 mpr10" data-toggle="modal" data-target="#transportPolicy">{{'Policy' | translate}}</span>
+                    <div class="modal fade" id="transportPolicy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{'Policies' | translate}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="crossbttn">&times;</span>
+                              </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div *ngIf="tripTransport?.selected_transportation?.cancellation_policy">
+                                        <h6 class="textunderline">{{'Cancellation Policy' | translate}}</h6>
+                                        <div class="marginDatas" id="cancellationDiv">
+                                            <div class=" mt-2">
+                                                <div class="d-flex justify-content-between commonHeight">
+                                                    <div class="d-flex calculateWidth">
+                                                        <div class="position-relative my-auto flex-fill" *ngIf="tripTransport.selected_transportation.currentDateTimeStamp < tripTransport.selected_transportation.start_time_stamp">
+                                                            <div class="datePosition2">
+                                                                <div class="fw500 fs13">{{today  | date:'mediumDate'}}</div>
+                                                            </div>
+                                                            <div class="horizondelLine pr25">
+                                                                <hr  [class.borderClrGreen]="true">
+                                                            </div>
+                                                            <div class="datePosition">
+                                                                <div class="fw500 fs13"></div>
+                                                             <div class="fs400 fs12">{{decrementDateByOne(tripTransport?.selected_transportation?.cancellation_policy.rules[0]?.from_date_time) | date:'mediumDate'}}</div>
+                                                            </div>
+                                                            <div class="roundFrom1" [class.borderClrGreen]="true">
+                                                                <i class="fa fa-usd" aria-hidden="true"></i>
+                                                            </div>
+                                                            <div class="amountPosition">
+                                                                <div class="fw500 fs13 font-weight-bold" style="color: green;">{{'Free Cancellation' | translate}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <ng-container *ngFor="let rules of tripTransport.selected_transportation.cancellation_policy.rules">
+                                                            <div class="position-relative my-auto flex-fill" *ngIf="rules.end_timer > tripTransport.selected_transportation.currentDateTimeStamp ">
+                                                                <div >
+                                                                    <div class="horizondelLine pr25" >
+                                                                        <hr [class.brderYelow]="rules?.charge?.chargeValue != '100.00'" *ngIf="rules?.charge?.chargeValue != '100.00'">
+                                                                        <hr [class.brderRed]="rules?.charge?.chargeValue == '100.00'" *ngIf="rules?.charge?.chargeValue == '100.00'">
+                                                                    </div>
+                                                                    <div class="datePosition" >
+                                                                        <div class="fw500 fs13" >{{rules?.to_date_time| date:'mediumDate'}}</div>
+                                                                    </div>
+                                                                    <div class="roundFrom" *ngIf="rules?.charge?.chargeValue != '100.00'" 
+                                                                    [class.clrBacYellow]="rules?.charge?.chargeValue != '100.00'">
+                                                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                                                    </div>
+                                                                    <div class="roundFrom" *ngIf="rules?.charge?.chargeValue == '100.00'" [class.clrBacRed]="rules?.charge?.chargeValue == '100.00'" >
+                                                                        <i class="fa fa-usd" aria-hidden="true"></i>
+                                                                    </div>
+                                                                    <div class="amountPosition"  >
+                                                                        <div *ngIf="rules?.charge?.chargeValue != '100.00'" class="fs12 fw500 clr52">{{'Cancellation Charges' | translate}}</div>
+                                                                        <div *ngIf="rules?.charge?.chargeValue == '100.00'" class="fw500 fs13" style="color: red;">{{'Non Refundable' | translate}}</div>
+                                                                        <div *ngIf="rules?.charge?.chargeValue != '100.00'" class="fw500 fs13">{{currency | translate}} {{(tripTransport?.prices_summary?.total_price*rules?.charge?.chargeValue)/100 | number : '1.2-2'}} </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ng-container>
+                                                        <div class="flex-fill my-auto position-relative">
+                                                            <div class="horizondelLine pr45"><hr></div>
+                                                            <div class="roundFromCheckin text-uppercase">{{'Start' | translate}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="green_text" *ngIf="tripTransport?.selected_transportation?.cancellation_policy?.is_refundable">{{'Refundable' | translate}}</div>
+                                        <div class="red_text" *ngIf="!tripTransport?.selected_transportation?.cancellation_policy?.is_refundable">{{'non_refundable' | translate}}</div> -->
+                                        <div class="mt-2 borderbox" *ngIf="tripTransport?.selected_transportation?.cancellation_policy?.is_refundable">
+                                            <div class="" *ngFor="let rule of tripTransport.selected_transportation.cancellation_policy.rules">
+                                                <div  class="d-flex justify-content-between p10 brdr_btm_d3 fs15"  *ngIf="rule.end_timer > tripTransport.selected_transportation.currentDateTimeStamp ">
+                                                    <div class="d-inline-flex" >
+                                                        <div class="my-auto pr10 mpr0 mpl10"><i class="calendaricon icns icon_size_20"></i></div>
+                                                        <div>
+                                                            <div><strong>{{'From' | translate}} : </strong> {{rule?.from_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                            <div><strong>{{'Till' | translate}} : </strong> {{rule?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                            <div class="fs13 clr52 fw400" *ngIf="!rule?.is_noshow">( NOTE: Not applicable in No-Show )</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fw600" >
+                                                        <div class="text-capitalize">{{'Cancellation Charge' | translate}}</div>
+                                                        <div *ngIf="rule.charge.chargeType == 'percentage'"> {{currencyConversion(rule?.charge?.chargeValue)}} %</div>
+                                                        <div *ngIf="rule.charge.chargeType != 'percentage'">{{currency}} {{currencyConversion(rule?.charge?.chargeAmount)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 clr52 fs13" *ngIf="tripTransport?.selected_transportation?.cancellation_policy?.description">
+                                            <div class="fw600">{{'Description' | translate}}:</div>
+                                            <p>{{tripTransport?.selected_transportation?.cancellation_policy?.description}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="" *ngIf="tripTransport?.selected_transportation?.policies.length > 0">
+                                        <div class="mt-3" *ngFor="let item of tripTransport?.selected_transportation?.policies">
+                                            <h6 class="textunderline">{{item?.name}}</h6>
+                                            <div>{{item?.description}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="float_right mirr_float_left fs16 fw500 pt-2 customTooltip">
+                <span>
+                    {{currency}} {{currencyConversion(tripTransport?.prices_summary?.total_price)}} 
+                </span>
+                <span *ngIf="tripTransport.prices_summary.price_update" style="color:grey">(Old Price
+                    {{currency}} {{currencyConversion(tripTransport?.prices_summary?.price_updates?.amount)}} )
+                </span>
+
+                <span class="customtooltiptext mirr_Fare_splitup transportPayment">
+                    <div class="container mb-2 fs12">
+                        <div class="pt-2 fare_summary_heading">{{'Fare Summary' | translate}}</div>
+                        <div>
+                            <div class="d-flex justify-content-between fw400 pt-1" *ngIf="tripTransport.prices_summary.base_amount > 0">
+                                <div>{{'Base Fare' | translate}} :</div><div>{{currency}} {{currencyConversion(tripTransport.prices_summary.base_amount)}} </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between fw400 pt-1" *ngIf="tripTransport.prices_summary.tax_amount > 0">
+                                <div>{{'Tax' | translate}} :</div><div>{{currency}} {{currencyConversion(tripTransport.prices_summary.tax_amount)}} </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between fw400 pt-1" *ngIf="tripTransport.prices_summary.additional_service_price > 0">
+                                <div>{{'Additional Service' | translate}} :</div><div>{{currency}} {{currencyConversion(tripTransport.prices_summary.additional_service_price)}} </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between fw400 pt-1" *ngIf="tripTransport.prices_summary.commission_discount > 0">
+                                <div>{{'Discount' | translate}} :</div><div>{{currency}} {{currencyConversion(tripTransport.prices_summary.commission_discount)}} </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between fw400 pt-1" *ngIf="tripTransport.prices_summary.ota_fee > 0">
+                                <div>{{'OTA Fee' | translate}} :</div><div>{{currency}} {{currencyConversion(tripTransport.prices_summary.ota_fee)}}</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="d-flex justify-content-between fw500 pt-2" *ngIf="tripTransport.prices_summary.total_price > 0">
+                                <div>{{'Total Fare' | translate}} :</div><div>{{currency}} {{currencyConversion(tripTransport.prices_summary.total_price)}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </span>
+            </div>
+        </div>
+        <div class="col-md-1 pl-0 pr-2 pt-1 m-auto text-center" (click)="transporttoggle = !transporttoggle">
+            <i *ngIf="transporttoggle" class="downarrow icon_size_20 icns cursor-pointer"></i>
+            <i *ngIf="!transporttoggle" class="uparrow icon_size_20 icns cursor-pointer"></i>
+        </div>
+        <div class="col-md-12 p-0 row ml-0 mr-0 mt-2 borderpading brdrtop" *ngIf="!transporttoggle">
+            <div class="col-md-12 transportbodypdng row m-0">
+                <div class="col-md-4 p-0 mb-2">
+                    <p class="clr52 fs14">
+                        <i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Seating Capacity'}}: {{tripTransport?.selected_transportation?.vehicle_types[0]?.categories[0]?.capacity}}
+                    </p>
+                </div>
+                <div class="col-md-4 p-0 mb-2">
+                    <p class="clr52 fs14">
+                        <i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Model' | translate}}: {{tripTransport?.selected_transportation?.vehicle_types[0]?.categories[0]?.model}}
+                    </p>
+                </div>
+                <div class="col-md-4 p-0 mb-2">
+                    <p class="clr52 fs14">
+                        <i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Selected Vehicle' | translate}}: {{tripTransport?.trip_vehicles[0]?.booked_quantity}}
+                    </p>
+                </div>
+                <div class="col-md-4 p-0 mb-2">
+                    <p class="clr52 fs14">
+                        <i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Total Travelers'| translate}} : {{ tripData?.adults + tripData?.children + tripData?.infants}} <span *ngIf="noOfVehicle > 1">({{(tripData?.adults + tripData?.children + tripData?.infants)/noOfVehicle | number:'1.0-0'}} pax per vehicle)</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-12 transportbodypdng row m-0 fs14" *ngIf="additionalService.length != 0">
+                <div class="fw600 textunderline px-0 col-md-12">{{'Additional Services' | translate}}</div>
+                <div class="col-md-6 pt-1" *ngFor="let service of additionalService">
+                    <i class="fa fa-check green_text pr10 mpr0 mpl10" aria-hidden="true"></i> {{service?.description}}
+                </div>
+            </div>
+            <div class="col-md-12 transportbodypdng row ml-0 mr-0 mt-2 p20 brdrtop">
+                <div class="col-md-4 p-0">
+                    <p class="fs13"><i class="fa fa-map-marker textlight pr5 mpr0 mpl5 font16imp" aria-hidden="true"></i> {{'ADDRESS' | translate}}
+                    </p>
+                    <p class="pl15 mpl0 mpr15 fs12 clr52">{{tripTransport?.company?.address}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

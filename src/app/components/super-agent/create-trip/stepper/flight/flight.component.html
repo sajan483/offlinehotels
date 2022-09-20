@@ -1,0 +1,252 @@
+<div class="outer">
+    <div class="lite-pattern-bg">
+        <div class="d-flex justify-content-between py-2 container">
+            <div class=" cursor-pointer my-auto" (click)="back()" *ngIf="fareSelection">
+                <div class="d-inline-flex" >
+                    <i class="blue_back_arrow icns icon_size_15"></i>
+                    <div class="blue_back_clr lh15 fs15 ml-2">Back</div>
+                </div>
+            </div>
+            <div class="modify-box" *ngIf="flightListingFlag && modifyButton && !fareSelection">
+                <button mat-raised-button (click)="modifySearch()">Modify Search</button>
+            </div>
+            <div class="my-auto"><h4 class="main-head">CHOOSE YOUR FLIGHT</h4></div>
+            <button class="btn btn-info" (click)="skipflight()">Skip Flight <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+        <div class="container" *ngIf="!fareSelection">
+            
+
+            <!-- loader -->
+            <div class="animationdiv mt70" *ngIf="loader">
+                <div class="row">
+                    <div class="col-md-6 loader-card" *ngFor="let item of freeArray">
+                        <mat-card class="loader-card mb20">
+                            <div class="boxshinehsm shine"></div>
+                            <div class="d-flex jcsb mb10">
+                                <div class="boxshinesm shine"></div>
+                                <div class="boxshinesm shine"></div>
+                            </div>
+                            <div class="d-flex jcsb mb10">
+                                <div class="boxshinesm shine"></div>
+                                <div class="boxshinesm shine"></div>
+                            </div>
+                            <div class="boxshinehsm shine"></div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+
+            <!-- search-bar -->
+            
+            <div id="searchSection" class="search-section animatedfadeInUp" [formGroup]="searchForm" *ngIf="!modifyButton">
+                <div class="row no-pm">
+                    <div class="col-md-6 no-pm">
+                        <div class="row no-pm">
+                            <div class="col-md br-right">
+                                <p class="hint">SELECT SOURCE</p>
+                                <input class="text-input" type="text" matInput [formControl]="source" [matAutocomplete]="fromList">
+                                <mat-autocomplete #fromList="matAutocomplete">
+                                    <mat-option *ngFor="let option of airportListFilteredSrc | async" [value]="option.iata" (click)="setFromLocation(option)">
+                                        <div class="auto-wrap row">
+                                            <div class="col-md-10">
+                                                <p class="city"> {{option.city}}</p>
+                                                <p class="name">{{option.name}}</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p class="iata">{{option.iata}}</p>
+                                            </div>
+                                        </div>
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <p class="airport-name">{{fromLocation.city}}</p>
+                                <mat-error *ngIf="srcError">From & To airports can't be same</mat-error>
+                            </div>
+                            <div class="col-md br-right">
+                                <p class="hint">SELECT DESTINATION</p>
+                                <input class="text-input" type="text" matInput [formControl]="destination" [matAutocomplete]="destList">
+                                <mat-autocomplete #destList="matAutocomplete">
+                                    <mat-option *ngFor="let option of airportListFilteredDest | async" [value]="option.iata" (click)="setDestLocation(option)">
+                                        <div class="auto-wrap row">
+                                            <div class="col-md-10">
+                                                <p class="city"> {{option.city}}</p>
+                                                <p class="name">{{option.name}}</p>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <p class="iata">{{option.iata}}</p>
+                                            </div>
+                                        </div>
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <p class="airport-name">{{destLocation.city}}</p>
+                                <mat-error *ngIf="destError">From & To airports can't be same</mat-error>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 no-pm">
+                        <div class="row no-pm">
+                            <div class="col-md-6 no-pm">
+                                <div class="row no-pm">
+                                    <div class="col-md-12 ht d-flex align-items-center cr-point">
+                                        <div>
+                                            <p class="hint align-middle">
+                                                SELECT AIRLINE
+                                                <mat-icon class="align-middle">keyboard_arrow_down</mat-icon>
+                                            </p>
+                                            <input class="airline-input" type="text" matInput [formControl]="airline" [matAutocomplete]="airlines">
+                                            <mat-autocomplete #airlines="matAutocomplete">
+                                                <mat-option *ngFor="let option of airlinesFiltered | async" [value]="option.name" (click)="setAirline(option)">
+                                                    {{option.name}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 btn-outer">
+                                <button [disabled]="!submit" mat-raised-button (click)="searchFlights()">Choose Flight</button>
+                            </div>
+                        </div>
+                    </div>
+                    <mat-error class="text-center mt-3" *ngIf="searchError">Search values not changed. Please change values for a new search</mat-error>
+                </div>
+            </div>
+
+            <!-- no-flight-banner -->
+            <div class="no-data" *ngIf="!available">
+                <h6>
+                    <mat-icon>airplanemode_inactive</mat-icon>
+                </h6>
+                <p>Sorry, No Flights Available</p>
+            </div>
+
+            <!-- flight-listing -->
+            <div class="flight-card" *ngIf="flightListingFlag">
+                <app-flight-card [searchResult]="searchResult" (footerFlagEmitter)="getfooterFlag($event)" (footerDataEmitter)="getfooterData($event)"></app-flight-card>
+            </div>
+
+        </div>
+
+        <!-- fare-selection-part -->
+        <div class="container" *ngIf="fareSelection">
+            <h4 class="main-head brbottom">Enter your rate of the flight</h4>
+            <div class="row pt10" [formGroup]="fareForm">
+                <div class="col-md-4 fare-box ">
+                    <mat-form-field appearance="outline" class="fw bgWhite  m-0">
+                        <mat-label>Adult</mat-label>
+                        <input matInput placeholder="{{currency}}" type="number" [min]=1 formControlName="adult">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 fare-box">
+                    <mat-form-field appearance="outline" class="fw bgWhite m-0">
+                        <mat-label>Child</mat-label>
+                        <input matInput placeholder="{{currency}}" type="number" [min]=0 formControlName="child">
+                    </mat-form-field>
+                </div>
+                <!-- <div class="col-md-3 fare-box">
+                    <mat-form-field appearance="outline" class="fw bgWhite m-0">
+                        <mat-label>Infant</mat-label>
+                        <input matInput placeholder="{{currency}}" type="number" [min]=0 formControlName="infant" numberOnly>
+                    </mat-form-field>
+                </div> -->
+                <div class="col-md-4 btn-outer">
+                    <button [disabled]="continue" class="searchbutton" [class.bttnactive]="bttnactive" mat-raised-button (click)="navigateHotel('hotel','MAKKA')">Continue</button>
+                </div>
+            </div>
+            <h4 class="blue-head">Review Flight Details</h4>
+            <mat-card class="mb20">
+                <div class="card-head">
+                    <img src="/assets/images/onward-flight-icon.png">
+                    <div class="on-box">
+                        <p class="on-txt">ONWARD</p>
+                        <p class="on-txt">{{footerData.depFlight.DepartureTime | date:'shortDate'}}</p>
+                    </div>
+                    <p class="route">
+                        {{footerData.depFlight.FromName.split('|')[1]}} to {{footerData.depFlight.ToName.split('|')[1]}} &nbsp;&nbsp;
+                        <span>{{footerData.depFlight.Stops}} stop<span *ngIf="footerData.depFlight.Stops > 1">s</span> &nbsp;|&nbsp; {{footerData.depFlight.Duration}} &nbsp;</span>
+                    </p>
+                </div>
+                <div class="second-section row">
+                    <div class="col-md-5 inner-div">
+                        <div class="img-box">
+                            <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/{{footerData.depFlight.MAC}}.png">
+                            <div>
+                                <p class="black-sm">{{footerData.depFlight.AirlineName.split('|')[1]}} <span class="grey-sm"> | {{footerData.depFlight.MAC}}-{{footerData.depFlight.FlightNo}}</span></p>
+                                <p class="grey-sm">Aircraft</p>
+                                <p class="grey-sm">{{footerData.depFlight.AirCraft}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="black-big tar">{{footerData.depFlight.DepartureTime | date:'HH:mm'}}</p>
+                            <p class="grey-sm tar"> {{footerData.depFlight.FromName.split('|')[1]}} [ {{footerData.depFlight.From}} ]</p>
+                            <p class="grey-sm tar">{{footerData.depFlight.FromName.split('|')[0]}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-7 row">
+                        <div class="col-md-6 center-box">
+                            <p class="duration">{{footerData.depFlight.Duration}}</p>
+                            <div class="flight-box">
+                                <div class="border-box"></div>
+                                <mat-icon>flight</mat-icon>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="black-big">{{footerData.depFlight.ArrivalTime | date:'HH:mm'}}</p>
+                            <p class="grey-sm">{{footerData.depFlight.ToName.split('|')[1]}} [ {{footerData.depFlight.To}} ]</p>
+                            <p class="grey-sm">{{footerData.depFlight.ToName.split('|')[0]}}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card class="mb20">
+                <div class="card-head">
+                    <img src="/assets/images/onward-flight-icon.png">
+                    <div class="on-box">
+                        <p class="on-txt">RETURN</p>
+                        <p class="on-txt">{{footerData.retFlight.DepartureTime | date:'shortDate'}}</p>
+                    </div>
+                    <p class="route">
+                        {{footerData.retFlight.FromName.split('|')[1]}} to {{footerData.retFlight.ToName.split('|')[1]}} &nbsp;&nbsp;
+                        <span>{{footerData.retFlight.Stops}} stop<span *ngIf="footerData.retFlight.Stops > 1">s</span> &nbsp;|&nbsp; {{footerData.retFlight.Duration}} &nbsp;</span>
+                    </p>
+                </div>
+                <div class="second-section row">
+                    <div class="col-md-5 inner-div">
+                        <div class="img-box">
+                            <img src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/{{footerData.retFlight.MAC}}.png">
+                            <div>
+                                <p class="black-sm">{{footerData.retFlight.AirlineName.split('|')[1]}} <span class="grey-sm"> | {{footerData.retFlight.MAC}}-{{footerData.retFlight.FlightNo}}</span></p>
+                                <p class="grey-sm">Aircraft</p>
+                                <p class="grey-sm">{{footerData.retFlight.AirCraft}}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="black-big tar">{{footerData.retFlight.DepartureTime | date:'HH:mm'}}</p>
+                            <p class="grey-sm tar"> {{footerData.retFlight.FromName.split('|')[1]}} [ {{footerData.retFlight.From}} ]</p>
+                            <p class="grey-sm tar">{{footerData.retFlight.FromName.split('|')[0]}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-7 row">
+                        <div class="col-md-6 center-box">
+                            <p class="duration">{{footerData.retFlight.Duration}}</p>
+                            <div class="flight-box">
+                                <div class="border-box"></div>
+                                <mat-icon>flight</mat-icon>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="black-big">{{footerData.retFlight.ArrivalTime | date:'HH:mm'}}</p>
+                            <p class="grey-sm">{{footerData.retFlight.ToName.split('|')[1]}} [ {{footerData.retFlight.To}} ]</p>
+                            <p class="grey-sm">{{footerData.retFlight.ToName.split('|')[0]}}</p>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
+        <!-- footer -->
+        <div class="footer" *ngIf="footerFlag=='true' && !fareSelection">
+            <app-flight-footer [footerData]="footerData"></app-flight-footer>
+        </div>
+
+    </div>
+</div>

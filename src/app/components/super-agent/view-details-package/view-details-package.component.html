@@ -1,0 +1,413 @@
+<div class="outer">
+    <div class="banner">
+        <img *ngIf="!packageDetails?.attachments[0].file" src="/assets/images/mkbg.jpg">
+        <img *ngIf="packageDetails?.attachments[0].file" src="{{packageDetails?.attachments[0].file}}" alt="">
+        <div class="black position-absolute" *ngIf="shimmer">
+            <h4 class="text-capitalize">Package Title</h4>
+            <p>Agency Name | Departure Date : xxx Onwards</p>
+        </div>
+        <div class="black position-absolute" *ngIf="!shimmer">
+            <h4 class="text-capitalize">{{packageDetails?.title}}</h4>
+            <p>{{packageDetails?.operated_by}} | Departure Date : {{packageDetails?.start_date | date:'LLLL dd'}} Onwards</p>
+        </div>
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="aligner">
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">room</mat-icon>
+                            <div>
+                                <p>Departure From</p>
+                                <h5 *ngIf="shimmer">International Airport</h5>
+                                <h5 *ngIf="!shimmer">{{packageDetails?.trip_flights[0]?.onward_flight?.boarding_airport?.name}}</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">schedule</mat-icon>
+                            <div>
+                                <p>Duration</p>
+                                <h5 *ngIf="shimmer">0 Days</h5>
+                                <h5 *ngIf="!shimmer">{{packageDetails?.num_days}} Days</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">today</mat-icon>
+                            <div>
+                                <p>Departure Date</p>
+                                <h5 *ngIf="shimmer">xx Onwards</h5>
+                                <h5 *ngIf="!shimmer">{{packageDetails?.start_date | date:'LLLL dd'}} Onwards</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-info" (click)="back()"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+                <!-- <button class="btn btn-danger" >Delete Package</button> -->
+            </div>
+            <mat-tab-group>
+                <mat-tab label="BOOKINGS">
+                    <div>
+                        <div class="d-flex justify-content-end">
+                            <div class="d-flex cursor-pointer pt-2">
+                                <i class="icns icon_size_20 Xl_icon my-auto"></i>
+                                <div class="pl-1 xl_down">Download excel</div>
+                            </div>
+                        </div>
+                        <div class="tbl">
+                            <div class="mb60 pt-2">
+                                <table id="customers">
+                                    <thead class="fluxPos">
+                                        <tr>
+                                            <th>
+                                                Booking Date
+                                            </th>
+                                            <th>
+                                                Branch Name
+                                            </th>
+                                            <th>
+                                                Adult
+                                            </th>
+                                            <th>
+                                                Child With Bed
+                                            </th>
+                                            <th>
+                                                Child Without Bed
+                                            </th>
+                                            <th>
+                                                Total Count
+                                            </th>
+                                            <th>
+                                                UT Number
+                                            </th>
+                                            <th>
+                                                Type (B2C/B2B)
+                                            </th>
+                                            <th>
+                                                Advance Amount
+                                            </th>
+                                            <th>
+                                                balance Amount
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="shimmer">
+                                        <tr *ngFor="let k of [].constructor(10);">
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                            <td>
+                                                <div class="shine w-100 h25"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="!shimmer">
+                                        <tr *ngFor="let item of details">
+                                            <td>{{item?.booking_date | date:'mediumDate'}}</td>
+                                            <td>{{item?.user_name}}</td>
+                                            <td>{{item?.adults}}</td>
+                                            <td>{{item?.children_with_bed}}</td>
+                                            <td>{{item?.children_without_bed}}</td>
+                                            <td>{{item?.adults + item?.children_with_bed + item?.children_without_bed}}</td>
+                                            <td>{{item?.reference_no}}</td>
+                                            <td >{{item?.user_type}}</td>
+                                            <td class="clrredImp">{{packageDetails?.currency}} {{item?.advance_amount}}</td>
+                                            <td class="clrredImp">{{packageDetails?.currency}} {{item?.total_amount - item?.advance_amount}}</td>
+                                            <td (click)="viewData(item)"><i class="viewicon icon_size_20 icns cursor-pointer" title="View Details" data-toggle="modal" data-target="#exampleModalLong"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </mat-tab>
+
+
+                <mat-tab label="MEMBERS & OVERVIEW">
+                    <div class="members">
+                        <div class="head-box">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p>People traveling with me</p>
+                                </div>
+                                <div class="col-md-6 right-outer">
+                                    <div class="right-box">
+                                        <div class="d-flex mr-5">
+                                            <mat-icon class="black p-icon mt-1 mr-2">groups</mat-icon>
+                                            <div>
+                                                <p class="group">Travel group size</p>
+                                                <p class="grn-txt black m-0" *ngIf="shimmer">00 People</p>
+                                                <p class="grn-txt black m-0" *ngIf="!shimmer">{{maxCount}} People</p>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mt-2">
+                                            <mat-icon>verified</mat-icon>
+                                            <p class="grn-txt" *ngIf="shimmer">00 Slots available</p>
+                                            <p class="grn-txt" *ngIf="!shimmer">{{availabilityCount}} Slots available</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" overview ">
+                            <p class="ovr-txt mt-4 ">Package Overview</p>
+                            <div *ngIf="shimmer">
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                            </div>
+                            <p *ngIf="!shimmer" class="grey-txt" [innerHTML]="packageDetails?.instructions"></p>
+                            <div *ngIf="shimmer" class="mainimageshimmer">
+                                <div class="shine w-100 h-100"></div>
+                            </div>
+                            <div class="mainimage mt-2 mb-2" *ngIf="packageDetails?.attachments[0]?.file">
+                                <img src="{{packageDetails?.attachments[0].file}}" class="itineraryimg" alt="">
+                            </div>
+                        </div>
+                        <div class="itenerary " *ngIf="shimmer">
+                            <p class="it-head mt-2">Itenerary</p>
+                            <ul class="sessions">
+                                <span *ngFor="let k of [].constructor(2);let i = index;">
+                                    <li>
+                                        <div>
+                                            <div class="shine h16 w-100"></div>
+                                            <div class="shine h16 w-100"></div>
+                                            <div class="shine h16 w-100"></div>
+                                            <div class="shine h16 w-100"></div>
+                                        </div>
+                                        <div class="mainimageshimmer">
+                                            <div class="shine w-100 h-100"></div>
+                                        </div>
+                                    </li>
+                                </span>
+                                <button class="addAnotherBttn mt-3"><i class="fa fa-plus-circle" aria-hidden="true"></i> View Full itenerary</button>
+                            </ul>
+                        </div>
+                        <div class="itenerary " *ngIf="itenerary?.length">
+                            <p class="it-head mt-2">Itenerary</p>
+                            <ul class="sessions">
+                                <span *ngFor="let item of itenerary;let i=index; ">
+                                    <li *ngIf="i<2">
+                                        <div class="time ">Day {{item?.num_of_days}} : {{item?.title}} - {{item?.from_date | date:'longDate'}}</div>
+                                        <div class="clr52 fs14 mt-2 " [innerHTML]="item?.details "></div>
+                                        <div class="row m-0 ">
+                                            <div class="col-md-3 pl-0 mt-2 " *ngFor="let img of item.attachments ">
+                                                <img [src]="img.file " class="itineraryimg " alt=" ">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </span>
+                                <div class="itenaryfull ">
+                                    <span *ngFor="let item of itenerary;let i=index; ">
+                                        <li *ngIf="i>1">
+                                            <div class="time">Day {{item?.num_of_days}} : {{item?.title}} - {{item?.from_date | date:'longDate'}}</div>
+                                            <div class="clr52 fs14 mt-2" [innerHTML]="item?.details">{{item?.details}}</div>
+                                            <div class="row m-0">
+                                                <div class="col-md-3 pl-0 mt-2" *ngFor="let img of item.attachments">
+                                                    <img [src]="img.file" class="itineraryimg" alt="">
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </span>
+                                </div>
+                                <button class="addAnotherBttn mt-3" (click)="expandItenary($event)" *ngIf="itenerary.length > 2"><i class="fa fa-plus-circle" aria-hidden="true"></i> View Full itenerary</button>
+                            </ul>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="INCLUSION / EXCLUSION">
+                    <div class="members">
+                        <div class="">
+                            <div class="fs16 fw600">Inclusions</div>
+                            <div *ngIf="shimmer">
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                            </div>
+                            <div class="fs14 clr52 mt-2" *ngIf="!shimmer" [innerHTML]="packageDetails?.inclusions"></div>
+                        </div>
+                        <div class="mt-2">
+                            <div class="fs16 fw600">Exclusions</div>
+                            <div *ngIf="shimmer">
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                                <div class="shine h16 w-100"></div>
+                            </div>
+                            <div class="fs14 clr52 mt-2" *ngIf="!shimmer" [innerHTML]="packageDetails?.exclusions"></div>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="POLICY">
+                    <div class="members">
+                        <div class="fs16 fw600">Policies</div>
+                        <div *ngIf="shimmer">
+                            <div class="shine h16 w-100"></div>
+                            <div class="shine h16 w-100"></div>
+                            <div class="shine h16 w-100"></div>
+                            <div class="shine h16 w-100"></div>
+                        </div>
+                        <div class="fs14 clr52 mt-2" *ngIf="!shimmer" [innerHTML]="packageDetails?.terms"></div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+            <div class="btn-box">
+                <!-- <button class="btn btn-danger">Delete Package</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-borderless fs12">
+                <thead class="thead-light">
+                    <tr>
+                      <th colspan="3">Booking Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Branch Name</th>
+                        <td>:</td>
+                        <td>{{view?.user_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Branch Number</th>
+                        <td>:</td>
+                        <td>{{view?.user_phone_number}}</td>
+                    </tr>
+                    <tr>
+                        <th>Type (B2C/B2B)</th>
+                        <td>:</td>
+                        <td>{{view?.user_type}}</td>
+                    </tr>
+                  <tr>
+                    <th>Reference Number</th>
+                    <td>:</td>
+                    <td>{{view?.reference_no}}</td>
+                  </tr>
+                  <tr>
+                    <th>Booking Date</th>
+                    <td>:</td>
+                    <td>{{view?.booking_date | date:'mediumDate'}}</td>
+                  </tr>
+                  <tr>
+                    <th>Adult Count</th>
+                    <td>:</td>
+                    <td>{{view?.adults}}</td>
+                  </tr>
+                  <tr>
+                    <th>Child With Bed Count</th>
+                    <td>:</td>
+                    <td>{{view?.children_with_bed}}</td>
+                  </tr>
+                  <tr>
+                    <th>Child Without Bed Count</th>
+                    <td>:</td>
+                    <td>{{view?.children_without_bed}}</td>
+                  </tr>
+                  <tr>
+                    <th>Total Count</th>
+                    <td>:</td>
+                    <td>{{view?.adults + view?.children_with_bed + view?.children_without_bed}}</td>
+                  </tr>
+                </tbody>
+                <thead class="thead-light">
+                    <tr>
+                      <th colspan="3">Contact Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>:</td>
+                        <td>{{view?.contactinfo?.first_name}} {{view?.contactinfo?.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>:</td>
+                        <td>{{view?.contactinfo?.phn_country_code}} {{view?.contactinfo?.phone_number}}</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail</th>
+                        <td>:</td>
+                        <td>{{view?.contactinfo?.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>:</td>
+                        <td>{{view?.contactinfo?.address}}</td>
+                    </tr>
+                </tbody>
+                <thead class="thead-light">
+                    <tr>
+                      <th colspan="3">Payment Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Package Amount</th>
+                        <td>:</td>
+                        <td>{{packageDetails?.currency}} {{view?.total_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Advance Paid</th>
+                        <td>:</td>
+                        <td>{{packageDetails?.currency}} {{view?.advance_amount}}</td>
+                    </tr>
+                    <tr>
+                        <th>Balance Amount</th>
+                        <td>:</td>
+                        <td>{{packageDetails?.currency}} {{view?.total_amount - view?.advance_amount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>

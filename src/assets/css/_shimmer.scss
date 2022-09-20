@@ -1,0 +1,118 @@
+.shine {
+    background: #f6f7f8;
+    background-image: linear-gradient(to right, #f6f7f8 0%, #dddede 20%, #f6f7f8 40%, #f6f7f8 100%);
+    background-repeat: no-repeat;
+    background-size: 800px;
+    display: inline-block;
+    position: relative;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: placeholderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderShimmer;
+    animation-timing-function: linear;
+}
+
+.boxshine {
+    height: 104px;
+    width: 100%;
+}
+
+.boxshinehsm {
+    height: 30px;
+    width: 100%;
+}
+
+.boxshinesm {
+    height: 25px;
+    width: 48% !important;
+}
+
+.jcsb {
+    justify-content: space-between;
+}
+
+.linesshine {
+    height: 50px;
+    width: 100%;
+}
+
+.photoshine {
+    display: block!important;
+    width: 325px;
+    height: 100px;
+    margin-top: 15px;
+}
+
+@keyframes placeholderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.lines {
+    height: 25px;
+}
+
+.h20 {
+    height: 20px;
+}
+
+.h16 {
+    height: 16px;
+}
+
+.h25 {
+    height: 25px;
+}
+
+.h35 {
+    height: 35px;
+}
+
+.h30 {
+    height: 30px;
+}
+
+.ws70 {
+    width: 70px;
+}
+
+.h100{
+    height: 100px;
+}
+
+.h200{
+    height: 200px;
+}
+
+.ws110 {
+    width: 110px;
+}
+
+.ws130 {
+    width: 130px;
+}
+
+.ws200 {
+    width: 200px;
+}
+
+.brdr_rdius_4 {
+    border-radius: 4px;
+}
+
+.bsize170 {
+    background-size: 800px 170px !important;
+}
+
+.bsize200 {
+    background-size: 800px 200px !important;
+}

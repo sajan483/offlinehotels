@@ -1,0 +1,500 @@
+<div *ngIf="!isGrouped" class="row room-selection" id="roomSelection">
+  <div class="col-md-12 px-0 row mx-0" *ngFor="let arr of selectedRoomGroups;let i = index;"
+    style=" border:1px solid rgba(156, 170, 179, 0.28);">
+    <div class="col-md-12 px-0 mx-0" *ngFor="let group of selectedRoomGroups[i];let j = index;">
+      <div class="col-md-12 px-0 mx-0 row" *ngFor="let room of group.rooms;let k = index">
+          <div class="col-md-12 px-0 mx-0 row maximheight" *ngIf="room?.isExpand" (click)="changeRoomExpansionState(i,j)">
+
+            <div [class.selected-item]="room.isRoomSelectionChecked" class="cursor-pointer col-md-12 px-0 mx-0 row  "
+              style=" border:1px solid rgba(156, 170, 179, 0.28);">
+              <div class="col-md-2 brder-right px-0">
+                <div class="p10">
+                  <div class="d-flex justify-content-center">
+                    <i class="room_icon icns icon_size_25"></i>
+                  </div>
+                  <div class="text-center fs14 fw600">{{'Room' |
+                    translate}} {{roomCount(i) + j+1}}</div>
+                </div>
+              </div>
+              <div class="col-md-7 px-0 brder-right brder-bottom">
+                <div class="p10">
+                  <div class="room-heading">{{room?.name}}</div>
+                  <div class="d-flex vat-tax">
+                    <div class="d-inline-flex">
+                      <i class="hotelbedicon icon_size_20 icns mr10 mmr0 mml10"></i>
+                      <p class="clr52 fs14 fw400">
+                        {{room?.insertedQuantity}}
+                        {{'Room(s) For' | translate}}
+                        {{room?.adult_number *
+                        room.insertedQuantity}} {{'Adult(s)'
+                        |translate }}
+                      </p>
+                      <p class="pl-1 clr52 fs14 fw400" *ngIf="room.child_number == 1">&
+                        {{room?.child_number *
+                        room.insertedQuantity}} {{'Child' |
+                        translate }}
+                      </p>
+                      <p class="pl-1 clr52 fs14 fw400" *ngIf="room.child_number > 1">&
+                        {{room?.child_number *
+                        room.insertedQuantity}} {{'Children'
+                        | translate }}
+                      </p>
+                    </div>
+                    <div class="pl-2"> |</div>
+                    <div class="px-2">{{'Meal Plan' |
+                      translate}} - {{room?.selected_board_type.meal_title}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 px-0 brder-right">
+                <div class="p10 mx-0 row">
+                  <div class="col-md-9 px-0">
+                    <div class="room-price">{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.total_amount)}}
+                    </div>
+                    <!-- <p *ngIf="roomData['insertedCity'] == 'Makkah'">for {{selecteddaysmakkah}} night(s)</p>
+                                                                                      <p *ngIf="roomData['insertedCity'] != 'Makkah'">for {{noOfDaysInMadeenah}} night(s)</p> -->
+                    <div><span *ngIf="room?.cancellation_policy[0]?.is_refundable" class="green_text cursor-pointer">{{'Refundable'
+                        | translate}}</span>
+                      <span *ngIf="!room?.cancellation_policy[0]?.is_refundable" class="red_text cursor-pointer">{{'Non
+                        Refundable' | translate}}</span>
+                    </div>
+                  </div>
+                  <div class="col-md-3 px-0 my-auto">
+                    <span> <img src="/assets/images/selected-green-tick.png" alt=""></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            </div>
+
+
+        <div class="col-md-2 brder-right px-0 " *ngIf="room?.isDisplay">
+          <div class="pt-1">
+            <div *ngIf="k == 0" class="d-flex justify-content-center">
+              <i class="room_icon icns icon_size_25"></i>
+            </div>
+            <div *ngIf="k == 0" class="text-center fs14 fw600">
+              {{'Room' | translate}} {{roomCount(i) + j+1}}</div>
+          </div>
+        </div>
+        <div class="col-md-7 px-0 brder-right brdr-btm" *ngIf="room?.isDisplay">
+          <div class="">
+            <div class="room-heading pt-1 topHd ml-3">{{room?.name}}
+            </div>
+            <div class="d-flex">
+              <div class="size-room-image ml-3" *ngIf="room?.images == null || room?.images?.length < 25 ">
+                <img src="/assets/images/no_image.jpg" class="h-100 w-100" alt="">
+              </div>
+              <div class="size-room-image ml-3" *ngIf="room?.images?.length > 25">
+                <img src="{{room?.images[0]?.image_webp_url}}" class="h-100 w-100" alt="">
+              </div>
+              <div class="flex-grow-1">
+
+                <div class="d-flex vat-tax mt-1">
+                  <div class="d-inline-flex pt-1">
+                    <i class="hotelbedicon icon_size_20 icns mr10 mmr0 mml10"></i>
+                    <p class="clr52 fs14 fw400">
+                      {{room?.insertedQuantity}}
+                      {{'Room(s) For' | translate}}
+                      {{room?.adult_number *
+                      room.insertedQuantity}} {{'Adult(s)'
+                      |translate }}
+                    </p>
+                    <p class="pl-1 clr52 fs14 fw400" *ngIf="room.child_number == 1">&
+                      {{room?.child_number *
+                      room.insertedQuantity}} {{'Child' |
+                      translate }}
+                    </p>
+                    <p class="pl-1 clr52 fs14 fw400" *ngIf="room.child_number > 1">&
+                      {{room?.child_number *
+                      room.insertedQuantity}} {{'Children'
+                      | translate }}
+                    </p>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                  <div class="d-flex" *ngFor="let feature of room.features;let p = index">
+                    <i *ngIf="p < 2" class="fa fa-check green_text" style="margin-top: 3px;" aria-hidden="true"></i>
+                    <div *ngIf="p < 2" class="aminity-text">
+                      {{feature?.name}}</div>
+                  </div>
+                  <div>
+                    <div class="moredetails-text pr-1" (click)="showRoomDetailsPopUp(room)">
+                      + {{'More Details' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="select-mealplan" *ngIf="room?.board_types?.length > 0">
+            <div class="mealplan-head pl-1">{{'Select Meal Plan' |
+              translate}}</div>
+            <mat-radio-group (change)="mealOptionRadioBtnChanged($event,i,j,k)">
+              <div class="row mx-0 pl-1">
+                <div class=" meal-width d-flex mb-2 mr-2" *ngFor="let meal of room.board_types;let z = index;">
+                  <div class="mealOption ">
+                    <mat-radio-button value="{{meal.meal_title}}" [checked]="meal.showMeal">
+                      <div class="vat-tax">
+                        {{meal.meal_title}}</div>
+                    </mat-radio-button>
+                  </div>
+                </div>
+              </div>
+            </mat-radio-group>
+          </div>
+
+        </div>
+        <div class="col-md-3 px-0 brder-right brdr-tp" *ngIf="room.isDisplay && group.rooms.length > 1">
+          <div class="room-select-price pt-1 text-center">
+            <div class="room-price text-center customTooltip" #blinkButton [class.blink_me]="room.priceChange">
+              {{currency}}
+              {{currencyConversion(room?.selected_board_type.display_fare_summary?.total_amount)}}
+              <span class="customtooltiptext transportFare">
+                <div class="container mb-2 fs12">
+                  <div class="pt-2 fare_summary_heading">
+                    {{'Fare Summary' | translate}}</div>
+                  <div class="d-flex justify-content-between fw400 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.base_amount && room.selected_board_type.display_fare_summary.base_amount > 0">
+                    <div>{{'Base Fare'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.base_amount)}}
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between fw400 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.tax_amount && room.selected_board_type.display_fare_summary.tax_amount > 0">
+                    <div>{{'Tax'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.tax_amount)}}
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between fw400 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.commission_discount && room.selected_board_type.display_fare_summary.commission_discount > 0">
+                    <div>{{'Discount'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.commission_discount)}}
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between fw600 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.total_amount && room.selected_board_type.display_fare_summary.total_amount > 0">
+                    <div>{{'Total Fare'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.total_amount)}}
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
+            <!-- <p class="text-center" *ngIf="roomData['insertedCity'] == 'Makkah'">for {{selecteddaysmakkah}} night(s)</p>
+                                                              <p class="text-center" *ngIf="roomData['insertedCity'] != 'Makkah'">for {{noOfDaysInMadeenah}} night(s)</p> -->
+
+            <div class="text-center"><span *ngIf="room?.cancellation_policy[0]?.is_refundable"
+                (click)="showRoomDetailsPopUp(room)" class="green_text cursor-pointer ">{{'Refundable'
+                | translate}}</span>
+              <span *ngIf="!room?.cancellation_policy[0]?.is_refundable" (click)="showRoomDetailsPopUp(room)"
+                class="red_text cursor-pointer ">{{'Non
+                Refundable' | translate}}</span>
+            </div>
+            <div class="text-center">
+              <button class="select-button" (click)="changeRoomGrpFalse(i,j,k)">{{'Select' |
+                translate}}</button>
+            </div>
+          </div>
+          <div class="make-refundable" *ngIf="!room?.cancellation_policy[0]?.is_refundable && room?.make_refundable">
+            <p> {{'Make This Fare Refundable' | translate}}</p>
+            <mat-slide-toggle>
+              <div class="textgreen"> + {{currency}} 60</div>
+            </mat-slide-toggle>
+          </div>
+        </div>
+
+        <div class="col-md-3 px-0 brder-right" *ngIf="room.isDisplay && group.rooms.length == 1 && j == 0 && k == 0">
+          <div class="room-select-price pt-1 text-center">
+            <div class="room-price text-center customTooltip">
+              {{currency}}
+              {{currencyConversion(room?.selected_board_type.display_fare_summary?.total_amount
+              * (room?.quantity))}}
+              <span class="customtooltiptext transportFare">
+                <div class="container mb-2 fs12">
+                  <div class="pt-2 fare_summary_heading">
+                    {{'Fare Summary' | translate}}</div>
+                  <div class="d-flex justify-content-between fw400 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.base_amount && room.selected_board_type.display_fare_summary.base_amount > 0">
+                    <div>{{'Base Fare'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.base_amount*
+                      (room?.quantity))}}</div>
+                  </div>
+                  <div class="d-flex justify-content-between fw400 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.tax_amount && room.selected_board_type.display_fare_summary.tax_amount > 0">
+                    <div>{{'Tax'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.tax_amount*
+                      (room?.quantity))}}</div>
+                  </div>
+                  <div class="d-flex justify-content-between fw400 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.commission_discount && room.selected_board_type.display_fare_summary.commission_discount > 0">
+                    <div>{{'Discount'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.commission_discount*
+                      (room?.quantity))}}</div>
+                  </div>
+                  <div class="d-flex justify-content-between fw600 pt-1"
+                    *ngIf="room.selected_board_type.display_fare_summary.total_amount && room.selected_board_type.display_fare_summary.total_amount > 0">
+                    <div>{{'Total Fare'}} :</div>
+                    <div>{{currency}}
+                      {{currencyConversion(room?.selected_board_type.display_fare_summary?.total_amount*
+                      (room?.quantity))}}</div>
+                  </div>
+                </div>
+              </span>
+            </div>
+            <!-- <p class="text-center" *ngIf="roomData['insertedCity'] == 'Makkah'">for {{selecteddaysmakkah}} night(s)</p>
+                                                              <p class="text-center" *ngIf="roomData['insertedCity'] != 'Makkah'">for {{noOfDaysInMadeenah}} night(s)</p> -->
+
+            <div class="text-center"><span *ngIf="room?.cancellation_policy[0]?.is_refundable"
+                (click)="showRoomDetailsPopUp(room)" class="green_text cursor-pointer ">{{'Refundable'
+                | translate}}</span>
+              <span *ngIf="!room?.cancellation_policy[0]?.is_refundable" (click)="showRoomDetailsPopUp(room)"
+                class="red_text cursor-pointer ">{{'Non
+                Refundable' | translate}}</span>
+            </div>
+            <div class="text-center">
+              <button class="select-button" (click)="changeRoomGrpFalse(i,j,k)">{{'Select' |
+                translate}}</button>
+            </div>
+          </div>
+          <div class="make-refundable" *ngIf="!room?.cancellation_policy[0]?.is_refundable && room?.make_refundable">
+            <p> {{'Make This Fare Refundable' | translate}}</p>
+            <mat-slide-toggle>
+              <div class="textgreen"> + {{currency}} 60</div>
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="isGrouped">
+  <div class="" *ngFor="let item2 of selectedRoomGroups;let i = index ">
+    <div *ngIf="!showGrpOptionButton">
+      <div class="room brdr-btm rm-opt" style="color:#1c3cf0">
+        {{ 'Option' | translate}} {{i +1}}
+      </div>
+    </div>
+    <div id="webCollapseView" class="col-md-12 px-0 mx-0 row maximheight" *ngIf="!item2?.isExpand"
+      (click)="changeRoomExpansionStateForGroupedTrue(i)">
+      <div class="cursor-pointer col-md-12 px-0 mx-0 row  "
+        style=" border: solid 1px rgba(156, 170, 179, 0.28);background: #dbeefe;"
+        *ngFor="let room of item2.rooms; let p = index">
+        <div class="col-md-2 brder-right px-0">
+          <div class="p10">
+            <div class="d-flex justify-content-center">
+              <i class="room_icon icns icon_size_25"></i>
+            </div>
+            <div class="text-center fs14 fw600">{{'Room' | translate}}
+              {{p+1}}</div>
+          </div>
+        </div>
+        <div class="col-md-7 px-0 brder-right">
+          <div class="p10">
+            <div class="hdng">{{room?.name}}</div>
+            <div class="d-flex vat-tax">
+              <div class="d-inline-flex">
+                <i class="hotelbedicon icon_size_20 icns mr10 mmr0 mml10"></i>
+                <p class="clr52 fs14 fw400">
+                  {{room?.insertedQuantity}} {{'Room(s) For' |
+                  translate}} {{room?.adult_number *
+                  room.insertedQuantity}} {{'Adult(s)' |translate
+                  }}
+                </p>
+                <p class="pl-1 clr52 fs14 fw400" *ngIf="room.child_number == 1">&
+                  {{room?.child_number * room.insertedQuantity}}
+                  {{'Child' | translate }}
+                </p>
+                <p class="pl-1 clr52 fs14 fw400" *ngIf="room.child_number > 1">&
+                  {{room?.child_number * room.insertedQuantity}}
+                  {{'Children' | translate }}
+                </p>
+              </div>
+              <div class="pl-2 pt2"> |</div>
+              <div class="px-2 pt2">{{'Meal Plan' | translate}} -
+                {{room?.selected_board_type.meal_title}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 px-0 brder-right">
+          <div class="p10 mx-0 row">
+            <div class="col-md-9 px-0">
+              <div class="prc">{{currency}} {{currencyConversion(
+                item2?.display_fare_summray?.total_amount /
+                rooms.length)}}</div>
+              <!-- <p  *ngIf="roomData['insertedCity'] == 'Makkah'">for {{selecteddaysmakkah}} night(s)</p>
+                                            <p  *ngIf="roomData['insertedCity'] != 'Makkah'">for {{noOfDaysInMadeenah}} night(s)</p> -->
+              <div><span *ngIf="room?.cancellation_policy[0]?.is_refundable"
+                  class="green_text cursor-pointer">{{'Refundable'
+                  | translate}}</span>
+                <span *ngIf="!room?.cancellation_policy[0]?.is_refundable" class="red_text cursor-pointer">{{'Non
+                  Refundable' | translate}}</span>
+              </div>
+            </div>
+            <div class="col-md-3 px-0 my-auto">
+              <span> <img src="/assets/images/selected-green-tick.png" alt=""></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="webExpandView" *ngIf="item2?.isExpand && item2?.isDisplayGroup" class="brdrr">
+      <div class="col-md-12 pl-0 " *ngFor="let room of item2.rooms; let j= index;">
+        <div class="col-md-2" style="float:right" *ngIf="j == 0">
+          <div class=" d-flex justify-content-center">
+            <div style="margin: auto;">
+              <div class="customTooltip pt-0 text-center">
+                <span class="roomratesaperaate customTooltip prc">
+                  {{currency}}
+                  {{currencyConversion(item2?.display_fare_summray?.total_amount)
+                  }}
+                  <span class="customtooltiptext transportFare">
+                    <div class="container mb-2 fs12">
+                      <div class="pt-2 fare_summary_heading">
+                        {{'Fare Summary' | translate}}</div>
+                      <div class="d-flex justify-content-between fw400 pt-1"
+                        *ngIf="item2?.display_fare_summray?.base_amount && item2?.display_fare_summray?.base_amount > 0">
+                        <div>{{'Base Amount'}} :</div>
+                        <div>{{currency}}
+                          {{currencyConversion(item2?.display_fare_summray?.base_amount)}}
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between fw400 pt-1"
+                        *ngIf="item2?.display_fare_summray?.tax_amount && item2?.display_fare_summray?.tax_amount > 0">
+                        <div>{{'Tax Amount'}} :</div>
+                        <div>{{currency}}
+                          {{currencyConversion(item2?.display_fare_summray?.tax_amount)}}
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between fw400 pt-1"
+                        *ngIf="item2?.display_fare_summray?.commission_discount && item2?.display_fare_summray?.commission_discount > 0">
+                        <div>{{'Commission Discount'}} :
+                        </div>
+                        <div>{{currency}}
+                          {{currencyConversion(item2?.display_fare_summray?.commission_discount)}}
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-between fw400 pt-1"
+                        *ngIf="item2?.display_fare_summray?.total_amount && item2?.display_fare_summray?.total_amount > 0">
+                        <div>{{'Total Amount'}} :</div>
+                        <div>{{currency}}
+                          {{currencyConversion(item2?.display_fare_summray?.total_amount)}}
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                </span>
+                <div>
+                  <!-- <p class="text-center" *ngIf="roomData['insertedCity'] == 'Makkah'">for {{selecteddaysmakkah}} night(s)</p>
+                                                <p class="text-center" *ngIf="roomData['insertedCity'] != 'Makkah'">for {{noOfDaysInMadeenah}} night(s)</p> -->
+                </div>
+              </div>
+              <div>
+                <div class="d-flex justify-content-center mb-3">
+                  <div *ngIf="!item2.isRoomSelectionChecked">
+                    <button class="select-button" (click)="makkaIsGroupedRadioClicked(i,j)">{{'Select'
+                      | translate}}</button>
+                  </div>
+                  <div *ngIf="item2.isRoomSelectionChecked">
+                    <button class="select-button" (click)="makkaIsGroupedRadioClicked(i,j)">{{'Select'
+                      | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-10 mpr0  pl-0 d-flex ">
+          <div class="col-md-2 p-0 m-0" style="border-top: 1px solid rgba(156, 170, 179, 0.28);">
+            <div class="room text-center mtt10">
+              <div> <i class="room_icon icns icon_size_25"></i></div>
+              <div class="rm-hd">{{ 'Room ' | translate }}
+                &nbsp;{{j+1}}</div>
+            </div>
+          </div>
+          <div class="col-md-10  mtextR brdr_bttm_e1 pl-0 brdr-rgt brdr-lft pr-0">
+            <div class="pl-2 room_type_sec topHd  rm-name">
+              {{room?.name}}</div>
+            <div class="d-flex">
+              <div class="size-room-image ml-3" *ngIf="room?.images == null || room?.images?.length < 25 ">
+                <img src="/assets/images/no_image.jpg" class="h-100 w-100" alt="">
+              </div>
+              <div class="size-room-image ml-3" *ngIf="room?.images?.length > 25">
+                <img src="{{room?.images[0]?.image_webp_url}}" class="h-100 w-100" alt="">
+              </div>
+              <div class="roomRibbon" *ngIf="room?.has_special_deal && room?.deal_description != null">
+                <span class="roomRibbon6">
+                  <p>{{'Special Deal' | translate }} : <span class="text-uppercase">{{room?.deal_description}}</span>
+                  </p>
+                </span>
+              </div>
+              <div class="pt30" *ngIf="room?.has_special_deal"></div>
+              <div class="media-body divAmenities mt-1">
+                <strong>
+                  <span class="ml-1 pnk" *ngIf="room.insertedQuantity > 1">x
+                    {{room?.insertedQuantity}}</span>
+                </strong>
+                <p class="people_count_in_room pt-1">
+                  <span><img src="/assets/images/hotel-bed.png" alt="">
+                  </span> {{room?.insertedQuantity}} {{'Room(s)
+                  for' | translate}} {{room?.adult_number *
+                  room?.insertedQuantity}} {{'Adults' |
+                  translate}}
+                  <span *ngIf="room.child_number == 1">&
+                    {{room?.child_number *
+                    room?.insertedQuantity}} {{'Child' |
+                    translate}}</span>
+                  <span *ngIf="room.child_number > 1">&
+                    {{room?.child_number *
+                    room?.insertedQuantity}} {{'Children' |
+                    translate}}</span>
+                </p>
+                <div class="row col-md-12 p-0 m-0 mt-2 mb-2">
+                  <div class="pr-1 m-0" *ngFor="let feature of room.features;let v = index;">
+                    <div *ngIf="v < 10">
+                      <p class="featurslistroom"><span><img src="/assets/images/green-tick-small.png" alt=""></span>
+                        {{feature?.name}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex pr-2">
+                  <a class="roomview text-capitalize" (click)="showRoomDetailsPopUp(room)">+
+                    {{'More Details' | translate}}</a>
+                </div>
+              </div>
+            </div>
+            <div id="grpTru" class="select-mealplan col-md-12 pl-2">
+              <div class="mealplan-head">{{'Select Meal Plan' |
+                translate}}</div>
+              <mat-radio-group>
+                <div class="row mx-0">
+                  <div class=" meal-width d-flex" *ngFor="let item of room.boardTypes;let z = index;">
+                    <div class="mealOption">
+                      <mat-radio-button value="{{item.type}}" [checked]="z==0" class="pt-2">
+                        <div class="vat-tax">{{item.type}}
+                        </div>
+                      </mat-radio-button>
+                    </div>
+                  </div>
+                </div>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="showGrpOptionButton"><button (click)="showAllShrinkedOPtions()" class="optbtn">+ {{'More
+      Options Available' | translate}}</button></div>
+</div>

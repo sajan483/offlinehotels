@@ -1,0 +1,435 @@
+<div class="mt60 mb60 mt100">
+    <div class="container">
+        <button type="button" class="btn btn-primary pull-right mb-2" data-toggle="modal" data-target="#exampleModal">Resend Mail</button>
+        <div class="card">
+            <!-- <div class="card-header">
+                
+            </div> -->
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p><b>Agency Name&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.agency_details?.name}}</p>
+                    </div>
+                    <div class="col"> 
+                        <p><b>Email&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.agency_details?.email}}</p>
+                    </div>
+                    <div class="col">
+                        <p><b>Phone&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.agency_details?.country_code}}
+                            {{selectedBooking?.agency_details?.phone_number}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><b>Booking Date&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.booking_date == null || selectedBooking?.booking_date ==
+                            undefined || selectedBooking?.booking_date == ''?'':selectedBooking?.booking_date | date:'mediumDate'}}</p>
+                    </div>
+                    <div class="col"> 
+                        <p><b>Travel Date&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.package?.start_date| date:'mediumDate'}}</p>
+                    </div>
+                    <div class="col">
+                        <p><b>Booking Status&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.status}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <p><b>Advance Amount&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.advance_amount}}</p>
+                    </div>
+                    <div class="col-4">
+                        <p><b>Total Amount&nbsp;:</b>&nbsp;&nbsp;{{selectedBooking?.total_amount}}</p>
+                    </div>
+                    <div class="col-4" *ngIf="passportBody">
+                        <p><b>No.of Pax&nbsp;:</b>&nbsp;&nbsp;{{passportBody.travllers}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-end pt-3">
+            
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Resend Mail</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="mailForm">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" formControlName="mailId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mailId.errors }" />
+                                <div *ngIf="submitted && f.mailId.errors" class="invalid-feedback">
+                                    <div *ngIf="f.mailId.errors.required">Email is required</div>
+                                    <div *ngIf="f.mailId.errors.mailId">Email must be a valid email address</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" id="closePopUp" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" (click)="mailSubmit()">Send Mail</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        <div class="bg-white p10" *ngIf="shimmer">
+            <div class="shine lines w-100 my-2" *ngFor="let k of [].constructor(10)"></div>
+        </div>
+
+        <div *ngIf="!shimmer">
+            <mat-tab-group>
+                <mat-tab label="Traveller Details"> 
+                    <div *ngIf="passportBody != undefined">
+                        <app-passport-details-form [travellerData]="passportBody" (onTravellers)="onTravellers($event)"></app-passport-details-form>
+                    </div>
+                </mat-tab>
+                
+                <mat-tab label="Booking Details">
+                    <div class="bg-white">
+                        <div class="p10">
+                            <div class="fw500 fs18 textunderline">Booking Info</div>
+                            <div class="pt10">
+                                <table class="table table-borderless tabl-fit fs14">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">Booking Status</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.status}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Booking Date</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.booking_date == null || selectedBooking?.booking_date ==
+                                            undefined || selectedBooking?.booking_date == ''?'':selectedBooking?.booking_date | date:'mediumDate'}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Booking Count</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.package?.booked_count}} ({{selectedBooking?.package?.max_passengers}})</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Total Amount</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.currency}} {{selectedBooking?.total_amount}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Advance Amount</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.currency}} {{selectedBooking?.advance_amount}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Balance Amount</th>
+                                        <td>:</td>
+                                        <th>{{selectedBooking?.currency}} {{selectedBooking?.total_amount - selectedBooking?.advance_amount}}</th>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="p10">
+                            <div class="fw500 fs18 textunderline">Customer Info</div>
+                            <div class="pt10">
+                                <table class="table table-borderless tabl-fit fs14">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">name</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.contactinfo?.first_name}} {{selectedBooking?.contactinfo?.last_name}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Email</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.contactinfo?.email}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Phone</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.contactinfo?.phn_country_code}}
+                                            {{selectedBooking?.contactinfo?.phone_number}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Address</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.contactinfo?.address}}</td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="p10">
+                            <div class="fw500 fs18 textunderline">Agency Info</div>
+                            <div class="pt10">
+                                <table class="table table-borderless tabl-fit fs14">
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">Agency name</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.agency_details?.name}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Email</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.agency_details?.email}}</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">Phone</th>
+                                        <td>:</td>
+                                        <td>{{selectedBooking?.agency_details?.country_code}}
+                                            {{selectedBooking?.agency_details?.phone_number}}</td>
+                                      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </mat-tab>
+    
+    
+                <mat-tab label="Package Details">
+                    <div class="bg-white">
+                        <div class="p10">
+                            <div class="package-itenary-div">
+                                <div class="itenary-day-box">
+                                  <div id="itenaryDay1">
+                  
+                                      <div class="days-box">
+                                          <div *ngIf="selectedBooking?.package?.flight_details !=null && selectedBooking?.package?.flight_details.length>0">
+                                            <div class="day-flight-box row mx-0" *ngFor="let flight of selectedBooking?.package?.flight_details">
+                                              <div class="col-md-3 px-0 box-brdr-right">
+                                                  <div class="d-flex">
+                                                      <div class="pr-2 my-auto">
+                                                          <img src="assets/images/itinerary-flight-gold.png" class="icon_size_25" alt="">
+                                                      </div>
+                                                      <div class="blue_text fw500">
+                                                          <div class="fs12">ONWARD FLIGHT</div>
+                                                          <div class="fs13">to {{flight?.onward_arr_airport_name.split('|')[1]}}</div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-9 px-0 row mx-0 my-auto">
+                                                  <div class="col-md-3 col-4 mob_px0">
+                                                      <div class="d-flex">
+                                                          <div class="image_flight my-auto">
+                                                              <img class="h-100 w-100" src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{flight?.onward_mac}}.jpg" alt="">
+                                                          </div>
+                                                          <div>
+                                                              <div class="fs13" *ngIf="flight?.onward_flight_airline">{{flight?.onward_flight_airline.split('|')[0]}}</div>
+                                                              <div class="fs12 clr52">{{flight?.onward_mac}} - {{flight?.onward_flight_number}}</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-9 col-8 mob_px0">
+                                                      <div class="d-flex justify-content-between">
+                                                          <div>
+                                                              <div class="fs16 lh16 mob_fs12 fw500">{{flight?.flights[0]?.onward_flight_departure_date | date:'shortTime'}}</div>
+                                                              <div class="fs12 clr52 mob_fs10" *ngIf="flight?.onward_dep_airport_name">{{flight?.onward_dep_airport_name.split('|')[1]}} </div>
+                                                              <div class="fs12 clr52">[ {{flight?.onward_flight_departure_airport}} ]</div>
+                                                          </div>
+                                                          <div class="position-relative text-center flight-navigation">
+                                                              <div class="fs12 fwBold">{{flight?.onward_duration}}</div>
+                                                              <div class="flightdurationicon"></div>
+                                                          </div>
+                                                          <div>
+                                                              <div class="fs16 lh16 fw500 mob_fs12">{{flight?.flights[0]?.onward_flight_arrival_date | date:'shortTime'}}</div>
+                                                              <div class="fs12 clr52 mob_fs10" *ngIf="flight?.onward_arr_airport_name">{{flight?.onward_arr_airport_name.split('|')[1]}} </div>
+                                                              <div class="fs12 clr52">[ {{flight?.onward_flight_arrival_airport}} ]</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                  
+                                          <div *ngIf="selectedBooking?.package?.transport_details !=null && selectedBooking?.package?.transport_details.length>0">
+                                            <div class="day-flight-box row mx-0" *ngFor="let transport of selectedBooking?.package?.transport_details">
+                                                <div class="col-md-3 px-0 box-brdr-right">
+                                                    <div class="d-flex">
+                                                        <div class="pr-2 my-auto">
+                                                            <img src="assets/images/bus-gold.png" class="icon_size_25" alt="">
+                                                        </div>
+                                                        <div class="blue_text fw500">
+                                                            <div class="fs13">{{transport?.vehicle_type}}</div>
+                                                            <div class="fs12">{{transport?.transportations[0]?.start_date | date:'mediumDate'}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9 row mx-0 my-auto">
+                                                    <div class="d-flex">
+                                                        <div>
+                                                            <div class="fs15 fw500 text-capitalize">{{transport?.company_name}}</div>
+                                                            <div class="fs12 clr52"><span class="fwBold blue_text">Route:</span> {{transport?.route_name}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                  
+                                          <div *ngIf="selectedBooking?.package?.hotel_details !=null && selectedBooking?.package?.hotel_details.length>0">
+                                              <div class="day-flight-box row mx-0" *ngFor="let item of selectedBooking?.package?.hotel_details">
+                                                  <div class="col-md-3 px-0 box-brdr-right">
+                                                      <div class="d-flex">
+                                                          <div class="pr-2 my-auto">
+                                                              <img src="assets/images/hotel-gold.png" class="icon_size_25" alt="">
+                                                          </div>
+                                                          <div class="blue_text fw500">
+                                                              <div class="fs12">{{item?.city}}</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-9 row mx-0 my-auto">
+                                                      <div class="d-flex">
+                                                          <div class="image_hotel my-auto">
+                                                              <img class="h-100 w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSawAGy8czsLz3EjMzFeE9jRwG2TjUzwwlJ3w&usqp=CAU" alt="">
+                                                          </div>
+                                                          <div>
+                                                              <div class="fs15 fw500">{{item?.name}}
+                                                                  <ngb-rating [(rate)]="item.rating" [readonly]="readonly" [max]=5>
+                                                                      <ng-template let-fill="fill" let-index="index">
+                                                                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                                                                      </ng-template>
+                                                                    </ngb-rating>
+                                                              </div>
+                                                              <div class="fs12 clr52"><span class="fwBold blue_text">{{item?.num_of_days}}</span> Nights in {{item?.city}}</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                  
+                                          
+                                          
+                                          <div *ngIf="selectedBooking?.package?.flight_details !=null && selectedBooking?.package?.flight_details.length>0">
+                                            <div class="day-meal-box row mx-0" *ngFor="let flight of selectedBooking?.package?.flight_details">
+                                              <div class="col-md-3 px-0 box-brdr-right">
+                                                  <div class="d-flex">
+                                                      <div class="pr-2 my-auto">
+                                                          <img src="assets/images/itinerary-flight-gold.png" class="icon_size_25" alt="">
+                                                      </div>
+                                                      <div class="blue_text fw500">
+                                                          <div class="fs12">RETURN FLIGHT</div>
+                                                          <div class="fs13">to  {{flight.return_arr_airport_name.split('|')[1]}}</div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-9 px-0 row mx-0 my-auto">
+                                                  <div class="col-md-3 col-4 mob_px0">
+                                                      <div class="d-flex">
+                                                          <div class="image_flight my-auto">
+                                                              <img class="h-100 w-100" src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{flight.return_mac}}.jpg" alt="">
+                                                          </div>
+                                                          <div>
+                                                              <div class="fs13" *ngIf="flight.return_flight_airline">{{flight.return_flight_airline.split('|')[0]}}</div>
+                                                              <div class="fs12 clr52">{{flight.return_mac}} - {{flight.return_flight_number}}</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-9 col-8 mob_px0">
+                                                      <div class="d-flex justify-content-between">
+                                                          <div>
+                                                              <div class="fs16 lh16 mob_fs12 fw500">{{flight.flights[0]?.return_flight_departure_date | date:'shortTime'}}</div>
+                                                              <div class="fs12 clr52 mob_fs10" *ngIf="flight.return_dep_airport_name">{{flight.return_dep_airport_name.split('|')[1]}} </div>
+                                                              <div class="fs12 clr52">[ {{flight.return_flight_departure_airport}} ]</div>
+                                                          </div>
+                                                          <div class="position-relative text-center flight-navigation">
+                                                              <div class="fs12 fwBold">{{flight.onward_duration}}</div>
+                                                              <div class="flightdurationicon"></div>
+                                                          </div>
+                                                          <div>
+                                                              <div class="fs16 lh16 fw500 mob_fs12">{{flight.flights[0]?.return_flight_arrival_date | date:'shortTime'}}</div>
+                                                              <div class="fs12 clr52 mob_fs10" *ngIf="flight.return_arr_airport_name">{{flight.return_arr_airport_name.split('|')[1]}} </div>
+                                                              <div class="fs12 clr52">[ {{flight.return_flight_arrival_airport}} ]</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              </div>
+                        </div>
+                    </div>
+                </mat-tab>
+    
+
+                <mat-tab label="Uploaded Documents"> 
+                    <div class="bg-white doc_upload_list " *ngFor="let traveller of travellers;index as i">
+                        <div class="p-3">
+                            <h5>Traveller {{i+1}}</h5>
+                        </div>
+                        <div class=" d-flex align-items-center justify-content-center p-3">
+                            <table class="table table-hover table-bordered">
+                                <tr>
+                                    <th>Passport Front Page</th>
+                                    <td> <a target="_blank" class="view-btn" [href]="traveller.passport_front" ><i class="fa fa-search"></i>&nbsp;&nbsp;View</a>
+                                         <a target="_blank" class="download-btn" href="" [download]="traveller.passport_front"><i class="fa-fa-download"></i>&nbsp;&nbsp;Download</a></td>
+                                </tr>
+                                <tr>
+                                    <th>Passport Back Page</th>
+                                    <td> <a target="_blank" class="view-btn" [href]="traveller.passport_back" ><i class="fa fa-search"></i>&nbsp;&nbsp;View</a> <a target="_blank" class="download-btn" href="" [download]="traveller.passport_back"><i class="fa-fa-download"></i>&nbsp;&nbsp;Download</a></td>
+                                </tr>
+                                <tr>
+                                    <th>Passport Photo</th>
+                                    <td> <a target="_blank" class="view-btn" [href]="traveller.passport_photo" ><i class="fa fa-search"></i>&nbsp;&nbsp;View</a> <a target="_blank" class="download-btn" href="" [download]="traveller.passport_photo"><i class="fa-fa-download"></i>&nbsp;&nbsp;Download</a></td>
+                                </tr>
+                                <tr *ngFor="let doc of traveller.documents">
+                                    <th>{{doc.doc_type|titlecase}}</th>
+                                    <td> <a target="_blank" class="view-btn" [href]="doc.file" ><i class="fa fa-search"></i>&nbsp;&nbsp;View</a> <a target="_blank" class="download-btn" href="" [download]="doc.file"><i class="fa-fa-download"></i>&nbsp;&nbsp;Download</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </mat-tab>
+    
+                <mat-tab label="Remarks"> 
+                    <div class="bg-white doc_upload_list ">
+                        <div class="pt-3 mx-3 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>Create Remark</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <textarea class="form-control" placeholder="Enter your remark here..."> </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-primary pull-right">Create Remark</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Remark</th>
+                                        <th>Created At</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            remark
+                                        </td>
+                                        <td>25/12/2022</td>
+                                    </tr>
+                                
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </mat-tab>
+    
+            </mat-tab-group> 
+        </div> 
+    </div>
+</div>

@@ -1,0 +1,158 @@
+<div class="min_page_h train-booking-list-div">
+
+  <div class="page_hedear_div">
+    <div class="container">
+        <h2>{{'Your Train Bookings' | translate}}</h2>
+    </div>
+  </div>
+
+  <div class="container pt20">
+
+    <div *ngIf="!shimmer && railBookings?.results?.length == 0">
+      <div class="common_card">
+        <div class="text-center w-100">
+          <div class="m-auto">
+            <h2 class="fs25 fw600">{{'Looks Like Empty, You`ve No Bookings' | translate}}.</h2>
+            <div class="fs16 clr52 fw500">{{'You Don`t Have Any Bookings Yet' | translate}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="web_view">
+        <div class="common_card">
+          <table class="table">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">{{'Request Date' | translate}}</th>
+                <th scope="col">{{'Travel Route' | translate}}</th>
+                <th scope="col">{{'Pax Count' | translate}}</th>
+                <th scope="col">{{'Total Amount' | translate}}</th>
+                <th scope="col">{{'Status' | translate}}</th>
+                <th scope="col">{{'Reference Number' | translate}}.</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody *ngIf="shimmer">
+              <tr *ngFor="let k of [].constructor(5);">
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+                <td>
+                  <div class="shine h18 w-100"></div>
+                </td>
+              </tr>
+            </tbody>
+            <tbody *ngIf="!shimmer">
+              <tr *ngFor="let data of railBookings.results">
+                <td>{{data?.requested_date | DateTimeToDateFormat | date:'mediumDate'}}</td>
+                <td>{{data?.departure_station}} to {{data?.arrival_station}}</td>
+                <td>{{data?.children + data?.adults + data?.infants}} {{'Passengers' | translate}}</td>
+                <td>{{currency}} {{data?.total_price | ConvertCurrency:currency  }}</td>
+                <td>{{data?.status | translate}}</td>
+                <td>{{data?.booking_request_no}}</td>
+                <td class="cursor-pointer" (click)="viewDetails(data.id)"><i class="fa fa-eye" aria-hidden="true"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="mob_view">
+        <div *ngIf="shimmer">
+          <div class="common_card mobile-list-card" *ngFor="let k of [].constructor(5);">
+            <div class="top-div">
+              <div class="shine shimmer-div-data"></div>
+              <div class="shine shimmer-div-data"></div>
+              <div class="shine shimmer-div-data"></div>
+            </div>
+            <div class="second-div">
+              <div class="shine shimmer-div-data2"></div>
+              <div class="shine shimmer-div-data2"></div>
+            </div>
+            <div class="bottom-div">
+              <div class="shine shimmer-div-data"></div>
+              <div class="shine shimmer-div-data2"></div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!shimmer">
+          <div class="common_card mobile-list-card" *ngFor="let data of railBookings.results">
+            <div class="top-div">
+              <div class="text_start">
+                <div class="title">{{'Request Date' | translate}}</div>
+                <div class="value">{{data?.requested_date | DateTimeToDateFormat | date:'mediumDate'}}</div>
+              </div>
+              <div class="text_start">
+                <div class="title">{{'Pax' | translate}}</div>
+                <div class="value">{{data?.children + data?.adults + data?.infants}}</div>
+              </div>
+              <div class="text_start">
+                <div class="title">{{'Status' | translate}}</div>
+                <div class="value clrmain">{{data?.status | translate}}</div>
+              </div>
+            </div>
+            <div class="second-div">
+              <div class="text_start">
+                <div class="title">{{'Travel Route' | translate}}</div>
+                <div class="value">{{data?.departure_station}} to {{data?.arrival_station}}</div>
+              </div>
+              <div class="text_start">
+                <div class="title">{{'Reference Number' | translate}}</div>
+                <div class="value">{{data?.booking_request_no}}</div>
+              </div>
+            </div>
+            <div class="bottom-div">
+              <div class="text_start">
+                <div class="title">{{'Total Amount' | translate}}</div>
+                <div class="value">{{currency}} {{data?.total_price | ConvertCurrency:currency  }}</div>
+              </div>
+              <div class="text_start">
+                <button class="search_bttn" (click)="viewDetails(data.id)">{{'View' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+
+  </div>
+
+  
+
+    <div class="container ">
+      <div class="d-flex justify-content-end" *ngIf="railBookings?.total > 0">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link clr_black cursor-pointer" (click)="previousPage()">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let k of [].constructor(totalPage);let i=index">
+              <a (click)="getRailBookings(i+1)" class="page-link clr_black cursor-pointer"
+                [class.active_page_btn]="i+1==currentPage">{{i+1}}</a>
+            </li>
+            <li class="page-item"><a class="page-link clr_black cursor-pointer" (click)="nextPage()">Next</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  

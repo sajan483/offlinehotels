@@ -1,0 +1,111 @@
+.hotel-list-div{
+  min-height: calc(100vh - 96px);
+  .hedder-hotel-list-div{
+    background-color: #116063;
+    padding: 10px;
+    h2{
+        color: #dfdce3;
+        font-size: 22px;
+        margin-bottom: 0;
+    }
+  }
+  .hotel-main-div{
+      .slcthotel {
+          padding: 0 0 10px 0px;
+          width: 100%;
+          .left{
+            width: 22%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 0px;
+            
+          }
+          .right{
+            width: 77%;
+            margin-top: 19px;
+          }
+          .main-filter-outer{
+              padding: 0px 0px 0px 0px;
+              margin: 8px 13px 8px 0;
+          }
+      }
+  }
+
+  .hotel-count-div{
+    padding: 0 0 10px 0;
+    h2{
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+  }
+}
+
+.filter-div-mob{
+    height: 50px;
+    width: 50px ;
+    border-radius: 50%;
+    background: #085658;
+    position: fixed;
+    left: 5px;
+    bottom: 5px;
+    color: #fff;
+    font-size: 18px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.reset-div-mob{
+    height: 50px;
+    width: 50px ;
+    border-radius: 50%;
+    background: #d5b38d;
+    position: fixed;
+    left: 5px;
+    bottom: 60px;
+    color: #000;
+    font-size: 18px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.footer-popup{
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+}
+
+.no-data-found{
+  box-shadow: 0 0 9px 0 rgb(0 0 0 / 15%);
+  border: solid 1px rgba(156, 170, 179, 0.28);
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 15px 5px;
+  .no-data-found-img{
+    height: 150px;
+    width: 150px;
+    img{
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  h2{
+    font-size: 20px;
+    padding: 10px 0;
+  }
+  button{
+    margin: 10px 0;
+  }
+}
+
+
+@media screen and (max-width: 992px) {
+  .main-filter-outer{
+    display: none !important;
+  }
+  .hotel-list-div .hotel-main-div .slcthotel .right{
+    width: 100%;
+  }
+}

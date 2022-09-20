@@ -1,0 +1,156 @@
+.hotel-details-div{
+    min-height: calc(100vh - 96px);
+    .hedder-hotel-name{
+        background-color: #116063;
+        padding: 10px;
+        h2{
+            color: #dfdce3;
+            font-size: 20px;
+            margin-bottom: 0;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+        .star_rating{
+            padding: 0 5px;
+            .star-icon{
+                color: #efb400;
+                font-size: 16px;
+            }
+        }
+    }
+    .roomtypeborder{
+        min-height: 100px;
+        padding: 0 10px;
+        margin: 15px 0;
+        background: #fff;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+        border: solid 1px rgba(156, 170, 179, 0.28);
+        border-radius: 5px;
+        .roomSelectWrap{
+            width: 100%;
+            display: flex;
+            background-color: #fff;
+            column-gap: 20px;
+            overflow: hidden;
+            .roomInfoWrap{
+                width: 100%;
+                .item{
+                    display: inline-block;
+                    width: 100%;
+                    vertical-align: top;
+                    .itemheading{
+                        display: flex;
+                        justify-content: space-between;
+                        .roomInfo-title{
+                            font-weight: 600;
+                            padding: 10px;
+                            color: #525252;
+                            font-size: 12px;
+                            width: 90px;
+                            display: inline-block;
+                            margin-left: 6px;
+                        }
+                        .roomTypeNPrice-title{
+                            font-weight: 600;
+                            padding: 10px;
+                            color: #525252;
+                            font-size: 12px;
+                            display: inline-block;
+                            width: 60%;
+                        }
+                        .roomPriceWrap-title{
+                            font-weight: 600;
+                            padding: 10px;
+                            color: #525252;
+                            font-size: 12px;
+                            width: 25%;
+                            display: inline-block;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            .roominfo-title{
+                font-weight: 600;
+                padding: 10px;
+                color: #525252;
+                font-size: 12px;
+            }
+            .selected-room{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: #f1f1f1;
+                border-radius: 5px;
+                padding: 15px 10px;
+                .stickyPrice{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    .sticy_top{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        width: 100%;
+                        .howmanyroomselect{
+                            color: #177e81;
+                            font-weight: 700;
+                            font-size: 14px;
+                            white-space: nowrap;
+                            display: flex;
+                            align-items: center;
+                            column-gap: 5px;
+                        }
+                        .selectedRoom{
+                            font-size: 11px;
+                            color: #525252;
+                        }
+                    }
+                }
+                .sticy_bottom{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .mobile-room-selectiom-div{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        z-index: 99;
+        background-color: #fff;
+        box-shadow: 0px -2px 13px rgb(5 5 5 / 20%);
+    }
+}
+
+
+@media only screen and (max-width: 992px) {
+    .hotel-details-div{
+        .roomtypeborder{
+            padding: 0;
+            background: #ffffff00;
+            box-shadow: none;
+            border: none;
+            .roomSelectWrap{
+                column-gap: 0;
+                background-color: #ffffff00;
+                .roomInfoWrap{
+                    .item{
+                        .itemheading{
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

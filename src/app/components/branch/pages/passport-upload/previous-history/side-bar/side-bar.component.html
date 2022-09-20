@@ -1,0 +1,14 @@
+<section class="slide-panel-container" fxLayout="column" fxLayoutAlign="start end" (click)="closeSliderPanelAnimation()"
+  [style.height.px]="windowHeight" (scroll)="onScroll($event)">
+  <span class="ak-close icon" *ngIf="showClose"></span>
+  <div class="content-section" [class.mob-menu]="showClose" [class.mob-menu-admin]="isAdminPage"
+    (click)="$event.stopPropagation()" [style.height.px]="windowHeight">
+
+    <div class="height-100" [class.hide-scroll]="hideScroll">
+      <div class="whitebg">
+
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</section>

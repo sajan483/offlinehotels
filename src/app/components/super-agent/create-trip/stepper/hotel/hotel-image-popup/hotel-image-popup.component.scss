@@ -1,0 +1,62 @@
+.viewiHotelmages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: #030303e6;
+    z-index: 999;
+    width: 100%;
+    height: calc(100vh - 140px);
+    overflow: hidden;
+    outline: 0;
+    .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0px;
+        pointer-events: auto;
+    }
+    .mt80 {
+        margin-top: 80px;
+    }
+    .htlimgpopupclose {
+        margin-right: 20px;
+        cursor: pointer;
+        img {
+            height: 32px;
+        }
+    }
+    .mainimageshow {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        height: 50vh;
+    }
+    .slideimagespop {
+        height: 100px;
+        width: 200px;
+    }
+    .mrgntop80 {
+        margin-top: 2%;
+    }
+    .borderseslctimg {
+        border: 2px solid red;
+    }
+}
+
+.positionofbottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+}
+
+.listingimages {
+    height: 100px;
+    cursor: pointer;
+    max-width: 185px !important;
+}
+
+.mtb20 {
+    margin: 5px 0;
+}

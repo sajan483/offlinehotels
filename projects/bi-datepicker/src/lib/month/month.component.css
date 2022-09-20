@@ -1,0 +1,43 @@
+.month-head{
+    text-align:center;font-size: 14px;font-weight: bold;color: #d32f2f;text-transform: uppercase;padding:15px 0 ;
+}
+.month-head.mobile{
+    color: #000;font-weight: 400;text-transform: capitalize;font-size: 17px;
+}
+.month-head.mobile span{font-weight: 700;}
+.day-name.mobile{
+    background: #fff;box-shadow:0 5px 8px -3px rgba(0,0,0,.1);margin: 0 -15px 15px;padding: 0 15px;
+}
+.day-name{
+    background-color: #f5f5f5;
+}
+.day-name div{
+    height:38px;
+    width:41px;
+    padding:0;
+    margin:0;
+    text-align:center;
+    font-weight:700;
+    line-height:41px;color: #000;font-size: 13px;text-transform: capitalize;
+}
+
+.strips{
+    background: #ffeeee;padding: 0 15px;margin: 13px -15px 0;
+}
+.strips ul{text-align: left;white-space: nowrap}
+.strips ul li{
+    padding:0 0 0 10px;position: relative;list-style-type: none;display: inline-block;margin-right: 15px;
+}
+.strips ul li:last-child{margin: 0;}
+.strips ul li h5{
+    font-size: 13px;color: #5a5a58;font-weight: 400;
+}
+.strips ul li h5 span{
+    font-weight: 500;color: #000;
+}
+.strips ul li::before{
+    content:'';left:0;top: 6px;width: 5px;height: 5px;border-radius: 50%;background: #d32f2e;position: absolute;z-index: 1;
+}
+.scrolldiv{
+    overflow: hidden;overflow-x: auto;width: 100%;padding: 12px 0;
+}

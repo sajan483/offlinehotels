@@ -1,0 +1,60 @@
+
+<div class="filter-wrapper pt10" #filterWrapper >
+  <div #componentToAnimate class="animated-div ">
+    <div class="white-bg">
+      <a (click)="resetFilterDatas()" class="reset-all" fxLayout="row" fxLayoutAlign="center center">{{'Reset All' | translate}}</a>
+
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 (click)="toggleFilterSections('priceRange')">
+          <span class="ak-right right" [class.expand]="showFilterPriceRange"></span>
+          {{'Price Range' | translate}}
+        </h2>
+      </div>
+      <ul class="checkouter overflow-hidden" *ngIf="showFilterPriceRange " [@expand]>
+        <li>
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="upto_text">{{'Upto' | translate}}</div>
+            <div style="width: 5px;"></div>
+            <mat-slider
+            class="w-100"
+              [max]="filteringData.maxPrice"
+              [min]="filteringData.minPrice"
+              [(ngModel)]="valuePrice"
+              (change)="changePrice()"
+            ></mat-slider>
+          </div>
+
+          <div class="value-price">{{currency}} {{valuePrice | ConvertCurrency : currency | number: '1.0-0'}}</div>
+        </li>
+      </ul>
+
+      <mat-divider class="divider"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 (click)="toggleFilterSections('airlines')">
+          <span class="ak-right right" [class.expand]="showFilterAirlines"></span>
+          Airlines
+        </h2>
+      </div>
+
+      <ng-container >
+        <ul  class="checkouter overflow-hidden" *ngIf="showFilterAirlines " [@expand]>
+          <li *ngFor="let item of airlines;let i = index">
+            <div >
+              <mat-checkbox class="check" [checked]="item.touched" (click)="addAirLine(item,i)">
+                <span class="ellipsistext-fullwidth" title="">{{item?.name.split('|')[0]}}</span>
+              </mat-checkbox>
+            </div>
+          </li>
+        </ul>
+        <a  class=" morelink" *ngIf="showMoreAirlinesOption" (click)="moreAirlines()">Show {{
+          showMoreAirlines ? 'less': 'more'  | translate}}</a>
+      </ng-container>
+      <mat-divider class="divider"></mat-divider>
+
+
+
+    </div>
+  </div>
+</div>
+
+

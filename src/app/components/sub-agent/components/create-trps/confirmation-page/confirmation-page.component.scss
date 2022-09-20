@@ -1,0 +1,97 @@
+.confirmation-page-div{
+    min-height: calc(100vh - 96px);
+    .book-bttn-div{
+        margin-top: 20px;
+        width: 100%;
+    }
+    .cancellation-data-div{
+        margin-bottom: 30px;
+        margin-top: 20px;
+        width: 100%;
+        .heading{
+            padding: 10px;
+            border-bottom: 1px solid #e1e1e1;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: start;
+        }
+    }
+    .terms_conditon_text{
+        text-decoration: underline;
+        color: #18457f;
+        line-height: 22px;
+        cursor: pointer;
+    }
+    .sticky-div{
+        width: 100%;
+        position: sticky;
+        top: 70px;
+    }
+    .booking-div-bottom{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        z-index: 99;
+        background-color: #fff;
+        box-shadow: 0px -2px 13px rgb(5 5 5 / 20%);
+    }
+
+    .bttn_txt_start{
+        text-align: start;
+    }
+
+    .booking_text_div{
+        display: block;
+        font-size: 10px;
+    }
+
+    .mobile-accept-tc{
+        margin-top: 20px;
+    }
+
+    .error-box-mob-tc{
+        border: 1px solid #f99090;
+        background-color: #ffe6e6;
+    }
+
+    .vibration-text{
+        animation:  shake 0.8s  ;
+    }
+}
+
+@keyframes shake{
+    0%{
+      transform: translateX(0)
+    }
+    25%{
+      transform: translateX(10px);
+    }
+      
+    50%{
+      transform: translateX(-10px);
+    }
+    100%{
+      transform: translateX(0px);
+    }
+  }
+
+
+.spinner-div{
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: fixed;
+    background-color: rgb(255 255 255 / 55%);
+    z-index: 9999;
+}
+
+@media only screen and (max-width: 992px) {
+    .confirmation-page-div{
+        .cancellation-data-div{
+            margin-bottom: 130px;
+        }
+    }
+}

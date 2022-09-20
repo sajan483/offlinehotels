@@ -1,0 +1,45 @@
+<div class="card pax">
+    <div class="pax-details" *ngIf="passenger.filled">
+
+        <div class="passenger">
+            <div class="pax-icon ">
+                <object data="/assets/images/icon1.svg" width="50" height="50" *ngIf="passenger.PersonalPhotoUrl == ''"> </object>
+                <img [src]="passenger.PersonalPhotoUrl" alt="" *ngIf="passenger.PersonalPhotoUrl != ''">
+            </div>
+            <div class="pax-name">
+                <h2>{{passenger.FirstName}} {{passenger.LastName}}</h2>
+                <span>{{passenger.PassportNo}} </span>
+            </div>
+        </div>
+
+
+        <div class="visa-type ">
+            <span>Birth Nationality</span>
+            <p>{{passenger.Nationality}}</p>
+        </div>
+
+        <div class="membership">
+            <span>Gender</span>
+            <p>{{passenger.Gender}}</p>
+        </div>
+
+
+        <div class="icon" (click)="onEditPax()">
+            <span class="ak-send icon-animation"></span>
+            <span class="ak-writing icon-animation" matTooltip="Edit"></span>
+        </div>
+    </div>
+
+    <div class="pax-details" *ngIf="!passenger.filled">
+
+        <div class="passenger">
+            <div class="pax-icon ">
+                <object data="/assets/images/icon1.svg" width="50" height="50"> </object>
+            </div>
+            <div class="pax-name">
+                <h2>Passenger {{paxIndex+1}}</h2>
+            </div>
+        </div>
+
+    </div>
+</div>

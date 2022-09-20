@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-light positionfixed">
+    <div class="collapse navbar-collapse container">
+        <a class="navbar-brand cursor-pointer" (click)="navigatepage('branch/packages');"><img class="logohight" src="/assets/images/akbar-umrah-logo.png" alt=""></a>
+        <form class="form-inline my-2 my-lg-0">
+  
+            <div class="dropdown">
+                <div class="d-flex cursor-pointer hidemobile">
+                    <div class="pr-2">
+                        <p class="mb-0 wlcmtext">Welcome <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                        <p class="mb-0 f15" style="color: brown;">{{userName}}</p>
+                    </div>
+                    <i class="userpic icns icon_size_40"></i>
+                </div>
+                <div class="dinsplaymobile hidesystem mr-3">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+                <div class="dropdown-content animationdivfast">
+                    <a class="" (click)="navigatepage('branch/packages');">
+                        <div class="d-flex padngover mt-2">
+                            <i class="icns createpackages icon_size_25"></i>
+                            <p class="f15 my-auto pl15">Packages</p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('branch/bookings');">
+                        <div class="d-flex padngover">
+                            <i class="icns booking_icon icon_size_20"></i>
+                            <p class="f15 my-auto pl20">Bookings</p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('branch/profile');">
+                        <div class="d-flex padngover">
+                            <i class="icns myprofile icon_size_20"></i>
+                            <p class="f15 my-auto pl20">My Profile</p>
+                        </div>
+                    </a>
+                    <a class="bgred" (click)="logout();">
+                        <div class="d-flex padngover">
+                            <i class="icns logouticon icon_size_20"></i>
+                            <p class="f15 my-auto pl20">Logout</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+  
+        </form>
+    </div>
+  </nav>
+  
+  

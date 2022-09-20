@@ -1,0 +1,212 @@
+<div class="itinerary-hotel-card-div">
+    <div class="common_card" [class.errorBox]="hotel?.status== 'failed' || hotel?.status=='cancelled' || hotel?.status=='failed_again'">
+        <div class="brdrbottom pb10" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="hotel?.status=='success'">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxLayout="row wrap" fxLayoutAlign="start center">
+                    <i class="selectedgreentickicon icns icon_size_20"></i>
+                    <div style="width: 5px;"></div>
+                    <div class="booked-text success_text">{{'Booked' | translate}}</div>
+                </div>
+                <div class="divider-div"></div>
+                <div class="fs13 fw600 clrmain">{{'Reference No' | translate}}. (BRN) - {{hotel?.brn}}</div>
+            </div>
+            <div class="textunderline cursor-pointer clr_sec_dark" data-toggle="modal" data-target="#makkahPolicy">{{'Cancellation Policy' | translate}}</div>
+        </div>
+
+        <div class="brdrbottom pb10" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="hotel?.status=='failed' || hotel?.status=='failed_again'">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <span class="ak-close fs20 red_text"></span>
+                <div style="width: 5px;"></div>
+                <div class="booked-text red_text">{{'Failed' | translate}}</div>
+            </div>
+        </div>
+
+        <div class="brdrbottom pb10" fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="hotel?.status=='cancelled'">
+            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                <span class="ak-close fs20 red_text"></span>
+                <div style="width: 5px;"></div>
+                <div class="booked-text red_text">{{'Cancelled' | translate}}</div>
+            </div>
+        </div>
+
+        <div class="brdrbottom pb10" *ngIf="hotel?.status=='processing' || hotel?.status=='available'">
+            <div class="fs14 fw600 clr_sec">{{'UNDER PROCESSING - Please Contact Customer care' | translate}} : 00-973-77952212</div>
+        </div>
+
+        <div class="row py10 brdrbottom">
+            <div class="col-md-2">
+                <div fxLayout="row" fxLayoutAlign="start center" >
+                    <div><span class="ak-hotel-building clrmain fs20"></span></div>
+                    <div style="width: 5px;"></div>
+                    <div class="fw500 clrmain">
+                        <div class="fs14">{{hotel?.trip_hotel?.location | titlecase}}</div>
+                        <div class="fs12">{{hotel?.trip_hotel?.check_in_time | DateTimeToDateFormat | date:'mediumDate'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 brdrR brdrL">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <div class="fw600 fs16">{{hotel?.trip_hotel.hotel.name}}</div>
+                    <div style="width: 5px;"></div>
+                    <div>
+                        <ngb-rating [(rate)]="hotel.trip_hotel.rating" [readonly]="true" [max]=5>
+                            <ng-template let-fill="fill" let-index="index">
+                                <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                            </ng-template>
+                        </ngb-rating>
+                    </div>
+                </div>
+                <div>
+                    <div class="linebyline clr52 fs13">
+                        {{'No of days on' | translate}} {{hotel.trip_hotel.location}}
+                        <span class="clrmain fw600">{{hotel.trip_hotel.num_of_days}}</span>
+                        <span class="crossline"></span>
+                        <span>{{'No of Guest' | translate}}</span>
+                        <span class="clrmain fw600">{{paxCount}}</span>
+                        <span class="crossline"></span>
+                        <span>{{'Rooms' | translate}}</span>
+                        <span class="clrmain fw600">{{roomCount}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 fw500 fs15" fxLayoutAlign="end center" >
+                {{currency}} {{hotel?.total_price | ConvertCurrency : currency}}
+            </div>
+        </div>
+
+        <div class="py10">
+            <div class="row">
+        
+                <div class="row col-md-12 p-0 ml-0 mr-0">
+                    <div class="mt-2 p20 row col-md-12 p-0 ml-0 mr-0">
+                        <div class="col-md-6 p-0">
+                            <div class="flexaround">
+                                <div>
+                                    <div class="d-flex">
+                                        <i class="calendaricon icon_h18_w15 icns"></i>
+                                        <p class="pl-2 pr-2 fs13 fw500">{{'Check-in' | translate}}</p>
+                                        <i class="icon_h18_w11 icns downarrow"></i>
+                                    </div>
+                                    <p class="fw600 fs21">{{hotel?.trip_hotel?.check_in_time | DateTimeToDateFormat | date:'mediumDate'}}
+                                    </p>
+                                    <p class="fs15 clr52">{{hotel?.trip_hotel?.check_in_time | DateTimeToGDStime | convertFrom24To12Format}}</p>
+                                    <p class="clr52 fs12">{{hotel?.trip_hotel?.check_in_time | DateTimeToDateFormat | date:'EEEE'}}
+                                    </p>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <i class="nighticon icon_size_20 icns"></i>
+                                    <p class="textgrey font14">{{hotel?.trip_hotel?.num_of_days}} {{'Night' | translate}}
+                                        <span *ngIf="hotel?.trip_hotel?.num_of_days > 1">s</span></p>
+                                </div>
+                                <div class="text_left mirr_text_right">
+                                    <div class="d-flex">
+                                        <i class="calendaricon icon_h18_w15 icns"></i>
+                                        <p class="pl-2 pr-2 fs13 fw500">{{'Check-out' | translate}}
+                                        </p>
+                                        <i class="icon_h18_w11 icns downarrow"></i>
+                                    </div>
+                                    <p class="fw600 fs21">{{hotel?.trip_hotel?.check_out_time | DateTimeToDateFormat | date:'mediumDate'}}
+                                    </p>
+                                    <p class="fs15 clr52">{{hotel?.trip_hotel?.check_out_time | DateTimeToGDStime | convertFrom24To12Format}}</p>
+                                    <p class="clr52 fs12">{{hotel?.trip_hotel?.check_out_time | DateTimeToDateFormat | date:'EEEE'}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-5">
+                            <div class="row">
+                                <div class="col-md-12 p-0 pb-2">
+                                    <p class="fs13"><i class="fa fa-map-marker textlight pr-1 font16imp" aria-hidden="true"></i> {{'ADDRESS' | translate}}</p>
+                                    <p class="pl-3 mpr15 fs12 clr52">{{hotel?.trip_hotel?.hotel?.address}}
+                                    </p>
+                                </div>
+                                <div class="">
+                                    <p class="clr52 fs14 pr10 mpl10 mpr0"><i class="fa fa-envelope textlight pr-1 font16imp" aria-hidden="true"></i> {{hotel?.trip_hotel?.hotel?.email}}
+                                    </p>
+                                    <p class="clr52 fs14"><i class="fa fa-phone textlight pr-1 font16imp" aria-hidden="true"></i>+966{{hotel?.trip_hotel?.hotel?.phone_number}}
+                                    </p>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt10">
+            <div class="row">
+                <div class="col-md-12 p-0 row m-0">
+                    <div class="col-md-12 px-0 mx-0 row" *ngFor="let rooms of hotel.trip_hotel.room_variations">
+                        <div class="col-md-12 row m-0 p-2 brdrtop" *ngFor="let item of rooms.room">
+                            <div class="col-md-5">
+                                <div class="d-flex clr52 fs14 fw600">
+                                    <div>{{item?.name.split('-')[0]}}</div>
+                                    <div class="px-2" *ngIf="item?.quantity > 1">X {{item?.quantity}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="clr52 fs14 fw500" *ngIf="rooms?.meal_title">
+                                    {{'Meal Plan' | translate}} : {{rooms?.meal_title}}
+                                </div>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <div class="fs14">
+                                    <span class="success_text" *ngIf="item.cancellation_policy.is_refundable">{{'Refundable' | translate}}</span>
+                                    <span class="red_text" *ngIf="!item.cancellation_policy.is_refundable">{{'non_refundable' | translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="makkahPolicy" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog maxwdth700" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{'Cancellation Policy' | translate}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3" *ngFor="let item of hotel.trip_hotel.room_variations">
+                    <div *ngFor="let data of item.room">
+                        <div class="d-inline-flex">
+                            <div>{{data?.name}}</div>
+                            <div class="mx-2">-</div>
+                            <div class="green_text" *ngIf="data?.cancellation_policy?.is_refundable">{{'Refundable' | translate}}</div>
+                            <div class="red_text" *ngIf="!data?.cancellation_policy?.is_refundable">{{'non_refundable' | translate}}</div>
+                        </div>
+                        <div class="mt-2 borderbox" *ngIf="data?.cancellation_policy?.is_refundable">
+                            <div class="d-flex justify-content-between p10 brdr_btm_d3 fs15" *ngFor="let rule of data.cancellation_policy.rules">
+                                <div class="d-inline-flex">
+                                    <div class="my-auto pr10 mpr0 mpl10"><i class="calendaricon icns icon_size_20"></i></div>
+                                    <div>
+                                        <div><strong>{{'From' | translate}} : </strong> {{rule?.from_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                        <div><strong>{{'Till' | translate}} : </strong> {{rule?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                        <div class="fs13 clr52 fw400" *ngIf="!rule?.is_noshow">( NOTE: Not applicable in No-Show )</div>
+                                    </div>
+                                </div>
+                                <div class="fw600">
+                                    <div class="text-capitalize">{{'Cancellation Charge' | translate}}</div>
+                                    <div>{{currency}} {{rule?.charge?.chargeAmount | ConvertCurrency : currency}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 clr52 fs13" *ngIf="data?.cancellation_policy?.description">
+                            <div class="fw600">{{'Description' | translate}}:</div>
+                            <p>{{data?.cancellation_policy?.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

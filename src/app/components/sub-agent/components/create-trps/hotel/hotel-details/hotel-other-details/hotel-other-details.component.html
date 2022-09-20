@@ -1,0 +1,37 @@
+<div *ngIf="selectedHotel?.meta_data?.amenities?.length > 0 || selectedHotel?.meta_data?.remark != null || selectedHotel?.meta_data?.description != null">
+    <div class="more-details-div">
+        <div *ngIf="selectedHotel?.meta_data?.description">
+            <div class="text-capitalize fs16 fw500">{{'Description' | translate}}</div>
+            <div class="p10">
+                <p class="fs13 clr52 mb-0">{{selectedHotel?.meta_data?.description}}</p>
+            </div>
+        </div>
+        <div *ngIf="selectedHotel?.meta_data?.remark" class="mt-3">
+            <div class="text-capitalize fs16 fw500">{{'Remarks' | translate}}</div>
+            <div class="p10">
+                <div class="fs12 clr52" [innerHTML]="selectedHotel?.meta_data?.remark"></div>
+            </div>
+        </div>
+        <div *ngIf="selectedHotel?.meta_data?.amenities?.length > 0" class="mt-3">
+            <div class="text-capitalize fs16 fw500">{{'Amenities' | translate}}</div>
+            <div class="p10">
+                <div class="row ml-0 mr-0">
+                  <div class="col-md-3 p-0 fs13 clr52" *ngFor="let item of selectedHotel?.meta_data.amenities">
+                    <i class="fa fa-star pl-1 clr01" aria-hidden="true"></i><span class="pl-2">{{item?.name}}</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="selectedHotel?.policies && selectedHotel?.policies.length > 0">
+    <div class="more-details-div">
+        <div class="mb-2" *ngFor="let item of selectedHotel.policies">
+            <div class="fw500 fs15 text-capitalize mb-1">{{item?.name}}</div>
+            <div class="pl10 mpr10">
+                <div class="fs13 clr52" [innerHTML]="item?.description"></div>
+            </div>
+        </div>
+    </div>
+</div>

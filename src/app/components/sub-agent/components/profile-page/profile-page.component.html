@@ -1,0 +1,197 @@
+<div class="min_page_h">
+    <div class="page_hedear_div">
+        <div class="container">
+            <h2>{{'My Profile' | translate}}</h2>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card_profile_data common_card">
+            <div class="row mx-0 brdr_btm_d3">
+                <div class="col-md-6 col-12 text_start px-0">
+                    <div class="p10 fs14 clrmain text-uppercase">{{'Agency Details' | translate}}</div>
+                </div>
+                <div class="col-md-6 col-12 px-0">
+                    <div class="w-100 p10" fxLayout="row" fxLayoutAlign="end center" >
+                        <div class="d-flex hoverLink cursor-pointer clr52" data-toggle="modal" data-target="#editProfile">
+                            <i class="icns edit_profile_icon icon_size_18 mx-2"></i>
+                            <div class="fs13 text-uppercase">{{'Edit Profile' | translate}}</div>
+                        </div>
+                        <div style="width: 10px;"></div>
+                        <div class="d-flex hoverLink cursor-pointer clr52" data-toggle="modal" data-target="#changePasswordPopup">
+                            <i class="icns change_password_icon icon_size_18 mx-1"></i>
+                            <div class="fs13 text-uppercase">{{'Change Password' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p10">
+                <div class="row m-0">
+                    <div class="col-md-4 seprateDiv">
+                        <div *ngIf="details?.agency?.logo_photo">
+                            <img [src]="details?.agency?.logo_photo" class="logoimage" alt="">
+                        </div>
+                        <div *ngIf="!details?.agency?.logo_photo">
+                            <img src="/assets/images/agent-logo.png" class="logoimage" alt="">
+                        </div>
+                        
+                        <div class="pt20 d-flex justify-content-center clr7a my-auto cursor-pointer hoverLink" data-toggle="modal" data-target="#changeLogoPopup">
+                            <i class="icns change_logo_icon icon_size_25 mx-1"></i>
+                            <div class="fs14  lh15 my-auto px-2 text-uppercase">{{'change Logo' | translate}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 seprateDiv brdr_right_d3 brdr_left_d3">
+                        <div class="fw500 fs14">{{details?.agency?.name}}</div>
+                        <!-- <div class="fw400 fs14">{{'Agent Code' | translate}} : <span class="fw600">{{details?.agency?.agent_code}}</span></div> -->
+                        <div class="pt20">
+                            <div class="d-flex">
+                                <i class="icns phone_icon_png icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{details?.agency?.phone_number}}</div>
+                            </div>
+                            <div class="d-flex pt10">
+                                <i class="icns licence_number_icon icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{'Licence No.' | translate}} : {{details?.agency?.licence_no}}</div>
+                            </div>
+                            <div class="d-flex pt10">
+                                <i class="icns iban_number_icon icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{'IBAN No.' | translate}} : {{details?.agency?.iban}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 seprateDiv">
+                        <div class="fw500 fs12">{{'Staff Details' | translate}}</div>
+                        <div class="pt20">
+                            <div class="d-flex">
+                                <i class="icns guest_small_icon icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{'Name' | translate}} : {{details?.name}}</div>
+                            </div>
+                            <div class="d-flex pt10">
+                                <i class="icns phone_icon_png icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{details?.phone_number}}</div>
+                            </div>
+                            <div class="d-flex pt10">
+                                <i class="icns email_black_icon icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{details?.email}}</div>
+                            </div>
+                            <div class="d-flex pt10">
+                                <i class="icns address_black_icon icon_size_15 mx-1"></i>
+                                <div class="fs12 lh12 my-auto clr52 px-2">{{details?.agency?.city}}, {{details?.agency?.state}}, {{details?.agency?.country}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{'Edit Profile' | translate}}</h5>
+              <button type="button" id="closeEditProfile" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body fs12">
+                <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="number" formControlName="phone_number" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" />
+                        <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
+                            <div *ngIf="f.phone_number.errors.required">Phone Number is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button  class="searchbutton" [class.bttnactive]="bttnLoader">Update</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="changePasswordPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="changePasswordLabel">{{'Change Password' | translate}}</h5>
+              <button type="button" id="changePasswordClose" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body fs12">
+                <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitPassword()">
+                    <div class="form-group">
+                        <label>Old Password</label>
+                        <input type="text" formControlName="old_password" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && g.old_password.errors }" />
+                        <div *ngIf="submitted2 && g.old_password.errors" class="invalid-feedback">
+                            <div *ngIf="g.old_password.errors.required">Old Password is required</div>
+                        </div>
+                        <div class="red_text" *ngIf="oldpassworderror">{{'Incorrect old Password' | translate}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>New Password</label>
+                        <input type="text" formControlName="password1" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && g.password1.errors }" />
+                        <div *ngIf="submitted2 && g.password1.errors" class="invalid-feedback">
+                            <div *ngIf="g.password1.errors.required">New Password is required</div>
+                            <div *ngIf="g.password1.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="text" formControlName="password2" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && g.password2.errors }" />
+                        <div *ngIf="submitted2 && g.password2.errors" class="invalid-feedback">
+                            <div *ngIf="g.password2.errors.required">Confirm New Password is required</div>
+                        </div>
+                        <div class="red_text" *ngIf="incorrectpassword">{{'Passwords must match' | translate}}</div>
+                    </div>
+                    <div class="form-group d-flex justify-content-end">
+                        <button  class="searchbutton" [class.bttnactive]="bttnLoader">Change Password</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="changeLogoPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="changeLogoPopupLabel">{{'Upload Logo' | translate}}</h5>
+              <button type="button" id="changeLogoPopupClose" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body fs12">
+                <div class="pb-2 clr52 fs12 font-italic">
+                    <div>{{'Maximum Dimension : 780 Pixel X 3400 Pixel' | translate}}</div>
+                    <div>{{'Maximum Size : 100kb' | translate}}</div>
+                </div>
+                <input type="file" class="" id="customFile" accept=".jpg,.png" (change)="fileChangeEvent($event)" />
+                <div class="fs12 red_text">{{showErrorText}}</div>
+                <div class="d-flex justify-content-end">
+                    <button  class="searchbutton" [class.bttnactive]="bttnLoader" (click)="profileImageUpdate()">Upload</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+

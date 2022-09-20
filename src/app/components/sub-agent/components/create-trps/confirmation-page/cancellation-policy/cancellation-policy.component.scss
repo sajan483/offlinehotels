@@ -1,0 +1,51 @@
+.cancellation-div{
+    .room-select-bttn{
+        width: 100%;
+        height: 40px;
+        padding: 0 10px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        background-color: #c59b6d;
+        color: #fff;
+        position: relative;
+        min-width: max-content;
+        transition: width 0.4s ease;
+        cursor: pointer;
+        &:hover{
+            width: 105%;
+        }
+    }
+    .bttn-active{
+        background-color: #116063;
+        width: 110% !important;
+        border-radius: 5px;
+    }
+    .hotel-animation-div{
+        border: 3px solid #116063;
+        transition: width 0.4s ease;
+        border-radius: 8px;
+        overflow: hidden;
+        animation: expand-div 1s ease;
+    }
+    .Cancellation-body{
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+        .commonHeight{
+            height: 100px;
+        }
+        .cancel-data{
+            width: 100%;
+        }
+    }
+}
+
+@keyframes expand-div {
+    0% {
+      width: 50%;
+    }
+    100% {
+      width: 100%;
+    }
+}

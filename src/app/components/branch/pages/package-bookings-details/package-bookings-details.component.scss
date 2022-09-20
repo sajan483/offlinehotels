@@ -1,0 +1,256 @@
+@import "../../../../../assets/css/variable.scss";
+.pax {
+  .pax-details {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: $full-width;
+    .passenger {
+      display: flex;
+      flex-direction: row;
+      width: 35%;
+      align-items: center;
+      justify-content: space-between;
+      .pax-icon {
+        span {
+          width: $full-width;
+          font-size: 19px;
+        }
+        img{
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+      }
+      .pax-name {
+        width: $full-width;
+        padding: 0 10px;
+        h2 {
+          font-size: 19px;
+          line-height: 22px;
+          margin: $reset;
+        }
+        span {
+          font-size: 16px;
+          font-weight: $bold;
+          margin: $reset;
+          letter-spacing: 6px;
+        }
+      }
+    }
+
+    .visa-type,
+    .membership {
+      width: 17%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      span {
+        font-size: 11px;
+        color: #8a8888;
+        line-height: 20px;
+      }
+      p {
+        font-size: 13px;
+        font-weight: $bold;
+        margin: $reset;
+      }
+    }
+
+    .nationality {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 11%;
+      span {
+        font-size: 11px;
+        color: #8a8888;
+        line-height: 20px;
+      }
+      .nation {
+        display: flex;
+        flex-direction: row;
+        p {
+          display: flex;
+          font-size: 13px;
+          font-weight: $bold;
+          margin: $reset;
+          padding: 0 6px;
+        }
+      }
+    }
+
+    .icon {
+      width: 135px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      span {
+        padding: 0 10px;
+        cursor: pointer;
+        font-size: 25px;
+        &.ak-send {
+          color: #93a605;
+          cursor: default;
+        }
+        &.ak-close {
+          font-size: 22px;
+          color: #141414 ;
+        }
+        &.ak-delete-button{
+          color: #141414 ;
+        }
+      }
+    }
+  }
+}
+
+.tabl-fit{
+    width: fit-content;
+}
+
+.package-itenary-div{
+    margin-top: 15px;
+    margin-bottom: 10px;
+    .day-button-active{
+        background-image: linear-gradient(to top,#d3ac73a8,#fce7c5) !important;
+        color: white !important;
+    }
+    .day-button{
+        margin: 15px 0 0 15px;
+        background-image: linear-gradient(to top, #ffffff, #ffffff);
+        text-align: center;
+        border-radius: 15px 0 0 15px;
+        padding: 4px;
+        font-size: 15px;
+        border: 1px solid #357376;
+        color: #357376;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .itenary-day-box{
+        background-color: white;
+    }
+    .days-box{
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+        border: solid 1px rgba(158, 169, 178, 0.28);
+        .day-flight-box{
+            padding: 20px 15px;
+            border-bottom: 1px dashed rgba(158, 169, 178, 0.28);
+        }
+        .box-brdr-right{
+            border-right: 1px solid rgba(158, 169, 178, 0.28);
+        }
+        .day-meal-box{
+            padding: 20px 15px;
+        }
+    }
+    .image_flight{
+        height: 30px;
+        width: 30px;
+        margin-right: 15px;
+    }
+    .flight-navigation{
+        width: 200px;
+    }
+    .flightdurationicon{
+        margin: auto;
+        max-width: 115px;
+        width: 80%;
+        height: 16px;
+        position: relative;
+    }
+    .flightdurationicon::after{
+        content: url(/assets/images/duration-flight-icon.png);
+        position: absolute;
+        right: 0;
+        top: -4px;
+        font-size: 18px;
+    }
+    .flightdurationicon::before{
+        content: "";
+        width: calc(100%);
+        height: 0;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        border-bottom: 1px dashed #000;
+        z-index: 0;
+    }
+    .image_hotel{
+        height: 35px;
+        width: 50px;
+        margin-right: 15px;
+    }
+  }
+
+  .visa-request {
+    background-image: linear-gradient(to top,#d3ac73a8,#fce7c5);
+    padding: 10px 0;
+    .visa-search {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding: 0px 3px;
+      gap: 2%;
+      .dubai-visa-text {
+        color: #000;
+        padding-right: 30px;
+       .pkgdtls{
+        h2 {
+          font-size: 25px;
+          margin: 0;
+          text-transform: uppercase;
+        }
+        p {
+          font-size: 17px;
+          margin-top: 2px;
+          margin-bottom: 0;
+          white-space: nowrap;
+        }
+       }
+      }
+      
+    }
+    .reference {
+      .ref-no {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        .ref-txt {
+          font-size: 11px;
+          color: #000;
+          margin-bottom: 5px;
+        }
+        h3 {
+            color: #000;
+          font-size: 13px;
+          font-weight: 700;
+          margin: 0;
+        }
+      }
+      
+    }
+  }
+
+  .height-of-img{
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .close-button{
+    position: absolute;
+    right: 9px;
+    background-color: white;
+    width: fit-content;
+    padding: 0 7px;
+    border-radius: 21px;
+    top: 7px;
+    cursor: pointer;
+  }

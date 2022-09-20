@@ -1,0 +1,25 @@
+<div>
+    <div class="month-head" [ngClass]="{'mobile':vertical}">{{monthName}} <span>{{year}}</span> </div>
+    <div fxFlexLayout="row" fxLayoutAlign="space-evenly center" class="day-name" [ngClass]="{'mobile':vertical}">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+
+    </div>
+    <bi-week *ngFor="let w of weekWithId;let i=index; trackBy: trackByFn" [week]="w.weekdays"
+        (dateSelected)="onDateSelected($event)" [vertical]="vertical" [currency]='currency'
+        [currencySymbol]='currencySymbol'></bi-week>
+    <div class="strips" *ngIf="vertical== true && holidays">
+        <div class="scrolldiv">
+            <ul *ngIf="holidays">
+                <li *ngFor="let hld of holidays.holidays;">
+                    <h5><span>{{hld.day}}</span> -{{hld.name}}</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

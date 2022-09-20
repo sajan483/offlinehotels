@@ -1,0 +1,158 @@
+.booking-review .booking-review-content .review-section ul li {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #dae1e7;
+}
+.more-booking-review .booking-review .booking-review-content .review-section:first-child {
+  display: none;
+}
+.more-booking-review .booking-review .booking-review-content .review-section {
+  border: none;
+}
+.booking-review .booking-review-content .review-section .service-info {
+  display: none!important;
+}
+.booking-review .booking-review-content .service-info .address {
+  color: #5e6d77;
+  margin-bottom: 0;
+}
+.more-booking-review .booking-review .booking-review-content .review-section .final-total {
+  border: none;
+}
+.booking-review .booking-review-content .review-list li.final-total {
+  border-top: 1px solid #eaeef3;
+  padding-top: 10px;
+  font-size: 19px;
+}
+.mt60{
+  margin-top: 70px;
+}
+.seperation-header h6{
+  background-color: #5e6d77;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  padding: 5px;
+}
+
+ul{
+  padding-left: 0;
+}
+
+.detail-wrapper{
+  border: 1px solid #eaeef3;
+  padding:10px;
+}
+
+#b2bBooking{
+  th,td{
+    font-size: 12px;
+    vertical-align: middle !important;
+  }
+}
+
+.fit-content{
+  padding: 0 5px;
+  text-transform: capitalize;
+}
+
+.brdrIcon{
+  border: 1px solid;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.package-itenary-div{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  .day-button-active{
+      background-image: linear-gradient(to top, #357376, #06c4cf) !important;
+      color: white !important;
+  }
+  .day-button{
+      margin: 15px 0 0 15px;
+      background-image: linear-gradient(to top, #ffffff, #ffffff);
+      text-align: center;
+      border-radius: 15px 0 0 15px;
+      padding: 4px;
+      font-size: 15px;
+      border: 1px solid #357376;
+      color: #357376;
+      font-weight: 500;
+      cursor: pointer;
+  }
+  .itenary-day-box{
+      background-color: white;
+  }
+  .days-box{
+      box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+      border: solid 1px rgba(158, 169, 178, 0.28);
+      .day-flight-box{
+          padding: 20px 15px;
+          border-bottom: 1px dashed rgba(158, 169, 178, 0.28);
+      }
+      .box-brdr-right{
+          border-right: 1px solid rgba(158, 169, 178, 0.28);
+      }
+      .day-meal-box{
+          padding: 20px 15px;
+      }
+  }
+  .image_flight{
+      height: 30px;
+      width: 30px;
+      margin-right: 15px;
+  }
+  .flight-navigation{
+      width: 200px;
+  }
+  .flightdurationicon{
+      margin: auto;
+      max-width: 115px;
+      width: 80%;
+      height: 16px;
+      position: relative;
+  }
+  .flightdurationicon::after{
+      content: url(/assets/images/duration-flight-icon.png);
+      position: absolute;
+      right: 0;
+      top: -4px;
+      font-size: 18px;
+  }
+  .flightdurationicon::before{
+      content: "";
+      width: calc(100%);
+      height: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      border-bottom: 1px dashed #000;
+      z-index: 0;
+  }
+  .image_hotel{
+      height: 35px;
+      width: 50px;
+      margin-right: 15px;
+  }
+}
+
+.daterangeIcon{
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  cursor: pointer;
+}
+.pointer{
+  cursor: pointer;
+  color: blue;
+}
+
+::ng-deep{
+  .mat-form-field-wrapper{
+    padding-bottom: 0;
+  }
+}

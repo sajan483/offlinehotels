@@ -1,0 +1,22 @@
+<div class="transport-sort-div">
+    <div class="sort-div">
+        <div class="my-auto">
+            <h2>{{countList}} {{'Transport Options found' | translate}}</h2>
+        </div>
+        <div>
+          <div class="sorting-button" [matMenuTriggerFor]="sortedMenu" fxLayout="row" fxLayoutAlign="start center">
+            <div class="fw400">{{'Sort By' | translate}} :</div>
+            <div style="width: 5px;"></div>
+            <div>{{sortText | translate}}</div>
+            <div style="width: 5px;"></div>
+            <span class="ak-right down_icon fs12"></span>
+          </div>
+          <mat-menu #sortedMenu="matMenu" [hasBackdrop]="true">
+            <button mat-menu-item (click)="setDortList(1,'Lower price first')">{{'Lower price first' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(2,'Higher price first')">{{'Higher price first' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(3,'My favorites first')">{{'My favorites first' | translate}}</button>
+            <button mat-menu-item (click)="setDortList(4,'Company name')">{{'Company name' | translate}}</button>
+          </mat-menu>
+        </div>
+    </div>
+</div>

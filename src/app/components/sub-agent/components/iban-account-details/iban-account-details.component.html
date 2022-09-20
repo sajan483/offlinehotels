@@ -1,0 +1,75 @@
+<div>
+    <div class="topbar">
+        <div class="d-flex justify-content-center">
+            <img class="logoimg" src="/assets/images/ibanlogo.png" alt="">
+            <h2 class="text-uppercase my-auto">{{'bank account details' | translate}}</h2>
+        </div>
+    </div>
+    <div class="container mt20">
+        <div class="accountDetails">
+            <h2 class="text-capitalize">{{'account number' | translate}} : {{accDetails?.AccountNumber}}</h2>
+            <h3 class="text-capitalize">{{'account balance' | translate}} : {{accDetails?.AvailableBalance}}</h3>
+        </div>
+        <div class="pt-3 mb-5">
+            <div class="historydetails">
+                <h5 class="text-center">{{'History' | translate}}</h5>
+                <div class="d-flex justify-content-center datepicker">
+                    <ejs-daterangepicker class="ejsdatepicker" placeholder="enter the date intervell" [minDays]=6 id="historydate" (change)="setSearchDate()" [startDate]='startDate' [endDate]='endDate' [max]="today"></ejs-daterangepicker>
+                </div>
+                <div class="bg-white mt-2" id="historyAcoount">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{'Date' | translate}}</th>
+                                <th scope="col">{{'Akbar Transaction Id' | translate}}</th>
+                                <th scope="col">{{'Amount' | translate}}</th>
+                                <th scope="col">{{'BRN Number' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="shimmer">
+                            <tr *ngFor="let k of [].constructor(10);let i = index;">
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!shimmer && accountHistory[0].TransactionDate != null">
+                            <tr *ngFor="let data of accountHistory">
+                                <td>
+                                    <div>{{data?.TransactionDate | date:'mediumDate'}}</div>
+                                    <div class="clr52 fs12">{{data?.TransactionDate | date:'shortTime'}}</div>
+                                </td>
+                                <td>{{data?.reference_no}}</td>
+                                <td>
+                                    <span *ngIf="data.TransactionType=='CR'" class="green_text">+ {{data?.TransactionAmount | number:'.2-2'}}</span>
+                                    <span *ngIf="data.TransactionType=='DR'" class="red_text">- {{data?.TransactionAmount | number:'.2-2'}}</span>
+                                </td>
+                                <td>{{data?.Comment}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!shimmer && accountHistory[0].TransactionDate == null">
+                            <tr>
+                                <td colspan="4">
+                                    <h3 class="text-center">{{'No Transaction Found' | translate}}</h3>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

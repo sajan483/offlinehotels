@@ -1,0 +1,18 @@
+<div class="fare-summary">
+  <div class="left">
+    <span class="ak-travelers"></span>
+    <div>
+    <div class="title">{{'Total travelers'|translate}}</div>
+    <div class="fs15 fw500">{{totalPassengers}}</div>
+  </div>
+   
+  </div>
+  <div class="right">
+     <span class="ak-total"></span>
+    <div class="pr">
+      <div class="title">{{'Total Fare'|translate}}</div>
+      <div class="sar">{{currency}} {{totalFare | ConvertCurrency : currency}}</div>
+      <div class="apr">{{'Approx'|translate}}  <span>( Terms and condition )</span></div>
+    </div>
+  </div>
+</div>

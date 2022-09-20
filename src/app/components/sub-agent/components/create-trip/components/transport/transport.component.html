@@ -1,0 +1,354 @@
+<div class="w-100 pb80">
+
+    <div class="col-md-12 px-0 row mx-0 filter-bordr" *ngIf="transportList.length > 0">
+        <div class="col-md-1 text-center py-1">
+            <i class="fa fa-filter" aria-hidden="true"></i>
+            <p class="filterText">{{'FILTERS' | translate}}</p>
+        </div>
+        <div class="col-md-3 px-0 my-auto py-1">
+            <input class="haram_filter search_hotel_filter form-control" style="height: auto;" type="text" name="search" [(ngModel)]="userFilter.company_name" autocomplete="off" placeholder="{{ 'Search by Company name' | translate }}">
+        </div>
+        <div class="col-md-2 my-auto px-0 d-flex justify-content-center py-1">
+            <div class="d-flex cursor-pointer" (click)="priceTransportFilter()">
+                <div>{{'price' | translate}}</div>
+                <div class="px-1 blueText">
+                    <i class="fa fa-arrow-down normal-animation fs11" aria-hidden="true" id="priceFilterIcon" [class.rotate-animation]="isTransportSortedByPrice"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 my-auto px-0 d-flex justify-content-center py-1">
+          <div class="d-flex cursor-pointer" (click)="favTransportFilter()">
+              <div>{{'Favorite' | translate}}</div>
+              <div class="px-1 blueText">
+                  <i class="fa fa-arrow-down normal-animation fs11" aria-hidden="true" id="priceFilterIcon" [class.rotate-animation]="isTransportSortedByFav"></i>
+              </div>
+          </div>
+      </div>
+        <div class="col-md-3 my-auto px-0 d-flex justify-content-center position_relative py-1">
+            <div class="d-flex cursor-pointer" (click)="showMoreFilter()">
+                <div class="list_clr">{{'More Filter' | translate}}</div>
+            </div>
+        </div>
+        <div class="col-md-1 px-0 text-center bg-white my-auto cursor_pointer py-1" (click)="resetFilter();">
+            <div><img class="resetImg" src="/assets/images/reset-filter.png" alt=""></div>
+            <div>{{'RESET ALL' | translate}}</div>
+        </div>
+    </div>
+
+    <div *ngIf="transportList.length == 0 && filaterAdd" class="text-center pt-3">
+        <div class="fw500 fs18 text-capitalize">{{'No Transportation Found' | translate}}</div>
+        <div class="clr52 fs14">{{'It`s seems there is not record found on your searching criteria' | translate}}</div>
+        <div class="searchbutton" (click)="resetFilter()">{{'Reset Filter' | translate}}</div>
+    </div>
+    <div class="transportcard" *ngFor="let vehicle of transportList | filterBy:userFilter; let i = index">
+            <div class="border_box_shadow bg-white">
+                <div class="row m-0">
+                    <div class="col-md-3 p-0">
+                        <div class="transportimage">
+                            <img src="{{vehicle.categories[0].images[0].webp_url}}"  *ngIf=" vehicle?.categories[0]?.images?.length > 0 && vehicle?.categories[0]?.images[0]?.webp_url" (click)="showImagePopup(vehicle)" class="cursor_pointer">
+                            <img src="{{vehicle.categories[0].images[0].image_url}}"  *ngIf=" vehicle?.categories[0]?.images?.length > 0 && vehicle?.categories[0]?.images[0]?.webp_url == 'null'" (click)="showImagePopup(vehicle)" class="cursor_pointer">
+                            <img src="/assets/images/nmg.png" style="border:1px solid #f3dada;" *ngIf="vehicle?.vehicle_type_code == '3' && vehicle?.categories[0]?.images.length  == 0 ">
+                        </div>
+                        <div class="col-md-12 row p-0 m-0 d-flex">
+                            <div class="col-md-4 transportimage2 pad" *ngFor="let y of [].constructor(3);let i = index;">
+                                <img src="{{vehicle.categories[0].images[i].webp_url}}"  *ngIf=" vehicle?.categories[0]?.images?.length > 0 && vehicle?.categories[0]?.images[i]?.webp_url" (click)="showImagePopup(vehicle)" class="cursor_pointer">
+                                <img src="{{vehicle.categories[0].images[i].image_url}}"  *ngIf=" vehicle?.categories[0]?.images?.length > 0 && vehicle?.categories[0]?.images[i]?.webp_url == 'null'" (click)="showImagePopup(vehicle)" class="cursor_pointer">
+                                <img style="border:1px solid #f3dada;" *ngIf="!vehicle?.categories[0]?.images[i]?.image_url" src="/assets/images/nmg.png" class="imgft">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 pdngdetailbox">
+                        <div class="fs18 fw600 text-capitalize">{{vehicle?.company_name}}</div>
+                        <div *ngIf="!vehicle?.fromCache " class="mt10 Premium_blue fs15 fw600  mml0 mmr10"><span style="color: #c28f1c;">{{vehicle?.categories[0]?.category_name}}</span> {{vehicle?.vehicle_type_name | translate}}<span *ngIf="noOfVehicle > 1"> x {{noOfVehicle}} ({{(paxCount / noOfVehicle) | number:'1.0-0'}} {{'Pax' | translate}} / vehicle)</span></div>
+                        <div *ngIf="vehicle?.fromCache">
+                            <div class="lines shine m-1 wdth100" style="width: 110px;"></div>
+                        </div>
+                        <div class="row ml-0 mr-0 fs14 clr52 fw400 p-0">
+                            <div class="col-md-6 p-0 mt10">
+                                <div class="">{{'Seating Capacity' | translate}}: {{vehicle?.categories[0]?.capacity}}
+                                </div>
+                                <div class="mt10">{{'Selected Vehicle' | translate}}: {{noOfVehicle}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-0 mt10">
+                                <div class="">{{'Total Travelers' | translate}}: {{paxCount}}</div>
+                                <div class="mt10">{{'Available Vehicle' | translate}}: {{vehicle?.categories[0]?.available_quantity}}
+                                </div>
+                                <div class="mt10">{{'Model' | translate}}: {{vehicle?.categories[0]?.model}}</div>
+                            </div>
+                        </div>
+                        <div class="mt-2 fs14" *ngIf="vehicle.categories[0].additional_services.length > 0">
+                            <div class="fw600 textunderline">{{'Additional Services' | translate}}</div>
+                            <div *ngFor="let item of vehicle.categories[0].additional_services" class="mt-1 clr52">
+                                <mat-checkbox (change)="getCheckboxValues($event,vehicle,i)">{{item?.description}} - <span *ngFor="let price of item.fare_summary"><strong *ngIf="price?.is_total">{{currency}} {{currencyConversion(price?.amount)}}</strong></span>
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 bookdiv mpr0 mpl30">
+                        <div class="text-center">
+                            <div *ngIf="vehicle?.fromCache">
+                                <div class="lines shine m-1 wdth100" style="width: 110px;"></div>
+                            </div>
+                            <div *ngIf="!vehicle.fromCache" class="d-flex align-items-center fs21 fw600">
+
+                              <div class="customTooltip fs21 fw600">
+                                {{currency}} {{currencyConversion(vehicle?.display_price)}}
+                                <span class="customtooltiptext mirr_Fare_splitup transportFare">
+                                  <div class="container mb-2 fs12">
+                                    <div class="pt-2 fare_summary_heading">{{'Fare Summary' | translate}}</div>
+                                    <div *ngIf="vehicle.categories[0].display_fare_summary.base_amount > 0">
+                                      <div class="d-flex justify-content-between fw400 pt-1">
+                                        <div>{{'Base Fare' | translate}} :</div>
+                                        <div>{{currency}} {{currencyConversion(vehicle.categories[0].display_fare_summary.base_amount)}}</div>
+                                      </div>
+                                    </div>
+                                    <div *ngIf="vehicle.categories[0].display_fare_summary.tax_amount > 0">
+                                      <div class="d-flex justify-content-between fw400 pt-1">
+                                        <div>{{'Tax' | translate}} :</div>
+                                        <div>{{currency}} {{currencyConversion(vehicle.categories[0].display_fare_summary.tax_amount)}}</div>
+                                      </div>
+                                    </div>
+                                    <div *ngIf="vehicle.categories[0].display_fare_summary.additional_service_amount > 0">
+                                      <div class="d-flex justify-content-between fw400 pt-1">
+                                        <div>{{'Additional Servie' | translate}} :</div>
+                                        <div>{{currency}}
+                                          {{currencyConversion(vehicle.categories[0].display_fare_summary.additional_service_amount)}}</div>
+                                      </div>
+                                    </div>
+                                    <div *ngIf="vehicle.categories[0].display_fare_summary.commission_discount > 0">
+                                      <div class="d-flex justify-content-between fw400 pt-1">
+                                        <div>{{'Discount' | translate}} :</div>
+                                        <div>{{currency}} {{currencyConversion(vehicle.categories[0].display_fare_summary.commission_discount)}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div *ngIf="vehicle.categories[0].display_fare_summary.total_amount > 0">
+                                      <div class="d-flex justify-content-between fw400 pt-1">
+                                        <div>{{'Total Fare' | translate}} :</div>
+                                        <div>{{currency}} {{currencyConversion(vehicle?.display_price)}}</div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </span>
+                              </div>
+                              <div class="text-right ml-2">
+                                <div class=" boxshine heart_shimmer shine" *ngIf="favLoader.company_code==vehicle.company_code && favLoader.vehicle_code==vehicle.vehicle_type_code && favLoader.category_code==vehicle.categories[0].category_code"></div>
+                                <i class="icns icn_fav_border icon_size_40" *ngIf="!(favLoader.company_code==vehicle.company_code && favLoader.vehicle_code==vehicle.vehicle_type_code && favLoader.category_code==vehicle.categories[0].category_code)"
+                                  [class.icn_fav_border]="!vehicle.categories[0].is_favorited"
+                                  [class.icn_fav_filled]="vehicle.categories[0].is_favorited" (click)="toggleFavourite(vehicle)"></i>
+                              </div>
+                            </div>
+                            <div class="fs13 fw400 clr52">({{'Per Vehicle' | translate}})</div>
+                            <div *ngIf="vehicle?.fromCache">
+                                <div class="lines shine m-1 wdth100" style="width: 110px;"></div>
+                            </div>
+                            <div *ngIf="!vehicle?.fromCache">
+                                <div><button class="searchbutton mr-0" [disabled]="vehicle.categories[0].out_of_stock" (click)="bookTransport(vehicle.company_code,vehicle)">{{'Select' |
+                                    translate}}</button></div>
+                                <p class="red_text fs13 fw500" *ngIf="vehicle.categories[0].out_of_stock">{{'Out Of Stock' | translate}}
+                                </p>
+                            </div>
+                            
+                            <!-- <div class="mt-2">
+                                <div class="textunderline list_clr cursor-pointer" data-toggle="modal" data-target="#policypopup">{{'Cancellation policy' | translate}}</div>
+                            </div> -->
+
+                        <div class="modal fade" id="policypopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">{{'Policies' | translate}}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body text_left mirr_text_right">
+                                        <div *ngIf="vehicle?.cancellation_policy">
+                                            <h6 class="textunderline">{{'Cancellation Policy' | translate}}</h6>
+                                            <div class="green_text" *ngIf="vehicle?.cancellation_policy?.is_refundable">{{'Refundable' | translate}}</div>
+                                            <div class="red_text" *ngIf="!vehicle?.cancellation_policy?.is_refundable">{{'non_refundable' | translate}}</div>
+                                            <div class="mt-2 borderbox" *ngIf="vehicle?.cancellation_policy?.is_refundable">
+                                                <div class="d-flex justify-content-between p10 brdr_btm_d3 fs15" *ngFor="let rule of vehicle.cancellation_policy.rules">
+                                                    <div class="d-inline-flex">
+                                                        <div class="my-auto pr10 mpr0 mpl10"><i class="calendaricon icns icon_size_20"></i></div>
+                                                        <div>
+                                                            <div><strong>{{'From' | translate}} : </strong> {{rule?.from_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                            <div><strong>{{'Till' | translate}} : </strong> {{rule?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                                            <div class="fs13 clr52 fw400" *ngIf="!rule?.is_noshow">( NOTE: Not applicable in No-Show )</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="fw600">
+                                                        <div class="text-capitalize">{{'Cancellation Charge' | translate}}</div>
+                                                        <div *ngIf="rule.charge.chargeType == 'percentage'"> {{currencyConversion(rule?.charge?.chargeValue)}} %</div>
+                                                        <div *ngIf="rule.charge.chargeType != 'percentage'">{{currency}} {{currencyConversion(rule?.charge?.chargeAmount)}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 clr52 fs13" *ngIf="vehicle?.cancellation_policy?.description">
+                                                <div class="fw600">{{'Description' | translate}}:</div>
+                                                <p>{{vehicle?.cancellation_policy?.description}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="" *ngIf="vehicle?.policies.length > 0">
+                                            <div class="mt-3" *ngFor="let policy of vehicle?.policies">
+                                                <h6 class="textunderline">{{policy?.name}}</h6>
+                                                <div>{{policy?.description}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="showTrasportPics">
+            <app-hotel-image-popup [imagecollection]="transportPics"></app-hotel-image-popup>
+        </div>
+       <div class="filter_div" [class.closePopupSlide]="moreFilterArrow" *ngIf="moreFilter">
+            <div class="d-flex justify-content-between pb-2 brdr_btm_d3">
+                <div class="fs14 fw500">{{'More Filter' | translate}}</div>
+                <div class="cursor_pointer close-bttn" (click)="closeMoreFilter()">X</div>
+            </div>
+            <div class="maxheightfilter">
+                <div class="p-2 brdr_btm_d3">
+                    <div class="pb-2 textunderline">{{'Category' | translate}}</div>
+                    <div class="d-flex justify-content-center position_relative pb-3">
+                        <div class="package-card ml-0" [class.active-package-card] = categoryActive[0].active>
+                            <div class="header-data-Normal header-data fs14">
+                                {{'Normal' | translate}}
+                            </div>
+                            <div>
+                                <table class="table table-borderless fs12 table_td">
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-check-circle"></i></td>
+                                        <td>{{'Round Trip' | translate}}</td>
+                                        <td class="green_text">{{'Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="red_text"><i class="fa fa-times-circle"></i></td>
+                                        <td>{{'Mazarat' | translate}}</td>
+                                        <td class="red_text">{{'Not Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="red_text"><i class="fa fa-times-circle"></i></td>
+                                        <td>{{'Meal' | translate}}</td>
+                                        <td class="red_text">{{'Not Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-car" aria-hidden="true"></i></td>
+                                        <td>{{'Vehicle Types Count' | translate}}</td>
+                                        <td class="green_text">{{normalCount}} {{'Vehicle Types' | translate}}</td>
+                                    </tr>
+                                </table>
+                                <div class="d-flex justify-content-center">
+                                    <button class="searchbutton ml-0 mr-0 mb-2 p-2" (click)="searchTravelType('Normal',0)">{{'Select' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="package-card" [class.active-package-card] = categoryActive[1].active>
+                            <div class="header-data-Premium header-data">
+                                {{'Premium' | translate}}
+                            </div>
+                            <div>
+                                <table class="table table-borderless fs12 table_td">
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-check-circle"></i></td>
+                                        <td>{{'Round Trip' | translate}}</td>
+                                        <td class="green_text">{{'Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-check-circle"></i></td>
+                                        <td>{{'Mazarat' | translate}}</td>
+                                        <td class="green_text">{{'Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="red_text"><i class="fa fa-times-circle"></i></td>
+                                        <td>{{'Meal' | translate}}</td>
+                                        <td class="red_text">{{'Not Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-car" aria-hidden="true"></i></td>
+                                        <td>{{'Vehicle Types Count' | translate}}</td>
+                                        <td class="green_text">{{premiumCount}} {{'Vehicle Types' | translate}}</td>
+                                    </tr>
+                                </table>
+                                <div class="d-flex justify-content-center">
+                                    <button class="searchbutton ml-0 mr-0 mb-2 p-2" (click)="searchTravelType('Premium',1)">{{'Select' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="package-card" [class.active-package-card] = categoryActive[2].active>
+                            <div class="header-data-vip header-data">
+                                {{'VIP' | translate}}
+                            </div>
+                            <div>
+                                <table class="table table-borderless fs12 table_td">
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-check-circle"></i></td>
+                                        <td>{{'Round Trip' | translate}}</td>
+                                        <td class="green_text">{{'Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-check-circle"></i></td>
+                                        <td>{{'Mazarat' | translate}}</td>
+                                        <td class="green_text">{{'Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-check-circle"></i></td>
+                                        <td>{{'Meal' | translate}}</td>
+                                        <td class="green_text">{{'Included' | translate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="green_text"><i class="fa fa-car" aria-hidden="true"></i></td>
+                                        <td>{{'Vehicle Types Count' | translate}}</td>
+                                        <td class="green_text">{{vipCount}} {{'Vehicle Types' | translate}}</td>
+                                    </tr>
+                                </table>
+                                <div class="d-flex justify-content-center">
+                                    <button class="searchbutton ml-0 mr-0 mb-2 p-2" (click)="searchTravelType('VIP',2)">{{'Select' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-2 brdr_btm_d3">
+                    <div class="pb-2 textunderline">{{'Vehicle Type' | translate}}</div>
+                        <mat-radio-group   [(ngModel)]="vehicleFilter" [ngModelOptions]="{standalone: true}">
+                            <div class="row m-0">
+                                <div class="col-md-3 p-0" *ngFor="let vehicle of filtervehicle">
+                                    <mat-radio-button   [value]="vehicle?.item_id">{{vehicle?.item_text}}  ({{vehicle?.count}}) </mat-radio-button>
+                                </div>
+                            </div>
+                        </mat-radio-group>
+                </div>
+                <div class="p-2 brdr_btm_d3">
+                    <div class="pb-2 textunderline">{{'Vehicle Model' | translate}}</div>
+                    <div class="row m-0">
+                        <div *ngFor="let model of modelList; let i =index" class="col-md-3 p-0">
+                            <mat-checkbox (change)="getCheckedValue($event,model,i)" [checked]="model.checked">{{model.model_text}} ({{model.count}})
+                            </mat-checkbox >
+                        </div>
+                    </div>
+
+                </div>
+                <div class="p-2 brdr_btm_d3" *ngIf="AdditionalList.length > 0">
+                    <div class="pb-2 textunderline">{{'Additional Service' | translate}}</div>
+                    <div class="row m-0">
+                        <div *ngFor="let service of AdditionalList; let j = index" class="col-md-4 p-0">
+                            <mat-checkbox (change)="getserviceValue($event,service,j)" [checked]="service.checked" >{{service.serv_text}} ({{service.count}})
+                            </mat-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p15 d-flex justify-content-end">
+                <div class="fs14 textunderline list_clr my-auto px-2 cursor_pointer" (click)="resetFilter()">Reset Filter</div>
+                <button class="searchbutton" (click)="filterTransport()">Apply Filter</button>
+          </div>
+       </div>
+

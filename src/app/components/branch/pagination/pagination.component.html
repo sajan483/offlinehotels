@@ -1,0 +1,6 @@
+<nav aria-label="page navigation example">
+    <ul class="pagination">
+      <li *ngFor="let page of buttons" class="page-item {{page==currentPage?'active':''}}"  (click)="onPageClicked(page)"><a class="page-link" href="javascript:void(0);">{{page}}</a>
+      </li>
+  </ul>
+</nav>

@@ -1,0 +1,27 @@
+<div class="min_page_h booking-rqst-div">
+    <div>
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="{{'Pending List' | translate}}">
+                <div class="container">
+                    <div class="req-info-div" id="bookingRequestsDiv">
+                        <h2 class="main-req-text">{{'Requests Received From External Agents' | translate}}</h2>
+                        <div>{{'Your external agent booking request will show below. Please tell external agent to put your mobile number' | translate}} <span>( {{phoneNumber}} )</span> {{' while sending booking request to you.' | translate}} 
+                            <span class="ak-information clr_sec_dark fs14 cursor_pointer" [matMenuTriggerFor]="bookingExample"></span>
+                        </div>
+                        <mat-menu #bookingExample="matMenu" [hasBackdrop]="true" xPosition="before">
+                            <div class="req-eq-image">
+                                <img src="/assets/images/booking-screen-shot.png" alt="">
+                            </div>
+                        </mat-menu>
+                    </div>
+                    <app-recieved-booking-request [currency]="selectCurrency" [lang]="selectLangCode"></app-recieved-booking-request>
+                </div>
+            </mat-tab>
+            <mat-tab label="{{'Requests Send To UO' | translate}}">
+                <div class="container">
+                    <app-send-booking-request [currency]="selectCurrency"></app-send-booking-request>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

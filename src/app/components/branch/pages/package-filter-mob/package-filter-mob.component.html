@@ -1,0 +1,77 @@
+<div class="sort-filter-wrapper"  *ngIf="shimmer">
+  <header fxLayout="row" fxLayoutAlign="start center">
+    <div class="head" fxLayout="row" fxLayoutAlign="start center">
+      <span class="ak-close1 icon"  (click)="closeFilterPopup()"></span>
+      <h2 class="filter-head"> {{'Filters' }} </h2>
+    </div>
+  </header>
+    <div class="container filter">
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>{{'Package Name' }}</h3>
+      </div>
+      <div class=" m-b-20 with-closebtn" *ngIf="showFilterPackageName" [@expand]>
+        <input #input type="text" class="form-control hotel-name" name="packageSearch"
+          placeholder="{{'Search by package name' }}" autocomplete="off" [(ngModel)]="packageName"
+          (input)="nameFilter($event)" style="width: 75%;">
+      </div>
+      <div class="hr"></div>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>{{'Price Range' }}</h3>
+       
+      </div>
+      <ul class="checkouter" >
+        <li fxLayout="column">
+          <mat-checkbox *ngFor="let prRange of filterSetData.priceRange;index as i" class="check" [checked]="filterSetData?.priceRange[i]?.checked"
+            (change)="priceRange($event,i)">{{i==0?'Upto':(filterSetData?.priceRange[1]?.from  | number: '1.0-0')}} {{currency}} {{i==priceRange.length-1?'& More':filterSetData?.priceRange[i]?.to | number: '1.0-0'}}</mat-checkbox>
+         </li>
+      </ul>
+      <div class="hr"></div>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>{{'Types' }}</h3>
+       
+      </div>
+      <ul class="checkouter">
+        <li *ngFor="let item of filterSetData?.types;let i = index">
+          <mat-checkbox class="check" [checked]="item.checked" (change)="filterTypes($event,i,item?.name)">
+            <span class="ellipsistext-fullwidth" title="">{{item?.name}}</span>
+          </mat-checkbox>
+        </li>
+  
+      </ul>
+      <div class="hr"></div>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>{{'Categories' }}</h3>
+       
+      </div>
+      <ul class="checkouter">
+        <li *ngFor="let item of filterSetData?.categories;let i = index">
+          <mat-checkbox class="check" [checked]="item.checked" (change)="filterCategories($event,i,item?.name)">
+            <span class="ellipsistext-fullwidth" title="">{{item?.name}}</span>
+          </mat-checkbox>
+        </li>
+  
+      </ul>
+      <div class="hr"></div>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h3>{{'Locations' }}</h3>
+       
+      </div>
+      <ul class="checkouter">
+        <li *ngFor="let item of filterSetData?.locations;let i = index">
+          <mat-checkbox class="check" [checked]="item.checked" (change)="filterLocations($event,i,item?.name)">
+            <span class="ellipsistext-fullwidth" title="">{{item?.name}}</span>
+          </mat-checkbox>
+        </li>
+  
+      </ul>
+      
+      
+    </div>
+  
+  <footer fxLayout="row" fxLayoutAlign="end center">
+    <button class="btn-reset cancel mr-2"  (click)="resetFilter()"  mat-flat-button>{{'Cancel' }}</button>
+
+    <button class="btn" color="primary" (click)="applayFilter()" mat-flat-button>{{'Apply' }}</button>
+  </footer>
+</div>
+<!-- Path: src/app/components/b2c-trip/stepper-components/hotel/hotel-filter-mob/hotel-filter-mob.component.scss -->

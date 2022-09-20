@@ -1,0 +1,15 @@
+<div class="passport-upload-div " *ngIf="shimmer">
+    <app-visa-header [referencrNo]="referencrNo"></app-visa-header>
+    <div class="card mt-2 container" >
+        <div *ngFor="let k of [].constructor(20);" class="w-100">
+            <div class="shine w-100 h25"></div>
+        </div>
+    </div>
+    
+</div>
+<div class="passport-upload-div mb60" *ngIf="!shimmer">
+    <app-visa-header [referencrNo]="referencrNo"></app-visa-header>
+    <div class="container">
+        <app-visa-details [paxCount]="paxCount" [bookingId]="bookingId" [travellerArray]="travellerArray"></app-visa-details>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<div class="received-req-div">
+  <div class="search-div common_card" *ngIf="isSearchData">
+    <div class="search-head">{{'Search Booking Requests' | translate}}</div>
+    <div class="row">
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'Service Type' | translate}}</div>
+        <mat-select class="form-control" [(value)]="productType" >
+          <mat-option value="" disabled>{{'Select Service' | translate}}</mat-option>
+          <mat-option value="1">{{'Makkah' | translate}}</mat-option>
+          <mat-option value="2">{{'Madeena' | translate}}</mat-option>
+          <mat-option value="3">{{'Transport' | translate}}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'External Agent' | translate}}</div>
+        <mat-select class="form-control" [(value)]="company">
+          <mat-option value="" disabled>{{'Select Company' | translate}}</mat-option>
+          <mat-option *ngFor="let item of companies" [value]="item">{{item}}</mat-option>
+        </mat-select>
+      </div>
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'Travel Date' | translate}}</div>
+        <div [owlDateTimeTrigger]="dt1" class="position-relative">
+          <input  placeholder="{{'Travel Date' | translate}}"
+            class="form-control" [(ngModel)]="travelDate"
+           [owlDateTime]="dt1" [selectMode]="'range'" >
+           <span class="ak-calendar calendarposition"></span>
+        </div>
+        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+      </div>
+
+      <div class="col-md-3 col-12 mb10">
+        <div class="clr52">{{'Request Date' | translate}}</div>
+        <div [owlDateTimeTrigger]="dt2" class="position-relative">
+          <input  placeholder="{{'Request Date' | translate}}"
+            class="form-control" [(ngModel)]="rquestDate"
+           [owlDateTime]="dt2" [selectMode]="'range'" >
+           <span class="ak-calendar calendarposition"></span>
+        </div>
+        <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+      </div>
+
+      <div class="col-md-12 col-12 mb10 mt-auto">
+        <div class="w-100 " fxLayout="row" fxLayoutAlign="end center" >
+          <button class="secondary_bttn" (click)="reservationReset()"><i class="fa fa-refresh"></i> {{'Reset' | translate}}</button>
+          <div style="width: 10px;"></div>
+          <button class="search_bttn" (click)="filterReservation()">{{'Search' | translate}}</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    
+    <div *ngIf="!shimmer && shareLinkDatas.length > 0" id="requestBList">
+      <div class="search-head" *ngIf="isSearchData">{{'List of Requests' | translate}}</div>
+      <div class="">
+        <div *ngFor="let k of shareLinkDatas;let i = index;" class="common_card mb20">
+          <div class="fs14 mb-2">{{'External Agent'}} : <strong class="fs16 text_cap">{{k?.shared_from_agency_name}}</strong></div>
+          <div class="row">
+            <div class="col-md-5" >
+              <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
+                <div><strong>{{k?.service[0]?.name}}</strong></div>
+                <div class="text_cap">{{k?.service[0]?.service}}</div>
+                <div class="mob_margin"><span class="clr52">{{'Travel Date' | translate}} :</span><span *ngIf="k?.tags[0]?.start_date">{{k?.tags[0]?.start_date | date:'mediumDate'}}</span></div>
+              </div>
+            </div>
+            <div class="col-md-5 center-div">
+                <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="5px">
+                  <div><span class="clr52">{{'Request Date' | translate}} : </span> <strong>{{k?.tags[0]?.request_date | date:'mediumDate'}}</strong></div>
+                  <div><span class="clr52">{{'Occupancy' | translate}} : {{k?.service[0]?.occupancy}} ({{k?.service[0]?.type}})</span></div>
+                  <div><span class="clr52">{{'Pax Count' | translate}} : {{k?.tags[0]?.total_travelers}} </span></div>
+                  <div><span class="clr52">{{'Trip Id' | translate}} : {{k?.trip}} </span></div>
+                </div>
+            </div>
+            <div class="col-md-2 text_end">
+              <div class="mb-1"><strong>{{currency}} {{k?.service[0]?.price | ConvertCurrency : currency}}</strong></div>
+              <button class="search_bttn" (click)="bookingView(k)">{{'Book' | translate}}</button>
+            </div>
+          </div>
+       </div>
+      </div>
+     </div>
+
+    <div *ngIf="shimmer">
+      <div class="common_card" *ngFor="let k of [].constructor(5);let i = index;">
+        <div class="inner-card">
+          <div class="row w-100">
+            <div class="col-md-12"><div class="shine h20 w-50 mb-2"></div></div>
+            <div class="col-md-5">
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+            </div>
+            <div class="col-md-5">
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+              <div class="shine h20 w-100 mb-2"></div>
+            </div>
+            <div class="col-md-2">
+              <div class="shine h20 w-100"></div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="common_card mb-3 p-3 mt-2" *ngIf="!shimmer && shareLinkDatas.length == 0">
+      <div *ngFor="let k of [].constructor(1);let i = index;">
+        <div colspan="6" class="text-center">Sorry, No record(s) found</div>
+      </div>
+    </div>
+    
+</div>

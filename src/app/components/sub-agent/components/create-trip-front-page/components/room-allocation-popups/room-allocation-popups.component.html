@@ -1,0 +1,73 @@
+<div class="d-flex justify-content-between cursor-pointer p-2 mrBtm bordr_room" #travellerIconClass (click)="showRoomAllocation()">
+    <div class="mirr_text_right">
+        <div class="fs13 clr52 text-uppercase">{{'Travellers'| translate}}</div>
+        <div class="fs14 ">
+            <span>{{roomCount}} {{'Room'| translate}}</span>
+            <span class="divider"></span>
+            <span>{{selectCountAdult}} {{'Adult'| translate}}</span>
+            <span class="divider" *ngIf="selectCountChild > 0"></span>
+            <span *ngIf="selectCountChild > 0">{{selectCountChild}} {{'Child'| translate}}</span>
+        </div>
+    </div>
+    <i class="icns downarrow icon_h28_w15 my-auto"></i>
+</div>
+<div class="room-allocation-div popupmoving mirr_right_0" id="roomAllocationDiv" #travellerPopupClass *ngIf="displayRoomAllocation">
+    <div class="room-allocation-body">
+        <form [formGroup]="roomTypeForm">
+            <div formArrayName="roomType">
+                <div *ngFor="let room of roomTypesGet().controls; let i = index;">
+                    <div [formGroupName]="i">
+                        <div class="roomtype-head d-flex justify-content-between">
+                            <div><i class="fa fa-bed mpr0 mpl10" aria-hidden="true"></i> {{'Room Type' | translate}} {{i+1}}</div>
+                            <div class="cursor-pointer red_text removeID " (click)="removeRopomType(i)" *ngIf="i != 0"><i class="fa fa-trash " aria-hidden="true"></i></div>
+                        </div>
+                        <div class="row mx-0 w-100 room-pading">
+                            <div class="col-md-4 pl0 pr10 mpl5 mpr0 ">
+                                <div>{{'No Of Rooms' | translate}}</div>
+                                <input type="text" numberOnly [min]=1 formControlName="noOfRoom" class="form-control" (input)="addChild(i)">
+                            </div>
+                            <div class="col-md-4 px-0">
+                                <div>{{'Adult Per Room' | translate}}</div>
+                                <select formControlName="adultPerRoom" class="form-control">
+                                    <option *ngFor="let k of [].constructor(adultPerRoomCount);let j = index;" [value]='j+1'>{{j+1}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 pl10 pr0 mpl0 mpr5" *ngIf="childPerRoomCount > 0">
+                                <div>{{'Child Per Room' | translate}}</div>
+                                <select formControlName="ChildPerRoom" class="form-control" (change)="addChild(i)">
+                                    <option value="0">0</option>
+                                    <option *ngFor="let k of [].constructor(childPerRoomCount);let j = index;" [value]="j+1">{{j+1}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="brdr_top_dashed" formArrayName="roomChild">
+                            <div class="row mx-0 w-100 px5" *ngFor="let roomChilds of room['controls'].roomChild['controls'];let j = index;">
+                                <div class="col-md-12 px-0 row mx-0" [formGroupName]="j">
+                                    <div formArrayName="roomAge" class="col-md-12 px-0 row mx-0">
+                                        <div class="col-md-4 p5" *ngFor="let roomAgeChilds of roomChilds['controls'].roomAge['controls'];let l = index;">
+                                            <div [formGroupName]="l">
+                                                <div class="clr52 fs11">{{'Room' | translate}} {{j+1}} {{'Child' | translate}} {{l+1}}</div>
+                                                <select formControlName="roomAgeChild" class="form-control fs12 pl5" [ngClass]="{ 'is-invalid': submitted && getValidity(i,j,l) }">
+                                                    <option value="" disabled selected>{{'Age (In years)?' | translate}}</option>
+                                                    <option *ngFor="let m of [].constructor(12);let j = index;" [value]="j+1">{{j+1}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <div class="room-pading d-flex justify-content-end">
+                    <div class="mrrtravlrcunt mb-1"><a (click)="addRopomType()" class="anotherroom cursor-pointer">+ {{'Add Another Room Type' | translate}}</a></div>
+                </div>
+            </div>
+            
+        </form>
+        
+        
+    </div>
+</div>

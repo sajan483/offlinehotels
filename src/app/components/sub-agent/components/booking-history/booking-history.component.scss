@@ -1,0 +1,22 @@
+.transaction-history-div{
+  .generate-bttn{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .serach-card{
+    margin-top: 10px;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .transaction-history-div{
+    padding-bottom: 50px;
+    .serach-card{
+      box-shadow: none;
+      padding: 0;
+      border: none;
+      background-color: rgba(255, 255, 255, 0);
+    }
+  }
+}

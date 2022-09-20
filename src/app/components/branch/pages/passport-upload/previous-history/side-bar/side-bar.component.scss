@@ -1,0 +1,130 @@
+@import "../../../../../../../assets/css/variable.scss";
+
+.slide-panel-container {
+  width: $full-width;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex-direction: column;
+  box-sizing: border-box;
+  display: flex;
+  place-content: flex-end flex-start;
+  align-items: flex-end;
+  &::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: $black-clr;
+    z-index: 99;
+    width: $full-width;
+    height: $full-width;
+    animation: opacitychangesliderClosed 0.5s ease 0s 1 normal forwards;
+    -webkit-animation: opacitychangesliderClosed 0.5s ease 0s 1 normal forwards;
+  }
+  .content-section {
+    z-index: 100;
+    @include transition(all 0.1s);
+    background: #fff;
+    width: 900px;
+    position: relative;
+    overflow: hidden;
+    animation: slidepanelClose 0.5s ease-out 0s 1 normal forwards;
+    -webkit-animation: slidepanelClose 0.5s ease-out 0s 1 normal forwards;
+    -moz-animation: slidepanelClose 0.5s ease-out 0s 1 normal forwards;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    transform: translateX(100%);
+    &.mob-menu {
+      width: calc(100vw - 60px);
+    }
+    &.mob-menu-admin {
+      width: 280px;
+    }
+    .height-100 {
+      height: $full-width;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      &.hide-scroll {
+        overflow-y: hidden !important;
+      }
+    }
+  }
+}
+
+.icon {
+  position: absolute;
+  left: 10px;
+  z-index: 100;
+  color: white;
+  top: 23px;
+  font-size: 22px;
+  cursor: pointer;
+}
+@-webkit-keyframes opacitychangesliderClosed {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes opacitychangesliderClosed {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes slidepanelClose {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+    transform: translateX(100%);
+  }
+}
+@-moz-keyframes slidepanelClose {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+    transform: translateX(100%);
+  }
+}
+@keyframes slidepanelClose {
+  0% {
+    visibility: visible;
+    transform: translateX(0);
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    visibility: hidden;
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 900px) {
+  .slide-panel-container {
+    .content-section {
+      width: $full-width;
+    }
+  }
+}

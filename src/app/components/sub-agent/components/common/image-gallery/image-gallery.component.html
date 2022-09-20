@@ -1,0 +1,59 @@
+<div class="gallery-wrapper">
+    <header>
+        <div class="content" fxLayout="row" fxLayoutAlign="start center">
+            <span>{{hotelDetails.name}}</span>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="4px" class="stars-wrapper">
+                <mat-icon class="star-icon" *ngIf="math.floor(hotelDetails.rating)>0">star</mat-icon>
+                <mat-icon class="star-icon" *ngIf="math.floor(hotelDetails.rating)>1">star</mat-icon>
+                <mat-icon class="star-icon" *ngIf="math.floor(hotelDetails.rating)>2">star</mat-icon>
+                <mat-icon class="star-icon" *ngIf="math.floor(hotelDetails.rating)>3">star</mat-icon>
+                <mat-icon class="star-icon" *ngIf="math.floor(hotelDetails.rating)>4">star</mat-icon>
+            </div>
+        </div>
+        <span class="close-icon" (click)="closeGallery()" fxLayout="row" fxLayoutAlign="center center"> 
+            <mat-icon>close</mat-icon>
+        </span>
+    </header>
+
+    <div class="slideshow-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <div class="raw-images-wrapper" #rawImagesWrapper>
+            <button (click)="prevSlide()" [disabled]="rawImageIndex == 0" class="raw-control prev">
+                <span class="ak-left"></span>
+            </button>
+
+            <button (click)="nextSlide()" [disabled]="(rawImageIndex + 1) == rawImages.length" class="raw-control next">
+                <span class="ak-right"></span>
+            </button>
+            <ul #rawImagesUl>
+                <li *ngFor="let rawImage of rawImages" #rawImageLi>
+                    <img class="galleryloader" src="{{rawImage.path}}" alt="loader">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="thumbnail-dom-proxy">
+        <button (click)="prevThumb()" class="thumbnail-control prev"> <span class="ak-left"></span></button>
+        <button (click)="nextThumb()" class="thumbnail-control next"> <span class="ak-right"></span></button>
+        <div class="thumbnail-wrapper" #thumbnailWrapper>
+            <ul #thumbnailUl>
+                <li *ngFor="let rawImage of rawImages; let i = index" #thumbnailLi (click)="thumbnailTapped(i)"
+                    [ngClass]="{active: i==0}">
+                    <img class="img-loaders" src="{{rawImage.path}}" alt="loader">
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="photo-gallery" fxLayout="column" fxLayoutAlign="center center" *ngIf="loading">
+    <div class="container-width">
+        <div class="box1"></div>
+        <div class="box2"></div>
+        <div class="box3"></div>
+    </div>
+    <div class="loadingcontent" fxLayout="column" fxLayoutAlign="center center">
+        <h4>LOADING</h4>
+        <p>Please wait...</p>
+    </div>
+</section>

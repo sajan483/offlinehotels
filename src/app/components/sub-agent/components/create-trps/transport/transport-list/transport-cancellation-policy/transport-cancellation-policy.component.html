@@ -1,0 +1,56 @@
+<div class="policy-popup-div" fxLayoutAlign="center center">
+    <div class="popup-main-div popupAnimation">
+        <div class="popup-content ">
+            <div class="popup-header">
+                <h5 class="title">{{'Policies' | translate}}</h5>
+                <div class="close-icon" (click)="close()"><span class="ak-close1"></span></div>
+            </div>
+            <div class="popup-body">
+                <div *ngIf="policyData?.cancellation_policy">
+                    <div fxLayout="row" fxLayoutAlign="space-between center" >
+                        <div class="hedding-div">{{'Cancellation Policy' | translate}}</div>
+                        <div class="refund-txt" *ngIf="policyData?.cancellation_policy?.is_refundable">{{'Refundable' | translate}}</div>
+                        <div class="non-refund-txt" *ngIf="!policyData?.cancellation_policy?.is_refundable">{{'Non Refundable' | translate}}</div>
+                    </div>
+                    <div class="cancelation-policy-div" *ngIf="policyData?.cancellation_policy?.is_refundable">
+                        <div class="cancellation-main" *ngFor="let rule of policyData.cancellation_policy.rules">
+                            <div class="cancelation-first-div" fxLayout="row" fxLayoutAlign="start center" >
+                                <div>
+                                    <span class="ak-calendar"></span>
+                                </div>
+                                <div style="width: 10px;"></div>
+                                <div>
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <div class="fw600 fs14">{{'From' | translate}}</div>
+                                        <div class="px-1">:</div>
+                                        <div class="fw400 fs12">{{rule?.from_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                        <div class="fw600 fs14">{{'Till' | translate}}</div>
+                                        <div class="px-1">:</div>
+                                        <div class="fw400 fs12">{{rule?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                    </div>
+                                    <div class="fs12" *ngIf="!rule?.is_noshow">( NOTE: Not applicable in No-Show )</div>
+                                </div>
+                            </div>
+                            <div class="mt10" fxLayout="row" fxLayoutAlign="end center">
+                                <div class="fs14">{{'Cancellation Charge' | translate}} : {{currency}} {{(rule?.charge?.chargeAmount)| ConvertCurrency : currency}} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="discription-div" *ngIf="policyData?.cancellation_policy?.description">
+                        <div class="fw600">{{'Description' | translate}}:</div>
+                        <div>{{policyData?.cancellation_policy?.description}}</div>
+                    </div>
+                </div>
+                
+                <div *ngIf="policyData?.policies.length > 0">
+                    <div class="policies-loop" *ngFor="let policy of policyData?.policies">
+                        <div class="hedding-div">{{policy?.name}}</div>
+                        <div>{{policy?.description}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

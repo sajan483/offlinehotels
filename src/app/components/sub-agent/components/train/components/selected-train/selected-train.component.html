@@ -1,0 +1,76 @@
+<div class="makkah-onwards box fs14">
+  <div class="onward-left">
+    <div class="details-left">
+      <div class="departure-details row1">
+        <span class="fa fa-subway icon"></span>
+        <div>
+        <div class="title">{{'Departure'|translate}}</div> 
+        <span>{{train['Departure time']}}</span>
+        <div class="date fs12" *ngIf="isOnward">{{trainSearch.onwardDate|date:'dd MMM yyyy'}}</div>
+        <div class="date fs12" *ngIf="!isOnward">{{trainSearch.returnDate|date:'dd MMM yyyy'}}</div>
+      </div>
+      </div>
+      <div class="arrival-details">
+        <div class="title">{{'Arrival'|translate}}</div>
+        <span>{{train['Arrival time']}}</span>
+        <div class="date fs12" *ngIf="isOnward">{{trainSearch.onwardDate|date:'dd MMM yyyy'}}</div>
+        <div class="date fs12" *ngIf="!isOnward">{{trainSearch.returnDate|date:'dd MMM yyyy'}}</div>
+      </div>
+    </div>
+    <div class="details-right">
+      <div class="duration">
+        <div class="title">{{'Train No'|translate}}</div>
+        <span>{{train['TrainNumber']}} </span> <span class="title">| {{train['Stops']}} </span>
+      </div>
+      
+      <div class="class">
+        <div class="title">{{'Class'|translate}}</div>
+        <span>{{(train.selectedClass=='Economy_Class'?'Economy':'Business')|translate}}</span>
+      </div>
+      <div class="price" *ngIf="showPrice">{{currency}}  {{train.selectedPrice |  ConvertCurrency:currency}} <span class="title"> {{'Approx'|translate}} </span></div>
+    </div>
+   
+  </div>
+  <div class="onward-right"  (click)="editTrain()">
+    <div class="update" *ngIf="showEdit" >
+      <span class="ak-edit icon"></span>
+      <p class="edit">Edit</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="makkah-onwards box fs14 mt-2" *ngIf="!train">
+  <div class="onward-left">
+    <div class="details-left">
+      <div class="departure-details row1">
+        <span class="icons shine"></span>
+        <div class="depart">
+        <div class="value shine"></div> 
+        <div class="time shine"></div>
+        <div class="dates shine"></div>
+      </div>
+      </div>
+      <div class="depart">
+        <div class="value shine"></div> 
+        <div class="time shine"></div>
+        <div class="dates shine"></div>
+      </div>
+    </div>
+    <div class="details-right">
+      <div class="depart">
+        <div class="value shine"></div>
+       <div class="time shine"></div>
+      </div>
+      
+      <div class="depart">
+        <div class="business shine"></div>
+      </div>
+    </div>
+   
+  </div>
+  <div class="onward-right shine">
+    <div class="submit shine"></div>
+  </div>
+</div>

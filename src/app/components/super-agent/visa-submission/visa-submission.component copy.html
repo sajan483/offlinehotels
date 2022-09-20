@@ -1,0 +1,272 @@
+<div class="tbl">
+    <div class="container mb60 mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Create Group</h1>
+            </div>
+            
+        </div>
+        <div class="card mt100">
+            <div class="card-header d-flex">
+                <h1 class="card-title fs18 mb-0">Visa Submissions</h1>
+            </div>
+            <div class="card-body">
+                <form action="" [formGroup]="travellerSearchForm" (submit)="getTravellersForPackage()">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="w-50">
+
+                            <!-- <div class="mb-2 d-flex align-items-center"> -->
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-select formControlName="package" placeholder="Package" #singleSelect>
+                                      <mat-option>
+                                        <ngx-mat-select-search [noEntriesFoundLabel]="'No Packages Found'" [placeholderLabel]="'Package Name'" formControlName="packageSearch"></ngx-mat-select-search>
+                                      </mat-option>
+                                      <mat-option *ngFor="let package of filteredPackages | async" [value]="package.id">
+                                        {{package.title}} - {{package.sub_title}}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                            <!-- </div> -->
+                        </div>
+                        <div class="">
+                            <button class="btn btn-success ml-2 mb-2 pull-left" [disabled]="travellerSearchForm.invalid" type="submit">Get Travellers</button>
+
+                        </div>
+                    </div>
+                </form>
+
+                <div class=" mt-3 mb-3 d-flex justify-content-between align-items-center" *ngIf="travellersLoaded">
+                    <div class=" ">
+                        <app-country-selector [countries]="countries" (onCountrySelect)="onCountrySelected($event)">
+                        </app-country-selector>
+                    </div>
+                    <div class="">
+                        <button type="button" (click)="toggleCreateGroup()" class="btn btn-primary ml-2">Create
+                            Group</button>
+                            <button class="btn btn-info ml-2" [disabled]="travellerSearchForm.invalid" type="submit">Assign To Group</button>
+                    </div>
+                </div>
+
+                <div class="row mt-3"  *ngIf="travellersLoaded">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between">
+
+                            <div class="mb-2 d-flex justify-content-center align-items-center">
+                                <div>
+                                    <input type="text" class="form-control my-auto"
+                                    placeholder="Search UTid">
+                                </div>
+                                   <div class="ml-2">
+                                    <mat-form-field appearance="outline" [owlDateTimeTrigger]="dt2">
+                                        <mat-label >Travel Date</mat-label>
+                                        <input matInput placeholder="Travel Date" [owlDateTime]="dt2" [min]="toDay" required  autocomplete="off">
+                                        <mat-icon matSuffix><span class="ak-calendar"></span> </mat-icon>
+                                    </mat-form-field>
+                                    <owl-date-time [startView]="'multi-years'" [pickerType]="'calendar'" #dt2></owl-date-time>
+                                   </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-success mr-2" >Search</button>
+
+                                <button class="btn btn-secondary"><i class="fa fa-refresh"
+                                        aria-hidden="true"></i> Reset</button>
+                            </div>
+                        </div>
+                        <table class="table" id="b2bBooking">
+                            <thead>
+                                <tr>
+                                    <th scope="col">
+                                        <mat-checkbox [(ngModel)]="allTravellerSelected" 
+                                            (change)="onAllTravellersSelected($event)"></mat-checkbox>&nbsp;&nbsp;UT No.
+                                    </th>
+                                    <th scope="col">Booking Date</th>
+                                    <th scope="col">Travel Date.</th>
+                                    <!-- <th scope="col">Submit Date</th> -->
+                                    <th scope="col">Nationality</th>
+                                    <th scope="col">Group Name<br><span>(Mofa Group ID)</span></th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Mofa Status</th>
+                                    <th scope="col">Payment Status</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="shimmer">
+                                <tr *ngFor="let k of [].constructor(10);">
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <!-- <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td> -->
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+                                    <td>
+                                        <div class="shine w-100 h25"></div>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!shimmer && travellers.length > 0">
+                                <tr *ngFor="let traveller of travellers;index as i">
+                                    <th scope="row">
+                                        <mat-checkbox [(ngModel)]="traveller.checked"
+                                            [disabled]="this.selectedCountry != '' && this.selectedCountry!=traveller.nationality"
+                                            (change)="onTravellerSelected(i,$event)"></mat-checkbox>&nbsp;&nbsp;<a
+                                            class="pointer">{{traveller.ut_no}}</a>
+                                    </th>
+                                    <td>{{traveller.book_date|date:'dd MMM yyyy'}}</td>
+                                    <td>{{traveller.travel_date|date:'dd MMM yyyy'}}</td>
+                                    <!-- <td>{{traveller.submit_date|date:'dd MMM yyyy'}}</td> -->
+                                    <td>{{traveller.nationality}}</td>
+                                    <td>{{traveller.group_name}} ({{traveller.group_id}})</td>
+                                    <td>{{traveller.status}}</td>
+                                    <td>{{traveller.tawaf_status}}</td>
+                                    <td>{{traveller.payment_status}}</td>
+
+                                </tr>
+                                <tr>
+                            </tbody>
+                            <tbody *ngIf="!shimmer && travellers.length == 0">
+                                <tr class="text-center">
+                                    <th colspan="8">
+                                        <img src="/assets/images/noreslt.png" alt="">
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="row" *ngIf="travellersLoaded && totalPages>1">
+                    <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+                        <div class="float-right">
+                            <app-pagination [totalPage]="totalPages" [currentPage]="currentPage">
+                            </app-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" [style.display]="showCreateGroupPopup ? 'block' : 'none'" id="createGroupModal" tabindex="-1"
+    role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="" [formGroup]="groupForm" (submit)="createGroup()" novalidate>
+
+                <div class="modal-header">
+                    <h3 class="modal-title fs18">Create Group</h3>
+                    <button type="button" class="close" (click)="toggleCreateGroup()" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <p><b>Total {{selectedTravellersO.length}} Travellers Selected</b></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group has-feedback">
+                            
+                                <label class="form-label">Group Name</label>
+                                <input formControlName="name" placeholder="Group Name" type="text"
+                                    class="form-control" />
+                                <div *ngIf="gf.name.touched && gf.name.invalid" class="alert alert-danger">
+                                    <div *ngIf="gf.name.errors.required">Group Name is required.</div>
+                                    <div *ngIf="gf.name.errors.cannotContainSpace">Group Name should not contain any
+                                        spaces</div>
+                                    <div *ngIf="gf.name.errors.maxlength">Group Name should not be maximum of 20
+                                        charecters</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 ">
+                            <h6>Selected Bookings</h6>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <ul class="utlist">
+                                    <li *ngFor="let ut_no of selectedUtno">{{ut_no}}</li>
+                                </ul>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="btn btn-secondary" (click)="toggleCreateGroup()" aria-label="Close">Close</span>
+                    <button type="submit" class="btn btn-primary">Create Group</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [style.display]="showLoginPopup ? 'block' : 'none'" id="loginPopupModal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="" [formGroup]="loginForm" (submit)="loginToTawaf()" novalidate>
+
+                <div class="modal-header">
+                    <h3 class="modal-title fs18">Login</h3>
+                    <button type="button" class="close" (click)="toggleLoginPopup()" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="form-group has-feedback">
+                            <div class="col-12">
+                                <label class="form-label">Username</label>
+                                <input formControlName="username" placeholder="Username" type="text"
+                                    class="form-control" />
+                                <div *ngIf="lf.username.touched && lf.username.invalid" style="color: red;">
+                                    <div *ngIf="lf.username.errors.required">Username is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="form-group has-feedback">
+                            <div class="col-12">
+                                <label class="form-label">Password</label>
+                                <input formControlName="password" placeholder="Password" type="text"
+                                    class="form-control" />
+                                <div *ngIf="lf.password.touched && lf.password.invalid" style="color: red;">
+                                    <div *ngIf="lf.password.errors.required">Password is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="btn btn-secondary" (click)="toggleLoginPopup()" aria-label="Close">Close</span>
+                    <button type="submit" [disabled]="lf.valid" class="btn btn-primary">Submit to Tawaf</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

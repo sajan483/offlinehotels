@@ -1,0 +1,106 @@
+<div class="group-leader-info-div">
+    <div class="d-flex justify-content-between">
+        <h3 class="fs16 fw600 Premium_blue">{{'Group Leader Information' | translate}}</h3>
+        <span class="fs12 darkyellow">{{'Please make sure you enter the Name as per your Government photo id.' | translate }}</span>
+    </div>
+    <div class="bg-white p-4 one-edge-shadow">
+        <form [formGroup]="travellersForm">
+            <div class="row">
+                <div class="col-md-2 mb-2">
+                    <span class="mr-1 sadred">*</span><label class="mb-0 fs14 clrlabel">{{'Title' | translate}}</label>
+                    <mat-select class="matSlct pd form-control" placeholder="{{'Select' | translate}}" value="" id="gender" formControlName="title" [ngClass]="{ 'is-invalid': submitted && g.title.errors }">
+                        <mat-option value="MALE">{{'Mr:' | translate}}</mat-option>
+                        <mat-option value="FEMALE">{{'Mrs:' | translate}}</mat-option>
+                        <mat-option value="FEMALE">{{'Ms:' | translate}}</mat-option>
+                    </mat-select>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <span class="mr-1 sadred">*</span><label class="mb-0 fs14 clrlabel">{{'First Name' | translate}}</label>
+                    <input class="form-control pd" formControlName="first_name" id="firstName" placeholder="{{'Enter First Name' | translate}}" [ngClass]="{ 'is-invalid': submitted && g.first_name.errors }" (keypress)="omit_special_char($event)">
+                    <div *ngIf="submitted && g.first_name.errors" class="invalid-feedback fs11">
+                        <div *ngIf="g.first_name.errors.minlength">{{'First Name must be at least 3 characters' | translate}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <span class="mr-1 sadred ">*</span><label class="mb-0 fs14 clrlabel">{{'Last Name' | translate}}</label>
+                        <input class="form-control pd" id="lastName" placeholder="{{'Enter Last Name' | translate}}" formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && g.last_name.errors }" (keypress)="omit_special_char($event)">
+                    <div *ngIf="submitted && g.last_name.errors" class="invalid-feedback fs11">
+                        <div *ngIf="g.last_name.errors.minlength">{{'Last Name must be at least 3 characters' | translate}}</div>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-2">
+                    <span class="mr-1 sadred ">*</span><label class="mb-0 fs14 clrlabel">{{'Nationality' | translate}}</label>
+                    <select class="form-control pd" formControlName="nationality">
+                        <option *ngFor="let n of nationalityList" [value]="n.item_text">{{n?.item_text}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <label class="mb-0 fs14 clrlabel">{{'Group Name / Ref.no:' | translate}}</label>
+                    <input class="form-control pd" id="address" placeholder="{{'Enter tag' | translate}}" formControlName="tag">
+                </div>
+                <div class="col-md-5 mb-2 mt-auto">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" class="custom-control-input" id="allowWhatsappCheck" (change)="allowWhatsapp($event)">
+                      <label class="custom-control-label mirr_hide cursor-pointer" for="allowWhatsappCheck">{{'Share to whatsapp' | translate}}</label>
+                      <label class="custom-control-label mirr_display cursor-pointer" for="allowWhatsappCheck"></label>
+                    </div>
+                    <div class="px-1 mirr_display">{{'Share to whatsapp' | translate}}</div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-2 d-flex justify-content-end" (click)="toggleDetails()">
+                    <div class="d-flex mt-auto cursor-pointer">
+                        <p class="mt-auto mb-2 font-weight-bold clr pr-2">MORE</p>
+                        <i class="downarrow icns icon_h15_w15 arrowanimation" id="rotateIcon"></i>
+                    </div>
+                </div>
+                <div class="col-md-12 row mx-0 px-0 expansion" id="expandeDiv">
+                    <div class="col-md-3 pt-2">
+                        <label class="mb-0 fs14 clrlabel">{{'Passport Number' | translate}}</label>
+                        <input class="form-control pd" id="passportNo" placeholder="{{'Enter Passport Number' | translate}}" formControlName="passport_no">
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-0 fs14 pl-1 pdt d-flex">
+                            <div>{{'Passport Expiry Date' | translate}}</div>
+                            <div class="errortooltip cursor-pointer pl10 mpl0 mpr10">
+                                <i class="fa fa-info-circle Premium_blue" aria-hidden="true"></i>
+                                <div class="errortooltiptext top102 left27m">
+                                    {{'Minimum 6 Months Validity' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div [owlDateTimeTrigger]="dt10" class="position-relative">
+                            <input placeholder="{{'Expiry Date' | translate}}" class="owldatepicker fs14 bordrservice removeoutline form-control" formControlName="passport_expiry_date" [owlDateTime]="dt10" >
+                            <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'"  [startView]="'multi-years'" #dt10></owl-date-time>
+                    </div>
+                    <div class="col-md-3 pt-2" style="padding-left: 10px;">
+                        <label class="mb-0 fs14 clrlabel">{{'Email' | translate}}</label>
+                        <input class="form-control pd" id="email" placeholder="{{'Enter Email' | translate}}" formControlName="email" >
+                    </div>
+                    <div class="col-md-3 pt-2">
+                        <label class="mb-0 fs14 clrlabel">{{'Country of Residence' |
+                            translate}}</label>
+                        <select class="form-control pd" formControlName="countryOFRecidence">
+                            <option *ngFor="let n of nationalityList" [value]="n.item_text">{{n?.item_text}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 pt-2">
+                        <label id="phnnumberlbl" class="mb-0">{{'traveller contact number' |
+                            translate}}</label>
+                        <div class="form-group row mx-0">
+                            <input ng2TelInput [ng2TelInputOptions]="{preferredCountries:['in','sa', 'ae','qa'], separateDialCode:true}" class="phnIn"  #phoneInput id="phoneInput" type="text" (countryChange)="onCountryChange($event)"
+                                (input)="inputValidation($event)" maxlength="15" numberOnly (intlTelInputObject)="phoneInputObject($event)" formControlName="phone_number" />
+                            <span *ngIf="travellersForm.controls['phone_number'].errors?.pattern &&
+                            travellersForm.controls['phone_number'].touched">
+                                <p class="red_text">{{'Mobile number must be valid' | translate}}</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

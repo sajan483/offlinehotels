@@ -1,0 +1,130 @@
+<div id="backPageForm">
+    <div class="text-center mt-2">(Optional)</div>
+    <div class="visa-back-page form-field" [formGroup]='paxForm'>
+        <div class="passport-img w100">
+    
+            <div class="page-one  w100 ">
+                <div class="upload-box" *ngIf="paxForm.controls['passportBackUrl'].value == '' || paxForm.controls['passportBackUrl'].value == null" fxLayout="column" fxLayoutAlign="center center" [class.errorBrdr]="submit && paxForm.controls['passportBackUrl'].hasError('required')"
+                    (click)="uploadImg.click()">
+                    <span class="ak-upload icon" ></span>
+                    <p class="mb-0" >Upload Passport Back Page</p>
+                    <div class="fs13 ">(Accepted file types : jpeg, jpg, gif, png.)</div>
+                    <div class="fs13 ">(Min size : 100KB, Max size : 1MB)</div>
+                </div>
+                <div class="pst-img w50 " *ngIf="paxForm.controls['passportBackUrl'].value != '' && paxForm.controls['passportBackUrl'].value != null">
+                    <div class="icons">
+                        <button mat-mini-fab matTooltip="Edit" (click)="editImage(img)" *ngIf="imgUrl">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-mini-fab mat matTooltip="Upload" (click)="uploadImg.click()">
+                            <mat-icon>add_photo_alternate</mat-icon>
+                        </button>
+                    </div>
+    
+                    <img class="w100" [src]="paxForm.controls['passportBackUrl'].value" #img>
+                </div>
+                <input type="file" accept=".jpg, .jpeg, .png, .pdf" #uploadImg (change)="uploadImage($event)">
+    
+                <div class="pst-data w50">
+    
+    
+                    <div class="pst-row w100 mt-12 ">
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label >Father Name</mat-label>
+                                    <input matInput placeholder="Father Name" formControlName="FatherName">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" formControlName="FatherNameArabic" class="arabic-dir">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label >Mother Name</mat-label>
+                                    <input matInput placeholder="Mother Name" formControlName="MotherName">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" formControlName="MotherNameArabic" class="arabic-dir">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="medium  ">
+                            <div class="w100">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <mat-label class="">Husband Name</mat-label>
+                                    <input matInput placeholder="Husband Name" formControlName="HusbandName">
+                                </mat-form-field>
+                            </div>
+                            <div class="w100  mt-12 arabic">
+                                <mat-form-field class="w100" appearance="outline">
+                                    <input matInput placeholder="" formControlName="HusbandNameArabic" class="arabic-dir">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                    <div class="pst-row w100 mt-10">
+                        <div class="w100 ">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label >Address line1</mat-label>
+                                <input matInput placeholder="Address line1" formControlName="Address" >
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="pst-row w100 mt-10">
+                        <div class="medium ">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>City </mat-label>
+                                <input matInput placeholder="City" formControlName="City" >
+                            </mat-form-field>
+                        </div>
+                        <div class="medium">
+                            <mat-form-field class="w100" appearance="outline">
+                                <mat-label>Country</mat-label>
+                                <input matInput placeholder="Country" formControlName="Country">
+                            </mat-form-field>
+                        </div>
+                    </div>
+    
+    
+                    <div class="w100 translatediv" *ngIf="isMobile">
+                        <hr class="line w100">
+                        <div class="translate w100">
+                            <div class="txt">
+                                <span class="ak-translate1"></span> Translate to Arabic
+                            </div>
+                        </div>
+                    </div>
+    
+    
+                </div>
+            </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        </div>
+    </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-climbing-dot"
+>
+  <p style="font-size: 20px; color: white">Fetching Passport Details...</p>
+</ngx-spinner>

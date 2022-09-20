@@ -1,0 +1,102 @@
+<nav class="navbar navbar-expand-lg navbar-light positionfixed">
+    <div class="collapse navbar-collapse container">
+        <a class="navbar-brand cursor-pointer" (click)="navigatepage('superagent/dashboard');"><img class="logohight"
+                src="/assets/images/akbar-umrah-logo.png" alt=""></a>
+        <form class="form-inline my-2 my-lg-0">
+
+
+            <div class="dropdown">
+                <div class="d-flex cursor-pointer hidemobile">
+                    <div class="pr-2">
+                        <p class="mb-0 wlcmtext">Welcome <i class="fa fa-caret-down" aria-hidden="true"></i></p>
+                        <p class="mb-0 f15" style="color: brown;">{{userType}}</p>
+                    </div>
+                    <i class="userpic icns icon_size_40"></i>
+                </div>
+                <div class="dinsplaymobile hidesystem mr-3">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+                <div class="dropdown-content animationdivfast">
+                    <a class="" (click)="navigatepage('superagent/dashboard');">
+                        <div class="d-flex padngover mt-2">
+                            <i class="icns dashboardicon icon_size_25"></i>
+                            <p class="f15 my-auto pl15" [class.clrred]="router.url === '/superagent/dashboard'">
+                                Dashboard</p>
+                        </div>
+                    </a>
+                    <a class="" (click)="navigatepage('superagent/createTrip');">
+                        <div class="d-flex padngover mt-2">
+                            <i class="icns createpackages icon_size_25"></i>
+                            <p class="f15 my-auto pl15" [class.clrred]="router.url === '/superagent/createTrip'">Create
+                                New Package</p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('/superagent/branch_list');">
+                        <div class="d-flex padngover">
+                            <i class="icns menubranches icon_size_20"></i>
+                            <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/branch_list'">
+                                Branches</p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('/superagent/staff_list');">
+                        <div class="d-flex padngover">
+                            <i class="icns staffmanagment icon_size_20"></i>
+                            <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/staff_list'">Staff
+                                Mangement
+                            </p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('/superagent/view_package');">
+                        <div class="d-flex padngover">
+                            <i class="icns view_list_icon icon_size_20"></i>
+                            <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/view_package'">View
+                                Packages
+                            </p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('/superagent/view_enquiry_bookings');">
+                        <div class="d-flex padngover">
+                            <i class="icns booking_icon icon_size_20"></i>
+                            <p class="f15 my-auto pl20"
+                                [class.clrred]="router.url === '/superagent/view_enquiry_bookings'">View Bookings
+                            </p>
+                        </div>
+                    </a>
+
+                    <a (click)="navigatepage('/superagent/visa-submission');">
+                        <div class="d-flex padngover">
+                            <i class="icns view_list_icon icon_size_20"></i>
+                            <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/visa-submission'">
+                                Visa Submission
+                            </p>
+                        </div>
+                    </a>
+                    <a (click)="navigatepage('/superagent/mofa-logins');">
+                        <div class="d-flex padngover">
+                            <i class="icns view_list_icon icon_size_20"></i>
+                            <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/mofa-logins'">
+                                Mofa Logins
+                            </p>
+                        </div>
+                    </a>
+                    <a (click)="navigateagencyprofile();">
+                        <div class="d-flex padngover">
+                            <i class="icns myprofile icon_size_20"></i>
+                            <p class="f15 my-auto pl20" [class.clrred]="router.url === '/superagent/profile/1'">My
+                                Profile
+                            </p>
+                        </div>
+                    </a>
+
+                    <a class="bgred" (click)="logout();">
+                        <div class="d-flex padngover">
+                            <i class="icns logouticon icon_size_20"></i>
+                            <p class="f15 my-auto pl20">Logout</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</nav>

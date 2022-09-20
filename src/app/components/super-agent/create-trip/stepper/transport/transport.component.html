@@ -1,0 +1,120 @@
+<div>
+    <div class="w-100 bgf2 p10">
+        <div class="container d-flex justify-content-between">
+            <div class="d-inline-flex cursor-pointer my-auto" (click)="back()">
+                <i class="blue_back_arrow icns icon_size_15"></i>
+                <div class="blue_back_clr lh15 fs15 ml-2">Back</div>
+            </div>
+            <div>
+                <button class="btn btn-info" (click)="skiptransport()">Skip <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="fs22 py-2 container lh22 fw600 text-black">Transport Details</div>
+    <div class="container mt-3">
+        <form [formGroup]="transportSelection" (ngSubmit)="onSubmit()">
+            <div class="boxborder p30">
+                <div class="row m-0">
+                    <div class="col-md-3 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Select Vehicle Type :</label>
+                        <div class="shine w-100 h35 brdr_rdius_4" *ngIf="vehicleTypeshimmer"></div>
+                        <select class="owldatebrdr w-100 form-control" *ngIf="!vehicleTypeshimmer" formControlName="cabtype" [ngClass]="{ 'is-invalid': submitted && f.cabtype.errors }" (change)="getVehicleName($event.target.value)">
+                            <option value="" disabled selected hidden>Select Vehicle Type</option>
+                            <option *ngFor="let item of vehicleTypeList" [value]="item.item_id">{{item.item_text}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.cabtype.errors" class="errortooltiptext top107">
+                            this field is required
+                        </div>
+                    </div>
+                    <div class="col-md-6 errortooltip">
+                        <label class="fs14 fw400 lh14 pl-1">Start Route :</label>
+                        <div class="shine w-100 h35 brdr_rdius_4" *ngIf="routeShimmer"></div>
+                        <select class="owldatebrdr w-100 form-control" *ngIf="!routeShimmer" formControlName="route" [ngClass]="{ 'is-invalid': submitted && f.route.errors }" (change)="getRoute($event.target.value)">
+                            <option value="" disabled selected hidden>Route</option>
+                            <option *ngFor="let item of routeList" [value]="item.item_id">{{item.item_text}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.route.errors" class="errortooltiptext top107">
+                            this field is required
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-auto">
+                        <button class="searchbutton" [class.bttnactive]="bttnactive">Search Transport</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container mt-3 mb60" *ngIf="searchDiv">
+
+        <div *ngIf="shimmer">
+            <div class="row mx-0 boxborder p10 mb-2" *ngFor="let k of [].constructor(5);let i = index;">
+                <div class="col-md-3 pl-0 image-card shine bsize200"></div>
+                <div class="col-md-6 pl-0">
+                    <h1 class="shine h20 w-100"></h1>
+                    <div class="shine h20 w-50"></div>
+                    <div class="col-md-12 px-0 row mx-0">
+                        <div class="col-md-6 pl-0 dgride mt-2 fs12">
+                            <div class="shine h20 w-100"></div>
+                            <div class="shine h20 w-100"></div>
+                            <div class="shine h20 w-100"></div>
+                        </div>
+                        <div class="col-md-6 mt-2 px-0 fs12 ">
+                            <div class="shine h20 w-100"></div>
+                            <div class="shine h20 w-100"></div>
+                            <div class="shine h20 w-100"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 px-0 d-flex justify-content-end">
+                    <div class="text-right w-100">
+                        <div><div class="shine h20 w-50"></div></div>
+                        <div><div class="shine h20 w-50"></div></div>
+                        <div><div class="shine h20 w-50 mt-2"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!shimmer">
+            <div class="row mx-0 boxborder p10 mb-2" *ngFor="let item of TransportList">
+                <div class="col-md-3 pl-0 image-card">
+                    <img *ngIf="item?.categories[0]?.images.length == 0" src="/assets/images/no_image.jpg" class="w-100 h-100" alt="">
+                    <img *ngIf="item?.categories[0]?.images.length > 0" [src]="item?.categories[0]?.images[0].webp_url" class="w-100 h-100" alt="">
+                </div>
+                <div class="col-md-6 pl-0">
+                    <h1 class="fs18">{{item?.company_name}}</h1>
+                    <div class="fw500 fs14">{{item?.vehicle_type_name}}</div>
+                    <div class="col-md-12 px-0 row mx-0">
+                        <div class="col-md-6 px-0 dgride fs12">
+                            <div class="d-inline-flex mt10">
+                                <i class="staricon icon_h18_w15 icns"></i>
+                                <div class="Premium_blue fs13 fw600 ml10">{{item?.categories[0]?.category_name}}
+                                </div>
+                            </div>
+                            <div class="d-inline-flex mt10">
+                                <i class="seatsicon icon_h18_w15 icns"></i>
+                                <div class="ml10">{{item?.categories[0]?.capacity}} Seater(s)
+                                </div>
+                            </div>
+                            <div class="d-inline-flex mt10">
+                                <i class="icontransport icon_h18_w15 icns"></i>
+                                <div class="ml10">{{item?.categories[0]?.model}} Model
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-0 fs12 ">
+                            <div class="mt10">Available Vehicle : {{item?.categories[0]?.available_quantity}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 px-0 d-flex justify-content-end">
+                    <div class="text-right">
+                        <div class="fs20 fw500">{{currency}} {{currencyConversion(item?.price)}}</div>
+                        <div class="fs13 fw400 clr52">(Per Vehicle)</div>
+                        <button class="searchbutton mr-0" [class.bttnactive]="bttnactive" (click)="saveTransport(item)">Select Transport</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

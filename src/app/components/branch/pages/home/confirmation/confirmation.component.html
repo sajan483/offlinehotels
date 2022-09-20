@@ -1,0 +1,140 @@
+<div class="outer printPt0">
+    <div class="banner printBlock">
+        <img *ngIf="packageDetails?.master_package?.images?.file == ''" src="/assets/images/mkbg.jpg">
+        <img *ngIf="packageDetails?.master_package?.images?.file != ''" src="{{packageDetails?.master_package?.images?.file }}" alt="">
+        <div class="black position-absolute">
+            <h4 class="text-capitalize">{{packageDetails?.master_package?.title}}</h4>
+            <p>{{masterPackage?.operated_by}}</p>
+        </div>
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="aligner">
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">room</mat-icon>
+                            <div>
+                                <p>Departure From</p>
+                                <h5>{{masterPackage?.location}}</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">schedule</mat-icon>
+                            <div>
+                                <p>Duration</p>
+                                <h5>{{masterPackage?.no_of_days}} Days / {{masterPackage?.no_of_days - 1}} Nights</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">today</mat-icon>
+                            <div>
+                                <p>Departure Date</p>
+                                <h5>{{packageDetails?.start_date | date:'mediumDate'}}</h5>
+                            </div>
+                        </div>
+
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">group</mat-icon>
+                            <div>
+                                <p>Members</p>
+                                <h5>{{bookingDetails?.adults + bookingDetails?.children_with_bed + bookingDetails?.children_without_bed}} Pax</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="printDiv">
+        <div class="bg_green p10">
+            <div class="container d-flex justify-content-between">
+                <div class="d-inline-flex pl10">
+                    <i class="conformationTick icns icon_size_40 m-auto"></i>
+                    <div class="text-white pl-2">
+                        <div class="fs25 fw500">Thank You..!! </div>
+                        <div class="fs18">Your booking has been submited successfully</div>
+                    </div>
+                </div>
+                <div class="text-white my-auto">
+                    <div class="fs14">Booking Reference No.</div>
+                    <div class="fs16 fw500">{{bookingDetails?.reference_no}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="printdisplay">
+            <div class="text-center pt-2 mt-4">
+                <h4 class="text-capitalize fs22">{{packageDetails?.master_package?.title}}</h4>
+                <div class="fs16">{{masterPackage?.operated_by}} | Departure Date : {{packageDetails?.start_date | date:'mediumDate'}}</div>
+                <div class="fs16">Duration : {{masterPackage?.no_of_days}} Days / {{masterPackage?.no_of_days - 1}} Nights</div>
+                <div class="fs16">Members : {{bookingDetails?.adults}} Adults<span *ngIf="bookingDetails?.children_without_bed != 0">, {{bookingDetails?.children_without_bed}} Childs Without Bed</span><span *ngIf="bookingDetails?.children_with_bed != 0">, {{bookingDetails?.children_with_bed}} Childs With Bed</span></div>
+                <div class="fs16">Departure From : {{masterPackage?.location}}</div>
+            </div>
+        </div>
+        <div class="container mt-3">
+          <div class="row printBlock">
+            <div class="col-12 d-flex justify-content-end align-content-end mb-2">
+              <div (click)="navigateBack()" class="backbutton mt-2" style="color: white;">
+                <i class="fa fa-arrow-left mr-2"></i> Go Back
+              </div>
+            </div>
+          </div>
+            <div class="boxborder p30">
+                <div class="fs22 fw500 blue_text">Contact Details</div>
+                <div class="row mx-0 mt-3 ">
+                    <div class="col-md-4 pl-0 brdr_right_d3">
+                        <label class="fs14 fw400 lh14">Full Name</label>
+                        <div *ngIf="shimmer">
+                            <div class="shine ws200 h20"></div>
+                        </div>
+                        <div *ngIf="!shimmer" class="fs16 fw500">{{bookingDetails?.contactinfo?.first_name | titlecase}} {{bookingDetails?.contactinfo?.last_name | titlecase}}</div>
+                    </div>
+                    <div class="col-md-4 brdr_right_d3">
+                        <label class="fs14 fw400 lh14">Email</label>
+                        <div *ngIf="shimmer">
+                            <div class="shine ws200 h20"></div>
+                        </div>
+                        <div *ngIf="!shimmer" class="fs16 fw500">{{bookingDetails?.contactinfo?.email}}</div>
+                    </div>
+                    <div class="col-md-4 ">
+                        <label class="fs14 fw400 lh14">Contact Number</label>
+                        <div *ngIf="shimmer">
+                            <div class="shine ws200 h20"></div>
+                        </div>
+                        <div *ngIf="!shimmer" class="fs16 fw500">+{{bookingDetails?.contactinfo?.phn_country_code}} {{bookingDetails?.contactinfo?.phone_number}}</div>
+                    </div>
+                    <!-- <div class="col-md-3">
+                        <label class="fs14 fw400 lh14">Address</label>
+                        <div *ngIf="shimmer">
+                            <div class="shine ws200 h20"></div>
+                        </div>
+                        <div *ngIf="!shimmer" class="fs16 fw500">{{bookingDetails?.contactinfo?.address}}</div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="boxborder p30 mt-3">
+                <div class="row mx-0">
+                    <div class="col-md-4 px-0 brdr_right_d3 text-center">
+                        <div class="fs22 fw500 mb-1">Final Package Price</div>
+                        <div class="shine ws110 h35" *ngIf="shimmer"></div>
+                        <div class="fs22 fw500" *ngIf="!shimmer">{{packageDetails?.master_package?.currency}} {{bookingDetails?.total_amount | number:'1.0'}} /-</div>
+                    </div>
+                    <div class="col-md-4 px-0 brdr_right_d3 text-center">
+                        <div class="fs22 fw500 mb-1">Booking Advance Payable</div>
+                        <div class="shine ws110 h35" *ngIf="shimmer"></div>
+                        <div class="fs22 fw500" *ngIf="!shimmer">{{packageDetails?.master_package?.currency}} {{bookingDetails?.advance_amount | number:'1.0'}} /-</div>
+                    </div>
+                    <div class="col-md-4 px-0 text-center green_text">
+                        <div class="fs22 fw500 mb-1">Balance Amount</div>
+                        <div class="shine ws110 h35" *ngIf="shimmer"></div>
+                        <div class="fs22 fw500" *ngIf="!shimmer">{{packageDetails?.master_package?.currency}} {{bookingDetails?.total_amount - bookingDetails?.advance_amount | number:'1.0'}} /-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-2 container text-right printBlock">
+            <div class="d-inline-flex" (click)="printPage()">
+                <i class="printicon icns icon_size_15 mt-1 mr-1"></i>
+                <div class="printtext fs14">Print this page</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="booking-summary-div common_card">
+    <div class="main-head">
+        <div>{{'Fare Summary' | translate}}</div>
+    </div>
+
+    <div class="summary-div">
+        <div class="d-flex justify-content-between pdng_amound fs13 clr52" *ngIf="tripData?.base_amount && tripData?.base_amount > 0">
+            <div>{{'Base Fare' | translate}}</div>
+            <div>{{currency}} {{tripData?.base_amount | ConvertCurrency : currency}}</div>
+        </div>
+        <div class="d-flex justify-content-between pdng_amound fs13 clr52" *ngIf="tripData?.tax_amount && tripData?.tax_amount > 0">
+            <div>{{'Tax' | translate}}</div>
+            <div>{{currency}} {{tripData?.tax_amount | ConvertCurrency : currency}}</div>
+        </div>
+        <div class="d-flex justify-content-between pdng_amound fs13 clr52" *ngIf="tripData?.additional_service_price && tripData?.additional_service_price > 0">
+            <div>{{'Additional Service' | translate}}</div>
+            <div>{{currency}} {{tripData?.additional_service_price | ConvertCurrency : currency}}</div>
+        </div>
+        <div class="d-flex justify-content-between pdng_amound fs13 clr52" *ngIf="tripData?.commission_discount && tripData?.commission_discount > 0">
+            <div>{{'Discount' | translate}}</div>
+            <div>{{currency}} {{tripData?.commission_discount | ConvertCurrency : currency}}</div>
+        </div>
+        <div class="d-flex justify-content-between pdng_amound clrmain fs14 fw600 " *ngIf="tripData?.total_price && tripData?.total_price != 0">
+            <div>{{'Total Fare' | translate}}</div>
+            <div>{{currency}} {{tripData?.total_price | ConvertCurrency : currency}}</div>
+        </div>
+        <div class="d-flex justify-content-between pdng_amound fs12 clr52 text-italic" *ngIf="tripData?.total_price && tripData?.total_price != 0">
+            <div>{{'Per Pax' | translate}}</div>
+            <div>{{currency}} {{tripData?.total_price / travellers | ConvertCurrency : currency}}</div>
+        </div>
+    </div>
+</div>

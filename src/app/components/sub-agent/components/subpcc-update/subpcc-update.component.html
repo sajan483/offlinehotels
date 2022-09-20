@@ -1,0 +1,172 @@
+<div class="subpcc-update-div min_page_h">
+    <div class="page_hedear_div">
+        <div class="container">
+            <h2>{{'Add/Update Sub Pcc' | translate}}</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="common_card submit-form-card">
+            <form [formGroup]="subpccForm">
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <p class="mb-0 fs14 pl-1">{{'Hotel Name' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div class="position-relative">
+                            <input placeholder="{{'Enter Hotel Name' | translate}}" [(ngModel)]="hotelName" class="form-control" [matAutocomplete]="auto" [formControl]="stateCtrl">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+                                    <a  (click)="setHotelName(state)">
+                                        <div class=" fs14">
+                                            <div class="lh14 text-capitalize">{{state.name}}</div>
+                                            <div class="clr52 fw500 fs12 lh14 text_right text-uppercase">{{state.location}}</div>
+                                        </div>
+                                    </a>
+                                </mat-option>
+                            </mat-autocomplete>
+                        </div>
+                        <div *ngIf="errMsg" class="errorclass">{{'please select hotel' | translate}}</div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <p class="mb-0 fs14 pl-1">{{'Sub Pcc Code' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div class="position-relative">
+                            <input placeholder="{{'Enter Sub Pcc' | translate}}" class="form-control" formControlName="subPccCode" [ngClass]="{ 'is-invalid': submitted && f.subPccCode.errors }">
+                            <div *ngIf="submitted && f.subPccCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.subPccCode.errors.required">{{'Code is required' | translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <p class="mb-0 fs14 pl-1">{{'Start Date' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div [owlDateTimeTrigger]="dt3" class="position-relative">
+                            <input [(ngModel)]="startDateValue" placeholder="{{'Start Date' | translate}}" class="form-control" [owlDateTime]="dt3" formControlName="startDate" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }"
+                                (ngModelChange)="startDatePick($event)" [min]="myDate">
+                            <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                            <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.startDate.errors.required">{{'Start Date is required' | translate}}</div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                    </div>
+
+                    <div class="col-md-2">
+                        <p class="mb-0 fs14 pl-1">{{'End Date' | translate}}<span class="mdtryStrr">*</span></p>
+                        <div [owlDateTimeTrigger]="dt4" class="position-relative">
+                            <input #endDatePicker [(ngModel)]="endDateValue" [min]="startDateValue" placeholder="{{'End Date' | translate}}" class="form-control" [owlDateTime]="dt4" formControlName="endDate" [ngClass]="{ 'is-invalid': submitted && f.endDate.errors }"
+                                (ngModelChange)="endDatePick($event)">
+                            <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                            <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.endDate.errors.required">{{'End Date is required' | translate}}</div>
+                            </div>
+                        </div>
+                        <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                    </div>
+
+                    <div class="col-md-2 mt-auto">
+                        <button (click)="submitSubPcc()" [class.bttnactive]="bttnActive" class="search_bttn w-100">Submit</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="body-div">
+            <div class="text-list">{{'List Of Sub Pcc' | translate}}</div>
+            <div class="common_card submit-form-card web_view">
+                <div class="">
+                    <table class="table" id="subpccList">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>{{'S.No' | translate}}</th>
+                                <th>{{'Hotel Name' | translate}}</th>
+                                <th>{{'Sub Pcc value' | translate}}</th>
+                                <th>{{'Location' | translate}}</th>
+                                <th>{{'Start Date / End Date' | translate}}</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="shimmer">
+                            <tr *ngFor="let k of [].constructor(10);let i = index;">
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                                <td>
+                                    <div class="shine h20 w-100"></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="!shimmer">
+                            <tr *ngFor="let data of subPccList;let i = index;">
+                                <td>{{i+1}}</td>
+                                <td class="text-capitalize">{{data?.name}}</td>
+                                <td>{{data?.sub_pcc}}</td>
+                                <td class="text-capitalize">{{data?.location}}</td>
+                                <td>{{data?.from_date | date:'mediumDate'}} / {{data?.to_date | date:'mediumDate'}}</td>
+                                <td class="iconfa" title="Delete" (click)="delete(data.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+                                <td class="iconfa" title="Edit" (click)="update(data)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mob_view">
+
+                <div *ngIf="shimmer" >
+                    <div class="common_card submit-form-card mb-2" *ngFor="let k of [].constructor(10);let i = index;">
+                        <div class="shine h20 w-100 mb-2"></div>
+                        <div class="shine h20 w-100 mb-2"></div>
+                        <div class="shine h20 w-100 mb-2"></div>
+                    </div>
+                </div>
+
+                <div *ngIf="!shimmer">
+                    <div class="common_card submit-form-card mb-2" *ngFor="let data of subPccList;let i = index;">
+                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                            <div class="hotel-name">{{data?.name | titlecase}} - <span class="clr52">{{data?.location | titlecase}}</span></div>
+                            <div fxLayout="row" fxLayoutAlign="start end" >
+                                <div class="clr52">{{'Sub Pcc value' | translate}}</div>
+                                <div class="px-1">:</div>
+                                <div class="sub-text">{{data?.sub_pcc}}</div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="start end">
+                                <div class="clr52">{{'Start Date / End Date' | translate}}</div>
+                                <div class="px-1">:</div>
+                                <div class="sub-text">{{data?.from_date | date:'mediumDate'}} / {{data?.to_date | date:'mediumDate'}}</div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="end center">
+                                <div class=" secondary_bttn bttn_h" title="Delete" (click)="delete(data.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></div>
+                                <div style="width: 10px;"></div>
+                                <div class="search_bttn bttn_h" title="Edit" (click)="update(data)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>

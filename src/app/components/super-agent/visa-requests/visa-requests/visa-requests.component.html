@@ -1,0 +1,90 @@
+<div class="date-availability-popup" fxLayout="column" fxLayoutAlign="center center" *ngIf="bookingDatePicker">
+    <div class="container p10 card">
+        <div class="text-center fw600 fs16">{{masterData?.title}}</div>
+        <div class="text-center fw600"><span class="clr52 fw400">Package Id :</span> {{masterData?.reference_code}}</div>
+        <bi-calendar [Date]="packageTempDate" [months]="2" (monthChanged)="monthChangedBookings($event)" (dateSelected)="onDateChanged($event)" (click)="$event.stopPropagation();" #dualCalendar></bi-calendar>
+    </div>
+</div>
+<div class="mt60">
+    <div class="cards visa-request">
+        <div class="container d-flex justify-content-between">
+            <div class="visa-search ">
+                <div class="dubai-visa-text">
+                    <div class="pkgdtls">
+                        <h2>{{masterData?.title}}</h2>
+                        <p *ngIf="selectedPackage">{{selectedPackage?.date | date:'mediumDate'}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reference my-auto">
+                <div class="ref-no ">
+                    <div class="ref-txt">Group Id</div>
+                    <h3 *ngIf="selectedPackage?.package">{{masterData?.reference_code}}-{{selectedPackage?.package}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between mt20 container">
+        <div>
+            <button class="btn allbooking" (click)="openPopUp()">Booking Calendar</button>
+        </div>
+        <div class="download-div" (click)="downloadData()">
+            <div class="d-inline-flex my-auto ">
+                <div class="spinner-border height_loader" role="status" *ngIf="visaToggle">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <i class="downloadicon icns icon_size_30" *ngIf="!visaToggle"></i>
+                <div class="fs15 fw600 text-uppercase pl10 mpl0 mpr10 my-auto">Download Datas</div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20">
+        <div class="card">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Agency Name</th>
+                    <th scope="col">Agency Phone Number</th>
+                    <th scope="col">Booking Count</th>
+                    <th scope="col">Visa Status</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let data of visaRequests">
+                    <td>{{data?.agency_name}}</td>
+                    <td>{{data?.agency_phone}}</td>
+                    <td>{{data?.booked_count}}</td>
+                    <td class="text-danger" *ngIf="data?.visa_status != 'PLACED'">Passport Pending</td>
+                    <td class="text-success" *ngIf="data?.visa_status == 'PLACED'">Passport Submitted</td>
+                  </tr>
+                </tbody>
+                <tbody *ngIf="shimmer">
+                    <tr *ngFor="let k of [].constructor(9);">
+                        <td>
+                            <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                              <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                              <div class="shine w-100 h25"></div>
+                        </td>
+                        <td>
+                              <div class="shine w-100 h25"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row" *ngIf="totalPage>1">
+                <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+                  <div class="float-right">
+                    <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="packageBookingList($event)">
+                    </app-pagination>
+                  </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

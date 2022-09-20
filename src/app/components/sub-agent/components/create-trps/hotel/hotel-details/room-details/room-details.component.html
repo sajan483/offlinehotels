@@ -1,0 +1,69 @@
+<div class="room-details-div" fxLayoutAlign="center center" >
+    <div class="room-details-popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h5 class="title">{{setViewData?.name | titlecase}}</h5>
+                <div class="close-icon" (click)="close()"><span class="ak-close"></span></div>
+            </div>
+            <div class="popup-body">
+                <div class="d-flex justify-content-center img_padng" *ngIf="setViewData.images.length > 0">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ngb-carousel #carousel [interval]="1000">
+                            <ng-template ngbSlide *ngFor="let img of setViewData.images; index as i">
+                                <a rel="nofollow noopener noreferrer">
+                                    <div class="picsum-img-wrapper">
+                                        <img [src]="img.image_webp_url" [appImageFallback]="'/assets/images/no_image.jpg'" alt="My image {{i + 1}} description">
+                                    </div>
+                                </a>
+                            </ng-template>
+                        </ngb-carousel>
+                    </div>
+                </div>
+                <div class="common_paddng">
+                    <h6 class="mb-0 ">{{'Meal Plan' | translate}}:</h6>
+                    <div class="p10" fxLayout="row wrap" fxLayoutGap="30px">
+                        <div class="fs14 fw500 clrmain" *ngFor="let item of setViewData.board_types">{{item?.meal_title}}</div>
+                    </div>
+                </div>
+                <div class="common_paddng" *ngIf="setViewData?.description">
+                    <h6 class="mb-0 ">{{'Description' | translate}}:</h6>
+                    <div class="p10 fs13 clr52">{{setViewData?.description}}</div>
+                </div>
+                <div class="common_paddng">
+                    <h6 class="mb-0 ">{{'Amenities & Info' | translate}}:</h6>
+                    <div class="p10" fxLayout="row wrap" fxLayoutGap="20px">
+                        <div class="pb5 fs13 clr52" *ngFor="let item of setViewData.features"><i class="fa fa-check green_text" aria-hidden="true"></i> {{item?.name}}</div>
+                    </div>
+                </div>
+                <div class="common_paddng">
+                    <h6 class="mb-0 ">{{setViewData.selected_board_type.cancellation_policy?.title.replace('WB','')}}:</h6>
+                    <div class="p10 fs12 green_text" *ngIf="setViewData.selected_board_type.cancellation_policy?.is_refundable">{{'Refundable' | translate}}</div>
+                    <div class="p10 fs12 red_text" *ngIf="!setViewData.selected_board_type.cancellation_policy?.is_refundable">{{'non_refundable' | translate}}</div>
+                    <div class="m10 borderbox" *ngIf="setViewData.selected_board_type.cancellation_policy?.is_refundable">
+                        <div class="d-flex justify-content-between p10 brdr_btm_d3 fs15" *ngFor="let rule of setViewData.selected_board_type.cancellation_policy.rules">
+                            <div class="d-inline-flex">
+                                <div class="my-auto pr10 mpr0 mpl10"><i class="calendaricon icns icon_size_20"></i></div>
+                                <div >
+                                    <div class="fromTocharge"><strong>{{'From' | translate}} : </strong> {{rule?.from_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.from_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                    <div class="fromTocharge"><strong>{{'Till' | translate}} : </strong> {{rule?.to_date_time | DateTimeToDateFormat | date:'mediumDate'}}, {{rule?.to_date_time | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                                    <div>
+                                        <p class="mb-0">{{rule?.description}}</p>
+                                    </div>
+                                    <div class="fs13 clr52 fw400" *ngIf="!rule?.is_noshow">( NOTE: Not applicable in No-Show )</div>
+                                </div>
+                            </div>
+                            <div class="fw600">
+                                <div class="text-capitalize">{{'Cancellation Charge' | translate}}</div>
+                                <div>{{currency}} {{rule?.charge?.chargeAmount | ConvertCurrency : currency}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p10 clr52 fs13" *ngIf="setViewData.selected_board_type.cancellation_policy?.description">
+                        <h6 class="mb-0 ">{{'Description' | translate}}:</h6>
+                        <p class="fs13 clr52 fw400">{{setViewData.selected_board_type.cancellation_policy?.description.replace('WB','')}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

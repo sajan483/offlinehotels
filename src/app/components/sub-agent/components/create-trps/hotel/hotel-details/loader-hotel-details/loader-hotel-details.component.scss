@@ -1,0 +1,59 @@
+.hotel-details-shimmer{
+    .topBar{
+        background-color: #116063;
+        width: 100%;
+        height: 40px;
+    }
+    .hotel-img-div{
+        margin-top: 20px;
+        box-shadow: 0 0 9px 0 rgb(0 0 0 / 15%);
+        border: 1px solid rgba(156, 170, 179, 0.28);
+        border-radius: 5px;
+        background-color: #fff;
+        padding: 15px;
+        .hotel-img-bg{
+            height: 210px;
+            width: 100%;
+        }
+        .hotelimgegallery{ 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .hotel-img-sm{
+                padding: 0 0 2px;
+                height: 100px;
+                width: 100%;
+            }
+        }
+    }
+    .text{
+        height: 20px;
+        margin-bottom: 5px;
+    }
+    .text_wdth{
+        width: 150px;
+    }
+    .min-wdth{
+        width: 60px;
+    }
+    .supPcc{
+        height: 60px;
+    }
+    .room-allocation{
+        box-shadow: 0 0 9px 0 rgb(0 0 0 / 15%);
+        border: 1px solid rgba(156,170,179,.28);
+        border-radius: 5px;
+    }
+    .room-img{
+        height: 90px;
+        width: 150px;
+    }
+    .border-room{
+        border-left: 1px solid #e1e1e1;
+    }
+    .mealtype-div{
+        height: 60px;
+        width: 100%;
+        margin: 0 10px 10px 10px;
+    }
+}

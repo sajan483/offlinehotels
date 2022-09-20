@@ -1,0 +1,114 @@
+$ff: "Lato", sans-serif;
+$white: #fff;
+$red: #ff0000;
+$black-clr: #000;
+$thin: 100;
+$light: 300;
+$regular: 400;
+$bold: 700;
+$black: 900;
+$full-width: 100%;
+$reset: 0px;
+$history-btn: #d3db8c;
+$green-btn: #b9c944;
+$yellow-btn: #f8ce53;
+$label-clr: #8a8888;
+$text-color: #525252;
+$light-grey: #8f8f8f;
+$light-black: #040404;
+$border: #cfcdcd;
+$total-fare: #908f8f;
+$t-border: #d0d0d0;
+$light-blue: #f3f9fe;
+$bluetwo: #19478a;
+
+
+$borderlight: #d0d0d0;
+$bordrline: #ebebeb;
+$primarycolor: #363636;
+$blue: #244885;
+
+
+@mixin transition($value) {
+  -webkit-transition: $value;
+  -moz-transition: $value;
+  -o-transition: $value;
+  transition: $value;
+}
+@mixin transform($value) {
+  -webkit-transform: $value;
+  -ms-transform: $value;
+  transform: $value;
+  -moz-transform: $value;
+}
+@mixin boxshadow($value) {
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}
+@mixin objectfit() {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+@mixin iconColor() {
+  background: -webkit-linear-gradient(#d92727, #19478a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@mixin skeletonbg() {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    color-stop(8%, #eeeeee),
+    color-stop(18%, #dddddd),
+    color-stop(33%, #eeeeee)
+  );
+  background: -webkit-linear-gradient(
+    left,
+    #eeeeee 8%,
+    #dddddd 18%,
+    #eeeeee 33%
+  );
+  background: -o-linear-gradient(left, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  -webkit-background-size: 1000px 104px;
+  background-size: 1000px 104px;
+}
+@mixin progress-loader-bg() {
+  background-image: -webkit-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: -o-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 50px 50px;
+}
+@mixin flex() {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}

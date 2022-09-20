@@ -1,0 +1,19 @@
+<div class="outer" [ngClass]="{'mobile':vertical}">
+    <div *ngIf="vertical==false" class="month-nav left" (click)="prevMonth()">
+        <mat-icon class="icon">arrow_back</mat-icon>
+    </div>
+    <div fxLayoutAlign="space-between start" [fxLayout]="vertical ? 'column' : 'row'" class="monthouter" #year>
+        <ng-container *ngFor="let m of month; trackBy: trackByFn" #months>
+            <bi-month [vertical]="vertical" class="month" [minDate]="minDate"
+
+             [maxDate]="maxDate"
+             [showSelected]="showSelected"
+                (dateSelected)="onDateSelected($event)" [year]="m.year" [month]="m.month" fxFlex fxLayoutGap="20px"
+                [Date]="date" [currency]='currency'
+                [currencySymbol]='currencySymbol'></bi-month>
+        </ng-container>
+    </div>
+    <div *ngIf="vertical==false" class="month-nav right" (click)="nextMonth()">
+        <mat-icon class="icon">arrow_forward</mat-icon>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+@media only screen and (max-width: 768px) {
+    .displyflex {
+        display: block !important;
+    }
+    .phonenone {
+        display: none !important;
+    }
+    .wdth100 {
+        width: 96% !important;
+    }
+    .box {
+        height: auto !important;
+    }
+    .photo {
+        height: 150px;
+    }
+}
+
+.animationdiv {
+    padding-top: 30px;
+}
+
+.shine {
+    background: #f6f7f8;
+    background-image: linear-gradient( to right, #f6f7f8 0%, #edeef1 20%, #dee4ea 40%, #f6f7f8 100%);
+    background-repeat: no-repeat;
+    background-size: 440px 160px;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: placeholderShimmer;
+    -webkit-animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderShimmer;
+    animation-timing-function: linear;
+}
+
+.box {
+    height: 200px;
+    background: white;
+    border-radius: 4px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.filter {
+    margin-top: 148px !important;
+    height: 50px;
+    background: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.htl-top {
+    height: 58px;
+    background: white;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 77px;
+}
+
+.pdngcont {
+    padding: 10px 16px;
+}
+
+.lines {
+    height: 30px;
+}
+
+.mt80 {
+    margin-top: 80px;
+}
+
+.width20 {
+    width: 15%;
+}
+
+.width40 {
+    width: 400px;
+}
+
+.width21 {
+    width: 200px;
+}
+
+.height140 {
+    height: 140px;
+}
+
+.photo {
+    display: block !important;
+    width: 300px;
+}
+
+.width35 {
+    width: 35%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.displyflex {
+    display: flex;
+}
+
+@-webkit-keyframes placeholderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}

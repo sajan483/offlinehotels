@@ -1,0 +1,47 @@
+<div class="container pt80 mt100">
+    <div class="d-flex justify-content-center">
+        <img class="logoimg" src="/assets/images/iban.png" alt="">
+        <h2 class="p23">BANK ACCOUNT DETAILS</h2>
+    </div>
+    <div class="balance" *ngIf="showSpinner">
+        <h5>Account Number : <span class="shine h20 ws130"></span></h5>
+        <h4 class="amound">Account Balance : <span class="shine h20 ws130"></span></h4>
+    </div>
+    <div class="balance" *ngIf="!showSpinner">
+        <h5>Account Number : {{accountHistory?.AccountNumber}}</h5>
+        <h4 class="amound">Account Balance : <strong>{{accountHistory?.AvailableBalance}}</strong></h4>
+    </div>
+
+    <div class="d-flex justify-content-center">
+
+        <div class="historydetails">
+            <h5>History</h5>
+            <div class="d-flex justify-content-center datepicker">
+                <ejs-daterangepicker class="ejsdatepicker" placeholder="enter the date intervell" [minDays]=6 id="historydate" (change)="setSearchDate()" [startDate]='startDate' [endDate]='endDate' [max]="today"></ejs-daterangepicker>
+            </div>
+            <div class="d-flex justify-content-between brdrbottom">
+                <h6>Date</h6>
+                <h6>Time</h6>
+                <h6>Type</h6>
+                <h6>Amount</h6>
+                <h6>Comments</h6>
+            </div>
+            <div *ngIf="isFound!='Success'">
+                <h3>No Transaction Found</h3>
+            </div>
+            <div class="d-flex flex-column-reverse">
+                <div class="d-flex justify-content-between" *ngFor="let item of accountHistory?.AccountStatmentDeatils">
+                    <p>{{item?.TransactionDate | date:"mediumDate"}}</p>
+                    <p>{{item?.TransactionDate | date:"shortTime"}}</p>
+                    <p *ngIf="item.TransactionType=='DR'">Debit</p>
+                    <p *ngIf="item.TransactionType=='CR'">Credit</p>
+                    <p *ngIf="item.TransactionType=='DR'" class="clrred">- {{item?.TransactionAmount}}</p>
+                    <p *ngIf="item.TransactionType=='CR'" class="clrgreen">+ {{item?.TransactionAmount}}</p>
+                    <p>{{item?.Comment}}</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<div class="download-section-div">
+
+    <div class="download-bttn common_card" fxLayout="row" fxLayoutAlign="space-between center" [class.hide-download-bttn]="!downloadShow"
+    (click)="invoiceClickPdf()">
+        <div fxLayout="row" fxLayoutAlign="start center" >
+            <i class="printicon icns icon_size_30"></i>
+            <div style="width: 5px;"></div>
+            <div class="fs15 fw600 text-uppercase">{{'Print invoice' | translate}}</div>
+        </div>
+        <div>
+            <div class="spinner-border height_loader" role="status" *ngIf="invoicetoggle">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="download-bttn common_card" fxLayout="row" fxLayoutAlign="space-between center" [class.hide-download-bttn]="!downloadShow"
+    (click)="voucherClickPdf()">
+        <div fxLayout="row" fxLayoutAlign="start center" >
+            <i class="downloadicon icns icon_size_30"></i>
+            <div style="width: 5px;"></div>
+            <div class="fs15 fw600 text-uppercase">{{'Download Voucher' | translate}}</div>
+        </div>
+        <div>
+            <div class="spinner-border height_loader" role="status" *ngIf="vouchertoggle">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="download-bttn common_card" fxLayout="row" fxLayoutAlign="space-between center" [class.hide-download-bttn]="!downloadShow"
+    (click)="recieptClickPdf()">
+        <div fxLayout="row" fxLayoutAlign="start center" >
+            <i class="reciept_icon icns icon_size_30"></i>
+            <div style="width: 5px;"></div>
+            <div class="fs15 fw600 text-uppercase">{{'Download Reciept' | translate}}</div>
+        </div>
+        <div>
+            <div class="spinner-border height_loader" role="status" *ngIf="reciepttoggle">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="download-bttn common_card" fxLayout="row" fxLayoutAlign="space-between center" [class.hide-download-bttn]="!downloadShow"
+    (click)="checkCancellation()">
+        <div fxLayout="row" fxLayoutAlign="start center" >
+            <i class="cancelicon icns icon_size_25"></i>
+            <div style="width: 5px;"></div>
+            <div class="fs15 fw600 text-uppercase">{{'Check cancellation' | translate}}</div>
+        </div>
+        <div>
+            <div class="spinner-border height_loader" role="status" *ngIf="cancellationtoggle">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="print-invoice" class="printdisplay">
+      
+</div> 
+
+<div *ngIf="cancelationPopup">
+    <app-cancelation-popup 
+    [checkCancel]="checkCancelData"
+    (closePopup)="closeCancelPopup()"
+    [currency]="currency"
+    ></app-cancelation-popup>
+</div>
+
+<div [style.display]="showVatPopup ? 'block' : 'none'" class="modal" id="linkpopup2" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog " style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+        <div class="modal-content p-3 mob_min_h98">
+            <div class="modal-body mirr_text_right">
+                <div class="d-flex justify-content-end mb-1">
+                    <div class="cursor_pointer"><span class="ak-close1" (click)="hideVatpopup()"></span></div>
+                </div>
+                <div class="col-md-12 m-0 p-0">
+                    <p class="fs14 fw500 mb-0">{{'Enter Your VAT Number' | translate}}</p>
+                    <input type="text" class="form-control"[(ngModel)]="vatNumber">
+
+                </div>
+                <div class=" p-0 d-flex justify-content-end" style="font-size: 12px;">
+                    <div class="cursor_pointer ml-2 mt-2" >
+                        <button class="search_bttn" (click)="sumitVatNumber()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

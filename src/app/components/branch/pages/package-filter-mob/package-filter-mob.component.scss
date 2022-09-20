@@ -1,0 +1,296 @@
+$btn-gradient: linear-gradient(to right, #d3ac73, #fce7c5);
+
+
+.sort-filter-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    z-index: 101; // more than map view
+    opacity: 1;overflow: hidden;
+    overflow-y: auto;
+    .head{
+      margin-left: 30px;
+    }
+    header {
+      height: 61px;position: fixed;background: #fff;
+    top: 0;
+    left: 0;
+    width: 100%;z-index: 102;
+      border-bottom: 1px solid #e7e7e7;
+      .icon {
+        font-size: 15px;
+        color: #525252;
+        width: 30px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        margin-left: -7px;
+      }
+      h2 {
+        font-size: 17px;
+        font-weight: 500;
+        color: #000;
+        padding-left: 10px;
+        margin-bottom: 0px;
+        span {
+          display: block;
+          color: #525252;
+          font-size: 13px;
+          font-weight: 400;
+        }
+      
+      }
+    }
+    .tab {
+      height: 45px;
+      position: fixed;
+      top:61px; 
+      background: #fff;
+      z-index: 102;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid #dfdfdf;
+      li {
+      
+        text-align: center;
+        width: 50%;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+        position: relative;
+        &.active {
+          color: #d32f2f;
+          &::before {
+            content: "";
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 4px;
+            background: #d32f2f;
+            position: absolute;
+          }
+        }
+      }
+    }
+    .content {
+      
+      padding: 10px 0 60px;
+      // .m-t-minus{
+      //   margin-top: -10px;
+      // }
+      .heading {
+        margin: 0 0 6px;
+        h2 {
+          text-transform: uppercase;
+          color: #000;
+          font-size: 15px;
+          font-weight: 700;
+        }
+        a {
+          color: #19478a;
+          font-size: 12px;
+          font-weight: 400;
+          text-decoration: underline;
+        }
+      }
+      .list {
+        li {
+          height: 40px;
+          padding: 0 20px;
+          border-radius: 4px;
+          border: 1px solid #b5b5b5;
+          font-size: 14px;
+          font-weight: 500;
+          margin: 5px 0;
+          &.active {
+            background: #d32f2f;
+            color: #fff;
+            border-color: #d32f2f;
+          }
+        }
+      }
+      .hr {
+        width: 100%;
+        height: 1px;
+        background: #ebebeb;
+        margin: 15px 0;
+      }
+      &.p-0 {
+        height: calc(100vh - 165px);
+      }
+    }
+  }
+  
+  .filter {
+    min-height: 100%;
+    margin: 0px 15px;
+    .hr {
+      margin: 15px 0;
+      background: #ebebeb;
+      height: 1px;
+      width: 100%;
+    }
+    .search {
+      position: relative;
+      margin-bottom: 15px;
+      input {
+        border: 0;
+        border-bottom: 1px solid #e8e8e8;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 40px 0 0;
+        width: 100%;
+        color: #000;
+        font-size: 15px;
+        font-weight: 400;
+      }
+      span {
+        width: 40px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        color: #c6c6c6;
+        font-size: 18px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        background: #fff;
+        z-index: 10;
+        width: 100%;
+        height: 360px;
+        overflow: auto;
+        li {
+          padding: 7px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          border-bottom: 1px solid #eaeaea;
+          font-size: 14px;
+          display: flex;
+          align-items: center;
+          .icon {
+            position: static;
+            width: auto;
+            height: auto;
+            line-height: 1;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+    .heading {
+      h3 {
+        font-size: 14px;
+        color: #000;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+      .reset {
+        font-size: 13px;
+        color: #19478a;
+        font-weight: 400;
+        display: inline-block;
+        text-decoration: underline;
+      }
+    }
+    .checkouter {
+      li {
+        padding: 5px 0;
+        list-style-type: none;
+        .check {
+          font-size: 13px;
+          font-weight: 400;
+          // margin: 0 0 10px 0;
+          .star-icon {
+            width: 16px;
+            height: 16px;
+            font-size: 20px;
+            color: #efb400;
+            line-height: 16px;
+          }
+        }
+        .number {
+          height: 16px;
+          line-height: 17px;
+          margin-left: 7px;
+        }
+      }
+    }
+    .available-hotel{
+      position: relative;
+      top: 40px;
+      margin-top: 30px;
+      margin-bottom: 40px;
+    }
+  }
+  footer {
+    position: fixed;
+    padding: 0 10px;
+    background: #fff;
+     box-shadow:0px -3px 7px 0px rgba(black, 0.1);
+    z-index: 50;
+    // position: fixed;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    height: 57px;
+    .mat-flat-button {
+      padding: 0px 15px;
+      font-size: 17px;
+      font-weight: 500;
+      text-transform: uppercase;
+      background-image: $btn-gradient;
+      color:#000;
+    }
+    
+    .cancel {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 15px;
+      font-size: 17px;
+      font-weight: 500;
+      background: #555;
+      border-radius: 4px;
+      color: #fff;
+      border: 0;
+      text-transform: uppercase;
+    }
+  }
+  .range-value{
+    font-size: 12px;color: #000;
+  }
+  .distance-slider{
+    margin-top: 17px;
+  }
+  // ::ng-deep .mat-checkbox-layout{
+  //   margin-bottom: 20px;
+  // }
+  ::ng-deep label{
+    margin-bottom: 0px !important;
+  }
+
+  @media screen and (max-width: 992px) {
+    .filter {
+      padding-bottom: 60px;
+      padding-top: 65px;
+    }
+  }
+
+  .btn-reset{
+    background-color: #555;
+    color: #fff;
+  }

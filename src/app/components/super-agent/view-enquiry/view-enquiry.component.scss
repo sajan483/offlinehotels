@@ -1,0 +1,45 @@
+.dropdown-menu>li>a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#b2cBooking{
+  th,td{
+    font-size: 12px;
+    vertical-align: middle !important;
+  }
+}
+
+.fit-content{
+  padding: 0 5px;
+  text-transform: capitalize;
+}
+
+.brdrIcon{
+  border: 1px solid;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.plane_btn{
+  background-color: white;
+  border-color: #bebebe;
+}
+
+.dropdown-item{
+  cursor: pointer;
+}
+
+.daterangeIcon{
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  cursor: pointer;
+}

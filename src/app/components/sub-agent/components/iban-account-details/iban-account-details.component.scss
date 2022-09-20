@@ -1,0 +1,29 @@
+.topbar {
+    margin-top: 60px;
+    background-color: white;
+    padding: 20px;
+}
+
+.logoimg {
+    width: 170px;
+    height: 90px;
+}
+
+.accountDetails {
+    text-align: center;
+    h2 {
+        font-size: 20px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+}
+
+#historyAcoount {
+    .table {
+        border: 1px solid white;
+    }
+    .table thead th {
+        background-color: #e9ecef;
+    }
+}

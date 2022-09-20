@@ -1,0 +1,276 @@
+<div class="filter-wrapper" #filterWrapper *ngIf="!shimmer">
+    <div #componentToAnimate class="animated-div " [ngStyle]="{'marginTop.px': 10 }"
+      [@.disabled]="DisabledAnimation">
+      <div class="white-bg">
+        <div fxLayout="row" fxLayoutAlign="end start" class="reset-all-div" *ngIf="!isMobile">
+          <div class="postion-reset-all">
+            <a (click)="resetFilterDatas()"  class="reset-all" fxLayout="row" fxLayoutAlign="center center">{{'Reset All' | translate}}</a>
+          </div>
+        </div>
+        
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('hotelName')">
+            <span class="ak-right right" [class.expand]="showFilterHotelName"></span>
+            {{'Hotel Name' | translate}}
+          </h2>
+        </div>
+        <div class=" m-b-20 with-closebtn"  *ngIf="showFilterHotelName" [@expand] >
+          <input #input type="text" class="form-control hotel-name" name="hotelSearch" placeholder="{{'Search by hotel name' | translate}}"
+            (input)="nameFilter($event)" autocomplete="off" [(ngModel)]="hoteName">
+        </div>
+
+        <mat-divider class="divider"></mat-divider>
+  
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('review')">
+            <span class="ak-right right" [class.expand]="showFilterReview"></span>
+            {{'Meal Plan' | translate}}
+          </h2>
+        </div>
+        <ul *ngIf="showFilterReview" class="checkouter overflow-hidden" [@expand]>
+          <li *ngFor="let item of mealPlan;let i = index">
+            <mat-checkbox class="check" [checked]="item.check" (change)="filterMealType($event,i)">{{item?.name}}</mat-checkbox>
+          </li>
+        </ul>
+
+        <mat-divider class="divider"></mat-divider>
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('starRating')">
+            <span class="ak-right right" [class.expand]="showFilterStarRating"></span>
+            {{'Star rating' | translate}}
+          </h2>
+        </div>
+        <ul class="checkouter with-only-link overflow-hidden" *ngIf="showFilterStarRating" [@expand]>
+          <li *ngFor="let item of starFilter; let i = index">
+            <mat-checkbox [checked]="item.check" class="check" [checked]="item.check" (change)="filterStarRating($event,i)">
+              <span fxLayout="row" fxLayoutAlign="start center">
+                <span class="material-icons star-icon" *ngFor="let k of [].constructor(item?.star)">star</span>
+              </span>
+            </mat-checkbox>
+          </li>
+        </ul>
+  
+        <mat-divider class="divider"></mat-divider>
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('priceRange')">
+            <span class="ak-right right" [class.expand]="showFilterPriceRange"></span>
+            {{'Price Range' | translate}}
+          </h2>
+        </div>
+        <ul class="checkouter overflow-hidden" *ngIf="showFilterPriceRange " [@expand]>
+          <li>
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div class="upto_text">{{'Upto' | translate}}</div>
+              <div style="width: 5px;"></div>
+              <mat-slider 
+              class="w-100"
+              [max]="maxPrice"
+              [min]="minPrice"
+              [(ngModel)]="valuePrice"
+              (change)="changePrice()"
+              ></mat-slider>
+            </div>
+            <div class="value-price">{{currency}} {{valuePrice | ConvertCurrency : currency | number: '1.0-0'}}</div>
+          </li>
+        </ul>
+  
+        <mat-divider class="divider"></mat-divider>
+  
+  
+        <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('amenities')">
+            <span class="ak-right right" [class.expand]="showFilterAmenities"></span>
+            {{'Amenities' | translate}}
+          </h2>
+        </div>
+        <ul *ngIf="showFilterAmenities" class="checkouter overflow-hidden" [@expand]>
+          <li *ngFor="let item of aminitiesList;let i = index">
+            <div *ngIf="i < 5">
+              <mat-checkbox class="check" [checked]="item.check" (change)="filterAminities($event,i)">
+                <span class="ellipsistext-fullwidth" title="">{{item?.name}}</span>
+              </mat-checkbox>
+            </div>
+          </li>
+        </ul>
+        <ng-container *ngIf="viewAll ">
+          <a *ngIf="showFilterAmenities" class=" morelink" (click)="setVieworShow('amenties')">{{'View All' | translate}}</a>
+        </ng-container>
+        <ng-container *ngIf="showLess">
+          <ul *ngIf="showFilterAmenities" class="checkouter overflow-hidden" [@expand]>
+            <li *ngFor="let item of aminitiesList;let i = index">
+              <div *ngIf="i >= 5">
+                <mat-checkbox class="check" [checked]="item.check" (change)="filterAminities($event,i)">
+                  <span class="ellipsistext-fullwidth" title="">{{item?.name}}</span>
+                </mat-checkbox>
+              </div>
+            </li>
+          </ul>
+          <a *ngIf="showFilterAmenities" class=" morelink" (click)="setVieworShow('amenties')">{{'Show Less' | translate}}</a>
+        </ng-container>
+        
+        <mat-divider class="divider"></mat-divider>
+
+        <!-- <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 (click)="toggleFilterSections('paymentType')">
+            <span class="ak-right right" [class.expand]="showFilterPaymentType"></span>
+            {{'Payment Type' | translate}}
+          </h2>
+        </div>
+        <ul *ngIf="showFilterPaymentType" class="checkouter  overflow-hidden" [@expand]>
+          <li>
+            <mat-checkbox class="check">
+              <span class="ellipsistext-fullwidth">{{'Free Cancellation' | translate}}</span>
+            </mat-checkbox>
+          </li>
+        </ul>
+        <mat-divider class="divider"></mat-divider> -->
+  
+          <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+            <h2 (click)="toggleFilterSections('chainProperties')">
+              <span class="ak-right right" [class.expand]="showFilterChainProperties"></span>
+             {{'Hotel Chain' | translate}}
+            </h2>
+          </div>
+          <ul *ngIf="showFilterChainProperties" class="checkouter  overflow-hidden" [@expand]>
+              <li *ngFor="let data of hotelChainNameList;let i = index">
+                <div *ngIf="i < 5">
+                  <mat-checkbox   class="check" [checked]="data.check" (change)="filterHotelName($event,i)">
+                    <span class="ellipsistext-fullwidth text_cap" title="">{{data?.name}}</span>
+                  </mat-checkbox>
+                </div>
+              </li>
+          </ul>
+          <ng-container  *ngIf="viewAllcp">
+            <a *ngIf="showFilterChainProperties" class=" morelink" (click)="setVieworShow('chainproperty')">{{'View All' | translate}}</a>
+          </ng-container>
+          <ng-container *ngIf="showLesscp">
+            <ul *ngIf="showFilterChainProperties" class="checkouter overflow-hidden" [@expand]>
+              <li *ngFor="let data of hotelChainNameList;let i = index">
+                <div *ngIf="i >= 5">
+                  <mat-checkbox   class="check" [checked]="data.check" (change)="filterHotelName($event,i)">
+                    <span class="ellipsistext-fullwidth text_cap" title="">{{data?.name}}</span>
+                  </mat-checkbox>
+                </div>
+              </li>
+            </ul>
+            <a *ngIf="showFilterChainProperties" class=" morelink" (click)="setVieworShow('chainproperty')">{{'Show Less' | translate}}</a>
+          </ng-container>
+          
+      </div>
+    </div>
+
+    <div class="footer-bttn-div" *ngIf="isMobile">
+      <button class="secondary_bttn" (click)="resetFilterDatas()">{{'Reset Filter' | translate}}</button>
+      <div style="width: 10px;"></div>
+      <button class="search_bttn" (click)="emitData()">{{'Apply Filter' | translate}}</button>
+    </div>
+
+  </div>
+
+  
+  <!-- skeleton -->
+  
+  <div class="filter-wrapper skeleton" *ngIf="shimmer">
+    <div class="skeleton white-bg">
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <div class="inputdiv shine"></div>
+  
+      <mat-divider class="divider shine"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <ul class="checkstyle">
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 55%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 65%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 35%"></p>
+        </li>
+      </ul>
+  
+      <mat-divider class="divider shine"></mat-divider>
+  
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <div class="inputdiv shine"></div>
+      <mat-divider class="divider shine"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <ul class="checkstyle">
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 55%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 65%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 35%"></p>
+        </li>
+      </ul>
+  
+      <mat-divider class="divider"></mat-divider>
+      <div class="heading" fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="shine"></h2>
+        <a href="#" class="reset shine"></a>
+      </div>
+      <ul class="checkstyle">
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 55%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 65%"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine"></p>
+        </li>
+        <li fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+          <div class="checkbox shine"></div>
+          <p class="shine" style="width: 35%"></p>
+        </li>
+      </ul>
+  
+    </div>
+  </div>
+  
+  
+  <!-- /skeleton -->

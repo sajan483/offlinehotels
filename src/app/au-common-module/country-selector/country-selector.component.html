@@ -1,0 +1,5 @@
+<div class="d-flex justify-content-start align-items-start">
+    <div class="country-item d-flex align-items-center justify-content-center {{country.checked?'checked':''}}" *ngFor="let country of countries" (click)="onCountryChecked(country)">
+        <div>{{country.name}}</div>
+    </div>
+</div>

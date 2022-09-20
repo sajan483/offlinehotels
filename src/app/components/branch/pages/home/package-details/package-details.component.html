@@ -1,0 +1,494 @@
+<div class="mainDivPackage">
+    <div class="booking-div">
+        <div class="container mob_head dflex justify-content-between" *ngIf="!shimmer">
+            <div class="printdisplay">
+                <img src="assets/images/akbar-umrah-logo.png" class="logHeight" alt="">
+            </div>
+            <div class="mob_mb10 print_center">
+
+                <div class="packag-head blckClr">{{primaryPackage?.master_package?.title | titlecase}}</div>
+                <div class="d-flex fs14 fw400  blckClr">
+                    <div>{{packageDetails?.operated_by}}</div>
+                    <div class="divider my-auto "></div>
+                    <div class="text-capitalize">Category : {{packageDetails?.category}}</div>
+                </div>
+
+            </div>
+            <div class="d-flex my-auto mob-d-between">
+                <div class=" my-auto blckClr">
+                    <div class="fs13 ">Amount Per Person</div>
+                    <div class="fwBold fs18 mob_hide text-right">{{packageDetails?.currency}} {{primaryPackage?.adult_price | number:'1.0'}}</div>
+                    <div class="fwBold fs18 mob_view">{{packageDetails?.currency}} {{primaryPackage?.adult_price | number:'1.0'}}</div>
+                </div>
+                <div class="my-auto ml10 printBlock">
+                    <button class="bookButton" (click)="showPopUp()">Book Now</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+        <section class="image-collection-div" *ngIf="shimmer">
+            <div class="row mx-0 w-100">
+                <div class="col-md-6 col-12 mob_px5">
+                    <div class="shine bsize200 w-100 h200"></div>
+                    <div class="shine h75 w-100"></div>
+                </div>
+                <div class="col-md-6 col-12 mob_px5">
+                    <div class="shine lines w-100"></div>
+                    <div class="shine lines w-100"></div>
+                    <div class="shine lines w-100 mt-3"></div>
+                    <div class="shine lines w-100"></div>
+                    <div class="shine lines w-100"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="image-collection-div w-100 " *ngIf="shimmer">
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+        </section>
+
+        <section class="image-collection-div w-100 " *ngIf="shimmer">
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+            <div class="m10">
+                <div class="shine lines w-100 "></div>
+            </div>
+        </section>
+
+        <section class="image-collection-div" *ngIf="!shimmer">
+            <div class="row mx-0 w-100">
+                <div class="col-md-6 mob_px5">
+                    <div class="position-relative">
+                        <div class="move-back-bttn" (click)="backImage()" *ngIf="imageshow != 0">
+                            <div class="back-arrow"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="move-forward-bttn" (click)="forwardImage()" *ngIf="imageshow != (imageCollection.length - 1)">
+                            <div class="forward-arrow"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+                        </div>
+                        <div *ngFor="let img of imageCollection; index as i">
+                            <span *ngIf="imageshow==i">
+                                <img [src]="img" class="mainimageshow imgmoving" alt="">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="positionofbottom printBlock" id="packageImageCollection">
+                        <div>
+                            <owl-carousel-o [options]="packageImageOption">
+
+                                <ng-container *ngFor="let slide of imageCollection;index as i">
+                                    <ng-template carouselSlide>
+                                        <div class="d-flex justify-content-center pt-2">
+                                            <img [src]="slide" alt="" [class.borderseslctimg]="imageshow==i" [class.hovr-pdng]="imageshow==i" class="listingimages" alt="" (click)="imageshow=i">
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
+
+                            </owl-carousel-o>
+                        </div>
+                    </div>
+                    <div class="positionofbottom printdisplay overflow-hidden pt-2">
+                        <div class="d-flex justify-content-between">
+                            <div *ngFor="let slide of imageCollection;index as i">
+                                <img [src]="slide" alt="" class="listingimages" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 pl-0 mob_pr0">
+                    <div class="package-overview-details">
+                        <div class="package-overview">
+                            <div class="d-flex justify-content-between">
+                                <div class="fw500 fs16">Package Overview</div>
+                                <div class="d-flex">
+                                    <div class="cursor-pointer px-2 printBlock" title="print" (click)="printdiv()"><i class="icns icon_size_15 printicon"></i></div>
+                                </div>
+                            </div>
+                            <div class="fs12 fw400 paddng-div text_jstify" [innerHTML]="primaryPackage?.master_package?.overview"></div>
+                        </div>
+                        <div class="bordertop inclusion-div position-relative">
+                            <div class="fs14 fw500">Inclusions</div>
+                            <div class="pt10">
+                                <div class="d-flex">
+                                    <div class="text-center pr20" *ngIf="packageDetails?.services.flight">
+                                        <img src="assets/images/flight_golden_1.png" class="icon_size_20" style="transform: rotate(270deg);" alt="">
+                                        <div class="fs12 fw400">Flight</div>
+                                    </div>
+                                    <div class="text-center pr20" *ngIf="packageDetails?.services.hotel">
+                                        <img src="assets/images/hotel-gold.png" class="icon_size_20" alt="">
+                                        <div class="fs12 fw400">Hotel</div>
+                                    </div>
+                                    <div class="text-center pr20" *ngIf="packageDetails?.services.transport">
+                                        <img src="assets/images/bus-gold.png" class="icon_size_20" alt="">
+                                        <div class="fs12 fw400">Transport</div>
+                                    </div>
+                                    <div class="text-center pr20"  *ngIf="packageDetails?.services.visa">
+                                        <img src="assets/images/visa-gold.png" class="icon_size_20" alt="">
+                                        <div class="fs12 fw400">Visa</div>
+                                    </div>
+                                    <div class="text-center pr20"  *ngIf="packageDetails?.services.food">
+                                        <img src="assets/images/meal-gold.png" class="icon_size_20" alt="">
+                                        <div class="fs12 fw400">Meals</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hala_position">
+                                <img class="w-100 h-100" src="assets/images/halal.png" alt="">
+                            </div>
+                        </div>
+                        <div class="bordertop inclusion-div">
+                            <div class="dflex justify-content-between">
+                                <div class="dflex mob_hide" *ngIf="!isVisaOnly">
+                                    <div class="my-auto">
+                                        <mat-icon class="clr52 mr5">room</mat-icon>
+                                    </div>
+                                    <div>
+                                        <div class="clr52 fs13">Departure From</div>
+                                        <div class="fs14 fw500">{{packageDetails?.location | uppercase}}</div>
+                                    </div>
+                                </div>
+                                <div class="dflex">
+                                    <div class="my-auto">
+                                        <mat-icon class="clr52 mr5">schedule</mat-icon>
+                                    </div>
+                                    <div>
+                                        <div class="clr52 fs13">Duration</div>
+                                        <div class="fs14 fw500">{{packageDetails?.no_of_days}} Days / {{packageDetails?.no_of_days - 1}} Nights</div>
+                                    </div>
+                                </div>
+                                <div class="dflex">
+                                    <div class="my-auto">
+                                        <mat-icon class="clr52 mr5">people</mat-icon>
+                                    </div>
+                                    <div>
+                                        <div class="clr52 fs13">Travel group size</div>
+                                        <div class="fs14 fw500">{{primaryPackage?.max_passengers}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div *ngIf="!shimmer">
+            <section class="package-itenary-div" *ngIf="packageDetails?.services?.flight || primaryPackage?.hotel_details?.length > 0 || primaryPackage?.food_details?.length > 0">
+                <div class="fs18 fwBold">Package Includes</div>
+                <div class="itenary-day-box">
+                    <div id="itenaryDay1">
+                        <div class="days-box">
+                            <div class="day-flight-box row mx-0" *ngIf="packageDetails?.services?.flight">
+                                <div class="col-md-3 px-0 box-brdr-right">
+                                    <div class="d-flex">
+                                        <div class="pr-2 my-auto">
+                                            <img src="assets/images/itinerary-flight-gold.png" class="icon_size_25" alt="">
+                                        </div>
+                                        <div class="blue_text fw500">
+                                            <div class="fs12">ONWARD FLIGHT</div>
+                                            <div class="fs13" *ngIf="primaryPackage?.flight_details[0]?.onward_arr_airport_name">to {{primaryPackage?.flight_details[0]?.onward_arr_airport_name.split('|')[1]}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 px-0 row mx-0 my-auto">
+                                    <div class="col-md-3 col-4 mob_px0">
+                                        <div class="d-flex">
+                                            <div class="image_flight my-auto">
+                                                <img class="h-100 w-100" src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{primaryPackage?.flight_details[0]?.onward_mac}}.jpg" alt="">
+                                            </div>
+                                            <div>
+                                                <div class="fs13" *ngIf="primaryPackage?.flight_details[0]?.onward_flight_airline">{{primaryPackage?.flight_details[0]?.onward_flight_airline.split('|')[0]}}</div>
+                                                <div class="fs12 clr52">{{primaryPackage?.flight_details[0]?.onward_mac}} - {{primaryPackage?.flight_details[0]?.onward_flight_number}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-8 mob_px0">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <div class="fs16 lh16 mob_fs12 fw500">{{primaryPackage?.flight_details[0]?.flights[0]?.onward_flight_departure_date | date:'shortTime'}}</div>
+                                                <div class="fs12 clr52 mob_fs10" *ngIf="primaryPackage?.flight_details[0]?.onward_dep_airport_name">{{primaryPackage?.flight_details[0]?.onward_dep_airport_name.split('|')[1]}} [ {{primaryPackage?.flight_details[0]?.onward_flight_departure_airport}} ]</div>
+                                            </div>
+                                            <div class="position-relative text-center flight-navigation">
+                                                <div class="fs12 fwBold">{{primaryPackage?.flight_details[0]?.onward_duration}}</div>
+                                                <div class="flightdurationicon"></div>
+                                            </div>
+                                            <div>
+                                                <div class="fs16 lh16 fw500 mob_fs12">{{primaryPackage?.flight_details[0]?.flights[0]?.onward_flight_arrival_date | date:'shortTime'}}</div>
+                                                <div class="fs12 clr52 mob_fs10" *ngIf="primaryPackage?.flight_details[0]?.onward_arr_airport_name">{{primaryPackage?.flight_details[0]?.onward_arr_airport_name.split('|')[1]}} [ {{primaryPackage?.flight_details[0]?.onward_flight_arrival_airport}} ]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="primaryPackage?.hotel_details?.length > 0">
+                                <div class="day-flight-box row mx-0" *ngFor="let item of primaryPackage.hotel_details">
+                                    <div class="col-md-3 px-0 box-brdr-right">
+                                        <div class="d-flex">
+                                            <div class="pr-2 my-auto">
+                                                <img src="assets/images/hotel-gold.png" class="icon_size_25" alt="">
+                                            </div>
+                                            <div class="blue_text fw500">
+                                                <div class="fs12">{{item?.city}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 row mx-0 my-auto">
+                                        <div class="d-flex">
+                                            <div class="image_hotel my-auto">
+                                                <img class="h-100 w-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSawAGy8czsLz3EjMzFeE9jRwG2TjUzwwlJ3w&usqp=CAU" alt="">
+                                            </div>
+                                            <div>
+                                                <div class="fs15 fw500">{{item?.name}} / Similar
+                                                    <ngb-rating [(rate)]="item.rating" [readonly]="readonly" [max]=5>
+                                                        <ng-template let-fill="fill" let-index="index">
+                                                          <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                                                        </ng-template>
+                                                      </ngb-rating>
+                                                </div>
+                                                <div class="fs12 clr52"><span class="fwBold blue_text">{{item?.num_of_days}}</span> Nights in {{item?.city}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" day-flight-box row mx-0" *ngIf="primaryPackage?.food_details?.length > 0">
+                                <div class="col-md-3 px-0 box-brdr-right">
+                                    <div class="d-flex">
+                                        <div class="pr-2 my-auto">
+                                            <img src="assets/images/meal-gold.png" class="icon_size_25" alt="">
+                                        </div>
+                                        <div class="blue_text fw500 my-auto">
+                                            <div class="fs12">MEALS</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 row mx-0 my-auto">
+                                    <div class="d-flex">
+                                        <div>
+                                            <div class="fs15 fw500">Breakfast and Dinner </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="day-meal-box row mx-0" *ngIf="packageDetails?.services?.flight">
+                                <div class="col-md-3 px-0 box-brdr-right">
+                                    <div class="d-flex">
+                                        <div class="pr-2 my-auto">
+                                            <img src="assets/images/itinerary-flight-gold.png" class="icon_size_25" alt="">
+                                        </div>
+                                        <div class="blue_text fw500">
+                                            <div class="fs12">RETURN FLIGHT</div>
+                                            <div class="fs13" *ngIf="primaryPackage?.flight_details[0]?.return_arr_airport_name">to  {{primaryPackage?.flight_details[0]?.return_arr_airport_name.split('|')[1]}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 px-0 row mx-0 my-auto">
+                                    <div class="col-md-3 col-4 mob_px0">
+                                        <div class="d-flex">
+                                            <div class="image_flight my-auto">
+                                                <img class="h-100 w-100" src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{primaryPackage?.flight_details[0]?.return_mac}}.jpg" alt="">
+                                            </div>
+                                            <div>
+                                                <div class="fs13" *ngIf="primaryPackage?.flight_details[0]?.return_flight_airline">{{primaryPackage?.flight_details[0]?.return_flight_airline.split('|')[0]}}</div>
+                                                <div class="fs12 clr52">{{primaryPackage?.flight_details[0]?.return_mac}} - {{primaryPackage?.flight_details[0]?.return_flight_number}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9 col-8 mob_px0">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <div class="fs16 lh16 mob_fs12 fw500">{{primaryPackage?.flight_details[0]?.flights[0]?.return_flight_departure_date | date:'shortTime'}}</div>
+                                                <div class="fs12 clr52 mob_fs10" *ngIf="primaryPackage?.flight_details[0]?.return_dep_airport_name">{{primaryPackage?.flight_details[0]?.return_dep_airport_name.split('|')[1]}} [ {{primaryPackage?.flight_details[0]?.return_flight_departure_airport}} ]</div>
+                                            </div>
+                                            <div class="position-relative text-center flight-navigation">
+                                                <div class="fs12 fwBold">{{primaryPackage?.flight_details[0]?.onward_duration}}</div>
+                                                <div class="flightdurationicon"></div>
+                                            </div>
+                                            <div>
+                                                <div class="fs16 lh16 fw500 mob_fs12">{{primaryPackage?.flight_details[0]?.flights[0]?.return_flight_arrival_date | date:'shortTime'}}</div>
+                                                <div class="fs12 clr52 mob_fs10" *ngIf="primaryPackage?.flight_details[0]?.return_arr_airport_name">{{primaryPackage?.flight_details[0]?.return_arr_airport_name.split('|')[1]}} [ {{primaryPackage?.flight_details[0]?.return_flight_arrival_airport}} ]</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="available-calender-div mob_hide printBlock" *ngIf="!shimmer">
+            <div class="d-flex justify-content-between">
+                <div class="fs18 fwBold">Departure Date</div>
+                <div class="d-flex">
+                    <div class="d-flex">
+                        <i class="icns icon_size_15 grey_seat_icon"></i>
+                        <div class="clr52 fs12 pl-2">No. of Seats</div>
+                    </div>
+                    <div class="d-flex pl-2">
+                        <div class="boxSet redbox"></div>
+                        <div class="clr52 fs12 pl-2">Sold Out</div>
+                    </div>
+                    <div class="d-flex pl-2">
+                        <div class="boxSet yellowBox"></div>
+                        <div class="clr52 fs12 pl-2">Selling Fast</div>
+                    </div>
+                </div>
+            </div>
+            <div class="colendar-div">
+              <bi-calendar [Date]="packageTempDate" [months]="2" (monthChanged)="monthChanged($event)" (dateSelected)="onDateChanged($event)" (click)="$event.stopPropagation();" #dualCalendar></bi-calendar>
+            </div>
+        </section>
+
+        <section class="details-itenary-div" *ngIf="!shimmer">
+            <div class="fs18 fwBold">Inclusions</div>
+            <div class="details-itenary-box">
+                <div class="fw500 fs14" [innerHTML]= "packageDetails?.inclusions"></div>
+            </div>
+        </section>
+
+        <section class="details-itenary-div" *ngIf="!shimmer">
+            <div class="fs18 fwBold">Exclusions</div>
+            <div class="details-itenary-box">
+                <div class="fw500 fs14" [innerHTML]= "packageDetails?.exclusions"></div>
+            </div>
+        </section>
+
+        <section class="details-itenary-div" *ngIf="!shimmer">
+            <div class="fs18 fwBold">Terms & Conditions</div>
+            <div class="details-itenary-box">
+                <div class="fw500 fs14" [innerHTML]= "packageDetails?.terms"></div>
+            </div>
+        </section>
+
+        <section class="details-itenary-div printBlock" *ngIf="!shimmer">
+            <div class="fs18 fwBold">Detailed Day Wise Itinerary</div>
+            <div class="details-itenary-box" *ngIf="primaryPackage?.master_package?.package_itineraries.length > 0">
+                <div *ngFor="let day of primaryPackage.master_package.package_itineraries; let i = index;">
+                    <div class="row mx-0 mb15" *ngIf = "i < 2">
+                        <div class="col-md-3 col-12 px-0 mob_view">
+                            <div class="dflex pb-2">
+                                <div class="detail-day-bttn">DAY {{day?.day_number}}</div>
+                                <div class="fs15 fw500 my-auto pl-2">{{day?.title}}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-12 px-0 days-image">
+                            <img class="w-100 h-100" *ngIf="day.attachments.length == 0" src="/assets/images/imagemakkah.jpg" alt="">
+                            <img class="w-100 h-100" *ngIf="day.attachments.length > 0" src="{{day.attachments[0].file}}" alt="">
+                        </div>
+                        <div class="col-md-9 col-12 pr-0 pt-1">
+                            <div class="dflex mob_hide">
+                                <div class="detail-day-bttn">DAY {{day?.day_number}}</div>
+                                <div class="fs15 fw500 my-auto pl-2">{{day?.title}}</div>
+                            </div>
+                            <div class="discription-days">
+                                <div [innerHtml]="day.details"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="itenaryfull">
+                    <div *ngFor="let day of primaryPackage.master_package.package_itineraries; let i = index;">
+                        <div class="row mx-0 mb15" *ngIf = "i > 1">
+                            <div class="col-md-3 col-12 px-0 mob_view">
+                                <div class="dflex pb-2">
+                                    <div class="detail-day-bttn">DAY {{day?.day_number}}</div>
+                                    <div class="fs15 fw500 my-auto pl-2">{{day?.title}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-12 px-0 days-image">
+                                <img class="w-100 h-100" *ngIf="day.attachments.length == 0" src="/assets/images/imagemakkah.jpg" alt="">
+                                <img class="w-100 h-100" *ngIf="day.attachments.length > 0" src="{{day.attachments[0].file}}" alt="">
+                            </div>
+                            <div class="col-md-9 col-12 pr-0 pt-1">
+                                <div class="dflex mob_hide">
+                                    <div class="detail-day-bttn">DAY {{day?.day_number}}</div>
+                                    <div class="fs15 fw500 my-auto pl-2">{{day?.title}}</div>
+                                </div>
+                                <div class="discription-days">
+                                    <div [innerHtml]="day.details"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="view-full-itenary" (click)="expandItenary($event)"><i class="fa fa-plus-circle" *ngIf="!minusBttn" aria-hidden="true"></i><i class="fa fa-minus-circle" *ngIf="minusBttn" aria-hidden="true"></i> View Full itenerary</button>
+            </div>
+        </section>
+
+        <!-- print div -->
+        <section class="details-itenary-div printdisplay" *ngIf="packageDetails?.package_itineraries && packageDetails?.package_itineraries.length > 0">
+            <div class="fs18 fwBold">Detailed Day Wise Itinerary</div>
+            <div class="details-itenary-box">
+                <div *ngFor="let k of packageDetails.package_itineraries;let i = index;">
+                    <div class="row mx-0 mb15">
+                        <div class="col-md-12 col-12 pr-0 pt-1">
+                            <div class="dflex web_view">
+                                <div class="fs15 fw600">DAY {{k.day_number}} -</div>
+                                <div class="fs15 fw500 my-auto pl-2">{{k?.title}}</div>
+                            </div>
+                            <div class="discription-days">
+                                <div [innerHtml]="k.details"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+
+</div>
+
+
+<div [style.display]="showBookimgPopup ? 'block' : 'none'" class="modal" id="bookingPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog popupmoving">
+        <div class="modal-content p10 wdthofpopup">
+            <div class="d-flex justify-content-between brdr_btm_d3">
+                <div class="fs18 fwBold pdngDiv">Select Date</div>
+                <div class="cursor-pointer pdngDiv fs18" (click)="closePopup()"><i class="fa fa-times" aria-hidden="true"></i></div>
+            </div>
+            <div class="row mx-0 pt-2 over-height">
+                <div class="col-md-9">
+                    <bi-calendar [Date]="packageTempDate" [months]="1" (monthChanged)="monthChanged($event)" (dateSelected)="onDateChanged($event)" (click)="$event.stopPropagation();" #popupDatePicker></bi-calendar>
+                </div>
+                <div class="col-md-3" fxLayout="column" fxLayoutAlign="center end">
+                    <div class="text-center">
+                        <div *ngIf="selectedPackage?.date">
+                            <div class="fs14 fw500">Selected Day</div>
+                            <div class="fs22 fw500">{{selectedPackage?.date | date:'mediumDate'}}</div>
+                        </div>
+                        <div *ngIf="!selectedPackage?.date">
+                            <div class="fs14 fw500">Please Select Day</div>
+                        </div>
+                        <div class="mt-2">
+                            <button class="bookButton" [class.bttnactive]="bttnactv" (click)="navigate()">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

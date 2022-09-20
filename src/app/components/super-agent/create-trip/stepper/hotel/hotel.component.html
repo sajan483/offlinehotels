@@ -1,0 +1,198 @@
+<div class="w-100 bgf2 p10" *ngIf="showHotelDetails == 'false' && !detailsLoader">
+    <div class="container d-flex justify-content-between">
+        <div class="d-inline-flex cursor-pointer mr-3 my-auto" (click)="back()">
+            <i class="blue_back_arrow icns icon_size_15"></i>
+            <div class="blue_back_clr lh15 fs15 ml-2">Back</div>
+        </div>
+        <div>
+            <button class="btn btn-info" (click)="skiphotel()">Skip <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+<div class="container p-2" *ngIf="showHotelDetails == 'false' && !detailsLoader">
+    <div *ngIf="hotelCity == 'MAKKA'" class="ml-3">MAKKAH HOTEL LIST</div>
+    <div *ngIf="hotelCity == 'MADEENA'"  class="ml-3">MADEENA HOTEL LIST</div>
+</div>
+
+<div *ngIf="loader">
+    <app-hotel-loader></app-hotel-loader>
+</div>
+
+<!-- Details_Loader -->
+
+
+<div class="animationdiv loaderDetailsPopup minhight100" *ngIf="detailsLoader">
+    <div class="bg-white p-2">
+        <div class="container d-flex justify-content-between">
+            <div class="lines shine m-1 width40 wdth100"></div>
+            <div class="d-flex my-auto backbutton cursor-pointer" (click)="hideHotelDetailsPopup()">
+                <i class="uparrow icns icon_size_20 trnsfer"></i>
+                <span class="blue_text fs14 ">Back to Search</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="filterbox row ml-0 mr-0 mt-3 bg-white">
+            <div class="col-md-7 pl-0 pr-0">
+                <div class="hotel_photo_gallery">
+                    <div class="firstimg ">
+                        <div class="shine w-100 h-100"></div>
+                    </div>
+                    <div class="secongimg">
+                        <div class="shine w-100 h-100"></div>
+                    </div>
+                    <div class="thirdimg">
+                        <div class="shine w-100 h-100"></div>
+                    </div>
+                    <div class="forthimg">
+                        <div class="shine w-100 h-100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="d-flex justify-content-between mt-3">
+                    <div class="w-25">
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                    </div>
+                    <div class="text-center w-25 mt-2">
+                        <i class="icon_size_20 icns nighticon"></i>
+                        <div class="w-100 shine lines"></div>
+                    </div>
+                    <div class="w-25">
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                    </div>
+                </div>
+                <div class="mt-3 w-75">
+                    <div class="w-100 shine lines"></div>
+                </div>
+                <div class="mt-3 w-50">
+                    <div class="w-100 shine lines"></div>
+                    <div class="w-100 shine lines"></div>
+                    <div class="w-100 shine lines"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <mat-tab-group>
+                <mat-tab label="Room Type">
+                    <div class="borderbox mb80 p20">
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="More Details">
+                    <div class="borderbox mb80 p20">
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Policy">
+                    <div class="borderbox mb80 p20">
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                        <div class="w-100 shine lines"></div>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+
+
+<div class="animationdiv container mb80" *ngIf="showHotelDetails == 'false' && !loader">
+    <section class="col-md-12 px-2">
+        <div class="hotel-filter">
+            <input type="text" class="form-controle" placeholder="Search By Hotel Name" [(ngModel)]="userFilter.name" name="" id="">
+        </div>
+    </section>
+    <div class="padding_hotel1" *ngFor="let item of hotelsList.response | filterBy: userFilter;let i = index">
+        <div class="uitk-card uitk-grid border_box_shadow">
+            <div class="link-container uitk-grid">
+                <div class="row w-100 m-0">
+                    <div class="col-md-4 col-12 pr-0 pl-0">
+                        <section class="uitk-cell uitk-card-media">
+                            <div *ngIf="item.has_special_deal" class="hotelRibbon positionData">
+                                <span class="hotelRibbon3">
+                                    {{'Has special deal'}}
+                                </span>
+                            </div>
+                            <header class="title">
+                                <div class="listing-photo-gallery title__media-container">
+                                    <span>
+                                        <section class="uitk-cell uitk-card-media title__media-container">
+                                            <div class="photo-gallery noimghotel">
+                                                <img *ngIf="item.image_path" src="{{item.image_path}}" alt="">
+                                            </div>
+                                        </section>
+                                    </span>
+                                </div>
+                            </header>
+                        </section>
+                    </div>
+                    <div class="col-md-8 col-12 pr-0 pl-0">
+                        <div class="uitk-card-content row">
+                            <div class="result-details-left col-md-8 col-12">
+                                <div class="d-flex flex-column ">
+                                    <div class="d-inline-flex">
+                                        <div class="mb-2">
+                                            <h3 class="hotel_name mb-0" title="{{item?.name}}">{{item?.name | titlecase }} / Similar</h3>
+                                            <ngb-rating [(rate)]="item.rating" readonly="true" [max]=5>
+                                                <ng-template let-fill="fill" let-index="index">
+                                                  <span class="pkg_star" [class.pkg_filled]="fill === 100">&#9733;</span>
+                                                </ng-template>
+                                            </ngb-rating> 
+                                        </div>
+                                        <div class="pl-1">
+                                        </div>
+                                    </div>
+                                    <div class="d-inline-flex pb5" *ngIf="item.haram_distance">
+                                        <div class="pr-2"><i class="makkahharam icns icon_size_15"></i></div>
+                                        <div class="fs13 clr52 fw400" *ngIf="item?.haram_distance < 1000">
+                                            <strong class="clr01 fs14 fw500">HARAM</strong> {{item?.haram_distance}} Meters
+                                        </div>
+                                        <div class="fs13 clr52 fw400" *ngIf="item?.haram_distance >= 1000">
+                                            <strong class="clr01 fs14 fw500">HARAM</strong> {{item?.haram_distance /1000}} Km
+                                        </div>
+                                    </div>
+                                    <div class="d-inline-flex pb5" *ngIf="item.nabawi_distance">
+                                        <div class="pr-2"><i class="madeenanabawi icns icon_size_15"></i></div>
+                                        <div class="fs13 clr52 fw400"><strong class="clr01 fs14 fw500">NABAWI</strong> {{item?.nabawi_distance}} km
+                                        </div>
+                                    </div>
+                                    <div class="d-inline-flex pb5" *ngIf="item.address">
+                                        <div class="pr-2"><i class="locationicon icns icon_size_15"></i></div>
+                                        <div class="fs12 clr52">{{item?.address}}</div>
+                                    </div>
+                                    <div *ngIf="item.description && item.description.length > 200">
+                                        <div class="pb5 fs13 clr52 desptn divexpandanimation" id="descrptionLess{{i}}">{{item?.description}}</div>
+                                        <div class="readmorenavigate fs13" id="readMoreBttn{{i}}" (click)="readMore($event,i)">+ Read More</div>
+                                        <div class="readmorenavigate fs13 dsplynone" id="readLessBttn{{i}}" (click)="readLess($event,i)">- Read Less</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-end flex-column result-details-right pr-0 col-md-4 col-12">
+                                <div class="text-center">
+                                    <h3 class="hotel_prise">{{currency}} {{currencyConversion(item?.amount)}}
+                                    </h3>
+                                    <button class="searchbutton pull-right m-0" id="showHotelSelect{{i}}" (click)="showHotelDetailsPopUp(item,hotelsList.city)">{{'Select Room' }}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="showHotelDetails == 'true'">
+    <app-hotel-details-popup (showHotelDetailsEmitter)="getPopupFlag($event)"></app-hotel-details-popup>
+</div>

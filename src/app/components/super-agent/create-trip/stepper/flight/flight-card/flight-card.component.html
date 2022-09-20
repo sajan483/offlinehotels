@@ -1,0 +1,92 @@
+<div class="flight-list-outer">
+    <div class="row">
+        <div class="col-md-6">
+            <p class="flight-head">ONWARD <span> [{{searchResult.fromLocation.city}} to {{searchResult.destLocation.city}}]</span></p>
+            <div class="divider"></div>
+            <ng-container *ngFor="let item of searchResult.departureFlights; let i = index">
+                <mat-card id="{{'depCard'+i}}" class="flight-card">
+                    <div class="fc-top">
+                        <div class="top-left">
+                            <input class="flight-radio" type="radio" id="male" name="deprtureflight" (click)="setDepFlight(item,i)">
+                            <p class="radio-label">{{item.AirlineName.split('|')[1]}}<span>| {{item.MAC}}-{{item.FlightNo}}</span><span *ngIf="item.MAC != item.OAC">(Operated By : {{item.AirlineName.split('|')[0]}})</span></p>
+                        </div>
+                        <div class="top-right">
+                            <p class="fare-label">Current Fare</p>
+                            <p class="fare">{{currency}} {{currencyConversion(item.NetFare)}}</p>
+                        </div>
+                    </div>
+                    <div class="fc-middle">
+                        <img class="fc-img" src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/{{item.MAC}}.png">
+                        <div class="depart">
+                            <p class="black-18">{{item.DepartureTime | date:'HH:mm'}}</p>
+                            <p class="grey-12 split">{{item.FromName.split('|')[0]}}</p>
+                        </div>
+                        <div class="flag">
+                            <div class="flag-border"></div>
+                            <p class="black-12 text-center">{{item.Duration}}</p>
+                            <div class="stop-box" *ngIf="item.Stops > 0"></div>
+                            <p class="grey-12 text-center">{{item.Stops}} Stop</p>
+                        </div>
+                        <div class="arrive">
+                            <p class="black-18">{{item.ArrivalTime | date:'HH:mm'}}</p>
+                            <p class="grey-12 split">{{item.ToName.split('|')[0]}}</p>
+                        </div>
+                    </div>
+                    <!-- <div class="fc-bottom" (click)="toggleDetails(item, $event, i)"> -->
+                    <div class="fc-bottom">
+                        <p class="green" *ngIf="item.Refundable == 'R'">R</p>
+                        <p class="red" *ngIf="item.Refundable != 'R'">N</p>
+                        <!-- <p class="f-detail">+ Flight Details</p> -->
+                    </div>
+                    <div class="expansion">
+                        <app-flight-details></app-flight-details>
+                    </div>
+                </mat-card>
+            </ng-container>
+        </div>
+        <div class="col-md-6">
+            <p class="flight-head">RETURN <span> [{{searchResult.destLocation.city}} to {{searchResult.fromLocation.city}}]</span></p>
+            <div class="divider"></div>
+            <ng-container *ngFor="let item of searchResult.returnFlights; let i = index">
+                <mat-card id="{{'arrCard'+i}}" class="flight-card">
+                    <div class="fc-top">
+                        <div class="top-left">
+                            <input class="flight-radio" type="radio" id="male" name="returnflight" (click)="setArrFlight(item,i)">
+                            <p class="radio-label">{{item.AirlineName.split('|')[1]}}<span>| {{item.MAC}}-{{item.FlightNo}}</span><span *ngIf="item.MAC != item.OAC">(Operated By : {{item.AirlineName.split('|')[0]}})</span></p>
+                        </div>
+                        <div class="top-right">
+                            <p class="fare-label">Current Fare</p>
+                            <p class="fare">{{currency}} {{currencyConversion(item.NetFare)}}</p>
+                        </div>
+                    </div>
+                    <div class="fc-middle">
+                        <img class="fc-img" src="https://imgak.mmtcdn.com/flights/assets/media/dt/common/icons/{{item.MAC}}.png">
+                        <div class="depart">
+                            <p class="black-18">{{item.DepartureTime | date:'HH:mm'}}</p>
+                            <p class="grey-12 split">{{item.FromName.split('|')[0]}}</p>
+                        </div>
+                        <div class="flag">
+                            <div class="flag-border"></div>
+                            <p class="black-12 text-center">{{item.Duration}}</p>
+                            <div class="stop-box" *ngIf="item.Stops > 0"></div>
+                            <p class="grey-12 text-center">{{item.Stops}} Stop<span *ngIf="item.Stops > 1">s</span></p>
+                        </div>
+                        <div class="arrive">
+                            <p class="black-18">{{item.ArrivalTime | date:'HH:mm'}}</p>
+                            <p class="grey-12 split">{{item.ToName.split('|')[0]}}</p>
+                        </div>
+                    </div>
+                    <!-- <div class="fc-bottom" (click)="toggleDetails(item, $event, i)"> -->
+                    <div class="fc-bottom">
+                        <p class="green" *ngIf="item.Refundable == 'R'">R</p>
+                        <p class="red" *ngIf="item.Refundable != 'R'">N</p>
+                        <!-- <p class="f-detail">+ Flight Details</p> -->
+                    </div>
+                    <div class="expansion">
+                        <app-flight-details></app-flight-details>
+                    </div>
+                </mat-card>
+            </ng-container>
+        </div>
+    </div>
+</div>

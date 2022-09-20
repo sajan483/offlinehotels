@@ -1,0 +1,29 @@
+<div class="w-100 refund-policy-bar-div">
+    <div class="flex-fill" *ngFor="let k of barData">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="text-amound-value" [ngStyle]="{'color':k.colortext}" *ngIf="k.isText">{{k.text}}</div>
+            <div class="text-amound-value" [ngStyle]="{'color':k.colortext}" *ngIf="!k.isText">{{currency}} {{k.amound | ConvertCurrency : currency}}</div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="line-bar" [ngStyle]="{'background-color':k.colortext}"></div>
+                <div class="date-time-div">
+                    <div class="roundFrom" [ngStyle]="{'background-color':k.colortext}"><i class="fa fa-usd text-white" aria-hidden="true"></i></div>
+                    <div class="date-time-position">
+                        <div class="date-text">{{k.date | DateTimeToDateFormat | date:'dd MMM'}}</div>
+                        <div>{{k.date | DateTimeToGDStime | convertFrom24To12Format}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div>
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="text-amound-value"></div>
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <div class="line-bar-start"></div>
+                <div class="roundFrom">{{isHotel?'check-in':'Start' | translate}}</div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+

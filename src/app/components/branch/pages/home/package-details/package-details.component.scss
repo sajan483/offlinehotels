@@ -1,0 +1,387 @@
+
+
+.bookButton{
+    background-color: #d3ac73a8;
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 6px 15px;
+    border: 1px solid #d3ac73a8;
+    border-radius: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+    .mainDivPackage{
+        .container{
+            padding: 0 5px !important;
+        }
+        .booking-div{
+            padding: 5px 0 !important;
+            .mob_head{
+                display: block !important;
+            }
+            .packag-head{
+                font-size: 14px !important;
+            }
+            .divider{
+                font-size: 12px !important;
+            }
+        }
+        .image-collection-div{
+            margin-top: 5px !important;
+            padding: 5px 0 !important;
+            .mainimageshow{
+                height: 180px !important;
+            }
+        }
+        .package-overview-details{
+            padding: 5px 0 !important;
+        }
+        .paddng-div{
+            padding: 10px 0 !important;
+        }
+        .inclusion-div{
+            padding: 10px !important;
+        }
+        .package-itenary-div{
+            .itenary-day-box{
+                padding: 0 !important;
+                background-color: rgba(0, 0, 0, 0) !important;
+            }
+            .days-box{
+                margin: 0 !important;
+                .day-flight-box{
+                    background-color: white !important;
+                    padding: 5px !important;
+                    margin-bottom: 5px !important;
+                }
+                .box-brdr-right{
+                    border-right: 1px solid rgba(158, 169, 178, 0.28);
+                }
+                .day-meal-box{
+                    background-color: white !important;
+                    padding: 5px !important;
+                }
+            }
+            .flight-navigation{
+                width: 80px !important;
+            }
+        }
+    }
+
+    #bookingPopup{
+        .modal-dialog{
+            margin-top: 65px !important;
+        }
+    }
+}
+
+.mainDivPackage{
+    margin-top: 60px;
+    margin-bottom: 60px;
+    color: #000;
+    .booking-div{
+        background-image:linear-gradient(to top,#d3ac73a8,#fce7c5);// linear-gradient(to top, #367275, #02b4bd);
+        padding: 15px 0;
+        .packag-head{
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+        }
+        .divider{
+            margin: 0 10px;
+            border-right: 1px solid #000;
+            height: 14px;
+        }
+        .pading-info{
+            padding: 0 0 2px 6px;
+        }
+    }
+    .image-collection-div{
+        margin-top: 15px;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+        border: solid 1px rgba(158, 169, 178, 0.28);
+        padding: 15px 0;
+        background-color: white;
+        overflow: hidden;
+        .mainimageshow{
+            display: block;
+            height: 300px;
+            width: 100%;
+        }
+        .move-back-bttn{
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            .back-arrow{
+                background: #000000a1;
+                width: fit-content;
+                color: white;
+                padding: 2px 10px 2px 5px;
+                border-radius: 0 10px 10px 0;
+                cursor: pointer;
+            }
+        }
+        .move-forward-bttn{
+            position: absolute;
+            top: 50%;
+            right: 0;
+            z-index: 2;
+            .forward-arrow{
+                background: #000000a1;
+                width: fit-content;
+                color: white;
+                padding: 2px 5px 2px 10px;
+                border-radius: 10px 0 0 10px;
+                cursor: pointer;
+            }
+        }
+        .listingimages{
+            height: 77px;
+            cursor: pointer;
+        }
+        .hovr-pdng{
+            border: 2px solid red;
+        }
+    }
+    .package-overview-details{
+        padding: 10px 0;
+        .bordertop{
+            border-top: 1px solid rgba(158, 169, 178, 0.28);
+        }
+        .paddng-div{
+            padding: 15px 0 20px 0;
+        }
+        .package-overview{
+            padding: 0 10px;
+        }
+        .inclusion-div{
+            padding: 25px 10px;
+        }
+        .hala_position{
+            position: absolute;
+            top: 25px;
+            right: 33px;
+            height: 50px;
+            width: 50px;
+        }
+    }
+    .package-itenary-div{
+        margin-top: 15px;
+        margin-bottom: 10px;
+        .day-button-active{
+            background-image: linear-gradient(to top,#d3ac73a8,#fce7c5) !important;
+            color: white !important;
+        }
+        .day-button{
+            margin: 15px 0 0 15px;
+            background-image: linear-gradient(to top, #ffffff, #ffffff);
+            text-align: center;
+            border-radius: 15px 0 0 15px;
+            padding: 4px;
+            font-size: 15px;
+            border: 1px solid #357376;
+            color: #357376;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .itenary-day-box{
+            box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+            border: solid 1px rgba(158, 169, 178, 0.28);
+            background-color: white;
+            margin-left: -2px;
+            z-index: 2;
+            padding: 18px;
+        }
+        .days-box{
+            box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+            border: solid 1px rgba(158, 169, 178, 0.28);
+            margin: 10px 0 10px 0;
+            .day-flight-box{
+                padding: 20px 15px;
+                border-bottom: 1px dashed rgba(158, 169, 178, 0.28);
+            }
+            .box-brdr-right{
+                border-right: 1px solid rgba(158, 169, 178, 0.28);
+            }
+            .day-meal-box{
+                padding: 20px 15px;
+            }
+        }
+        .image_flight{
+            height: 30px;
+            width: 30px;
+            margin-right: 15px;
+        }
+        .flight-navigation{
+            width: 200px;
+        }
+        .flightdurationicon{
+            margin: auto;
+            max-width: 115px;
+            width: 80%;
+            height: 16px;
+            position: relative;
+        }
+        .flightdurationicon::after{
+            content: url(/assets/images/duration-flight-icon.png);
+            position: absolute;
+            right: 0;
+            top: -4px;
+            font-size: 18px;
+        }
+        .flightdurationicon::before{
+            content: "";
+            width: calc(100%);
+            height: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            border-bottom: 1px dashed #000;
+            z-index: 0;
+        }
+        .image_hotel{
+            height: 35px;
+            width: 50px;
+            margin-right: 15px;
+        }
+    }
+    .available-calender-div{
+        margin-top: 15px;
+        margin-bottom: 10px;
+        .colendar-div{
+            background-color: white;
+            box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+            border: solid 1px rgba(158, 169, 178, 0.28);
+            border-radius:4px ;
+        }
+        .boxSet{
+            height: 10px;
+            width: 10px;
+            margin-top: 3px;
+        }
+        .yellowBox{
+            background-color: #f5a623;
+        }
+        .redbox{
+            background-color: #f81e41;
+        }
+    }
+    .details-itenary-div{
+        margin-top: 15px;
+        .details-itenary-box{
+            padding: 15px;
+            box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+            border: solid 1px rgba(158, 169, 178, 0.28);
+            background-color: white;
+            .days-image{
+                height: 200px;
+                width: 100%;
+            }
+            .detail-day-bttn{
+                font-size: 15px;
+                font-weight: 500;
+                padding: 2px 20px;
+                border-radius: 20px;
+                background-image: linear-gradient(to top, #d3ac73a8, #fce7c5);
+                color: #000;
+            }
+            .discription-days{
+                margin-top: 20px;
+                color: #333333;
+                font-size: 12px;
+                line-height: 2.23;
+            }
+            .itenaryfull {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+            }
+            .view-full-itenary{
+                background-color: #d3ac73a8;
+                color: #000;
+                border: none;
+                border-radius: 2px;
+                font-size: 14px;
+                padding: 3px 10px;
+                font-weight: 400;
+            }
+            .hide-minus{
+                display: none;
+            }
+        }
+    }
+}
+
+.wdthofpopup{
+    width: 900px;
+}
+
+.modal{
+    background-color: rgba(0, 0, 0, 0.431);
+}
+
+#bookingPopup{
+    .modal-dialog{
+        max-width: max-content;
+    }
+    .pdngDiv{
+        padding: 5px 10px;
+    }
+    .over-height{
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+.logHeight{
+    height: 40px;
+}
+
+.printdisplay {
+    display: none;
+}
+
+@media print {
+    .printdisplay {
+        display: block !important;
+    }
+    .printBlock {
+        display: none;
+    }
+    .printPt0 {
+        padding-top: 0 !important;
+    }
+    .divider{
+        border-color: black !important;
+    }
+    .blckClr{
+        color: black !important;
+    }
+    .booking-div{
+        background:white !important;
+    }
+    .mainDivPackage{
+        margin-top: 0px !important;
+    }
+    .discription-days{
+        margin-top: 5px !important;
+    }
+    .print_center{
+        text-align: center !important;
+    }
+}
+
+.backbutton{
+    background-color: #367275;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-size: 14px;
+    padding: 3px 10px;
+    font-weight: 400;
+    width: 120px;
+    cursor: pointer;
+
+}

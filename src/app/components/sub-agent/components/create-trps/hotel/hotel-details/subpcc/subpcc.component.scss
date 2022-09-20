@@ -1,0 +1,48 @@
+.subpcc-div{
+    padding-top: 20px;
+    .card-subpcc{
+        box-shadow: 0 0 9px 0 rgb(0 0 0 / 15%);
+        border: 1px solid rgba(156,170,179,.28);
+        border-radius: 5px;
+        background-color: #fff;
+        .label-text{
+            font-size: 14px;
+            margin-bottom: 0;
+            font-weight: 500;
+            text-align: start;
+            width: 100%;
+            line-height: 15px;
+        }
+    }
+    .save-notification{
+        font-size: 12px;
+        text-align: center;
+        background-color: #cba882;
+        border-radius: 0 0 5px 5px;
+        padding: 3px;
+    }
+    .saved-subpccs{
+        padding: 10px;
+        .save-text{
+            font-size: 14px;
+            font-weight: 500;
+            padding-bottom: 5px;
+        }
+        .supccs{
+            margin: 0 0 0 3px;
+            padding: 4px 6px;
+            font-size: 12px;
+            width: fit-content;
+            color: #000;
+            background-color: #e7ceb3;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .button-pdng-mob{
+        padding-top: 10px;
+    }
+}

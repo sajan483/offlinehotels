@@ -1,0 +1,51 @@
+<div class="container-fluid" id="top">
+    <div class="container">
+        <h4 class="text-center text-uppercase text-white">{{details?.agency?.name}}</h4>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped bg-light mt-3" style="width: 65%;">
+                <tbody>
+                    <tr>
+                        <td>Phone Number</td>
+                        <td>:</td>
+                        <td>{{details?.agency?.phone_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>:</td>
+                        <td>{{details?.agency?.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>:</td>
+                        <td>{{details?.agency?.city}}, {{details?.agency?.state}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <h6 class="mt-5 text-center text-white">Staff Details</h6>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped bg-light" style="width: 65%;">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>:</td>
+                        <td>{{details?.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Phone Number</td>
+                        <td>:</td>
+                        <td>{{details?.phone_number}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>:</td>
+                        <td>{{details?.email}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

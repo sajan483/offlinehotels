@@ -1,0 +1,36 @@
+.bordr_room{
+    margin: 11px 11px 0 0;
+    border: 1px solid #55555525;
+}
+
+.room-allocation-div{
+    position: absolute;
+    left: 12px;
+    top: 70px;
+    z-index: 99;
+    padding-bottom: 50px;
+    .room-allocation-body{
+        font-size: 12px;
+        background: #fff;
+        border: 1px solid #d4d4d4;
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.23);
+        width: 400px;
+        .roomtype-head{
+            padding: 5px 10px;
+            font-weight: 500;
+            background-color: #e6e6e6;
+        }
+        .room-pading{
+            padding: 5px 10px;
+        }
+        .brdr_top_dashed{
+            border-top: 1px dashed #e6e6e6;
+        }
+    }
+}
+
+.divider{
+    border-right: 1px solid grey;
+    margin: 0 7px;
+    height: 15px;
+}

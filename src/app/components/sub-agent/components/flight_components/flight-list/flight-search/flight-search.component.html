@@ -1,0 +1,231 @@
+<div>
+
+    <div class="container">
+        <div class="div_search fullwidth">
+            <div class="row p-3">
+
+                <div class="col-md-4 col-lg-2 col-sm-6 col-12 fl_child_bar">
+
+                    <div class (click)="showfromairport($event);" #menuIcon>
+
+                        <div class="fullwidth">
+                            <p class="fl_label mb-0 rtl_position">{{'From' | translate}}</p>
+                            <div class="fullwidth d-flex">
+                                <div class="fl_class85 rtl_position">
+                                    <label>{{fromLocation.city}}</label>
+                                </div>
+                                <div class="">
+                                    <a fxLayoutAlign="start center">
+                                        <mat-icon class="fl_icon_gps">gps_fixed</mat-icon>
+                                    </a>
+                                </div>
+                                <mat-icon class="fl_icon_swap"> swap_horiz</mat-icon>
+                            </div>
+                            <div class="fullwidth rtl_position" title="{{fromLocation.name}}">
+                                <p class="fl_desc">[{{fromLocation.iata}}] {{fromLocation.name}} </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="fromtopopup topopup" *ngIf="fromairport" style="display: block;" #menuPopup>
+                        <label class="d-flex justify-content-start  align-items-center">
+            <img src="/assets/images/search_icon.png" alt>
+            <input class="qwerty fly-from-input ac_input" [formControl]="stateCtrl" [matAutocomplete]="auto" matInput placeholder="{{'Select Source' | translate}}" #selectSourceInput #fromInput>
+            <mat-autocomplete class="autocomplete" #auto="matAutocomplete" classList="autocomplete">
+              <mat-option [value]="state.iata" *ngFor="let state of filteredStates | async">
+                  <a class="airport-selection" (click)="setFromLocation(state)">
+                      <div class="sub-tab-by">
+                          <div class="mirror_hide hidden">
+                              <div class="city-name">{{state?.city}}</div>
+                              <div class="airport-name ellipsis">{{state?.name}}</div>
+                          </div>
+                          <div class="airportcode">{{state?.iata}}</div>
+                          <div class="mirror_display text-right">
+                              <div class="city-name">{{state?.city}}</div>
+                              <div class="airport-name">{{state?.name}}</div>
+                          </div>
+                      </div>
+                  </a>
+              </mat-option>
+          </mat-autocomplete>
+          </label>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-2 col-sm-6 col-12 fl_child_bar">
+
+                    <div class (click)="showtoairport($event);" #menuIconTo>
+                        <div class="fullwidth rtl_position">
+                            <p class="fl_label mb-0">{{'To' | translate}}</p>
+                        </div>
+                        <div class="fullwidth rtl_position">
+                            <label>{{toLocation?.city}}</label>
+                        </div>
+                        <div class="fullwidth rtl_position">
+                            <p class="fl_desc"> [{{toLocation.iata}}] {{toLocation.name}}</p>
+
+                        </div>
+
+                    </div>
+                    <div class="fromtopopup topopup" *ngIf="toairport" #menuPopupTo>
+                        <label>
+              <img src="/assets/images/search_icon.png" alt>
+              <input class="fly-from-input ac_input" [formControl]="stateCtrlD" [matAutocomplete]="autoD" matInput placeholder="{{'Select Destination' | translate}}" #selectDestinationInput #toInput>
+          <mat-autocomplete class="autocomplete" #autoD="matAutocomplete" classList="autocomplete">
+              <mat-option [value]="state.iata" *ngFor="let state of filteredStatesDs">
+                  <a class="airport-selection" (click)="settoLocation(state)">
+                      <div class="sub-tab-by">
+                          <div class="mirror_hide hidden">
+                              <div class="city-name ">{{state?.city}}</div>
+                              <div class="airport-name ellipsis">{{state?.name}}</div>
+                          </div>
+                          <div class="airportcode">{{state?.iata}}</div>
+                          <div class="mirror_display text-right">
+                              <div class="city-name">{{state?.city}}</div>
+                              <div class="airport-name">{{state?.name}}</div>
+                          </div>
+                      </div>
+                  </a>
+              </mat-option>
+
+
+
+          </mat-autocomplete>
+
+            </label>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-2 col-sm-6 col-12 fl_child_bar">
+                    <div class [owlDateTimeTrigger]="dt3">
+                        <div class="depart_cal fl_label rtl_depart-position">
+                            <mat-icon class="cal-icon">date_range</mat-icon>
+                            <div>
+                                {{'Departs On' | translate}}
+                            </div>
+                            <i class="fa fa-angle-down icon-down-angle"></i>
+                        </div>
+                        <div class="d-flex rtl_position">
+                            <h6 class="fl_place"> {{ddate | date:'dd'}}</h6>
+                            <div class="fl-search-middle_lable"> <span>{{ddate | date:'MMM'}}</span>' <span>{{ddate | date:'yy'}}</span></div>
+                        </div>
+
+                        <p class="fl_desc rtl_position">{{ddate | date:"EEEE" | translate}}</p>
+                        <input class="dt posIn" [(ngModel)]="ddate" [min]="today" [owlDateTime]="dt3" (ngModelChange)="dataChangedFromDepartureDate($event)">
+                        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-2 col-sm-6 col-12 fl_child_bar">
+                    <div class [owlDateTimeTrigger]="dt4" (click)="setMinMaxRetDate()">
+                        <div class="depart_cal fl_label rtl_depart-position">
+                            <mat-icon class="cal-icon">date_range</mat-icon>
+                            <div>
+                              {{'Return' | translate}}
+                            </div>
+                            <i class="fa fa-angle-down icon-down-angle"></i>
+                        </div>
+                        <div class="d-flex rtl_position">
+                            <h6 class="fl_place">{{returnDate | date:'d'}}</h6>
+                            <div class="fl-search-middle_lable"> <span>{{returnDate | date:'MMM'}}</span>' <span>{{returnDate | date:'yy'}}</span></div>
+                        </div>
+
+
+                        <p class="fl_desc rtl_position">{{returnDate | date:'EEEE' | translate}}</p>
+                        <input class="dt posIn clndrposout" [(ngModel)]="returnDate" [max]="retMax" [min]="retMin" [owlDateTime]="dt4" (ngModelChange)="dataChangedFromReturnDate($event)" #returnDatePicker>
+                        <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-lg-2 col-sm-6 col-12">
+                    <div class (click)="travellerClassClick($event);" #menuIconClassTrvl>
+                        <div class="fullwidth rtl_position">
+                            <p class="fl_label mb-0"> {{'Travellers & class' | translate}}</p>
+                        </div>
+                        <div class="fullwidth d-flex">
+                            <h6 class="fl_place">{{countTraveller}}</h6>
+                            <div class="fl-search-middle_lable">
+                                  {{'travellers' | translate}}
+                            </div>
+
+                        </div>
+                        <div class="fullwidth rtl_position">
+                            <p class="fl_desc"> {{flightclass}}</p>
+                        </div>
+                    </div>
+                    <div class="travellerpopup trvlclass" *ngIf="displaytravelClass" #menuPopupClassTrvl>
+                        <div class="travellersouter class_travel">
+
+                            <div class="pdngpopip">
+
+                                <div class="adult_count_div">
+                                    <div class="adult_count_label w40">
+                                         {{'Adults' | translate}}
+                                    </div>
+
+                                    <div class="w20 adult_count_input">
+                                        <input class="text-center" [(ngModel)]="countadult" [min]="1" type="text" numberOnly>
+                                    </div>
+
+
+                                    <div class="w40 plusminus_btn">
+                                        <div class="fl_child_bar btns cursor-pointer w50 text-center left_radius5" (click)="decreaseAdultCount($event)">-</div>
+                                        <div class="btns w50 cursor-pointer text-center right_radius5" (click)="increaseAdultCount($event)">+</div>
+
+                                    </div>
+
+                                </div>
+                                <div class="adult_count_div">
+                                    <div class="adult_count_label w40">
+                                         {{'Children' | translate}}
+                                    </div>
+
+                                    <div class="w20 adult_count_label">
+                                        <input class="text-center" [(ngModel)]="countchild" [min]="1" type="text" numberOnly>
+                                    </div>
+
+                                    <div class="w40 plusminus_btn">
+                                        <div class="fl_child_bar btns cursor-pointer w50 text-center left_radius5" (click)="decreaseChildCount($event)">-</div>
+                                        <div class="btns w50 cursor-pointer text-center right_radius5" (click)="increaseChildCount($event)">+</div>
+
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <mat-radio-group class="travellerclassradiogroup" [(ngModel)]="flightclass">
+                                        <mat-radio-button [value]="trvlClass" *ngFor="let trvlClass of trvlClasses" fxLayout="column" fxLayoutAlign="space-evenly center">
+                                            <a class="traveller-selection" (click)="TrvlSetClass(trvlClass)">
+                                                <div class="sub-tab-by">
+                                                    <div class="mirror_hide">
+                                                        <div class="trvl-class-name">{{trvlClass | translate}}</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-2 col-sm-6 col-12" fxLayoutAlign="end center">
+                    <button class="flbtn_search search_bttn mat-flat-button" [disabled]="enableSearchBtn"
+                    [class.activeBttn]="activeBttn" type="button" (click)="searchbttn();">
+            <span>
+               {{'Search Flights' | translate}}
+            </span>
+          </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,38 @@
+import { OnInit, AfterViewInit, QueryList, EventEmitter, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Day } from '../models/day';
+import { WeekComponent } from '../week/week.component';
+import { Annotations } from '../models/annotations';
+import { Holidays } from '../models/holidays';
+import { BiDatepickerService } from '../bi-datepicker.service';
+export declare class MonthComponent implements OnInit, AfterViewInit, OnChanges {
+    private zone;
+    private ref;
+    private service;
+    ngOnChanges(changes: SimpleChanges): void;
+    constructor(zone: NgZone, ref: ChangeDetectorRef, service: BiDatepickerService);
+    cmpWeeks: QueryList<WeekComponent>;
+    showSelected: boolean;
+    Date: String;
+    month: number;
+    year: number;
+    weekendClass: string;
+    inActiveClass: string;
+    minDate: number;
+    maxDate: number;
+    vertical: boolean;
+    currency?: string;
+    currencySymbol?: string;
+    dateSelected: EventEmitter<String>;
+    ngOnInit(): void;
+    ngAfterViewInit(): void;
+    weeks: Day[][];
+    monthName: string;
+    weekWithId: any[];
+    annotation: Annotations;
+    holidays: Holidays;
+    addHolidays(hld: Holidays): void;
+    addAnnotations(ann: Annotations): void;
+    private generateWeeks;
+    trackByFn(index: any, item: any): any;
+    onDateSelected(date: String): void;
+}

@@ -1,0 +1,220 @@
+p{
+    margin-bottom: 0;
+}
+.imgposition{
+    margin: 1px 5px;
+    float: left;
+}
+.brdrR{
+    border-right: 1px solid #c9c9cc;
+}
+.brdrL{
+    border-left: 1px solid #c9c9cc;;
+}
+.brdrtop{
+    border-top: 1px solid #c9c9cc;
+}
+.brdrbottom{
+    border-bottom: 1px solid #c9c9cc;
+}
+.linebyline{
+    span{
+        margin-left: 8px;
+        font-size: 13px;
+    }
+    .crossline{
+        border-right: 1px solid;
+    }
+}
+.mapheight{
+    height: 66px;
+    width: 50%;
+}
+.font9imp{
+    font-size: 9px !important;
+}
+.borderpading{
+    padding: 15px 15px 0 15px;
+}
+.font16imp{
+    font-size: 16px !important;
+}
+.bookdpdng{
+    padding: 0 15px;
+}
+.mrgndetails{
+    margin: 30px 0;
+}
+.transportbodypdng{
+    padding: 10px 20px 0px;
+}
+.bgclrwhite{
+    background-color: white;
+}
+.bgclrred{
+    background-color: #fae6e6 !important;
+}
+.oopstext{
+    line-height: 14px;
+    margin-top: 6px;
+    padding-left: 10px;
+}
+  .roundFrom{
+        padding: 4px 10px;
+        background-color: red;
+        border-radius: 50%;
+        width: fit-content;
+        float: right;
+        color: white;
+    }
+    .roundFrom1{
+        padding: 4px 10px;
+        background-color: green;
+        border-radius: 50%;
+        width: fit-content;
+        float: right;
+        color: white;
+    }
+    .roundFromCheckin{
+        padding: 3px 10px;
+        background-color: red;
+        border-radius: 15px;
+        color: white;
+        font-weight: 500;
+        width: fit-content;
+        float: right;
+    }
+    .calculateWidth{
+        width: 100%;
+    }
+    .commonHeight{
+        height: 100px;
+    }
+    .horizondelLine{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -5px;
+        hr{
+            border-top: 4px solid red;
+        }
+    }
+    .datePosition{
+        position: absolute;
+        top: -36px;
+        right: -58px;
+        text-align: left;
+    }
+    .amountPosition{
+        position: absolute;
+        top: 24px;
+        right: 37;
+        text-align: left;
+    }
+
+
+.borderClrGreen{
+    border-color: green !important;
+}
+
+.hide{
+  display :none !important;
+}
+.datePosition2{
+    position: absolute;
+    top: -34px;
+    right: 110;
+    text-align: left;
+}
+
+.brderYelow{
+    border-color: orange !important;
+}
+.brderRed{
+    border-color: red !important;
+}
+
+.clrBacYellow{
+    background-color: orange !important;
+}
+
+.clrBacRed{
+    background-color: red !important;
+}
+
+.clrChangeGreen{
+    background-color: green !important;
+}
+
+.dscrphedding {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.result-details-left {
+    .customtooltiptext {
+        left: 73px;
+        max-width: 592px;
+    }
+}
+
+.calculateWidth{
+    width: 100%;
+}
+.commonHeight{
+    height: 100px;
+}
+.horizondelLine{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -5px;
+    hr{
+        border-top: 4px solid red;
+    }
+}
+.datePosition{
+    position: absolute;
+    top: -36px;
+    right: -58px;
+    text-align: left;
+}
+.amountPosition{
+    position: absolute;
+    top: 24px;
+    right: 37;
+    text-align: left;
+}
+
+.borderClrGreen{
+border-color: green !important;
+}
+
+.hide{
+display :none !important;
+}
+.datePosition2{
+position: absolute;
+top: -34px;
+right: 110;
+text-align: left;
+}
+
+.brderYelow{
+border-color: orange !important;
+}
+.brderRed{
+border-color: red !important;
+}
+
+.clrBacYellow{
+background-color: orange !important;
+}
+
+.clrBacRed{
+background-color: red !important;
+}
+
+.clrChangeGreen{
+background-color: green !important;
+}

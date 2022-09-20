@@ -1,0 +1,89 @@
+.outer {
+    padding: 60px 0;
+    padding-bottom: 0;
+    .full-bg-blue {
+        background: #A30000;
+        height: 90px;
+        width: 100%;
+        margin-top: 0px;
+        padding-top: 10px;
+        position: fixed;
+        z-index: 9;
+        .steps {
+            width: 100%;
+            position: relative;
+            .divider {
+                position: absolute;
+                width: 88%;
+                top: 27%;
+                left: 7%;
+                border-top: 1px solid #fff;
+            }
+            .step-element {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding: 0 10px;
+                .ico {
+                    margin: 0 auto;
+                    mat-icon {
+                        color: white;
+                        background: #a7a7a7;
+                        width: 38px;
+                        height: 37px;
+                        font-size: 22px;
+                        text-align: center;
+                        padding-top: 7px;
+                        border-radius: 50%;
+                    }
+                }
+                p {
+                    margin-top: 8px;
+                    text-align: center;
+                    color: white;
+                    font-size: 14px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    .content {
+        margin-top: 90px;
+        .animated {
+            -webkit-animation-duration: .6s;
+            animation-duration: .6s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both
+        }
+        @-webkit-keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateX(-200px);
+                transform: translateX(-200px)
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translateX(0);
+                transform: translateX(0)
+            }
+        }
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateX(-200px);
+                -ms-transform: translateX(-200px);
+                transform: translateX(-200px)
+            }
+            100% {
+                opacity: 1;
+                -webkit-transform: translateX(0);
+                -ms-transform: translateX(0);
+                transform: translateX(0)
+            }
+        }
+        .fadeInLeft {
+            -webkit-animation-name: fadeInLeft;
+            animation-name: fadeInLeft
+        }
+    }
+}

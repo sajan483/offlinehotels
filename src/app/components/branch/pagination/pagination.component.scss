@@ -1,0 +1,10 @@
+.page-link{
+    color: #438e90;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #438e90;
+    border-color: #438e90;
+}

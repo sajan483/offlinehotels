@@ -1,0 +1,308 @@
+<div class="img-editor_wrapper">
+  
+    <!-- <input class="form-control" type="file" id="upload-doc" accept=".pdf" (change)="uploadFile($event)"> -->
+    <ng-container *ngIf="isPdfUploaded">
+      <div class="pdf-container">
+        <pdf-viewer [src]="pdfSrc" [render-text]="false" [page]="currentpage" [show-all]="false" [original-size]="true"
+          [fit-to-page]="true" [zoom]="1" [zoom-scale]="'page-fit'" (after-load-complete)="afterLoadComplete($event)">
+        </pdf-viewer>
+      </div>
+      <div id="download-pdf">
+        <pdf-viewer [src]="pdfSrc" [render-text]="false" [page]="currentpage" [show-all]="false" [original-size]="true"
+          [fit-to-page]="false">
+        </pdf-viewer>
+      </div>
+      <div class="pdf-options" *ngIf="isPdfUploaded"  fxLayout="row"   fxLayoutAlign="space-between center">
+        <div class="page-div" fxLayout="row" fxLayoutAlign="start center" >
+          <ul class="og" fxLayout="row" fxLayoutAlign="end center" >
+            <li class="apply dir" matTooltip="previous page" [matTooltipPosition]="'below'" (click)="previous()" >
+              <span class="ak-left"></span>
+            </li>
+            <li class="apply chk" matTooltip="next page" [matTooltipPosition]="'below'" (click)="next()"  >
+              <span class="ak-right"></span>
+            </li>
+          </ul>
+          <p class="pagescount">Pages - {{currentpage}} of {{totalPages}}</p>
+        </div>
+        <button mat-flat-button class="btn approved" color="primary" *ngIf="isPdfUploaded"
+        (click)="selectPdfPageToCrop()">
+          <span class="btn-area">
+            <span class="ak-tick icon"></span>
+            <div>Select Page</div>
+          </span>
+        </button>
+      </div>
+  
+    </ng-container>
+  
+    <ng-container *ngIf="!showAdvancedEditor && !isPdfUploaded">
+      <div class="editor-image-wrapper">
+        <div class="" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="10px">
+          <div [style.height]="canvasHeight+'px'" [style.width]="canvasWidth+'px'">
+            <img #image (load)="onImageLoad(image)" [src]="url" crossorigin="anonymous" id="editor-image">
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end center" *ngIf="showCropper" class="menu_list w100 ">
+            <ul class="og" fxLayout="row" fxLayoutAlign="center center">
+              <!-- <li class="reset reset1" matTooltip="reset" [matTooltipPosition]="'left'" (click)="reset()">
+                <span>
+                  <mat-icon class="icon">sync
+                  </mat-icon>
+                </span>
+              </li> -->
+              <li class="apply chk" matTooltip="apply" [matTooltipPosition]="'right'" (click)="applyCropperChanges()">
+                <span>
+                  <mat-icon>check</mat-icon>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+  
+        <div *ngIf="!showCropper" class="menu_list mt-15" >
+          <ul fxLayout="column" fxLayoutAlign="center center">
+            <li matTooltip="zoom in" [matTooltipPosition]="'above'" (click)="zoomIn()">
+              <span>
+                <mat-icon class="icon">zoom_in</mat-icon>
+              </span>
+            </li>
+            <li matTooltip="zoom out" [matTooltipPosition]="'below'" (click)="zoomOut()">
+              <span>
+                <mat-icon class="icon">zoom_out</mat-icon>
+              </span>
+            </li>
+          </ul>
+  
+          <ul fxLayout="column" fxLayoutAlign="center center">
+            <li matTooltip="Rotate Anticlockwise" [matTooltipPosition]="'above'" (click)="rotateLeft()">
+              <span>
+                <mat-icon class="icon">rotate_left
+                </mat-icon>
+              </span>
+            </li>
+            <li matTooltip="Rotate Clockwise" [matTooltipPosition]="'below'" (click)="rotateRight()">
+              <span>
+                <mat-icon class="icon">rotate_right
+                </mat-icon>
+              </span>
+            </li>
+          </ul>
+  
+          <ul class="move" fxLayout="column" fxLayoutAlign="center center">
+            <div>
+              <li matTooltip="Move Up" [matTooltipPosition]="'above'" (click)="moveY()">
+                <span>
+                  <mat-icon class="icon">keyboard_arrow_up
+                  </mat-icon>
+                </span>
+              </li>
+  
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 85px;">
+              <li matTooltip="Move Left" [matTooltipPosition]="'left'" (click)="moveX()">
+                <span>
+                  <mat-icon class="icon">keyboard_arrow_left
+                  </mat-icon>
+                </span>
+              </li>
+              <li matTooltip="Move Right" [matTooltipPosition]="'right'" (click)="moveX(false)">
+                <span>
+                  <mat-icon class="icon">keyboard_arrow_right
+                  </mat-icon>
+                </span>
+              </li>
+  
+            </div>
+            <div>
+              <li matTooltip="Move Down" [matTooltipPosition]="'below'" (click)="moveY(false)">
+                <span>
+                  <mat-icon class="icon">keyboard_arrow_down
+                  </mat-icon>
+                </span>
+              </li>
+            </div>
+          </ul>
+  
+          <ul fxLayout="column" fxLayoutAlign="center center">
+            <li matTooltip="Flip Horizontally" [matTooltipPosition]="'above'" (click)="flipH()">
+              <span>
+                <mat-icon class="icon">swap_horiz
+                </mat-icon>
+              </span>
+            </li>
+            <li matTooltip="Flip Vertically" [matTooltipPosition]="'below'" (click)="flipV()">
+              <span>
+                <mat-icon class="icon">swap_vert
+                </mat-icon>
+              </span>
+            </li>
+          </ul>
+  
+          <ul class="cc" fxLayout="column" fxLayoutAlign="center center">
+            <li class="chk" matTooltip="apply" [matTooltipPosition]="'above'" (click)="applyCropperChanges()">
+              <span>
+                <mat-icon class="icon">check</mat-icon>
+              </span>
+            </li>
+            <li class="reset" matTooltip="reset" [matTooltipPosition]="'below'" (click)="reset()">
+              <span>
+                <mat-icon class="icon">sync
+                </mat-icon>
+              </span>
+            </li>
+          </ul>
+        </div>
+  
+      </div>
+    </ng-container>
+  
+    <div class="header">
+      <div class="head-bg">
+        <div class="head-left">
+  
+        </div>
+        <div class="user-name">
+  
+          <button mat-flat-button class="btn" color="primary" (click)="upload.click()" *ngIf="!showAdvancedEditor">
+            <span class="btn-area">
+              <span class="ak-upload1 icon"></span>
+              <div>upload</div>
+            </span>
+          </button>
+          <button mat-flat-button class="btn" color="primary" (click)="downloadFile()">
+            <span class="btn-area">
+              <span class="ak-download icon"></span>
+              <div>Download</div>
+            </span>
+          </button>
+          <button mat-flat-button class="btn cancel" color="primary" (click)="cancel()">
+            <span class="btn-area">
+              <span class="ak-cancel11 icon"></span>
+              <div> Cancel </div>
+            </span>
+          </button>
+          <button mat-flat-button class="btn approved" color="primary" *ngIf="!showAdvancedEditor && !isPdfUploaded" (click)="export()">
+            <span class="btn-area">
+              <span class="ak-tick icon"></span>
+              <div>Submit</div>
+            </span>
+          </button>
+          <button mat-flat-button class="btn approved" color="primary" *ngIf="showAdvancedEditor"
+            (click)="saveAdvancedEditorImage()">
+            <span class="btn-area">
+              <span class="ak-tick icon"></span>
+              <div>Submit</div>
+            </span>
+          </button>
+        
+        </div>
+      </div>
+    </div>
+  
+    <div class="aside" *ngIf="!isPdfUploaded">
+      <nav class="side-menu w100">
+        <ul fxLayout="column">
+          <li matTooltip="Cropper" [matTooltipPosition]="'right'" (click)="showCropperDiv(true)">
+            <span>
+              <mat-icon class="icon">crop</mat-icon>
+            </span>
+          </li>
+  
+          <li matTooltip="Edit" [matTooltipPosition]="'right'" (click)="showCropperDiv(false)">
+            <span>
+              <mat-icon>brush</mat-icon>
+            </span>
+          </li>
+  
+          <li matTooltip="Advanced Editor" [matTooltipPosition]="'right'" *ngIf="!isMobile"
+            (click)="openAdvancedEditor()">
+            <span>
+              <mat-icon class="icon">tune
+              </mat-icon>
+            </span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  
+    <input type="file" accept=".jpg, .jpeg, .png, .pdf" #upload (change)="uploadFile($event)">
+  
+    <div class="advanced-editor" *ngIf="showAdvancedEditor && !isPdfUploaded" fxLayout="column" fxLayoutAlign="space-between center">
+  
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.lt-lg="0">
+          <div class="image-original">
+            <canvas id="image-original"></canvas>
+            <div class="points">
+              <div class="point points1" cdkDragBoundary=".image-original" cdkDrag (cdkDragEnded)="pointMoved($event, 1)">
+              </div>
+              <div class="point points2" cdkDragBoundary=".image-original" cdkDrag (cdkDragEnded)="pointMoved($event, 2)">
+              </div>
+              <div class="point points3" cdkDragBoundary=".image-original" cdkDrag (cdkDragEnded)="pointMoved($event, 3)">
+              </div>
+              <div class="point points4" cdkDragBoundary=".image-original" cdkDrag (cdkDragEnded)="pointMoved($event, 4)">
+              </div>
+            </div>
+          </div>
+          <div id="img-container" class="img-container">
+            <span id="placeholder">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <div class="w100" fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
+        <div class="editor-icons" fxLayout="row" fxLayoutAlign="center center">
+          <section class="mr-50">
+            <div class="feature">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="txt">Brightness</span>
+                <mat-slider [max]="1" [min]="-1" [step]="0.01" [(ngModel)]="brightnessValue"
+                  (change)="sliderChange($event.value, 1)">
+                </mat-slider>
+                <mat-icon class="rest_icon" (click)="sliderChange(0,1)">sync</mat-icon>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="txt">Contrast</span>
+                <mat-slider [max]="1" [min]="-1" [step]="0.01" [(ngModel)]="contrastValue"
+                  (change)="sliderChange($event.value, 2)">
+                </mat-slider>
+                <mat-icon class="rest_icon" (click)="sliderChange(0,2)">sync</mat-icon>
+              </div>
+            </div>
+          </section>
+          <section class="mr-50">
+            <div class="feature">
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="txt">Saturation</span>
+                <mat-slider [max]="1" [min]="-1" [step]="0.01" [(ngModel)]="saturationValue"
+                  (change)="sliderChange($event.value, 4)">
+                </mat-slider>
+                <mat-icon class="rest_icon" (click)="sliderChange(0,4)">sync</mat-icon>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="txt">Hue</span>
+                <mat-slider [max]="1" [min]="-1" [step]="0.01" [(ngModel)]="hueValue"
+                  (change)="sliderChange($event.value, 3)">
+                </mat-slider>
+                <mat-icon class="rest_icon" (click)="sliderChange(0,3)">sync</mat-icon>
+              </div>
+            </div>
+          </section>
+          <div class="menu_list-top">
+            <ul fxLayout="column" fxLayoutAlign="center center">
+              <li class="apply" matTooltip="apply" [matTooltipPosition]="'right'" (click)="applyAdvancedEffects()">
+                <span>
+                  <mat-icon>check</mat-icon>
+                </span>
+              </li>
+              <li class="reset" matTooltip="reset" [matTooltipPosition]="'right'" (click)="resetAdvancedEditor()">
+                <span>
+                  <mat-icon class="icon">sync
+                  </mat-icon>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>

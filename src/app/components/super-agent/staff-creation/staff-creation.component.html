@@ -1,0 +1,121 @@
+<div class="frms container mt100" id="staffCreations">
+    <div class="back">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a (click)="navigateStaffList()" class="cursor-pointer">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Staff List</a>
+            </div>
+            <div class=""></div>
+            <div>
+                <div class="d-flex">
+                    <div class="p-2" id="rd">Agent Staff</div>
+                    <div class="p-2"> <input name="options" [(ngModel)]="options" type="radio" [value]="false" checked/></div>
+                    <div class="p-2"></div>
+                    <div class="p-2"><input name="options" [(ngModel)]="options" type="radio" [value]="true" [checked]="options" /> </div>
+                    <div class="p-2" id="rd">Branch Staff</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="container" id="corner">
+            <form [formGroup]="AgentStaffRegisterForm" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="form-group col-md-3"></div>
+                    <div class="form-group col-md-8">
+                        <h1>CREATE STAFF</h1>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-form-label text-md-right p-2">Name :</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="!options">
+                    <input type="hidden" [(ngModel)]="agencyId" formControlName="agency" name="" id="">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-form-label text-md-right p-2">Email Id :</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Enter the correct mail id</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-form-label text-md-right p-2">Phone Number :</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input ng2TelInput [ng2TelInputOptions]="{preferredCountries:['in','sa', 'ae','qa'], separateDialCode:true}" class="form-control"  #phoneInput id="phoneInput" type="text" (countryChange)="onCountryChange($event)"
+                        (input)="inputValidation($event)" maxlength="15" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode)) || event.keyCode==32) return false;" formControlName="phone_number" />
+                        <div *ngIf="phone_error" class="mb-0 red_text fs12">Please enter a valid phone number</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-form-label text-md-right p-2">Role :</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <select formControlName="role" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.role.errors }"> 
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="MANGER">Manager</option>
+                            <option value="SUPERVISOR">Supervisor</option>
+                            <option value="EMPLOYEE">Employee</option>
+                        </select>
+                        <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+                            <div *ngIf="f.role.errors.required">Role is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" *ngIf="options">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-form-label text-md-right p-2">Select Branch :</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <select formControlName="agency" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.employer_id.errors }"> 
+                            <option value="" disabled selected>Select Branch</option>
+                            <option *ngFor="let item of branchlists" [(value)]="item.id">{{item.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.agency.errors" class="invalid-feedback">
+                            <div *ngIf="f.agency.errors.required">select Branch</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label class="col-md-12 col-form-label text-md-right p-2">Password :</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">Password is required</div>
+                            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3"></div>
+                    <div class="form-group col-md-8">
+                        <div class="col-xs-4 text-right d-flex justify-content-center">
+                            <a class="my-auto" (click)="navigateStaffList()">CANCEL</a>
+                            <button type="submit" class="searchbutton" [class.bttnactive]="bttnactive">CREATE</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,17 @@
+<div fxFlex fxLayout="row" fxLayoutGap="2px" fxLayoutAlign="space-evenly" class="week-wrap bg_color_grey">
+  <ng-container *ngFor="let d of week; trackBy: trackByFn">
+    <div (click)="selectDate($event,d)" [matTooltip]="d.toolTip"
+      [ngClass]="{'mobile': vertical , 'weekend': d.isWeekend, 'disabled-date': d.isCurrentMonth===false && !d.isActive,'inactive-date': !d.isActive && d.isCurrentMonth,'long-weekend':d.isLongWeekend, 'selected-date':d.isSelected, 'inbetweenSelected-date':d.isInBetween && d.isCurrentMonth,'border-grey':(d.annotation && d.annotation != ''), 'border-danger': +d.annotation==0, 'border-warning':(d.annotation && d.annotation != '') && (+d.annotation<=10 && +d.annotation>0 )  }"
+      fxLayout="column" fxLayoutAlign="center center">
+      <section>{{d.day}}</section>
+      <section *ngIf="d.annotation && d.annotation != ''" class="setsCount"><i class="seatIcon"></i>{{d.annotation}}
+      </section>
+      <!-- <span [ngClass]="{'lowestfare':d.highlight}"
+                                *ngIf="d.annotation && d.annotation != ''">{{d.annotation}}</span> <span
+                                *ngIf="d.isHoliday" class="holiday"></span> -->
+    </div>
+
+  </ng-container>
+</div>
+
+<!--{{("00"+d.day).slice(-2)}} -->

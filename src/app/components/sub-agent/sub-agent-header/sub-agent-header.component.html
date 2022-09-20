@@ -1,0 +1,152 @@
+<div class="sub-agent-header-div" id="stickHeader">
+    <div class="container">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="logo-img" *ngIf="userDetails?.agency.logo_photo != null" (click)="navigate('subagent/dashboard')">
+                <img [src]="userDetails?.agency.logo_photo" alt="">
+            </div>
+            <div class="logo-img" *ngIf="userDetails?.agency.logo_photo == null" fxLayoutAlign="start center" (click)="navigate('subagent/dashboard')">
+                <div class="cmpny-name">{{userDetails?.agency?.name.length>25?(userDetails?.agency?.name.substr(0,25)+'....'):userDetails?.agency?.name}}</div>
+            </div>
+            <div class="web_view">
+                <div fxLayout="row" fxLayoutAlign="end center" >
+                    <div class="nav-link" (click)="navigetService('subagent/hotel-list','H')">{{'Hotel' | translate}}</div>
+                    <div style="width: 10px;"></div>
+                    <div class="nav-link" (click)="navigetService('subagent/transport-list','T')">{{'Transport' | translate}}</div>
+                    <div style="width: 10px;"></div>
+                    <div class="nav-link" (click)="navigetService('subagent/train','T')">{{'Train' | translate}}</div>
+                    <div style="width: 10px;"></div>
+                    <div>
+                        <div class="language-div" fxLayout="row" fxLayoutAlign="start center" [matMenuTriggerFor]="currencyMenu">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <div style="width: 5px;" class="mob_hide"></div>
+                            <div class="mob_hide">{{selectCurrency}}</div>
+                        </div>
+                        <mat-menu #currencyMenu="matMenu" [hasBackdrop]="true">
+                            <button mat-menu-item *ngFor="let k of currencyList" (click)="selctCurrency(k)">{{k.currency}}</button>
+                        </mat-menu>
+                    </div>
+                    <div style="margin-left: 10px;"></div>
+                    <div>
+                        <div class="language-div" fxLayout="row" fxLayoutAlign="start center" [matMenuTriggerFor]="languageMenu">
+                            <i class="fa fa-language" aria-hidden="true"></i> 
+                            <div style="width: 5px;" class="mob_hide"></div>
+                            <div class="mob_hide">{{selectLang}}</div>
+                        </div>
+                        <mat-menu #languageMenu="matMenu" [hasBackdrop]="true">
+                            <button mat-menu-item *ngFor="let k of languageOptions" (click)="setLanguage(k)">{{k.langName}}</button>
+                        </mat-menu>
+                    </div>
+                    <div style="width: 20px;"></div>
+                    <div>
+                        <div [matMenuTriggerFor]="loginMenu">
+                            <div class="user-profile" fxLayout="row" fxLayoutAlign="start center" >
+                                <div fxLayout="column" fxLayoutAlign="center end">
+                                    <div class="welcome-text">{{userDetails?.name | translate}} <i class="fa fa-caret-down" aria-hidden="true"></i></div>
+                                    <p class="user-name">{{'Agent Code' | translate}} : {{userDetails?.agency?.agent_code}}</p>
+                                </div>
+                                <div style="width: 5px;"></div>
+                                <div fxLayoutAlign="center center">
+                                    <i class="userpic icns user-logo-h"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-menu #loginMenu="matMenu" [hasBackdrop]="true">
+    
+                            <button mat-menu-item (click)="navigate('subagent/dashboard')"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns createpackages icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Dashboard' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/SubPccListing');"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns subpccicon icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Manage Sub Pcc' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/history');"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns historyicon icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Transactions' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/sub-users');" *ngIf="!isSubUser"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns subusersicons icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Sub Users' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/train_booking/')"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="fa fa-subway hhricon " aria-hidden="true"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Train Bookings' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/profilepage');"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns myprofile icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'My Profile' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item class="open-zammad-chat"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns chatIcon icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Chat' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/knowledge-base');"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns knowledge icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Knowledge Base' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="navigate('subagent/booking-requests');"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="icns historyicon icon_size_20"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text">{{'Requested History' | translate }}</div>
+                                </div>
+                            </button>
+                            <button mat-menu-item (click)="logout();"> 
+                                <div fxLayout="row" fxLayoutAlign="start center">
+                                    <i class="fa fa-sign-out logout-icon sadred"></i>
+                                    <div style="width: 10px;"></div>
+                                    <div class="mat-menu-text sadred">{{'Logout' | translate }}</div>
+                                </div>
+                            </button>
+    
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+            <div class="mob_view">
+                <div class="menu-bar-div" (click)="openSideNav()">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-sub-agent-header-side-panel 
+[currentState]="menuState"
+[selectedCurrencyCode]="selectCurrency"
+[currencyList]="currencyList"
+[selectedLanguage]="selectLangCode"
+[profile]="userDetails"
+(onClose)="closeSideNav()"
+(onCurrencyChange)="selctCurrency($event)"
+(onLanguageChange)="setLanguage($event)"
+(navigate)="navigate($event)"
+(navigetService)="hedearNavigate($event)"
+(logout)="logout()"
+[isSubUser]="isSubUser"
+></app-sub-agent-header-side-panel>

@@ -1,0 +1,144 @@
+<div class="top-of-div" id="manuallEditing">
+    <div class="naviagete-bar">
+        <div class="container">
+            <div class="fs13 fw500">
+                <span class="click-navigate" (click)="navigatePkg()">View Packages</span>
+                <span class="mx-2">/</span>
+                <span class="click-navigate" (click)="navigateEdit()">Edit package</span>
+                <span class="mx-2">/</span>
+                <span>Manually Edit Services</span>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <h1 class="fs22">Manually Edit Package Services</h1>
+        <div>
+            <mat-tab-group>
+
+                <mat-tab label="Flight">
+                    <form [formGroup]="flightDataForm">
+                        <div class="body-form">
+                            <div class="w-100 bgf2 p20 brdr_btm_d3">Flight Details</div>
+                            <div class="row m-0 p30">
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Starting Airport Name :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Starting Airport" [formControl]="source" [matAutocomplete]="fromList">
+                                    <mat-autocomplete #fromList="matAutocomplete">
+                                        <mat-option *ngFor="let option of airportListFilteredSrc | async" [value]="option.iata" (click)="setFromLocation(option)">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="my-auto">
+                                                    <div class="fs12 lh12"> {{option.city}}</div>
+                                                    <div class="fs10 lh12 clr52">{{option.name}}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="fs13 fw500">{{option.iata}}</div>
+                                                </div>
+                                            </div>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Return Airport Name :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Starting Airport" [formControl]="destination" [matAutocomplete]="destList">
+                                    <mat-autocomplete #destList="matAutocomplete">
+                                        <mat-option *ngFor="let option of airportListFilteredDest | async" [value]="option.iata" (click)="setDestLocation(option)">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="my-auto">
+                                                    <div class="fs12 lh12"> {{option.city}}</div>
+                                                    <div class="fs10 lh12 clr52">{{option.name}}</div>
+                                                </div>
+                                                <div>
+                                                    <div class="fs13 fw500">{{option.iata}}</div>
+                                                </div>
+                                            </div>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Airline Name :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Starting Airport" [formControl]="airline" [matAutocomplete]="airlines">
+                                    <mat-autocomplete #airlines="matAutocomplete">
+                                        <mat-option *ngFor="let option of airlinesFiltered | async" [value]="option.name" (click)="setAirline(option)">
+                                            {{option.name}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </div>
+                            </div>
+                            <div class="w-100 bgf2 p20 brdr_btm_d3">Onward Flight</div>
+                            <div class="row m-0 p30">
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Flight Number :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Flight Number" formControlName="onwardFlightNo" [ngClass]="{ 'is-invalid': submittedFlight && f.onwardFlightNo.errors }">
+                                    <div *ngIf="submittedFlight && f.onwardFlightNo.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Depature Date & Time :</label>
+                                    <input type="text" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" class="owldatebrdr w-100 form-control" placeholder="Depature Date & Time" formControlName="onwardDepatureTime" [ngClass]="{ 'is-invalid': submittedFlight && f.onwardDepatureTime.errors }">
+                                    <div *ngIf="submittedFlight && f.onwardDepatureTime.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                    <owl-date-time #dt2></owl-date-time>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Arrival Date & Time :</label>
+                                    <input type="text" [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" class="owldatebrdr w-100 form-control" placeholder="Arrival Date & Time" formControlName="onwardArrivalTime" [ngClass]="{ 'is-invalid': submittedFlight && f.onwardArrivalTime.errors }">
+                                    <div *ngIf="submittedFlight && f.onwardArrivalTime.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                    <owl-date-time #dt3></owl-date-time>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Duration :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Duration" formControlName="onwardDuration" [ngClass]="{ 'is-invalid': submittedFlight && f.onwardDuration.errors }">
+                                    <div *ngIf="submittedFlight && f.onwardDuration.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 bgf2 p20 brdr_btm_d3">Return Flight</div>
+                            <div class="row m-0 p30">
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Flight Number :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Flight Number" formControlName="returnFlightNo" [ngClass]="{ 'is-invalid': submittedFlight && f.returnFlightNo.errors }">
+                                    <div *ngIf="submittedFlight && f.returnFlightNo.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Depature Date & Time :</label>
+                                    <input type="text" [owlDateTime]="dt4" [owlDateTimeTrigger]="dt4" class="owldatebrdr w-100 form-control" placeholder="Depature Date & Time" formControlName="returnDepatureTime" [ngClass]="{ 'is-invalid': submittedFlight && f.returnDepatureTime.errors }">
+                                    <div *ngIf="submittedFlight && f.returnDepatureTime.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                    <owl-date-time #dt4></owl-date-time>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Arrival Date & Time :</label>
+                                    <input type="text" [owlDateTime]="dt5" [owlDateTimeTrigger]="dt5" class="owldatebrdr w-100 form-control" placeholder="Arrival Date & Time" formControlName="returnArrivalTime" [ngClass]="{ 'is-invalid': submittedFlight && f.returnArrivalTime.errors }">
+                                    <div *ngIf="submittedFlight && f.returnArrivalTime.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                    <owl-date-time #dt5></owl-date-time>
+                                </div>
+                                <div class="col-md-4 mb30 errortooltip">
+                                    <label class="fs14 fw400 lh14 pl-1">Duration :</label>
+                                    <input type="text" class="owldatebrdr w-100 form-control" placeholder="Duration" formControlName="returnDuration" [ngClass]="{ 'is-invalid': submittedFlight && f.returnDuration.errors }">
+                                    <div *ngIf="submittedFlight && f.returnDuration.errors" class="errortooltiptext top107">
+                                        this field is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                            <button class="searchbutton" (click)="saveFlight()" [class.bttnactive]="bttnactive">Save</button>
+                        </div>
+                    </form>
+                </mat-tab>
+
+                
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+.week-wrap div {
+    padding: 0;background: rgba(255,255,255,0.5);text-align:center;vertical-align:middle;
+    height:57px;width:57px;font-size: 14px;font-weight: 500;position: relative;
+    margin: 5px 0;border-radius: 5px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .week-wrap div {
+      width: 40px !important;
+    }
+  }
+
+  .seatIcon{
+    background: url('/assets/images/seat-left-grey.png') no-repeat center center;
+    display: inline-block;
+    background-size: contain !important;
+    height: 14px;
+    margin-right: 3px;
+    width: 14px;
+  }
+  .setsCount{
+    font-size: 11px;
+    color: #6c6c6c;
+  }
+
+  .bg_color_grey{
+    background-color: #f5f5f5;
+  }
+
+  .week-wrap div span {
+    display:block;font-size:10px;color:#a8a8a8;font-weight: 400;
+  }
+  .week-wrap div span.lowestfare {
+    color:#198a0d;
+  }
+  .week-wrap div span.holiday{
+    position: absolute;right: 3px;top:4px;width:5px;height: 5px;background: #d32f2f;z-index: 1;display: inline-block;
+  }
+ .week-wrap div.mobile span.holiday{
+    border-radius: 50%;
+  }
+
+  .week-wrap div.selected-date{
+    color: #ffffff;
+    background: #19478a;
+}
+.week-wrap div.inbetweenSelected-date{
+  color: #3966b9;
+  background: rgba(150, 186, 240, 0.18);
+}
+
+.week-wrap div.long-weekend{
+ background: #e8e8e8;
+}
+.week-wrap div.long-weekend::before{
+  content: '';position: absolute;left: 0;top: 0;width: 100%;height: 2px;background: #d32f2f;
+}
+.week-wrap div.weekend{
+  color: #d32f2f;
+}
+
+.week-wrap div.disabled-date{
+  color: #ffffff;
+}
+.week-wrap div.inactive-date{
+  color: #bbbbbb;
+}
+/* .week-wrap div.holiday{
+  color: burlywood;
+} */
+  .week-wrap div.selected-date span{color: #fff;}
+
+.week-wrap div:not(.inactive-date):hover{
+    color: #000;
+    background:rgba(25, 71, 138, 0.18);cursor: pointer;
+}
+.week-wrap div.selected-date,.week-wrap div.selected-date:hover {
+  color: #ffffff;
+  background: #367275;
+}
+
+.disabled-date:hover {
+  color: transparent !important;
+  background: transparent !important;cursor: default !important;
+}
+.week-wrap div.mobile{
+  border-radius: 4px;
+  touch-action: pan-y !important;
+}
+
+.border-danger{
+  border-bottom: 2px solid #e7453d!important;
+}
+
+.border-warning{
+  border-bottom-color: #f5a623;
+}
+
+.border-grey{
+  border-bottom: 2px solid #c5bfbfde;
+}
+div.selected-date > .setsCount{
+  color:#fff;
+}

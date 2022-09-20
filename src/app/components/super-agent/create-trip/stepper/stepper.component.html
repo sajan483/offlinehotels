@@ -1,0 +1,92 @@
+<div class="outer" id="superAgencyCreateTrip">
+    <div class="full-bg-blue">
+        <div class="container px-0">
+            <div class="steps row">
+                <div class="divider"></div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="flight">airplanemode_active</mat-icon>
+                    </div>
+                    <p>FLIGHT</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="MAKKA">apartment</mat-icon>
+                    </div>
+                    <p>MAKKAH</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="MADEENA">apartment</mat-icon>
+                    </div>
+                    <p>MADEENA</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="transport">directions_bus</mat-icon>
+                    </div>
+                    <p>TRANSPORT</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="otherServices">volunteer_activism</mat-icon>
+                    </div>
+                    <p>ADD-ONS</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="payment">payment</mat-icon>
+                    </div>
+                    <p>PAYMENT</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="otherInfo">info</mat-icon>
+                    </div>
+                    <p>OTHER-INFO</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="itinerary">list</mat-icon>
+                    </div>
+                    <p>ITINERARY</p>
+                </div>
+                <div class="step-element col-md">
+                    <div class="ico">
+                        <mat-icon id="preview">visibility</mat-icon>
+                    </div>
+                    <p>PREVIEW&CREATE</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="animated fadeInLeft flight" *ngIf=" selector == 'flight' ">
+            <app-flight></app-flight>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'hotel' && hotelFlag == 'MAKKA'">
+            <app-hotel [hotelCity]="hotelFlag"></app-hotel>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'hotel' && hotelFlag == 'MADEENA'">
+            <app-hotel [hotelCity]="hotelFlag"></app-hotel>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'otherInfo' ">
+            <app-other-info></app-other-info>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'itinerary' ">
+            <app-itinerary></app-itinerary>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'payment' ">
+            <app-payment></app-payment>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'transport' ">
+            <app-transport></app-transport>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'preview' ">
+            <app-preview></app-preview>
+        </div>
+        <div class="animated fadeInLeft" *ngIf=" selector == 'otherServices' ">
+            <app-other-service></app-other-service>
+        </div>
+    </div>
+</div>

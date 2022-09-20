@@ -1,0 +1,28 @@
+.hotel-card-shimmer-div {
+    padding-bottom: 19px;
+    .uitk-card {
+        background: #fff;
+        border-radius: 4px;
+        position: relative;
+        width: 100%;
+        box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.15);
+        border: solid 1px rgba(156, 170, 179, 0.28);
+        padding: 14px;
+    }
+    .uitk-card:hover {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.2);
+    }
+    .image-section{
+        height: 170px;
+        width: 100%;
+    }
+    .select-section{
+        text-align: end;
+    }
+    .body-section{
+        text-align: start;
+    }
+}

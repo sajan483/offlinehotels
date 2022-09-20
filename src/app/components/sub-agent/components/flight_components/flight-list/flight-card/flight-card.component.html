@@ -1,0 +1,166 @@
+<div class="container">
+    <div class="row res-row pl1" *ngIf="!isLoading">
+        <div class="col-12 flight-avilability mt-2">
+            <div class="avil-head  d-flex flex-column justify-content-between align-items-center" #stickyDiv [class.sticky-shadow]="isSticky">
+                <div class="w-100 pl-res d-flex justify-content-between align-items-center">
+                    <div class="left">
+                        <div class="icon">
+                            <img src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{selectedOnwardFlight.MAC}}.jpg"> </div>
+                        <div class="f-detail ">
+                            <p class="name ">{{selectedOnwardFlight.AirlineName.split('|')[2]}}</p>
+                            <p class="dtil-class ">{{selectedOnwardFlight.MAC + '-' +selectedOnwardFlight.FlightNo}} | {{selectedReturnFlight.MAC + '-' +selectedReturnFlight.FlightNo}}</p>
+                        </div>
+                    </div>
+                    <div class="right ">
+                        <div class="amount ">
+                            <div class="cash ">
+                                <div class="total-amount "> <span> {{currency}}</span> {{(+selectedOnwardFlight.NetFare + +selectedReturnFlight.NetFare)| ConvertCurrency : currency}}</div>
+                            </div>
+                        </div>
+                        <div class="amt-btn ">
+                            <button (click)="onBook(+selectedOnwardFlight.NetFare + +selectedReturnFlight.NetFare)" class="search_bttn  mb_mr0 btn" id="#">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="res-flight-detail w-100 ">
+                    <div class="res1 d-flex justify-content-between align-items-center ">
+
+                        <div class="left " fxLayout="row " fxLayoutAlign="center center "><span class="ak-check "></span>DEPARTURE :{{selectedOnwardFlight.DepartureTime|date:'HH:mm'}} - {{selectedOnwardFlight.ArrivalTime|date:'HH:mm'}}</div>
+                        <div class="right " fxLayout="row " fxLayoutAlign="center center "><span class="ak-check "></span>RETURN :{{selectedReturnFlight.DepartureTime|date:'HH:mm'}} - {{selectedReturnFlight.ArrivalTime|date:'HH:mm'}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="avil-body ">
+                <div class="box ">
+                    <div class="header ">
+                        Departure | <span> {{selectedOnwardFlight.DepartureTime | date: 'EEE, dd MMM'}} | {{selectedOnwardFlight.AirlineName.split('|')[0]}}</span>
+                    </div>
+                    <div class="body ">
+                        <mat-radio-group>
+
+                            <div class="item" *ngFor="let flight of onwardFlightsVisible">
+                                <mat-radio-button (change)="onOnwardChanged(flight)" [checked]="selectedOnwardFlight.id==flight.id" [value]="flight.id"></mat-radio-button>
+                                <div class="f-detail">
+                                    <div class="travel">
+                                        <div class="time ">{{flight.DepartureTime|date:'HH:mm'}}</div>
+                                        <div class="place ">{{flight.FromName.split('|')[1]}}</div>
+                                    </div>
+                                    <div class="dtil-time ">
+                                        <p>{{flight.Duration}}</p>
+                                        <div class="line "></div>
+                                        <p>{{flight.Stops>0?flight.Stops + " stop":"Non stop"}}</p>
+                                    </div>
+                                    <div class="travel ">
+                                        <div class="time ">{{flight.ArrivalTime|date:'HH:mm'}}</div>
+                                        <div class="place ">{{flight.ToName.split('|')[1]}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="more-div" @upDownAnim *ngIf="showMoreOnward && hasMoreOnward">
+                                <div class="item" *ngFor="let flight of onwardFlightsHidden">
+                                    <mat-radio-button (change)="onOnwardChanged(flight)" [checked]="selectedOnwardFlight.id==flight.id" [value]="flight.id"></mat-radio-button>
+                                    <div class="f-detail ">
+                                        <div class="travel ">
+                                            <div class="time ">{{flight.DepartureTime|date:'HH:mm'}}</div>
+                                            <div class="place ">{{flight.FromName.split('|')[1]}}</div>
+                                        </div>
+                                        <div class="dtil-time ">
+                                            <p>{{flight.Duration}}</p>
+                                            <div class="line "></div>
+                                            <p>{{flight.Stops>0?flight.Stops + " stop":"Non stop"}}</p>
+                                        </div>
+                                        <div class="travel ">
+                                            <div class="time ">{{flight.ArrivalTime|date:'HH:mm'}}</div>
+                                            <div class="place ">{{flight.ToName.split('|')[1]}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="more" (click)="onShowMoreOnward()" *ngIf="hasMoreOnward">
+                                <a class="link ">
+                                    <ng-container *ngIf="showMoreOnward; else showLess">
+                                        Show less<span class="ak-up icon "></span>
+                                    </ng-container>
+                                    <ng-template #showLess="">
+                                        {{onwardFlightsHidden.length}} More flights<span class="ak-down icon "></span>
+                                    </ng-template>
+
+                                </a>
+                            </div>
+
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="box ">
+                    <div class="header ">
+                        Return | <span> {{selectedReturnFlight.DepartureTime | date:'EEE dd, MMM'}} | {{selectedReturnFlight.AirlineName.split('|')[0]}}</span>
+                    </div>
+                    <div class="body">
+                        <mat-radio-group>
+
+                            <div class="item" *ngFor="let flight of returnFlightsVisible">
+                                <mat-radio-button (change)="onReturnChanged(flight)" [checked]="selectedReturnFlight.id==flight.id" [value]="flight.id"></mat-radio-button>
+                                <div class="f-detail ">
+                                    <div class="travel ">
+                                        <div class="time ">{{flight.DepartureTime|date:'HH:mm'}}</div>
+                                        <div class="place ">{{flight.FromName.split('|')[1]}}</div>
+                                    </div>
+                                    <div class="dtil-time ">
+                                        <p>{{flight.Duration}}</p>
+                                        <div class="line"></div>
+                                        <p>{{flight.Stops>0?flight.Stops + " stop":"Non stop"}}</p>
+                                    </div>
+                                    <div class="travel ">
+                                        <div class="time ">{{flight.ArrivalTime|date:'HH:mm'}}</div>
+                                        <div class="place ">{{flight.ToName.split('|')[1]}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="more-div " @upDownAnim *ngIf="showMoreReturn && hasMoreReturn">
+                                <div class="item" *ngFor="let flight of returnFlightsHidden">
+                                    <mat-radio-button (change)="onReturnChanged(flight)" [checked]="selectedReturnFlight.id==flight.id" [value]="flight.id"></mat-radio-button>
+                                    <div class="f-detail ">
+                                        <div class="travel ">
+                                            <div class="time ">{{flight.DepartureTime|date:'HH:mm'}}</div>
+                                            <div class="place ">{{flight.FromName.split('|')[1]}}</div>
+                                        </div>
+                                        <div class="dtil-time ">
+                                            <p>{{flight.Duration}}</p>
+                                            <div class="line "></div>
+                                            <p>{{flight.Stops>0?flight.Stops + " stop":"Non stop"}}</p>
+                                        </div>
+                                        <div class="travel ">
+                                            <div class="time ">{{flight.ArrivalTime|date:'HH:mm'}}</div>
+                                            <div class="place ">{{flight.ToName.split('|')[1]}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="more" (click)="onShowMoreReturn()" *ngIf="hasMoreReturn">
+                                <a class="link ">
+                                    <ng-container *ngIf="showMoreReturn; else showLess">
+                                        Show less<span class="ak-up icon"></span>
+                                    </ng-container>
+                                    <ng-template #showLess>
+                                        {{returnFlightsHidden.length}} More flights<span class="ak-down icon"></span>
+                                    </ng-template>
+
+                                </a>
+                            </div>
+
+                        </mat-radio-group>
+                    </div>
+                </div>
+            </div>
+            <div class="avil-footer ">
+                <div class="refund ">R</div>
+                <span class="ak-dinner icon "></span>
+            </div>
+        </div>
+    </div>
+</div>

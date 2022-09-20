@@ -1,0 +1,297 @@
+<div class="outer" *ngIf="!shimmer">
+    <div class="banner">
+        <img src="{{masterPkg?.images?.webpfile != ''?masterPkg?.images?.webpfile:(masterPkg?.images?.file != ''?masterPkg?.images?.file:'/assets/images/mkbg.jpg')}}" alt="">
+        <div class="black position-absolute">
+            <h4 class="text-capitalize">{{masterPkg?.title}}</h4>
+            <p>{{packageDetails?.operated_by}}</p>
+        </div>
+        <div class="bottom">
+            <div class="container py-3">
+
+                <div class="row  d-flex justify-content-between align-content-center">
+                    <div class="aligner">
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">room</mat-icon>
+                            <div>
+                                <p>Departure From</p>
+                                <h5>{{masterPkg?.location | uppercase}}</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">schedule</mat-icon>
+                            <div>
+                                <p>Duration</p>
+                                <h5>{{packageDetails?.no_of_days}} Days / {{packageDetails?.no_of_days - 1}} Nights</h5>
+                            </div>
+                        </div>
+                        <div class="d-flex box-3">
+                            <mat-icon class="icon">today</mat-icon>
+                            <div>
+                                <p>Departure Date</p>
+                                <h5>{{packageDetails?.start_date | date:'mediumDate'}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+
+        <form [formGroup]="contactInfoForm" (ngSubmit)="onSubmit()">
+
+            <div class="boxborder p30 mt-3 mb-3">
+                <div class="fs22 fw500 blue_text">Choose No. Of Travellers</div>
+                <div class="row mt-3">
+                    <div class="col-md-4 my-2">
+                        <div class="clr33 fs14 pb-1 pl-1">Adult <span class="pl-1 clr52 fs12">{{priceCurrency}} {{packageDetails?.adult_price}} / Pax</span></div>
+                        <select name="" id="" class="form-control" formControlName="adult" (change)="adultChange($event)">
+                            <option *ngFor="let x of [].constructor(availabilityCount) ;let i = index" [value]="i+1">{{i+1}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <div class="clr33 fs14 pb-1 pl-1">Child With Bed <span class="pl-1 clr52 fs12">{{priceCurrency}} {{packageDetails?.child_with_bed_price}} / Pax</span></div>
+                        <select name="" id="" class="form-control" formControlName="childWithBed" (change)="childWithBedChange($event)">
+                            <option *ngFor="let x of [].constructor(availabilityCount) ;let i = index" [value]="i">{{i}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 my-2">
+                        <div class="clr33 fs14 pb-1 pl-1">Child Without Bed <span class="pl-1 clr52 fs12">{{priceCurrency}} {{packageDetails?.child_without_bed_price}} / Pax</span></div>
+                        <select name="" id="" class="form-control" formControlName="ChildWithoutBed" (change)="childWithOutBedChange($event)">
+                            <option *ngFor="let x of [].constructor(availabilityCount) ;let i = index" [value]="i">{{i}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <div class="boxborder p30" *ngIf="isVisaOnly">
+                <div class="fs22 fw500 blue_text">Addons</div>
+                <div>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td class="w40">
+                                <div class="fw500 fs16">
+                                    <div>Land Transport </div>
+                                    <div>(Jeddah - Makkah - Madeena - Jeddah)</div>
+                                </div>
+                                <div>
+                                    <select name="" id="" class="form-control" formControlName="transportSelect" (change)="tranportSelect($event.target.value)">
+                                        <option *ngFor="let k of transportList" [value]="k.id">{{k.text}}</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="w20 my-auto h-100" colspan="2">
+                                <div fxLayoutAlign="center center" class="h-100">
+                                    <div>
+                                        <div>Start Date</div>
+                                        <div class="fw500 fs16">{{packageDetails?.start_date | date:'mediumDate'}}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="w20 text_end">
+                                <div class="fw500 fs16">{{priceCurrency}} {{transport | number : '1.2-2'}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w40">
+                                <div class="fw500 fs16">Hotel in Makkah</div>
+                                <div>
+                                    <select name="" id="" class="form-control" formControlName="makkahSelect" (change)="makkahHotelSelect($event.target.value)">
+                                        <option value="0">Choose Hotel</option>
+                                        <option *ngFor="let k of hotelList" [value]="k.id">{{k.text}}</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="w20 my-auto">
+                                <div fxLayoutAlign="center center" class="h-100">
+                                    <div>
+                                        <div>Number Of Nights</div>
+                                        <div ><input type="number" class="form-control" formControlName="makkahDays" (input)="makkahDaysSet()"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="w20">
+                                <div class="text-center" *ngIf="makkahHotel != 0">
+                                    <div class="clr52 fs12">
+                                        <strong>{{priceCurrency}} {{contactInfoForm.controls.makkahPrice.value}}</strong> X <strong>{{contactInfoForm.controls.makkahRooms.value}}</strong> Rooms X <strong>{{contactInfoForm.controls.makkahDays.value}}</strong> Nights
+                                    </div>
+                                    <div class="fw500 fs16">{{contactInfoForm.controls.makkahDays.value + 1}} Days</div>
+                                </div>
+                            </td>
+                            <td class="w20 text_end">
+                                <div class="fw500 fs16">{{priceCurrency}} {{makkahHotel | number : '1.2-2'}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w40">
+                                <div class="fw500 fs16">Hotel in Madeena</div>
+                                <div>
+                                    <select name="" id="" class="form-control" formControlName="madeenaSelect" (change)="madeenaHotelSelect($event.target.value)">
+                                        <option value="0">Choose Hotel</option>
+                                        <option *ngFor="let k of hotelList" [value]="k.id">{{k.text}}</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="w20 my-auto">
+                                <div fxLayoutAlign="center center" class="h-100">
+                                    <div>
+                                        <div>Number Of Nights</div>
+                                        <div ><input type="number" class="form-control" formControlName="madeenaDays" (input)="madeenaDaysSet()"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="w20">
+                                <div class="text-center" *ngIf="madeenaHotel != 0">
+                                    <div class="clr52 fs12">
+                                        <strong>{{priceCurrency}} {{contactInfoForm.controls.madeenaPrice.value}}</strong> X <strong>{{contactInfoForm.controls.madeenaRooms.value}}</strong> Rooms X <strong>{{contactInfoForm.controls.madeenaDays.value}}</strong> Nights
+                                    </div>
+                                    <div class="fw500 fs16">{{contactInfoForm.controls.madeenaDays.value + 1}} Days</div>
+                                </div>
+                            </td>
+                            <td class="w20 text_end">
+                                <div class="fw500 fs16">{{priceCurrency}} {{madeenaHotel | number : '1.2-2'}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w40">
+                                <div class="fw500 fs16">Food</div>
+                                <div>
+                                    <select name="" id="" class="form-control" formControlName="foodSelect" (change)="foodSelect($event.target.value)">
+                                        <option *ngFor="let k of foodList" [value]="k.id">{{k.text}}</option>
+                                    </select>
+                                </div>
+                            </td>
+                            <td class="w20 my-auto">
+                                <div fxLayoutAlign="center center" class="h-100">
+                                    <div>
+                                        <div>Number Of Days</div>
+                                        <div ><input type="text" class="form-control" formControlName="foodDays" (input)="foodDaySet()"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="w20">
+                                <div class="text-center" *ngIf="food != 0">
+                                    <div class="clr52 fs12">
+                                        <strong>{{priceCurrency}} {{contactInfoForm.controls.foodPrice.value}}</strong> X <strong>{{totalTraveller}}</strong> Pax X <strong>{{contactInfoForm.controls.foodDays.value}}</strong> Days
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="w20 text_end">
+                                <div class="fw500 fs16">{{priceCurrency}} {{food | number : '1.2-2'}}</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="fw500 fs16">Visa with Insurence :</div>
+                            </td>
+                            <td class="w20">
+                                <div class="text-center">
+                                    <div class="clr52 fs12">
+                                        <strong>{{priceCurrency}} {{packageDetails.adult_price}}</strong> X <strong>{{totalTraveller}}</strong> Pax 
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text_end">
+                                <div class="fw500 fs16">{{priceCurrency}} {{VisaAmount | number : '1.2-2'}}</div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="discountAmount != 0">
+                            <td colspan="2">
+                                
+                            </td>
+                            <td class="w20">
+                                <div class="text-center">
+                                    <div class="clr52 fs12">
+                                        <strong>Special Discount</strong>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text_end">
+                                <div class="fw500 fs16 green_text">- ({{priceCurrency}} {{discountAmount | number : '1.2-2'}})</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                
+                            </td>
+                            <td class="w20">
+                                <div class="text-center">
+                                    <div class="fs16 blue_text">
+                                        <strong>Grand Total :</strong>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text_end">
+                                <div class="fs16 blue_text"><strong>{{priceCurrency}} {{totalAmount | number : '1.2-2'}}</strong></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="boxborder p30">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="fs14 fw500">Per Pax :  {{priceCurrency}} {{netPayment/totalTraveller | number : '1.2-2'}}</div>
+                    </div>
+                    <div class="col-md-6 text_end position-relative">
+                        <div class="fs18 fw500 mb-1" *ngIf="!isVisaOnly">Package Cost :  {{priceCurrency}} {{totalAmount | number : '1.2-2'}}</div>
+                        <div class="fs18 fw500 mb-1" *ngIf="packageDetails?.b2b_pct != 0">Commission ({{packageDetails?.b2b_pct}}%) : {{priceCurrency}} {{commsionAmunt | number : '1.2-2'}}</div>
+                        <div class="fs22 fw500 mb-1">Net Payable : {{priceCurrency}} {{netPayment | number : '1.2-2'}}</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="boxborder p30 mt-3">
+                <div class="fs22 fw500 blue_text">Main Traveller Details</div>
+                <div class="row mx-0 mt-3">
+                    <div class="col-md-3 pl-0 errortooltip">
+                        <label class="fs14 fw400 lh14">First Name</label>
+                        <input type="text" class="owldatebrdr w-100 form-control" formControlName="fname" [ngClass]="{ 'is-invalid': submitted && f.fname.errors }">
+                        <div *ngIf="submitted && f.fname.errors" class="errortooltiptext top110">
+                            <div *ngIf="f.fname.errors.required">this field is required</div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3 pl-0 errortooltip">
+                        <label class="fs14 fw400 lh14">Last Name</label>
+                        <input type="text" class="owldatebrdr w-100 form-control" formControlName="lname" [ngClass]="{ 'is-invalid': submitted && f.lname.errors }">
+                        <div *ngIf="submitted && f.lname.errors" class="errortooltiptext top110">
+                            <div *ngIf="f.lname.errors.required">this field is required</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 pl-0 errortooltip">
+                        <label class="fs14 fw400 lh14">Email</label>
+                        <input type="text" class="owldatebrdr w-100 form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        <div *ngIf="submitted && f.email.errors" class="errortooltiptext top110">
+                            <div *ngIf="f.email.errors.required">this field is required</div>
+                            <div *ngIf="f.email.errors.email || f.email.errors.pattern">Email must be a valid email address</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 pl-0 errortooltip">
+                        <label class="fs14 fw400 lh14">Contact Number</label>
+                        <input ng2TelInput [ng2TelInputOptions]="{preferredCountries:['in','sa', 'ae','qa'], separateDialCode:true}" class="form-control  mrPl84"  #phoneInput id="phoneInput" type="tel" (countryChange)="onCountryChange($event)"
+                                (input)="inputValidation($event)" maxlength="15" onkeypress="if ( isNaN( String.fromCharCode(event.keyCode)) || event.keyCode==32) return false;" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+                                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                                    <div *ngIf="f.phone.errors.required">Contact Number</div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="boxborder p30 mt-3 d-flex justify-content-end">
+                <!-- <p class="mb-0">Advance Amount</p>
+                <div class="d-flex">
+                    <input type="number" [(ngModel)]="advanceAmount" formControlName="advance_pay" placeholder="{{advanceAmount}}" class="form-control w-50" [ngClass]="{ 'is-invalid': submitted && f.advance_pay.errors }">
+                       
+                    </div> -->
+                    <button class="bookBtn ml-auto" [class.bttnactive]="bttnactv">Pay Now</button>
+            </div>
+        </form>
+    </div>
+</div>

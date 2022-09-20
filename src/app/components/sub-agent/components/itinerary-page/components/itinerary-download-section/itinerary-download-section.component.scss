@@ -1,0 +1,19 @@
+.download-section-div{
+    .download-bttn{
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+    .spinner-border{
+        width: 20px;
+        height: 20px;
+    }
+    .hide-download-bttn{
+        box-shadow: none;
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+}
+
+.printdisplay {
+    display: none;
+}

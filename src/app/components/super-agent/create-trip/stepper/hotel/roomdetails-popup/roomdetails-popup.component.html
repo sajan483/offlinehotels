@@ -1,0 +1,89 @@
+<div [style.display]="showHotelDetails ? 'block' : 'none'" class="modal" id="roomDetailsPopup" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="popupmoving container mt20">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{setViewData?.name | titlecase}}</h5>
+                <button type="button" class="close m0p0" (click)="hideRoomDetailsPopUp()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            </ol>
+                            <ngb-carousel #carousel >
+                                <ng-template ngbSlide *ngFor="let img of setViewData?.images; index as i">
+                                    <a href="" target="_blank" rel="nofollow noopener noreferrer">
+                                        <div class="picsum-img-wrapper">
+                                            <img [src]="img.image_url" alt="My image {{i + 1}} description">
+                                        </div>
+                                    </a>
+                                </ng-template>
+                            </ngb-carousel>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">{{'Previous'}}</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">{{'Next'}}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div *ngIf="setViewData" class="textright pr10">
+                        <div class="col-12">
+                            <h4>SAR {{setViewData?.amount}}</h4>
+                        </div>
+                        <h6 style="padding-top: 10px; padding-left: 15px;">{{'Includes'}}</h6>
+                        <div class="col-12 row" *ngIf="setViewData?.features &&  setViewData.features?.length">
+                            <div class="col-3" style="list-style-type: square;"
+                                *ngFor="let item of setViewData.features">
+                                <span>{{item?.name}},</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="col-md-12 textright pr10">{{setViewData?.description}}</p>
+                    <div class="col-md-12 textright pr10" style="font-size: 12px;" [innerHTML]="setViewData?.details">
+                    </div>
+                    <p *ngFor="let extension of setViewData?.extensions" class="textright pr10">
+                        {{extension?.value}}
+                    </p>
+                    <!-- <div *ngFor="let group of selectedHotel?.room_groups">
+                        <p class="col-md-12 textright pr10" *ngFor="let extension of group.extensions">
+                            {{extension?.value}}
+                        </p>
+                    </div> -->
+                    <div *ngIf="setViewData?.cancellation_policy">
+                        <div class="col-md-12 row m-0 textright pr10">
+                            <div class="col-md-12 p-0 m-0 row">
+                                <h6 class=" pt-2">{{setViewData?.cancellation_policy?.title}}</h6>
+                                <p *ngIf="!setViewData?.cancellation_policy?.is_refundable"
+                                    style="color: #d33a2f;padding-left: 10px;padding-top: 10px;">{{'Non Refundable'
+                        }} </p>
+                            </div>
+                            <div class="pb-2 m-0">
+                                <p>{{setViewData?.cancellation_policy?.description}}</p>
+                            </div>
+                            <div class="col-md-12 pl-0 m-0"
+                                *ngFor="let item of setViewData.cancellation_policy.rules;let i = index">
+                                <div class="col-md-12 p-0  pb-1">
+                                    <div>
+                                        <li style="font-size: 12px;" [innerHTML]="item?.description"></li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+@import "../../../../../../../assets/css/variable.scss";
+
+
+.slider-outer{
+    .slider-data{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 20px 5px 20px;
+        &:nth-child(even) {
+            background: #fafafa !important;
+          }
+        .row{
+            padding: 10px 0;
+            width: 20%;
+            .small{
+                font-size: 13px;
+                color: $label-clr;
+            }
+            .big{
+                font-size: 13px;
+                font-weight: $bold;
+                color: $light-black;
+            }
+        }
+        .row-status{
+            padding: 10px 0;
+            width: 100px;
+            p{
+            text-transform: uppercase;
+            margin-bottom: $reset;
+            font-weight: $bold;
+            font-size: $regular;
+            color: #479d35;
+            min-width: 80px;
+            text-align: left;
+            }
+            .orange{
+                color: #f6810f;
+            }
+            .red{
+                color: #cf6161;
+            }
+        }
+        .search{
+            padding: 10px 0;
+            width: 60px;
+            .small{
+                display: flex;
+                align-items: center;
+                .ak-zoom-in {
+                    font-weight: $bold;
+                }
+                a{
+                    font-size: 13px;
+                    color: $text-color;
+                    padding-left: 7px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:800px){
+    .slider-outer {
+        .slider-data{
+          flex-wrap: wrap;
+          .row, .row-status, .search{
+            width: 48%;
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+          }
+          .row-status{
+              text-align: left;
+          }
+        }
+      }
+}
+
+
+@media screen and (max-width:500px){
+    .slider-outer {
+        .slider-data{
+          .row, .row-status, .search{
+            width: $full-width;
+            padding: 5px 0;
+          }
+          .search{
+              .small{
+            background: #ededed;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+          }
+        }
+      }
+}

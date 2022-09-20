@@ -1,0 +1,45 @@
+<div class="passenger-details-div">
+    <div class="common_card" *ngIf="tripTravellers != null">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="fs14 fw500 text-capitalize">{{tripTravellers[0]?.contactinfo?.first_name}} {{tripTravellers[0]?.contactinfo?.last_name}}</div>
+            <div class="divider-div"></div>
+            <div class="fs14 fw500">{{tripTravellers[0]?.gender | translate}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 p-0 row ml-0 mr-0 borderpading">
+                <div class="col-md-12 transportbodypdng mt-2 brdrtop pt10 row m-0">
+                    <!-- <div class="col-md-4 p-0 mb-2">
+                        <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Date of Birth' | translate}} : {{tripTravellers[0]?.dob | date:'mediumDate'}}
+                        </p>
+                    </div> -->
+                    <div class="col-md-4 p-0 mb-2">
+                        <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Country of Residence' | translate}} : {{tripTravellers[0]?.country_of_residence}}
+                        </p>
+                    </div>
+                    <div class="col-md-4 p-0 mb-2">
+                        <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Nationality' | translate}}: {{tripTravellers[0]?.nationality}}
+                        </p>
+                    </div>
+                    <div class="col-md-4 p-0 mb-2">
+                        <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Passport Number' | translate}} : {{tripTravellers[0]?.passport_no}}
+                        </p>
+                    </div>
+                    <div class="col-md-4 p-0 mb-2">
+                        <p class="clr52 fs14"><i class="fa fa-circle pr10 mpr0 mpl10 font9imp" aria-hidden="true"></i>{{'Passport Expiry Date' | translate}}: {{tripTravellers[0]?.passport_expiry_date | date:'mediumDate'}}
+                        </p>
+                    </div>
+                    
+                    <div class="col-md-12 transportbodypdng row m-0 p-0 mt-2 brdrtop">
+                        <div class="col-md-8 pl-0 pr-0 pt-2">
+                            <p class="clr52 fs14"><i class="fa fa-envelope textlight pr5 mpr0 mpl5 font16imp" aria-hidden="true"></i>{{tripTravellers[0]?.contactinfo?.email}}</p>
+                        </div>
+                        <div class="col-md-4 pl-0 pr-0 pt-2">
+                            <p class="clr52 fs14"><i class="fa fa-phone textlight pr5 mpr0 mpl5 font16imp" aria-hidden="true"></i> {{tripTravellers[0]?.contactinfo?.phn_country_code}} {{tripTravellers[0]?.contactinfo?.phone_number}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

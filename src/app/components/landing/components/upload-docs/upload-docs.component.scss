@@ -1,0 +1,537 @@
+
+
+.postionabs {
+    overflow: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 35px;
+    z-index: 1059;
+}
+
+.pt50 {
+    padding-top: 50px;
+}
+
+.extraimg {
+    position: absolute;
+    left: 22%;
+}
+
+.pt30 {
+    padding-top: 30px;
+}
+
+.mt30 {
+    margin-top: 30px;
+}
+
+.borderof {
+    box-shadow: 0 0 21px 0 rgba(0, 0, 0, 0.17);
+    background-color: white;
+    position: relative;
+    border-radius: 3px;
+}
+
+.agencyname {
+    text-align: center;
+    font-size: 25px;
+    text-transform: capitalize;
+    padding-top: 30px;
+}
+
+.agencydetails {
+    margin: 0;
+    padding: 20px 0;
+    .brdright {
+        border-right: 1px solid #e6e6e6;
+        border-left: 1px solid #e6e6e6;
+    }
+    .p15 {
+        padding: 15px;
+    }
+    p {
+        margin-top: 10px;
+        margin-bottom: 0;
+        font-size: 14px;
+    }
+}
+
+.bottombrdr {
+    padding: 12px 30px;
+    background-color: #edd6bc;
+    font-size: 13px;
+    .brdrsmall {
+        border-right: 1px solid;
+        height: 17px;
+        margin: 0 14px;
+    }
+    .personimg {
+        height: 25px;
+        margin-right: 14px;
+        margin-bottom: 5px;
+    }
+    .prflname {
+        font-size: 17px;
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+}
+
+.logoImg{
+    height: 60px;
+}
+
+.p30 {
+    padding: 20px;
+}
+
+.form-group {
+    label {
+        margin: 15px 5px 5px 10px;
+    }
+}
+
+.wdth80 {
+    width: 80%;
+    margin: auto;
+}
+
+.form-control {
+    font-size: 13px;
+}
+
+.mydoc {
+    margin-top: 40px;
+    text-transform: capitalize;
+    font-size: 22px;
+    img {
+        height: 47px;
+    }
+}
+
+.mtmb10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.uploadbttn {
+    float: right;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #116063;
+    font-size: 13px;
+    padding: 2px 27px;
+    width: 150px;
+    border-radius: 20px;
+    color: #116063;
+    cursor: pointer;
+}
+
+.tickmark {
+    position: absolute;
+    top: -4px;
+    img {
+        height: 35px;
+    }
+}
+
+.fileinput {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    height: 25px;
+    width: 144px;
+    cursor: pointer;
+}
+
+.uploadfield {
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    font-size: 14px;
+}
+
+.btnn {
+    text-transform: uppercase;
+    font-weight: 600;
+    width: 30%;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, #027be9, #03c0f0);
+    color: #fff;
+    outline: none;
+    border: none;
+}
+
+.upload-doc-div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.backlog {
+    color: #956b3d;
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.smallcenter {
+    margin-right: 35px;
+}
+
+.emailicon {
+    float: left;
+    padding-right: 15px;
+    img {
+        height: 32px;
+    }
+}
+
+.textemailphone {
+    font-size: 13px;
+    color: #000;
+    margin-bottom: 0;
+}
+
+.mbmt {
+    padding-top: 30px;
+    padding-bottom: 40px;
+}
+
+.bordr {
+    margin-top: 30px;
+    border: 1px solid gray;
+    min-height: 50px;
+    -webkit-box-shadow: 0px 0px 17px -1px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0px 0px 17px -1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 0px 17px -1px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.backgroundimage {
+    background: url(/assets/images/main-bg.png) no-repeat 100% center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+.format {
+    text-align: center;
+    font-weight: 300;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.pddn {
+    margin-top: 25px;
+}
+
+.animtion {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 21px;
+    color: white;
+    animation-name: plswait;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes plswait {
+    // 0%   {color: red;}
+    // 25%   {color: black;}
+    // 50%  {color: red;}
+    // 100%   {color: black;}
+    from {
+        color: white;
+    }
+    to {
+        color: #116063;
+    }
+}
+
+.agencyhead {
+    text-align: center;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.ibandetails {
+    margin-top: 30px;
+    background-color: white;
+    border: 1px solid #d8d7d7;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+.topborder {
+    background-color: white;
+    border: 1px solid #d8d7d7;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+    box-shadow: 0 10px 6px -6px #777;
+}
+
+.w188 {
+    width: 188px;
+}
+
+// loader
+#hotelSpinner {
+    .la-ball-spin-clockwise {
+        display: none;
+    }
+    .loader_message {
+        padding: 36px 72px;
+        background-color: #ffffff;
+        border-radius: 6px;
+        text-align: center;
+        p {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+    }
+    .overlay {
+        position: absolute;
+        z-index: 1010;
+        background-color: rgba(255, 255, 255, 0.5);
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+}
+
+.lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #027ce9;
+    margin: -4px 0 0 -4px;
+}
+
+.lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+}
+
+.lds-roller div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+}
+
+.lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+}
+
+.lds-roller div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+}
+
+.lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+}
+
+.lds-roller div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+}
+
+.lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+}
+
+.lds-roller div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+}
+
+.lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+}
+
+.lds-roller div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+}
+
+.lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+}
+
+.lds-roller div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+}
+
+.lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+}
+
+.lds-roller div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+}
+
+.lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+}
+
+.lds-roller div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+}
+
+@keyframes lds-roller {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hotel-loader {
+    background-image: url(/assets/images/hotel.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 35px;
+}
+
+// 
+.countrycode {
+    top: 50px;
+    font-size: 13px;
+    position: absolute;
+    left: 25px;
+    border: none;
+    background-color: #eeeeee;
+}
+
+.countrycode:focus {
+    border: none;
+    outline: none;
+}
+
+.fontSize13 {
+    font-size: 13px;
+}
+
+.mt2 {
+    margin-top: 2px;
+}
+
+.w205 {
+    width: 205px;
+}
+
+.w158 {
+    width: 158px;
+}
+
+.h303 {
+    height: 303px;
+}
+
+.imgfile {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #525252;
+    width: 30%;
+    margin: auto;
+    text-align: center;
+}
+
+.alignBetweenContct{
+    margin-top: 40px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    .whtspImg{
+        height: 30px;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .upload-doc-div{
+        display: block;
+    }
+    .alignBetweenContct{
+        margin-top: 10px !important;
+        display: block !important;
+        .whtspImg{
+            margin-top: 15px;
+        }
+    }
+    .pt50 {
+        padding-top: 10px !important;
+    }
+    .extraimg {
+        display: none;
+    }
+    .animtion {
+        font-size: 18px !important;
+    }
+    .pt30 {
+        padding-top: 15px !important;
+    }
+    .mt30 {
+        margin-top: 20px !important;
+    }
+    .agencyname {
+        font-size: 20px !important;
+        padding-top: 20px !important;
+    }
+    .hide-xs {
+        display: none !important;
+    }
+    .newline {
+        display: block;
+        padding-left: 40px;
+    }
+    .bottombrdr {
+        padding: 12px !important;
+    }
+    .p30 {
+        padding: 10px !important;
+    }
+    .wdth80 {
+        width: 100% !important;
+    }
+    .btnn {
+        width: 60% !important;
+    }
+    .textcentr {
+        text-align: center;
+    }
+    .emailicon {
+        float: none !important;
+        padding-right: 0 !important;
+        margin-bottom: 10px;
+    }
+}

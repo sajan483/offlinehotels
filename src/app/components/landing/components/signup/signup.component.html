@@ -1,0 +1,198 @@
+<section class="container-fluid bg mirr_text_right">
+    <div class="text-center padngtopimg resMt44">
+        <img src="/assets/images/akbar-umrah-logo.png" class="logoimg" alt="">
+    </div>
+    <div class="extraimg">
+        <img src="/assets/images/lanterns.png" alt="">
+    </div>
+    <h3 class="logtext">{{'TRAVEL AGENCY REGISTRATION' | translate}}</h3>
+    <div class="text-right container">
+        <div class="cursor-pointer" (click)="navigateYoutube()"><i class="fa fa-youtube-play red_text" aria-hidden="true"></i> <span class=" pl-1 clrmain">{{'Help' | translate}}?</span></div>
+    </div>
+    <section class="row">
+        <form class="form-container container" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+            <div class="row " id="signUpForm">
+                <div class="col-md-6 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">
+                        <label id="cmpnynamelbl">{{'Travel Agency Name' | translate}}</label>
+                        <input id="cmpnyname" formControlName="cmpnyname" placeholder="{{'Enter Travel Agency Name' | translate}}" type="text" (keypress)="omit_special_char($event)" class="form-control text-capitalize" [ngClass]="{ 'is-invalid': submitted && f.cmpnyname.errors }">
+                        <div *ngIf="submitted && f.cmpnyname.errors" class="invalid-feedback">
+                            <div *ngIf="f.cmpnyname.errors.required">{{'Travel Agency Name is required' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3 pr-3">                  
+                    <div class="form-group mb-0 fs15">
+                        <label id="phnnumberlbl">{{'Mobile Number / Hand Phone Number (User Name)' | translate}}</label>
+                            <input ng2TelInput 
+                            [ng2TelInputOptions]="{preferredCountries:['sa','in','ae','qa','id'], separateDialCode:true}" 
+                            class="form-control  mrPl84"  
+                            #phoneInput id="phoneInput" type="tel" 
+                            (countryChange)="onCountryChange($event)" 
+                            (intlTelInputObject)="telInputObject($event)"
+                            (input)="inputValidation1($event)" maxlength="15" 
+                            numberOnly formControlName="phnnumber" 
+                            [ngClass]="{ 'is-invalid': submitted && f.phnnumber.errors }" 
+                            />
+                                <div *ngIf="submitted && f.phnnumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.phnnumber.errors.required">{{'Mobile Number / Hand Phone Number is required' | translate}}</div>
+                                </div>
+                    </div>  
+                </div>
+                <div class="col-md-6 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">
+                        <label id="emaillbl">{{'EMAIL' | translate}}</label>
+                        <input id="email" placeholder="{{'Enter Email' | translate}}" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">{{'Email is required' | translate}}</div>
+                            <div *ngIf="f.email.errors.email">{{'Email must be a valid email address' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">
+                        <label id="cmpnyadresslbl">{{'Address' | translate}}</label>
+                        <input id="cmpnyadress" placeholder="{{'Enter Company Address' | translate}}" type="text" formControlName="cmpnyadress" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cmpnyadress.errors }">
+                        <div *ngIf="submitted && f.cmpnyadress.errors" class="invalid-feedback">
+                            <div *ngIf="f.cmpnyadress.errors.required">{{'Company Address is required' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-3 ">
+                        <div class="form-group mb-0 fs15">
+                            <label id="citylbl">{{'City' | translate}}</label>
+                            <input id="city" placeholder="{{'Enter city' | translate}}" type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                            <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+                                <div *ngIf="f.city.errors.required">{{'City is required' | translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 shoSttDivN">
+                        <div class="form-group mb-0 fs15">
+                            <label id="statelbl">{{'State' | translate}}</label>
+                            <input id="state" placeholder="{{'Enter state' | translate}}" type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                            <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                                <div *ngIf="f.state.errors.required">{{'State is required' | translate}}</div>
+                            </div>
+                        </div>
+                    </div> -->
+                
+                <!-- <div class="col-md-6 pl-3 pr-3 shoSttDiv">
+                    <div class="form-group mb-0 fs15">
+                        <label id="statelbl">{{'State' | translate}}</label>
+                        <input id="state" placeholder="{{'Enter state' | translate}}" type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state.errors }">
+                        <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+                            <div *ngIf="f.state.errors.required">{{'State is required' | translate}}</div>
+                        </div>
+                    </div>W
+                </div> -->
+
+                <div class="col-md-3 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">
+                        <label id="contrylbl">{{'Country' | translate}} </label>
+                        <select name="" id="" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="slctcntry">
+                                <option *ngFor="let item of countries;let i = index" [value]="item.name">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">  
+                        <label class="mb-0" style=" font-size: 13px" id="cnamelbl">{{'Contact Person Name' | translate}}</label>
+                        <input id="cname" placeholder="{{'Enter Contact person Name' | translate}}" type="text" formControlName="cname" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.cname.errors }">
+                        <div *ngIf="submitted && f.cname.errors" class="invalid-feedback">
+                            <div *ngIf="f.cname.errors.required">{{'Contact person Name is required' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">
+                        <label id="passwordlbl">{{'Password' | translate}}</label>
+                        <input id="password" placeholder="{{'Enter Password' | translate}}" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">{{'Password is required' | translate}}</div>
+                            <div *ngIf="f.password.errors.minlength">{{'Password must be at least 6 characters' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3 pr-3">
+                    <div class="form-group mb-0 fs15">
+                        <label id="cnfrmpasswrdlbl">{{'Confirm Password' | translate}}</label>
+                        <input id="cnfrmpasswrd" placeholder="{{'Confirm Password' | translate}}" type="password" formControlName="cnfrmpasswrd" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cnfrmpasswrd.errors }">
+                        <div *ngIf="submitted && f.cnfrmpasswrd.errors" class="invalid-feedback">
+                            <div *ngIf="f.cnfrmpasswrd.errors.required">{{'Confirm Password is required' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-12 pl-3 pr-3 pt-3">
+                    <div class="licence-agent-bttn-div">
+                        <div class="areu">
+                            {{'Are you a licensed Umrah agent / Umrah Operator' | translate}}
+                        </div>
+
+                        <mat-radio-group>
+                            <mat-radio-button value="1" class="mat-bttn" (click)="licenseyes()">{{'Yes' | translate}}</mat-radio-button>
+                            <mat-radio-button value="2" class="mat-bttn" (click)="licenseno()">{{'No' | translate}}</mat-radio-button>
+                        </mat-radio-group>
+                        
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3 pr-3" *ngIf="licensefield">
+                    <div class="form-group mb-0 fs15">
+                        <label id="Licenseilbl">{{'License number of the Ministry of Hajj and Umrah' | translate}}</label>
+                        <input id="license" placeholder="{{'Enter License number' | translate}}" type="text" (keypress)="omit_special_char($event)" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3 pr-3" *ngIf="licensefield">
+                    <div class="form-group mb-0 fs15">
+                        <label id="ibanlbl">{{'IBAN Number' | translate}}</label>
+                        <input id="iban" placeholder="{{'Enter IBAN Number' | translate}}" type="text" class="form-control" (input)="iBanNumberValidation($event)" (keypress)="omit_special_char($event)" oninput="this.value = this.value.toUpperCase()" [ngClass]="{ 'is-invalid': ibanValidation }">
+                        <div *ngIf="ibanValidation" class="invalid-feedback">
+                            <div>{{ibanMessge | translate}}</div>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+
+
+            <div class="d-flex justify-content-center mt20" >
+                <button class="search_bttn w-50" type="submit">{{'CREATE ACCOUNT' | translate}}</button>
+            </div>
+
+            <div class="d-flex justify-content-center mt10">
+                <p class="createreg">{{'Already have an account..?' | translate}} <strong (click)="navigatelogin()"> {{'Login Now' | translate}}</strong></p>
+            </div>
+        </form>
+    </section>
+
+    
+    
+
+    <div class="alignBetweenContct container">
+        <div class="text-center">
+            <img class="whtspImg" src="/assets/images/whatsapp-voucher.png" alt="">
+            <p class="mb-0 fnt13">{{"Whatsapp" | translate}}</p>
+            <a class="fnt13 clrmain" href="whatsapp://send?text= MAQAM Approved OTA. Generate BRN number for Umrah at lightning speed! Register with us at http://trvls.me/b2bUmrah for your B2B Travel agent ID now." data-action="share/whatsapp/share"> {{'Share' | translate}}</a>
+        </div>
+        <div class=" text-center">
+            <img class="whtspImg" src="/assets/images/email-icon.png" alt="">
+            <p class="fnt13 mb-0">{{"Email Us" | translate}}</p>
+            <a class="fnt13 clrmain" href="mailto:support@akbarumrah.com">support@akbarumrah.com</a>
+        </div>
+        <div class=" text-center">
+            <img class="whtspImg" src="/assets/images/call-us-icon.png" alt="">
+            <p class="fnt13 mb-0">{{"Call Us" | translate}}</p>
+            <a class="fnt13 clrmain" href="tel:0097377952212">00-973-77952212</a>
+        </div>
+        <div class=" text-center">
+            <img class="whtspImg" src="/assets/images/chatsupprt.png" alt="">
+            <p class="fnt13 mb-0">{{"Chat To Us" | translate}}</p>
+            <a class="fnt13 clrmain open-zammad-chat">Chat</a>
+        </div>
+    </div>
+    <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+
+    </ngx-spinner>
+</section>

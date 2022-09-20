@@ -1,0 +1,170 @@
+<div class="popup-confirmation-div" fxLayoutAlign="center center">
+    <div class="popup-over-body container popupAnimation">
+        <div class="popup-content">
+            <div class="popup-header">
+                <div class="text_start" fxLayout="row" fxLayoutAlign="start center">
+                    <i class="icon_size_30 icns round_tick_grey"></i>
+                    <div style="width: 10px;"></div>
+                    <h4 class="title">{{'Review' | translate}}</h4>
+                </div>
+                <div class="text_end fs12"><span class="web_view">{{'Total payable amount for your booking is' | translate}}</span> <span class="fs20 fw600 pl10 lh20">{{currency}} {{bookingData?.total_amount | ConvertCurrency : currency}}</span></div>
+            </div>
+            <div class="popup-body">
+
+                <div class="trip-id-div">
+                    <div fxLayout="row" fxLayoutAlign="start center" >
+                        <i class="round_info_grey icns icon_size_30"></i>
+                        <div style="width: 10px;"></div>
+                        <div>
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <div class="sub-heading">{{'Umrah Trip Id' | translate}} :  {{bookingData?.reference_no}} </div>
+                                <div style="width: 10px;"></div>
+                                <div class="fw400 fs12 cursor_pointer list_clr" (click)="copyLinkB2b(bookingData?.reference_no)"><span class="ak-copy fs16"></span>{{'Copy' | translate}}</div>
+                            </div>
+                            <div class="fs12 clr52 web_view">{{'Have a Query? Reach us at support@akbarumrah.com and mention the ticket id in it. Happy to help you!!' | translate}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="booking-details-div">
+                    <div fxLayout="row" fxLayoutAlign="start start" >
+                        <i class="booking_details_icon icns icon_size_30"></i>
+                        <div style="width: 10px;"></div>
+                        <div>
+                            <div class="sub-heading">{{'Booking Details' | translate}}</div>
+
+                            <div class="service-details-div" *ngIf="isHotelSeclection">
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                                    <div class="imgeSize web_view">
+                                        <img src="{{bookService?.trip_hotel?.hotel?.images[0]?.image_webp_url}}" alt="" [appImageFallback]="'/assets/images/no_image.jpg'">
+                                    </div>
+                                    <div style="width: 10px;"></div>
+                                    <div>
+                                        <div fxLayout="row" fxLayoutAlign="start center">
+                                            <div class="service-name">{{bookService?.trip_hotel?.hotel?.name}}</div>
+                                            <div style="width: 10px;"></div>
+                                            <div fxLayout="row" fxLayoutAlign="start center">
+                                                <span class="material-icons star-icon" *ngFor="let k of [].constructor(bookService?.trip_hotel?.hotel?.user_review)">star</span>
+                                            </div>
+                                        </div>
+                                        <div class="mt5" fxLayout="row" fxLayoutAlign="start star">
+                                            <div class="label-text">{{'ROOMS' | translate}} :</div>
+                                            <div style="width: 10px;"></div>
+                                            <div fxLayout="row wrap" fxLayoutAlign="start center">
+                                                <div class="room-name" *ngFor="let k of cancellationData">{{k?.name}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="mt5 label-text">
+                                            <span>{{'CHECKIN' | translate}} : </span>
+                                            <span class="clr52">{{bookService?.trip_hotel?.check_in_time | DateTimeToDateFormat | date:'mediumDate'}}</span>
+                                            <span class="divider"></span>
+                                            <span>{{'CHECKOUT' | translate}} : </span>
+                                            <span class="clr52">{{bookService?.trip_hotel?.check_out_time | DateTimeToDateFormat | date:'mediumDate'}}</span>
+                                            <span class="divider"></span>
+                                            <span>{{'Number Of Pax' | translate}} : </span>
+                                            <span class="clr52">{{bookingData?.custom_trip?.adults + bookingData?.custom_trip?.children}}</span>
+                                            <span class="divider"></span>
+                                            <span>{{'Rooms' | translate}} : </span>
+                                            <span class="clr52">{{bookService?.rooms.length}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-details-div" *ngIf="!isHotelSeclection">
+                                <div fxLayout="row" fxLayoutAlign="start start">
+                                    <div>
+                                        <div class="service-name">{{bookService?.company?.name}}</div>
+                                        <div class="service-name">{{bookService?.vehicle_types[0]?.name}} - {{bookService?.categories[0]?.name}}</div>
+                                        <div class="service-name mt5">{{'Route' | translate}} : <span class="clr52">{{bookService?.route?.name}}</span></div>
+                                        <div class="mt5 label-text">
+                                            <span>{{'Date' | translate}} : </span>
+                                            <span class="clr52">{{bookService?.selected_transportation?.start_date | DateTimeToDateFormat | date:'mediumDate'}}</span>
+                                            <span class="divider"></span>
+                                            <span>{{'Number Of Pax' | translate}} : </span>
+                                            <span class="clr52">{{bookService?.no_of_travellers}}</span>
+                                            <span class="divider"></span>
+                                            <span>{{'Number of Vehicle' | translate}} : </span>
+                                            <span class="clr52">{{bookService?.trip_vehicles[0]?.booked_quantity}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cancelation-charges-div web_view">
+                    <div fxLayout="row" fxLayoutAlign="start start" >
+                        <i class="policy_icon icns icon_size_30"></i>
+                        <div style="width: 10px;"></div>
+                        <div class="w100">
+                            <div class="sub-heading">{{'Cancellation Charges' | translate}}</div>
+                            <div class="w-100">
+                                <app-cancellation-policy 
+                                [tripData]="cancellationData" 
+                                [currency]="currency"
+                                [isHotelSeclection]="isHotelSeclection"
+                                ></app-cancellation-policy>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-details-div">
+                    <div fxLayout="row" fxLayoutAlign="start start" >
+                        <i class="payment_details_icon icns icon_size_30"></i>
+                        <div style="width: 10px;"></div>
+                        <div class="w-100">
+
+                            <div class="sub-heading">{{'Enter your payment details' | translate}}</div>
+                            <div class="payment-div">
+                                <div class="label-input-text"><strong class="red_text">*</strong> {{'IBAN Accound Number' | translate}} :</div>
+                                <div class="row">
+                                    <div class="col-md-7 position-dropDown">
+                                        <div fxLayout="row" fxLayoutAlign="start stretch" class="iban-text-box">
+                                            <input type="text" class="iban-text" placeholder="{{'eg: SA1000000000000000000000' | translate}}" id="acc_no" (input)="iBanNumberValidation($event.srcElement.value)" (keypress)="omit_special_char($event)" [(ngModel)]="accNo" oninput="this.value = this.value.toUpperCase()" [ngClass]="{ 'iban-text-error': ibanValidation }">
+                                            <div fxLayoutAlign="center center" class="down-icon" (click)="showIbanList()"><span class="ak-down"></span></div>
+                                        </div>
+                                        <div class="drop-down-list-div" *ngIf="showibanList && ibanNumberList.length > 0">
+                                            <div fxLayout="row" fxLayoutAlign="space-between center" class="list-data" *ngFor="let iban of ibanNumberList" (click)="selectIbanNumber(iban)">
+                                                <div class="p10">{{iban.iban}}</div>
+                                                <div class="p10 text_cap">{{iban.tag}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 web_view">
+                                        <input type="text" class="text-field" placeholder="Tag" [(ngModel)]="ibanTagName">
+                                    </div>
+                                    <div class="col-md-1 web_view">
+                                        <button class="saveibanBttn" [class.activeBttn]="saveBttnActive" [disabled]="saveBttnActive" title="Save Iban"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                                <div *ngIf="ibanValidation" class="red_text fs12 text_start">{{ibanMessge | translate}}</div>
+                            </div>
+
+                            <div class="label-input-text mt20"><strong class="red_text">*</strong> {{'Google Auth Code' | translate}} :</div>
+                            <div class="otp-section">
+                                <!-- <ng-otp-input  (onInputChange)="onOtpChange($event)"  [config]="{length:6,allowNumbersOnly:true}"></ng-otp-input> -->
+                            </div>
+                            <div class="red_text fs13 text_start" *ngIf="lengthAuthCode">{{'Please Enter 6 digit Google Authentication code.' | translate}}</div>
+                            <div class="info-text">
+                                <i class="fa fa-info-circle px-1" aria-hidden="true"></i> {{'Google auth code token expires in' | translate}} <span class="clrmain fw500 fs13 px-1">{{'30 sec' | translate}}</span>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height: 80px;"></div>
+
+                <div class="button-section" fxLayout="row" fxLayoutAlign="end stretch">
+                    <button class="secondary_bttn" (click)="closePopUp()">{{'Cancel' | translate}}</button>
+                    <div style="width: 10px;"></div>
+                    <button class="search_bttn" (click)="onSubmitButtonClicked()">{{'Submit' | translate}}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

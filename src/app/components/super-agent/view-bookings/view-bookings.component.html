@@ -1,0 +1,449 @@
+<div class="row mt-3">
+  <div class="col-12">
+    <form action="" [formGroup]="searchBookingForm">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="col-3">
+          <div class="position-relative" [owlDateTimeTrigger]="dt10">
+            <input [owlDateTime]="dt10" [selectMode]="'range'" [(ngModel)]="dateRange" class="form-control"
+              [max]="today" placeholder="Booking Date Range" (ngModelChange)="searchFilter()">
+            <owl-date-time [pickerType]="'calendar'" #dt10></owl-date-time>
+            <div class="daterangeIcon">
+              <i class="icns calendaricon icon_size_20"></i>
+            </div>
+          </div>
+        </div>
+        <div class="mb-2">
+          <mat-form-field class="w100" appearance="outline">
+            <mat-select formControlName="package" placeholder="Package" #singleSelect>
+              <mat-option>
+                <ngx-mat-select-search [noEntriesFoundLabel]="'No Packages Found'" [placeholderLabel]="'Package Name'"
+                  formControlName="packageSearch"></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let package of filteredPackages | async" [value]="package">
+                {{package.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="mb-2 d-flex">
+          <input type="text" class="form-control my-auto" [(ngModel)]="searchData"
+            placeholder="Search UTid, titile & location">
+          <button type="submit" class="btn btn-success ml-2" (click)="searchFilter()">Search</button>
+        </div>
+        <div class="mb-2">
+          <button class="btn btn-secondary" (click)="reSet()"><i class="fa fa-refresh" aria-hidden="true"></i>
+            Reset</button>
+        </div>
+      </div>
+    </form>
+    <table class="table" id="b2bBooking">
+      <thead>
+        <tr>
+          <th scope="col">UT No.</th>
+          <th scope="col">Booking Date</th>
+          <th scope="col">Travel Date.</th>
+          <th scope="col">Title</th>
+          <th scope="col">Agency</th>
+          <!-- <th scope="col">Pax Name</th> -->
+          <!-- <th scope="col">Phone No.</th> -->
+          <!-- <th scope="col">Advance Amount</th> -->
+          <!-- <th scope="col">View</th> -->
+        </tr>
+      </thead>
+      <tbody *ngIf="shimmer">
+        <tr *ngFor="let k of [].constructor(10);">
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+          <td>
+            <div class="shine w-100 h25"></div>
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!shimmer && bookingList.length > 0">
+        <tr *ngFor="let booking of bookingList">
+          <th scope="row"><a class="pointer" (click)="showBooking(booking.id)">{{ booking?.reference_no }}</a></th>
+          <td>{{ (booking?.booking_date==null?'N/A':booking?.booking_date | date:'mediumDate') }}</td>
+          <td>{{ booking?.package?.start_date | date:'mediumDate' }}</td>
+          <td>
+            <div>{{booking?.package?.no_of_days}} days {{booking?.package_name}}</div>
+
+
+            <div class="fit-content"><i class="fa fa-users brdrIcon" aria-hidden="true"
+                [ngStyle]="{'color': checkColor(booking?.package_location)}"></i> {{booking?.package_location}}</div>
+          </td>
+          <!-- <td>  <div>{{booking.contactinfo.title}}</div></td> -->
+          <td>{{ booking.agent_name }} X {{ booking.total_passengers }}</td>
+          <!-- <td>{{  (booking?.phn_country_code==null?'': ('+'+booking?.phn_country_code))}} {{booking.agent_phone_number==null?'':booking.agent_phone_number }}</td> -->
+          <!-- <td>{{booking?.currency}} {{ booking.advance_amount }}</td> -->
+          <!-- <td><button class="btn btn-sm btn-primary fs12" (click)="showBookingDetails(booking.id)" data-toggle="modal"
+            data-target="#detailsModal"><span>View</span></button></td> -->
+          <!-- <td><button class="btn btn-sm btn-primary fs12" (click)="showBooking(booking.id)">View</button></td> -->
+        </tr>
+        <tr>
+      </tbody>
+      <tbody *ngIf="!shimmer && bookingList.length == 0">
+        <tr class="text-center">
+          <th colspan="8">
+            <img src="/assets/images/noreslt.png" alt="">
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" *ngIf="totalPage>1">
+  <div class="col-lg-8 col-md-10  ml-auto pull-right mt-2">
+    <div class="float-right">
+      <app-pagination [totalPage]="totalPage" [currentPage]="currentPage" (onPageChange)="paginateBookings($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs18"><b>{{selectedBooking?.reference_no}}</b> - {{selectedBooking?.package?.start_date |
+          date:'mediumDate'}} </h3>
+        <button type="button" class="close" (click)="closeDetailsModal()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" href="#booking-details" data-toggle="tab">Booking Info</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#booking-customer">
+              Customer Info
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#agency-package">
+              Agency Info
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#booking-package">
+              Package Info
+            </a>
+          </li>
+
+        </ul>
+        <div class="tab-content">
+          <div id="booking-details" class="tab-pane active"><br>
+            <div class="booking-review">
+              <div class="booking-review-content">
+                <div class="review-section">
+                  <div class="info-form">
+                    <ul>
+                      <li>
+                        <div class="label">Booking Status</div>
+                        <div class="val">{{selectedBooking?.status}}</div>
+                      </li>
+                      <li>
+                        <div class="label">Booking Date</div>
+                        <div class="val">{{selectedBooking?.booking_date == null || selectedBooking?.booking_date ==
+                          undefined || selectedBooking?.booking_date == ''?'':selectedBooking?.booking_date |
+                          date:'mediumDate'}}</div>
+                      </li>
+                      <li>
+                        <div class="label">Booking Count</div>
+                        <div class="val">{{selectedBooking?.package?.booked_count}}
+                          ({{selectedBooking?.package?.max_passengers}})</div>
+                      </li>
+                      <li>
+                        <div class="label">Total Amount</div>
+                        <div class="val">{{selectedBooking?.currency}} {{selectedBooking?.total_amount}}</div>
+                      </li>
+                      <li>
+                        <div class="label">Advance Amount</div>
+                        <div class="val">{{selectedBooking?.currency}} {{selectedBooking?.advance_amount}}</div>
+                      </li>
+                      <li class="fw600">
+                        <div class="label">Balance Amount</div>
+                        <div class="val">{{selectedBooking?.currency}} {{selectedBooking?.total_amount -
+                          selectedBooking?.advance_amount}}</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          <div id="booking-customer" class="tab-pane fade"><br>
+            <div class="booking-review">
+              <div class="booking-review-content">
+                <div class="review-section">
+                  <div class="info-form">
+                    <ul>
+                      <li class="info-first-name">
+                        <div class="label">name</div>
+                        <div class="val">{{selectedBooking?.contactinfo?.first_name}}
+                          {{selectedBooking?.contactinfo?.last_name}}</div>
+                      </li>
+                      <li class="info-email">
+                        <div class="label">Email</div>
+                        <div class="val">{{selectedBooking?.contactinfo?.email}}</div>
+                      </li>
+                      <li class="info-phone">
+                        <div class="label">Phone</div>
+                        <div class="val">{{selectedBooking?.contactinfo?.phn_country_code}}
+                          {{selectedBooking?.contactinfo?.phone_number}}</div>
+                      </li>
+                      <li class="info-address">
+                        <div class="label">Address</div>
+                        <div class="val">{{selectedBooking?.contactinfo?.address}}</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="agency-package" class="tab-pane fade"><br>
+            <div class="booking-review">
+              <div class="booking-review-content">
+                <div class="review-section">
+                  <div class="info-form">
+                    <ul>
+                      <li class="info-first-name">
+                        <div class="label">Agency name</div>
+                        <div class="val">{{selectedBooking?.agency_details?.name}}</div>
+                      </li>
+                      <li class="info-last-name">
+                        <div class="label">Email</div>
+                        <div class="val">{{selectedBooking?.agency_details?.email}}</div>
+                      </li>
+                      <li class="info-phone">
+                        <div class="label">Phone</div>
+                        <div class="val">{{selectedBooking?.agency_details?.country_code}}
+                          {{selectedBooking?.agency_details?.phone_number}}</div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="booking-package" class="tab-pane fade"><br>
+            <div class="package-itenary-div">
+              <div class="itenary-day-box">
+                <div id="itenaryDay1">
+
+                  <div class="days-box">
+                    <div
+                      *ngIf="selectedBooking?.package?.flight_details !=null && selectedBooking?.package?.flight_details.length>0">
+                      <div class="day-flight-box row mx-0"
+                        *ngFor="let flight of selectedBooking?.package?.flight_details">
+                        <div class="col-md-3 px-0 box-brdr-right">
+                          <div class="d-flex">
+                            <div class="pr-2 my-auto">
+                              <img src="assets/images/itinerary-flight-gold.png" class="icon_size_25" alt="">
+                            </div>
+                            <div class="blue_text fw500">
+                              <div class="fs12">ONWARD FLIGHT</div>
+                              <div class="fs13">to {{flight?.onward_arr_airport_name.split('|')[1]}}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9 px-0 row mx-0 my-auto">
+                          <div class="col-md-3 col-4 mob_px0">
+                            <div class="d-flex">
+                              <div class="image_flight my-auto">
+                                <img class="h-100 w-100"
+                                  src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{flight?.onward_mac}}.jpg"
+                                  alt="">
+                              </div>
+                              <div>
+                                <div class="fs13" *ngIf="flight?.onward_flight_airline">
+                                  {{flight?.onward_flight_airline.split('|')[0]}}</div>
+                                <div class="fs12 clr52">{{flight?.onward_mac}} - {{flight?.onward_flight_number}}</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-9 col-8 mob_px0">
+                            <div class="d-flex justify-content-between">
+                              <div>
+                                <div class="fs16 lh16 mob_fs12 fw500">{{flight?.flights[0]?.onward_flight_departure_date
+                                  | date:'shortTime'}}</div>
+                                <div class="fs12 clr52 mob_fs10" *ngIf="flight?.onward_dep_airport_name">
+                                  {{flight?.onward_dep_airport_name.split('|')[1]}} </div>
+                                <div class="fs12 clr52">[ {{flight?.onward_flight_departure_airport}} ]</div>
+                              </div>
+                              <div class="position-relative text-center flight-navigation">
+                                <div class="fs12 fwBold">{{flight?.onward_duration}}</div>
+                                <div class="flightdurationicon"></div>
+                              </div>
+                              <div>
+                                <div class="fs16 lh16 fw500 mob_fs12">{{flight?.flights[0]?.onward_flight_arrival_date |
+                                  date:'shortTime'}}</div>
+                                <div class="fs12 clr52 mob_fs10" *ngIf="flight?.onward_arr_airport_name">
+                                  {{flight?.onward_arr_airport_name.split('|')[1]}} </div>
+                                <div class="fs12 clr52">[ {{flight?.onward_flight_arrival_airport}} ]</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="selectedBooking?.package?.transport_details !=null && selectedBooking?.package?.transport_details.length>0">
+                      <div class="day-flight-box row mx-0"
+                        *ngFor="let transport of selectedBooking?.package?.transport_details">
+                        <div class="col-md-3 px-0 box-brdr-right">
+                          <div class="d-flex">
+                            <div class="pr-2 my-auto">
+                              <img src="assets/images/bus-gold.png" class="icon_size_25" alt="">
+                            </div>
+                            <div class="blue_text fw500">
+                              <div class="fs13">{{transport?.vehicle_type}}</div>
+                              <div class="fs12">{{transport?.transportations[0]?.start_date | date:'mediumDate'}}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9 row mx-0 my-auto">
+                          <div class="d-flex">
+                            <div>
+                              <div class="fs15 fw500 text-capitalize">{{transport?.company_name}}</div>
+                              <div class="fs12 clr52"><span class="fwBold blue_text">Route:</span>
+                                {{transport?.route_name}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      *ngIf="selectedBooking?.package?.hotel_details !=null && selectedBooking?.package?.hotel_details.length>0">
+                      <div class="day-flight-box row mx-0" *ngFor="let item of selectedBooking?.package?.hotel_details">
+                        <div class="col-md-3 px-0 box-brdr-right">
+                          <div class="d-flex">
+                            <div class="pr-2 my-auto">
+                              <img src="assets/images/hotel-gold.png" class="icon_size_25" alt="">
+                            </div>
+                            <div class="blue_text fw500">
+                              <div class="fs12">{{item?.city}}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9 row mx-0 my-auto">
+                          <div class="d-flex">
+                            <div class="image_hotel my-auto">
+                              <img class="h-100 w-100"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSawAGy8czsLz3EjMzFeE9jRwG2TjUzwwlJ3w&usqp=CAU"
+                                alt="">
+                            </div>
+                            <div>
+                              <div class="fs15 fw500">{{item?.name}}
+                                <ngb-rating [(rate)]="item.rating" [readonly]="readonly" [max]=5>
+                                  <ng-template let-fill="fill" let-index="index">
+                                    <span class="star" [class.filled]="fill === 100"
+                                      [class.bad]="index < 2">&#9733;</span>
+                                  </ng-template>
+                                </ngb-rating>
+                              </div>
+                              <div class="fs12 clr52"><span class="fwBold blue_text">{{item?.num_of_days}}</span> Nights
+                                in {{item?.city}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div
+                      *ngIf="selectedBooking?.package?.flight_details !=null && selectedBooking?.package?.flight_details.length>0">
+                      <div class="day-meal-box row mx-0"
+                        *ngFor="let flight of selectedBooking?.package?.flight_details">
+                        <div class="col-md-3 px-0 box-brdr-right">
+                          <div class="d-flex">
+                            <div class="pr-2 my-auto">
+                              <img src="assets/images/itinerary-flight-gold.png" class="icon_size_25" alt="">
+                            </div>
+                            <div class="blue_text fw500">
+                              <div class="fs12">RETURN FLIGHT</div>
+                              <div class="fs13">to {{flight.return_arr_airport_name.split('|')[1]}}</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9 px-0 row mx-0 my-auto">
+                          <div class="col-md-3 col-4 mob_px0">
+                            <div class="d-flex">
+                              <div class="image_flight my-auto">
+                                <img class="h-100 w-100"
+                                  src="https://dhiz4uvf5rpaq.cloudfront.net/V1/assets/images/AirlineLogo/{{flight.return_mac}}.jpg"
+                                  alt="">
+                              </div>
+                              <div>
+                                <div class="fs13" *ngIf="flight.return_flight_airline">
+                                  {{flight.return_flight_airline.split('|')[0]}}</div>
+                                <div class="fs12 clr52">{{flight.return_mac}} - {{flight.return_flight_number}}</div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-9 col-8 mob_px0">
+                            <div class="d-flex justify-content-between">
+                              <div>
+                                <div class="fs16 lh16 mob_fs12 fw500">{{flight.flights[0]?.return_flight_departure_date
+                                  | date:'shortTime'}}</div>
+                                <div class="fs12 clr52 mob_fs10" *ngIf="flight.return_dep_airport_name">
+                                  {{flight.return_dep_airport_name.split('|')[1]}} </div>
+                                <div class="fs12 clr52">[ {{flight.return_flight_departure_airport}} ]</div>
+                              </div>
+                              <div class="position-relative text-center flight-navigation">
+                                <div class="fs12 fwBold">{{flight.onward_duration}}</div>
+                                <div class="flightdurationicon"></div>
+                              </div>
+                              <div>
+                                <div class="fs16 lh16 fw500 mob_fs12">{{flight.flights[0]?.return_flight_arrival_date |
+                                  date:'shortTime'}}</div>
+                                <div class="fs12 clr52 mob_fs10" *ngIf="flight.return_arr_airport_name">
+                                  {{flight.return_arr_airport_name.split('|')[1]}} </div>
+                                <div class="fs12 clr52">[ {{flight.return_flight_arrival_airport}} ]</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</span>
+      </div>
+    </div>
+  </div>
+</div>

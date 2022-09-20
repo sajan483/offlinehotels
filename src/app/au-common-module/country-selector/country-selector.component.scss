@@ -1,0 +1,15 @@
+.country-item{
+    background-color: white;
+    box-shadow: 5px 5px #5555550a;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 2px;
+    cursor: pointer;
+    width: auto;
+}
+
+.country-item.checked{
+    background-color: #fce7c8;
+
+}

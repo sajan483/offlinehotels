@@ -1,0 +1,310 @@
+
+
+
+input:focus {
+    outline: 0 0 0 0 !important;
+    box-shadow: 0 0 0 0 !important;
+}
+
+.remember {
+    color: #525252;
+    font-size: 13px;
+    margin: 0;
+}
+
+.login_btn {
+    color: white;
+    width: 100%;
+    background-image: linear-gradient(to right, #027be9, #03c0f0);
+    outline: none;
+    border: none;
+    margin-top: 21px;
+    border-radius: 17px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 10px;
+}
+
+.links {
+    color: black;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 25px;
+}
+
+.links a {
+    margin-left: 8px;
+}
+
+.textend {
+    text-align: end;
+}
+
+.frgtpsswrd,
+.signupc  {
+    color: #b56c19;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.frgtpsswrd:hover ,.signupc:hover {
+    color: #e1ad71;
+}
+
+.cardpadding {
+    padding: 60px;
+}
+
+.emailicon {
+    float: left;
+    padding-right: 15px;
+    img {
+        height: 32px;
+    }
+}
+
+.textemailphone {
+    font-size: 13px;
+    color: #000;
+    margin-bottom: 0;
+}
+
+.hight {
+    height: 50px;
+}
+
+#loginDiv {
+  input::placeholder {
+        color: grey;
+    }
+}
+
+.btn {
+    background-image: linear-gradient(to right, #027be9, #03c0f0);
+    border: none;
+}
+
+.countrycode {
+    top: 30px;
+    font-size: 13px;
+    position: absolute;
+    left: 25px;
+    border: none;
+    background-color: #eeeeee;
+}
+
+// .backgroundimage {
+//     background: url(/assets/images/main-bg.png) no-repeat 100% center;
+//     background-repeat: no-repeat;
+//     min-height: 100vh;
+//     background-size: 100% 100%;
+//     background-attachment: fixed;
+// }
+
+.bagroundblure {
+    margin-left: -15px;
+    margin-right: -15px;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.extraimg {
+    position: absolute;
+    left: 22%;
+}
+
+.padngovrdiv {
+    padding-top: 60px;
+}
+
+.logoimg {
+    height: 80px;
+}
+
+.logtext {
+    text-align: center;
+    font-size: 21px;
+    margin-top: 23px;
+    color: #116063;
+    font-weight: 500;
+}
+
+.topimagepos {
+    position: absolute;
+    right: -38px;
+    top: -35px;
+    img {
+        height: 122px;
+    }
+}
+
+.card {
+    margin-top: 22px;
+    margin-bottom: auto;
+    background-color: white !important;
+    border-radius: unset;
+    box-shadow: 0 0 21px 0 #d4d6fe;
+    border-radius: 3px !important;
+}
+
+.bottomingpos {
+    position: absolute;
+    bottom: -41px;
+    left: -28px;
+    img {
+        height: 220px;
+    }
+}
+
+.input-group-prepend span {
+    width: 50px;
+    background-color: #ffffff;
+    color: black;
+    img {
+        margin: auto;
+    }
+}
+
+.phnenumbertxt {
+    padding-left: 105px;
+    color: gray !important;
+}
+.htImg{
+    height:20px !important;
+}
+
+.noMP{
+    margin: 0px;
+    padding: 0px;
+}
+.fnt13{
+    font-size:13px;
+}
+
+.alignBetweenContct{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    .whtspImg{
+        height: 30px;
+    }
+}
+
+#sendOtpButton:disabled{
+  background-color: grey;
+  color: #fff;
+}
+
+#forgotPasswordPopupp{
+    .modal-dialog {
+        max-width: 500px;
+        margin: 1.75rem auto;
+    }
+    .modal-dialog {
+        position: relative;
+        width: auto;
+        pointer-events: none;
+    }
+    .modal {
+        position: fixed;
+        top: 31px;
+        left: -37px;
+        z-index: 1050;
+        display: none;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        outline: 0;
+    }
+    .modal-footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        padding: .75rem;
+        border-top: 1px solid #dee2e6;
+        border-bottom-right-radius: calc(.3rem - 1px);
+        border-bottom-left-radius: calc(.3rem - 1px);
+    }
+
+    .hidenormalbutton {
+        background-color: grey !important;
+        pointer-events: none;
+        background-image: none;
+   }
+   .btnn{
+        border: none;
+        padding: 6px 9px;
+        font-size: 14px;
+   }
+}
+
+@media only screen and (max-width: 768px) {
+    .alignBetweenContct{
+        margin-top: 10px !important;
+        display: block !important;
+        .whtspImg{
+            margin-top: 15px;
+        }
+    }
+    .mob_w135{
+        width: 135px !important;
+    }
+    .extraimg {
+        display: none;
+    }
+    .padngovrdiv {
+        padding-top: 10px !important
+    }
+    .logoimg {
+        height: 45px !important;
+    }
+    .logtext {
+        margin-top: 10px !important;
+    }
+    .topimagepos {
+        right: 1px !important;
+        top: -17px !important;
+        img {
+            height: 92px !important;
+        }
+    }
+    .card {
+        margin-bottom: auto;
+        width: 86% !important;
+        margin-left: 7%;
+    }
+    .bottomingpos {
+        bottom: -27px !important;
+        left: 1px !important;
+        img {
+            height: 150px !important;
+        }
+    }
+    .smallcenter {
+        text-align: center;
+    }
+    .emailicon {
+        float: none !important;
+        padding-right: 0 !important;
+        margin-bottom: 10px;
+    }
+    .cardpadding {
+        padding: 15px !important;
+    }
+    .resMt44{
+        padding-top:44px !important;
+    }
+    .shoDiv{
+        display: none !important;
+    }
+    .mdl{
+        justify-content: center !important;
+    }
+    .resMr20{
+        margin-right: 20px !important;
+    }
+    .mt15{margin-top: 15px !important;}
+    .mtt20{margin-top: 20px !important}
+}

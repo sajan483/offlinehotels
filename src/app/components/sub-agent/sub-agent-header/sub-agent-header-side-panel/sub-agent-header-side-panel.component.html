@@ -1,0 +1,142 @@
+<div class="overlay" (click)="close()" [@OverlayAnimation]=currentState></div>
+<div class="left-menu" [@ContentAnimation]=currentState>
+    <div class="top" fxLayout="row" fxLayoutAlign="start center">
+            <div class="name" fxLayout="row" fxLayoutAlign="center center">
+                B2B
+            </div>
+            <div style="width: 5px;"></div>
+            <h3><span>{{profile?.agency?.name | titlecase}}</span>{{'Agent Code'}} : {{profile?.agency?.agent_code | titlecase}}</h3>
+    </div>
+    <div class="main-links">
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/dashboard')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-tachometer icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Dashboard' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigateServiceUrl('subagent/hotel-list','H')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <span class="ak-hotel-building icon"></span>
+                <div style="width: 10px;"></div>
+                <p>{{'Hotel' | translate}}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigateServiceUrl('subagent/transport-list','T')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <span class="ak-bus icon"></span>
+                <div style="width: 10px;"></div>
+                <p>{{'Transport' | translate}}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigateServiceUrl('subagent/train','T')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-subway icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Train' | translate}}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/sub-users')" *ngIf="!isSubUser">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-user-plus icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Sub Users' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/SubPccListing')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-percent icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Manage Sub Pcc' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/history')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-list icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Transactions' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/train_booking')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-list icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Train Bookings' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/profilepage')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-user icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'My Profile' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="navigareUrl('subagent/booking-requests')">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-history icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Requested History' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="links" fxLayout="row" fxLayoutAlign="space-between center" matRipple (click)="logoutUser()">
+            <div class="left" fxLayout="row" fxLayoutAlign="start center">
+                <i class="fa fa-sign-out icon" aria-hidden="true"></i>
+                <div style="width: 10px;"></div>
+                <p>{{'Logout' | translate }}</p>
+            </div>
+            <span class="ak-right"></span>
+        </div>
+        <div class="version-div">{{version}}</div>
+    </div>
+
+</div>
+<ul class="bottom" fxLayout="row" fxLayoutAlign="start" [@ContentAnimation]=currentState>
+    <li matRipple fxLayout="row" fxLayoutAlign="center center" (click)="showModal()">
+        <i class="fa fa-money clrmain" aria-hidden="true"></i>
+        <div style="width: 2px;"></div>
+        <p>{{'Currency' | translate}}</p>
+        <div style="width: 2px;"></div>
+        <span class="ak-down"></span>
+    </li>
+    <li matRipple fxLayout="row" fxLayoutAlign="center center" (click)="showModal(true)">
+        <i class="fa fa-language clrmain" aria-hidden="true"></i> 
+        <div style="width: 2px;"></div>
+        <p>{{'Language' | translate}}</p>
+        <div style="width: 2px;"></div>
+        <span class="ak-down"></span>
+    </li>
+</ul>
+<div class="modaloverlay" (click)="hideModal()" [@modalOverlay]=modalState></div>
+<div class="modalcontent" [@modalAnimation]=modalState>
+    <ng-container *ngIf="!country">
+        <h2>{{'Choose Currency' | translate}}</h2>
+        <ul fxLayout="row wrap" fxLayoutAlign="center center">
+            <li fxLayout="row" fxLayoutAlign="center center" *ngFor="let option of currencyList" [class.currency-selected]="selectedCurrencyCode == option.currency" (click)="changeCurrencyValue(option)">{{option.currency}}</li>
+        </ul>
+    </ng-container>
+
+    <ng-container *ngIf="country">
+        <h2>{{'Choose Language' | translate}}</h2>
+        <ul class="country" fxLayout="row wrap" fxLayoutAlign="center center">
+            <li fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="7px" (click)="changeLangValue(langList[0])" [class.currency-selected]="selectedLanguage == 'ar-AE'">
+                <span class="flag-icon flag-icon-gb"></span>
+                <p>{{langList[0].langName}}</p>
+            </li>
+            <li fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="7px" (click)="changeLangValue(langList[1])" [class.currency-selected]="selectedLanguage == 'en-US'">
+                <span class="flag-icon flag-icon-sa"></span>
+                <p>{{langList[1].langName}}</p>
+            </li>
+        </ul>
+        
+    </ng-container>
+</div>

@@ -1,0 +1,27 @@
+{
+  "name": "bi-datepicker",
+  "version": "0.0.0",
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/platform-browser": "^8.0.0",
+    "@angular/animations": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/flex-layout": "^8.0.0-beta.26",
+    "@angular/material": "^8.0.0",
+    "@angular/cdk": "^8.0.0",
+    "moment": "^2.24.0"
+  },
+  "main": "bundles/bi-datepicker.umd.js",
+  "module": "fesm5/bi-datepicker.js",
+  "es2015": "fesm2015/bi-datepicker.js",
+  "esm5": "esm5/bi-datepicker.js",
+  "esm2015": "esm2015/bi-datepicker.js",
+  "fesm5": "fesm5/bi-datepicker.js",
+  "fesm2015": "fesm2015/bi-datepicker.js",
+  "typings": "bi-datepicker.d.ts",
+  "metadata": "bi-datepicker.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

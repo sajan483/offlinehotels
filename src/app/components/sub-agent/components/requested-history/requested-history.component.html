@@ -1,0 +1,155 @@
+<div class="container p-0 mb-5" style="margin-top: 80px;">
+    <div class="bg-white">
+      <h6 class="pt-4 pl30 mb-0 font-weight-bold">Search Booking</h6>
+        <div class="col-md-12 d-flex mt-2 pb-3" >
+          <div class="col-md-3">
+            <p class="mb-0 fs14">{{'Product Type' | translate}}
+              <div id="head1" >
+                <select class="bordrservice removeoutline w100 pl-2" [(ngModel)]="productType">
+                <option value=''>{{'Select Service' | translate}}</option>
+                <option value=0>{{'All in One' | translate}}</option>
+                <option value=1>{{'Makkah' | translate}}</option>
+                <option value=2>{{'Madinah' | translate}}</option>
+                <option value=3>{{'Transport' | translate}}</option>
+                </select>
+            </div>
+        </div>
+      <div class="col-md-3 mr-0 ">
+        <p class="mb-0 fs14 pl-1">{{'Company' | translate}}
+        <div id="head1" >
+            <select class="bordrservice removeoutline w100 pl-2" [(ngModel)]="company">
+              <option value=''>{{'Select Company' | translate}}</option>
+              <option *ngFor="let item of companies" [value]="item">{{item}}</option>
+            </select>
+        </div>
+    </div>
+            <div class="col-md-3 ">
+                 <p class="mb-0 fs14 pl-1">{{'Travel Date' | translate}}
+                 <div [owlDateTimeTrigger]="dt1" class="position-relative">
+                   <input  placeholder="{{'Travel Date' | translate}}"
+                     class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="travelDate"
+                    [owlDateTime]="dt1" [selectMode]="'range'" >
+                   <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+                 </div>
+                 <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+         </div>
+         <div class="col-md-3 ">
+             <p class="mb-0 fs14 pl-1">{{'Request Date' | translate}}
+             <div [owlDateTimeTrigger]="dt2" class="position-relative">
+               <input placeholder="{{'Request Date' | translate}}"
+                 class="owldatepicker fs14 bordrservice removeoutline" [(ngModel)]="rquestDate"
+                 [selectMode]="'range'" [owlDateTime]="dt2" >
+               <i class="icns calendaricon icon_size_20 cursor-pointer calendarposition mirr_clndr_icon"></i>
+             </div>
+             <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+         </div>
+      </div>
+     <div class="col-md-12 d-flex bg-white   pb-3" >
+         <div class="col-md-3  d-flex mt9 ml-auto pr-1 pb-3">
+            <button class="searchbutton pad ml-auto" (click)="reservationReset()"><i class="fa fa-refresh"></i> {{'Reset' | translate}}</button>
+            <button class="searchbutton pad" (click)="filterReservation()">{{'Search' | translate}}</button>
+         </div>
+     </div>
+    </div>
+    <div class="my-1 mb-5" *ngIf="!shimmer && shareLinkDatas.length > 0">
+      <div class="">
+        <div *ngFor="let k of shareLinkDatas;let i = index;" class=" px-4 pt-4 pb-3  mt-1 mb-1 bg-white">
+         <div class="font-weight-bold" *ngIf= "i == 0">{{'List of Requests' | translate}}</div>
+         <div *ngFor="let item of k.service;let j = index;">
+            <p class="mb-0 font-weight-bold" *ngIf="j == 0">{{k?.shared_to_agency | titlecase}}</p>
+          <div class="col-md-12 noMp d-flex brdrTop ">
+            <div class="col-md-6 noMp brdrRgt py-2">
+              <p class="mb-0" *ngIf="item.service == 'makkah_hotel'">{{item?.name}}({{'Makkah' | translate}})</p>
+              <p class="mb-0" *ngIf="item.service == 'medinah_hotel'">{{item?.name}}({{'Medinah' | translate}})</p>
+              <p class="mb-0" *ngIf="item.service == 'transportation'">{{item?.name}}</p>
+              <p class="mb-0">{{'Requested on' | translate}} {{k.tags[0]?.request_date}}</p>
+            </div>
+            <div class="col-md-6 noMp d-flex">
+              <div class="col-md-8 d-flex noMp brdrRgt noMp py-2">
+                <div class="col-md-6 noMp pl-2">
+                  <p class="mb-0 gry" *ngIf="k.tags[0]?.start_date">{{'Travel Date' | translate}} :</p>
+                  <!-- <p class="mb-0 gry" *ngIf="k.tags[0]?.shared_from_name">{{'Shared From' | translate}} :</p> -->
+                  <p class="mb-0 gry" *ngIf="k?.trip">{{'Trip Id' | translate}}:</p>
+                  <!-- <p class="mb-0 gry">{{'Sub Pcc' | translate}} :</p> -->
+                  <p class="mb-0 gry">{{'Occupancy' | translate}} :</p>
+                </div>
+                <div class="col-md-6 noMp">
+                  <p class="mb-0">{{k.tags[0]?.start_date}}</p>
+                  <!-- <p class="mb-0">{{k.tags[0]?.shared_from_name}}</p> -->
+                  <p class="mb-0">{{k?.trip}}</p>
+                  <!-- <p class="mb-0">{{k.tags[0]?.sub_pcc}}</p> -->
+                  <p class="mb-0"><span *ngIf="k.tags[0]?.room_count > 0 && item.service != 'transportation'"> {{k.tags[0]?.room_count}} {{'Room(s)' | translate}}</span>  <span *ngIf="k.tags[0]?.total_travelers > 0"> {{k.tags[0]?.total_travelers}} {{'pax' | translate}}</span> </p>  
+                  <p class="mb-0" *ngIf="item.service == 'transportation'"><span > {{k.tags[0]?.vehicle_count}} {{'Vehicle(s)' | translate}}</span>  <span *ngIf="k.tags[0]?.total_travelers > 0"> {{k.tags[0]?.total_travelers}} {{'pax' | translate}}</span> </p>  
+                </div>
+              </div>
+              <div class="col-md-4 noMp d-flex">
+                <div class="my-auto ml-auto">
+                  <div class="text-center dibtng" *ngIf="item?.status == 'success'">{{'Booked' | translate}}</div>
+                  <div class="font-weight-bold">{{currency | translate}} {{currencyConversion(item?.price)}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 noMp d-flex justify-content-between brdrTop" *ngIf="item.brn != null">
+            <div class="d-flex">
+                <div class="mt17 mb-2"><span class="font-weight-bold">BRN</span> {{item?.brn}} </div><div class=" ml-2 mt17 dibtn cursor-pointer"(click)="copyBrn(item.brn)">{{'Copy' | translate}}</div>
+            </div>
+           <div *ngIf="k.service.length > 1 && j == 2"><button class="searchbutton mr-0 mb-1">{{'Download Voucher' | translate}}</button></div>
+           <div *ngIf="k.service.length == 1"><button class="searchbutton mr-0 mb-1" (click)="downloadVoucher(k.pdf_voucher)">{{'Download Voucher' | translate}}</button></div>
+          </div>
+          <div class="col-md-12 noMp d-flex justify-content-end brdrTop" *ngIf="item.brn == null ">
+           <button class="searchbutton mr-0 mb-1" [disabled]="item.brn == null" (click)="viewBook(k.pdf_voucher)">{{'Download Voucher' | translate}}</button>
+          </div>
+         </div>
+       </div>
+      </div>
+     </div>
+    <div class="bg-white mt-2 px-4 py-3" *ngIf="shimmer">
+      <div class="shine h20 w-100"></div>
+      <div *ngFor="let k of [].constructor(5);let i = index;">
+        <div class="col-md-12 noMp d-flex brdrTop">
+          <div class="col-md-6 noMp brdrRgt py-2">
+            <div class="shine h20 w-100"></div>
+            <div class="shine h20 w-100"></div>
+            <div class="shine h20 w-100"></div>
+          </div>
+          <div class="col-md-6 noMp d-flex">
+            <div class="col-md-6 d-flex noMp brdrRgt noMp py-2">
+              <div class="col-md-6 noMp pl-2">
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+              </div>
+              <div class="col-md-6 noMp">
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+              </div>
+            </div>
+            <div class="col-md-6 noMp d-flex">
+              <div class="my-auto ml-auto">
+                <div class="shine h20 w-100"></div>
+                <div class="shine h20 w-100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 noMp d-flex justify-content-between brdrTop">
+          <div class="d-flex">
+            <div class="shine h20 w-100"></div>
+          </div>
+         <div><div class="shine h20 w-100"></div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="bg-white mb-3 p-3 mt-2" *ngIf="!shimmer && shareLinkDatas.length == 0">
+        <div *ngFor="let k of [].constructor(1);let i = index;">
+          <div colspan="6" class="text-center">Sorry, No record(s) found</div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-5" style="height: 40px;"></div>
+</div>

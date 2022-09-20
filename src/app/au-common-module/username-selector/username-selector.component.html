@@ -1,0 +1,5 @@
+<div class="d-flex justify-content-start align-items-start">
+    <div class="country-item d-flex align-items-center justify-content-center {{credential.checked?'checked':''}}" *ngFor="let credential of credentials" (click)="onCredentialSelect(credential)">
+        <div>{{credential.username}}</div>
+    </div>
+</div>

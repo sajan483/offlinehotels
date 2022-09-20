@@ -1,0 +1,181 @@
+<div class="">
+    <div class="container-fluid backgroundimage">
+        <div class="extraimg">
+            <img src="/assets/images/lanterns.png" alt="">
+        </div>
+        <div class="container pt50">
+            <div class="text-center">
+                <img class="logoImg" src="/assets/images/akbar-umrah-logo.png" alt="">
+            </div>
+            <div class="text-center pt30">
+                <h4 class="animtion" *ngIf="isProcess">{{'Please wait we are under processing...' | translate}}</h4>
+                <h4 class="animtion" *ngIf="!isProcess">{{'PLEASE UPLOAD DOCUMENTS..!!' | translate}}
+                </h4>
+            </div>
+            <div class="borderof mt30">
+                <h5 class="agencyname">{{profile?.name}}</h5>
+                <div class="row agencydetails">
+                    <div class="col-md-4 p15">
+                        <div class="text-center">
+                            <img src="/assets/images/call-us-icon2.png" alt="">
+                            <p>{{profile?.phone_number}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 brdright p15">
+                        <div class="text-center">
+                            <img src="/assets/images/email-icon1.png" alt="">
+                            <p>{{profile?.email}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 p15">
+                        <div class="text-center">
+                            <img src="/assets/images/address-icon.png" alt="">
+                            <p>{{profile?.address}},{{profile?.city}},</p>
+                            <p>{{profile?.state}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottombrdr">
+                    <img class="personimg mml15" src="/assets/images/personal-details-icoin.png" alt="">
+                    <span class="prflname">{{profile?.primary_contact.name}}</span>
+                    <span class="brdrsmall hide-xs"></span>
+                    <span class="newline">{{profile?.primary_contact.email}}</span>
+                    <span class="brdrsmall hide-xs"></span>
+                    <span class="newline">{{profile?.primary_contact.phone_number}}</span>
+                </div>
+            </div>
+
+            <div *ngIf="!isiban" class="text-center mt30 p30">
+                <div class="d-flex justify-content-center">
+                    <p class="backlog" (click)="navigatelogin();">{{'Back to Login' | translate}}</p>
+                </div>
+            </div>
+
+            <div class="borderof mt30 p30" *ngIf="isiban">
+                <!-- <div class="row wdth80">
+                    <div class="col-md-6 pl-3 pr-3">
+                        <div class="form-group fontSize13 mb-0">
+                            <label id="cmpnynamelbl">{{'Signatory Name' | translate}} <span class="red_text pl-1 fs15">*</span></label>
+                            <input placeholder="{{'Enter Signatory Name' | translate}}" type="text" class="form-control" id="signatory_nameid">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-3 pr-3">
+                        <div class="form-group fontSize13 mb-0">
+                            <label id="cmpnynamelbl">{{'Passport Number' | translate}} <span class="red_text pl-1 fs15">*</span></label>
+                            <input placeholder=" {{'Enter Passport Number' | translate}}" type="text" class="form-control" id="passport_numberid">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-3 pr-3">
+                        <div class="form-group fontSize13 mb-0">
+                            <label id="cmpnynamelbl">{{'IATA License Number' | translate}} <span class="red_text pl-1 fs15">*</span></label>
+                            <input placeholder=" {{'Enter IATA License Number' | translate}}" type="text" class="form-control" id="iata_licenseid">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-3 pr-3">
+                        <div class="form-group fontSize13 mb-0">
+                            <label id="cmpnynamelbl">{{'Mobile Number' | translate}} <span class="red_text pl-1 fs15">*</span></label>
+                            <select name="" id="" class="countrycode" [ngModelOptions]="{standalone: true}" [(ngModel)]="countrycode">
+                <option *ngFor="let item of country" [value]="item.code">{{item.code}} ({{item.iso_code}})</option>
+              </select>
+                            <input placeholder=" {{'Enter Mobile Number' | translate}}" type="text" class="form-control" id="mobileid" style="padding-left: 105px;" numberOnly maxlength="15">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-3 pr-3">
+                        <div class="form-group fontSize13 mb-0">
+                            <label id="cmpnynamelbl">{{'Commercial Register Number' | translate}} <span class="red_text pl-1 fs15">*</span></label>
+                            <input placeholder=" {{'Enter Commercial Register Number' | translate}}" type="text" class="form-control" id="commercial_regnoid">
+                        </div>
+                    </div>
+                    <div class="col-md-6 pl-3 pr-3">
+                        <div class="form-group fontSize13 mb-0">
+                            <label id="cmpnynamelbl">{{'Remark Text' | translate}}</label>
+                            <input placeholder=" {{'Enter Remark Text' | translate}}" type="text" class="form-control" id="request_textid">
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="d-flex justify-content-center">
+                    <h5 class="mydoc"><img src="/assets/images/documents-upolad-icon.png" alt=""> {{'My Documents' | translate}}</h5>
+                </div>
+
+                <div class="uploadfield">
+                    <div class="row">
+                        <div class="col-md-12 col-12 mtmb10 upload-doc-div">
+                            <div>{{'Copy of the Valid passport who will sign the contract:' | translate}}</div>
+                            <div *ngIf="passport" class="imgfile" title="{{passport_file}}">
+                                {{passport_file}}
+                            </div>
+                            <div>
+                                <div class="file uploadbttn">
+                                    {{'CHOOSE FILE' | translate}}
+                                    <input type="file" class="fileinput" id="myFile" accept="image/x-png,image/jpeg" (change)="passportfile($event);" name="filename2">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 col-12 mtmb10 d-flex justify-content-between">
+                            <div>{{'copy of 200,000 SR Bank Guarantee Letter or 200,000 SR Cash Guarantee:' | translate}}</div>
+                            <div *ngIf="bank" class="imgfile" title="{{bank_file}}">
+                                {{bank_file}}
+                            </div>
+                            <div>
+                                <div class="file uploadbttn">
+                                    {{'CHOOSE FILE' | translate}}
+                                    <input type="file" class="fileinput" id="myFile" (change)="Bankletter($event);" accept="image/x-png,image/jpeg" name="filename2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-12 mtmb10 d-flex justify-content-between">
+                            <div>{{'Sign and Stamp the Addendum of Contract:' | translate}}</div>
+                            <div *ngIf="sign" class="imgfile" title="{{contract_file}}">
+                                {{contract_file}}
+                            </div>
+                            <div>
+                                <div class="file uploadbttn">
+                                    {{'CHOOSE FILE' | translate}}
+                                    <input type="file" class="fileinput" id="myFile" (change)="Contract($event);" accept="image/x-png,image/jpeg" name="filename2">
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="pddn d-flex justify-content-center mb-3">
+                    <button class="search_bttn w-50" (click)="uploaddoc()">{{'Submit' | translate}}</button>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <p class="backlog" (click)="navigatelogin();">{{'Back to Login' | translate}}</p>
+                </div>
+            </div>
+
+            <div class="alignBetweenContct ">
+                <div class="text-center">
+                    <img class="whtspImg" src="/assets/images/whatsapp-voucher.png" alt="">
+                    <p class="mb-0 fnt13">{{"Whatsapp" | translate}}</p>
+                    <a class="fnt13 clrmain" href="whatsapp://send?text= MAQAM Approved OTA. Generate BRN number for Umrah at lightning speed! Register with us at http://trvls.me/b2bUmrah for your B2B Travel agent ID now." data-action="share/whatsapp/share"> {{'Share' | translate}}</a>
+                </div>
+                <div class=" text-center">
+                    <img class="whtspImg" src="/assets/images/email-icon.png" alt="">
+                    <p class="fnt13 mb-0">{{"Email Us" | translate}}</p>
+                    <a class="fnt13 clrmain" href="mailto:support@akbarumrah.com">support@akbarumrah.com</a>
+                </div>
+                <div class=" text-center">
+                    <img class="whtspImg" src="/assets/images/call-us-icon.png" alt="">
+                    <p class="fnt13 mb-0">{{"Call Us" | translate}}</p>
+                    <a class="fnt13 clrmain" href="tel:0097377952212">00-973-77952212</a>
+                </div>
+                <div class=" text-center">
+                    <img class="whtspImg" src="/assets/images/chatsupprt.png" alt="">
+                    <p class="fnt13 mb-0">{{"Chat To Us" | translate}}</p>
+                    <a class="fnt13 clrmain open-zammad-chat">Chat</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<ngx-spinner id="hotelSpinner" bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <div>
+        <img class="h303" src="assets/images/giphy.webp" alt="">
+    </div>
+</ngx-spinner>

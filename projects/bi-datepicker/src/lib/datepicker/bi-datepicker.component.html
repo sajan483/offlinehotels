@@ -1,0 +1,7 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <input matInput id="dtPicker" fxFlex (focus)="toggleCalendar()"/> <span><mat-icon (click)="toggleCalendar()" >date_range</mat-icon></span>    
+</div>
+
+<ng-container *ngIf="isOpen" >
+    <bi-calendar [vertical]="vertical" [Date]="Date"  [months]="months" [minDate]="minDate" [maxDate]="maxDate" (monthChanged)="onMonthChanged($event)" (dateSelected)="onDateSelected($event)" ></bi-calendar>
+</ng-container>
